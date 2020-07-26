@@ -3,50 +3,36 @@ import PropTypes from 'prop-types'
 
 import styles from './Button.module.sass'
 
-
-function Button (props) {
-	const { disabled, label, onClick, size, variant, ...rest } = props
-	const classes = [ styles.button, styles[size], styles[variant] ].join(' ')
+function Button(props) {
+	const { disabled, onClick, className, children, variant, ...rest } = props
+	const classes = [styles.button, styles[variant], className].join(' ')
 
 	return (
 		<button
-			aria-label={ label }
-			className={ classes }
-			disabled={ disabled }
-			onClick={ disabled? null: onClick }
-			{ ...rest }>
-			<span>
-				{ label }
-			</span>
-			{
-				size === 'small'
-					? null
-					: <span className={ styles.icon } label='button icon'/>
-			}
+			className={classes}
+			disabled={disabled}
+			onClick={disabled ? null : onClick}
+			{...rest}
+		>
+			{children}
 		</button>
 	)
-
 }
 
-
 const propTypes = {
-	type: PropTypes.string.isRequired,
-	label: PropTypes.string.isRequired,
-	id: PropTypes.string.isRequired,
 	onClick: PropTypes.func.isRequired,
-	size: PropTypes.oneOf([ 'small', 'big' ]).isRequired,
-	variant: PropTypes.oneOf([ 'error', 'info' ]).isRequired,
-	tabIndex: PropTypes.number,
-	disabled: PropTypes.boolean
+	disabled: PropTypes.boolean,
+	className: PropTypes.string,
+	children: PropTypes.children,
+	variant: PropTypes.oneOf(['info', 'danger'])
 }
 
 const defaultProps = {
-	tabIndex: 0,
-	disabled: false
+	disabled: false,
+	variant: 'info'
 }
 
 Button.defaultProps = defaultProps
 Button.propTypes = propTypes
 
-
-export { Button }
+export default Button

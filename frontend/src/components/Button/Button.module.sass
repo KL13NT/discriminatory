@@ -1,66 +1,32 @@
 .button
+	width: 100%
+	border-radius: 5px
+	display: block
 	position: relative
-	display: flex
-	justify-content: space-between
-	align-items: center
-	width: var(--width--button--big)
-	background: var(--color--info)
-	border: none
-	border-radius: var(--border-radius--input)
-	font-size: var(--font-size--primary)
-	color: var(--text-color--dark-bg)
-	padding: var(--padding--button)
-	text-align: left
-	font-family: var(--font-family)
-	font-weight: var(--font-weight--primary)
+	bottom: 0
+	right: 0
+	z-index: 4
 	cursor: pointer
-	margin: var(--margin--input)
+	padding: 0
+	margin: 0
+	height: 35px
 	outline: none
-	transition: filter 0.25s, transform 0.25s
-	@extend .info
-	span
-		display: inline-block
-		overflow: hidden
-		text-overflow: ellipsis
-		white-space: nowrap
-	span.icon
-		background: url('../../assets/arrow.svg') no-repeat
-		background-size: contain
-		height: var(--height--icon--button)
-		width: var(--width--icon--button)
-		filter: grayscale(100%) brightness(10)
-		transform: rotate(-90deg)
-
-.small
-	width: var(--width--button--small)
-	justify-content: center
+	transition: filter 0.25s
+	color: var(--color-primary)
 
 .info
-	background: var(--color--info)
-	box-shadow: var(--box-shadow--button--info)
+	background: var(--color-info)
 
-
-.error
-	background: var(--color--error)
-	box-shadow: var(--box-shadow--button--error)
+.danger
+	background: var(--color-danger)
 
 
 .button:hover, .button:focus
-	filter: brightness(1.1)
-	transform: scale(1.03)
+	filter: brightness(0.9)
 
 .button:active
-	filter: brightness(0.9)
-	transform: scale(0.97)
+	filter: brightness(0.85)
 
 .button:disabled
 	pointer-events: none
 	box-shadow: none
-	filter: brightness(0.8)
-
-@media screen and (max-width: 768px)
-	.button
-		width: 90%
-		margin: 0 auto
-	.button.small
-		width: 40%
