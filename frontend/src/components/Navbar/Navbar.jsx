@@ -14,14 +14,15 @@ import { ReactComponent as Settings } from '../../assets/gear.inline.svg'
 import { ReactComponent as Add } from '../../assets/plus 1.svg'
 
 import { useComposer } from '../../stores/composer'
+import Button from '../Button/Button'
 
 const Compose = () => {
 	const { toggle } = useComposer()
 	return (
-		<button className={styles.compose} onClick={toggle} aria-label='Compose'>
+		<Button className={styles.compose} onClick={toggle} aria-label='Compose'>
 			<span>Compose</span>
 			<Add />
-		</button>
+		</Button>
 	)
 }
 
