@@ -1,8 +1,10 @@
 :global
+	.active span
+		color: var(--color-active) !important
 	.active svg
-		fill: #00C0FF !important
+		fill: var(--color-active) !important
 		path
-			fill: #00C0FF !important
+			fill: var(--color-active) !important
 
 .container
 	width: 100%
@@ -31,18 +33,33 @@
 	min-width: max-content
 
 .link
-	margin: 0 15px 0 15px
+	margin: 0 10px 0 10px
+	transition: background-color 0.25s
+	border-radius: 20px
+	padding: 10px
 	span
 		font-family: var(--font-family)
+		font-size: var(--font-size-xl)
+		font-weight: var(--font-weight-m)
+		color: var(--color-primary)
 		display: none
-		color: inherit
+		transition: color 0.25s
+		background: transparent
 	svg
 		width: 40px
 		height: 40px
 		fill: #FFFFFF
+		transition: fill 0.25s
+		background: transparent
 		path
 			fill: #FFFFFF
-
+			transition: fill 0.25s
+	&:hover, &:active
+		background-color: var(--color-active--hover)
+		span
+			color: var(--color-active)
+		svg, svg path
+			fill: var(--color-active) !important
 .compose
 	background: #284DF6
 	height: 50px
@@ -56,8 +73,14 @@
 	right: 6%
 	z-index: 4
 	cursor: pointer
+	svg
+		background: transparent
 	span
 		display: none
+	&:hover
+		background: var(--color-info--hover)
+	&:active
+		background: var(--color-info--active)
 
 @media screen and (min-width: 414px)
 	.compose
@@ -86,6 +109,24 @@
 @media screen and (min-width: 1024px)
 	.container
 		width: 20%
+	.compose
+		width: 100%
+		border-radius: 5px
+		display: block
+		position: relative
+		bottom: 0
+		right: 0
+		z-index: 4
+		cursor: pointer
+		padding: 0
+		margin: 0
+		height: 35px
+		svg
+			display: none
+		span
+			background: transparent
+			color: var(--color-primary)
+			display: block
 	.link
 		display: flex
 		align-items: center
