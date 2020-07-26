@@ -1,0 +1,53 @@
+.loadingContainer
+	width: 100%
+	text-align: center
+	font-family: var(--font-family)
+	padding: var(--padding--containers)
+	img
+		width: 30%
+		margin: var(--margin--elements)
+	h1
+		font-weight: var(--font-weight--headers)
+		font-size: var(--font-size--4x)
+		font-family: var(--font-family)
+		margin: var(--margin--headers)
+		color: var(--text-color--primary)
+	p
+		margin: var(--margin--elements)
+		font-weight: var(--font-weight--primary)
+		font-size: var(--font-size--1x)
+		color: var(--text-color--label)
+
+.spinnerContainer
+	@extend .loadingContainer
+
+	img
+		margin: var(--margin--elements)
+		width: 3rem
+		animation-name: spinner
+		animation-duration: 2s
+		animation-delay: 0s
+		animation-iteration-count: infinite
+		animation-play-state: running
+		animation-timing-function: ease
+	p
+		margin: var(--margin--elements)
+
+
+
+@keyframes spinner
+	0%
+		transform: rotate(0)
+	100%
+		transform: rotate(360deg)
+
+
+
+@media screen and (max-width: 768px)
+	.loadingContainer
+		img
+			width: 100%
+
+	.spinnerContainer
+		img
+			width: 3rem

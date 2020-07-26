@@ -1,0 +1,73 @@
+.notificationsContainer
+	background: var(--background--containers)
+	max-width: 350px
+	width: 100%
+	padding: var(--padding--general--v)
+	border-radius: 10px
+	margin: var(--margin--elements)
+	position: fixed
+	box-shadow: var(--box-shadow--item)
+
+	div:nth-child(1)
+		display: flex
+		justify-content: space-between
+		align-items: center
+
+	button
+		background: transparent
+		cursor: pointer
+		margin: 0.5rem
+		height: min-content
+		transition: transform 0.25s
+
+		&:hover, &:focus
+			transform: translateY(-3px)
+
+	img
+		height: 30px
+
+.notificationCard
+	display: block
+	background: var(--background--general)
+	padding: var(--padding--general)
+	font-family: var(--font-family)
+	font-weight: var(--font-weight--secondary)
+	text-decoration: none
+	color: var(--text-color--primary)
+	margin: var(--margin--headers)
+	border-radius: 10px
+	transition: filter 0.25s, transform 0.25s
+
+	span
+		display: block
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+	span::first-letter
+		text-transform: uppercase
+	span:nth-child(1)
+		font-size: var(--font-size--primary)
+	span:nth-child(2)
+		font-size: var(--font-size--sub)
+		font-weight: var(--font-weight--secondary)
+
+	&:hover, &:active, &:focus
+		filter: brightness(0.97)
+		transform: scale(0.97)
+
+.notificationCard[data-read="false"]
+	border-left: solid 10px var(--color--info)
+
+
+@media screen and (max-width: 768px)
+	.notificationsContainer
+		width: 100%
+		height: 100%
+		margin: 0
+		overflow-y: auto
+		scrollbar-width: none
+		-ms-overflow-style: none
+
+		&::-webkit-scrollbar
+				width: 0
+				height: 0

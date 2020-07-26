@@ -1,0 +1,11 @@
+{
+	"name": "Discord Utils",
+	"mode": "modules",
+	"out": "docs",
+	"readme": "./README.md",
+	"includeVersion": true,
+	"excludeNotExported": true,
+	"excludeNotDocumented": true,
+	"entryPoint": "./src/index.ts",
+	"inputFiles": ["./src"]
+}

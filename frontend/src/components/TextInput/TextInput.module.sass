@@ -1,0 +1,84 @@
+div, input, button
+	box-sizing: border-box
+
+.input
+	display: flex
+	flex-direction: column
+	width: var(--width--input)
+	font-family: var(--font-family)
+	font-size: var(--font-size--primary)
+	font-weight: var(--font-weight--primary)
+	position: relative
+	margin: var(--margin--input)
+	div
+		display: flex
+		align-items: center
+	input
+		font-family: var(--font-family)
+		padding: var(--padding--input--text)
+		border: var(--border--input)
+		border-radius: var(--border-radius--input)
+		color: var(--text-color--primary)
+		width: 100%
+		font-size: var(--font-size--primary)
+		font-weight: var(--font-weight--primary)
+		background: transparent
+	input:focus
+		box-shadow: var(--box-shadow--item--active)
+	button
+		width: var(--width--icon--input)
+		height: var(--height--icon--input)
+		border: none
+		background: url(../../assets/x-mark.svg) no-repeat
+		background-size: 100% 100%
+		position: relative
+		right: 30px
+		cursor: pointer
+		filter: grayscale(100%)
+	button:focus, button:hover
+		filter: grayscale(0%)
+	input:disabled
+		cursor: not-allowed
+		background: rgba(0, 0, 0, 0.1)
+		~ button
+			filter: grayscale(100%)
+			cursor: not-allowed
+			pointer-events: none
+
+.inset
+	@extend .input
+	display: flex
+	flex-direction: row
+	align-items: center
+	input
+		z-index: 1
+	button
+		z-index: 2
+	label
+		position: absolute
+		z-index: 0
+		left: 0.8rem
+		transition: transform 0.15s, box-shadow 0.15s
+		transform-origin: top
+		padding: 0 4px
+		font-weight: 400
+		color: #80868b
+		background: #FFFFFF
+	input:invalid
+		~ label
+			color: #E54728
+	input:focus ~ label
+		@extend .inset-label--focused
+
+.inset-label--focused
+	color: #6464D1
+	z-index: 2
+	transform: scale(0.8) translate(-12px, -24px)
+
+.active label
+	@extend .inset-label--focused
+
+@media screen and (max-width: 768px)
+	.input
+		width: 100%
+		margin: var(--margin--center)

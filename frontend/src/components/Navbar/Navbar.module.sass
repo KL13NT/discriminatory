@@ -1,0 +1,95 @@
+:global
+	.active svg
+		fill: #00C0FF !important
+		path
+			fill: #00C0FF !important
+
+.container
+	width: 100%
+	position: fixed
+	bottom: 0
+	left: 0
+	overflow-x: scroll
+	overflow-y: visible
+	padding: 10px
+	background: #212121
+	scrollbar-width: none
+	-ms-overflow-style: none
+
+.container::-webkit-scrollbar
+	display: none
+
+
+.logo
+	display: none
+	width: 240px
+
+.links
+	display: flex
+	flex-direction: row
+	align-items: center
+	min-width: max-content
+
+.link
+	margin: 0 15px 0 15px
+	span
+		font-family: var(--font-family)
+		display: none
+		color: inherit
+	svg
+		width: 40px
+		height: 40px
+		fill: #FFFFFF
+		path
+			fill: #FFFFFF
+
+.compose
+	background: #284DF6
+	height: 50px
+	width: 50px
+	border-radius: 100%
+	display: flex
+	justify-content: center
+	align-items: center
+	position: fixed
+	bottom: 14%
+	right: 6%
+	z-index: 4
+	cursor: pointer
+	span
+		display: none
+
+@media screen and (min-width: 414px)
+	.compose
+		bottom: 8%
+
+@media screen and (min-width: 768px)
+	.container
+		bottom: unset
+		top: 0
+		left: 0
+		width: 10%
+		align-items: center
+	.container, .links
+		display: flex
+		flex-direction: column
+	.link
+		margin: 15px 0 15px 0
+	.compose
+		position: relative
+		top: 0
+		left: 0
+		bottom: unset
+		right: unset
+		margin: 15px 0 0 0
+
+@media screen and (min-width: 1024px)
+	.container
+		width: 20%
+	.link
+		display: flex
+		align-items: center
+		width: 100%
+		span
+			display: block
+			margin: 0 0 0 20px

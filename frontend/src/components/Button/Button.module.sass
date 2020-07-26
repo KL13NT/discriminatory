@@ -1,0 +1,66 @@
+.button
+	position: relative
+	display: flex
+	justify-content: space-between
+	align-items: center
+	width: var(--width--button--big)
+	background: var(--color--info)
+	border: none
+	border-radius: var(--border-radius--input)
+	font-size: var(--font-size--primary)
+	color: var(--text-color--dark-bg)
+	padding: var(--padding--button)
+	text-align: left
+	font-family: var(--font-family)
+	font-weight: var(--font-weight--primary)
+	cursor: pointer
+	margin: var(--margin--input)
+	outline: none
+	transition: filter 0.25s, transform 0.25s
+	@extend .info
+	span
+		display: inline-block
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+	span.icon
+		background: url('../../assets/arrow.svg') no-repeat
+		background-size: contain
+		height: var(--height--icon--button)
+		width: var(--width--icon--button)
+		filter: grayscale(100%) brightness(10)
+		transform: rotate(-90deg)
+
+.small
+	width: var(--width--button--small)
+	justify-content: center
+
+.info
+	background: var(--color--info)
+	box-shadow: var(--box-shadow--button--info)
+
+
+.error
+	background: var(--color--error)
+	box-shadow: var(--box-shadow--button--error)
+
+
+.button:hover, .button:focus
+	filter: brightness(1.1)
+	transform: scale(1.03)
+
+.button:active
+	filter: brightness(0.9)
+	transform: scale(0.97)
+
+.button:disabled
+	pointer-events: none
+	box-shadow: none
+	filter: brightness(0.8)
+
+@media screen and (max-width: 768px)
+	.button
+		width: 90%
+		margin: 0 auto
+	.button.small
+		width: 40%
