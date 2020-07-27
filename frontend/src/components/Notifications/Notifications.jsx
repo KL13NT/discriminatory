@@ -1,70 +1,52 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
-import { PageTitle } from '../PageTitle/PageTitle'
-
-
-
-import MarkReadSVG from '../../assets/tick.svg'
-
+import { ReactComponent as Upvote } from '../../assets/good.svg'
+import { ReactComponent as Downvote } from '../../assets/bad.svg'
+import { ReactComponent as Comment } from '../../assets/comment 2.svg'
 
 import styles from './Notifications.module.sass'
 
+const getNotificationString = type => {
+	if (type === 'comment') return 'commented on your post'
+	if (type === 'upvote') return 'upvoted your post'
+	if (type === 'downvote') return 'downvoted your post'
+}
 
-const Notification = ({ campus, courseId, description, location, read }) => {
-	const href = `/courses/@${courseId}/${location}`
+const Notification = ({ details, notification }) => {
+	const path = `/${details.id}/${notification.postId}`
+	const event = getNotificationString(notification.type)
 
 	return (
-		<a
-			className={ styles.notificationCard }
-			data-read={ read }
-			href={ href }>
-			<span>
-				{ description }
-			</span>
-			<span>
-				{ campus }
-			</span>
-		</a>
-	)
-}
-
-/**
- * Use `Notifications` to display notifications
- */
-const Notifications = ({ notifications, onMarkAsRead }) => {
-	return(
-		<div className={ styles.notificationsContainer }>
+		<Link
+			className={styles.notification}
+			data-read={notification.read}
+			data-type={notification.type}
+			to={path}
+		>
 			<div>
-				<PageTitle>Notifications</PageTitle>
-				<button onClick={ onMarkAsRead }>
-					<img alt='notification button' src={ MarkReadSVG }/>
-				</button>
+				<img src={details.pfp} alt='Profile Avatar' />
+				<span>
+					<span>{details.name}</span>&nbsp;
+					{event}
+				</span>
 			</div>
-
-			{
-				notifications.map(notification  =>
-					<Notification key={ notification.id } { ...notification }/>
-				)
-			}
-		</div>
+			{notification.type === 'comment' ? (
+				<Comment />
+			) : notification.type === 'upvote' ? (
+				<Upvote />
+			) : notification.type === 'downvote' ? (
+				<Downvote />
+			) : null}
+		</Link>
 	)
-}
-
-
-
-const propTypes = {
-	/** Array of notifications */
-	notifications: PropTypes.array.isRequired,
-	/** Handler for the `mark all as read` button */
-	onMarkAsRead: PropTypes.func.isRequired,
-	isFullPage: PropTypes.bool.isRequired
 }
 
 const defaultProps = {}
+const propTypes = {}
 
-Notifications.propTypes = propTypes
-Notifications.defaultProps = defaultProps
+Notification.propTypes = propTypes
+Notification.defaultProps = defaultProps
 
-
-export { Notifications }
+export default Notification

@@ -16,7 +16,7 @@ import { ReactComponent as Add } from '../../assets/plus 1.svg'
 import { useComposer } from '../../stores/composer'
 import Button from '../Button/Button'
 
-const Compose = () => {
+function Compose() {
 	const { toggle } = useComposer()
 	return (
 		<Button className={styles.compose} onClick={toggle} aria-label='Compose'>
@@ -26,14 +26,16 @@ const Compose = () => {
 	)
 }
 
-const NavbarLink = ({ to, name, icon: Icon }) => (
-	<NavLink className={styles.link} aria-label={`Go to ${name}`} to={to}>
-		<Icon />
-		<span>{name}</span>
-	</NavLink>
-)
-
-const Navbar = () => {
+function NavbarLink({ to, name, icon: Icon }) {
+	return (
+		<NavLink className={styles.link} aria-label={`Go to ${name}`} to={to}>
+			<Icon />
+			<span>{name}</span>
+		</NavLink>
+	)
+}
+	
+function Navbar() {
 	return (
 		<nav className={styles.container}>
 			<FullLogo className={styles.logo} />

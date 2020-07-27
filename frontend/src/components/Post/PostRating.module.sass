@@ -37,32 +37,27 @@
 		margin: 0 2px
 
 
-.upvoteIcon, .upvoteIcon path
-	fill: var(--color-info)
-.downvoteIcon, .downvoteIcon path
-	fill: var(--color-danger)
-
 .upvote, .downvote
 	transition: filter 0.25s, color 0.25s, background 0.25s
 	color: var(--color-primary)
-	svg, svg path
 		fill: var(--color-primary)
 
 .upvote:active, .downvote:active
 	filter: brightness(0.8)
 
+.rate[data-reaction="upvote"]
+	.upvote
+		color: var(--color-info)
+		background: var(--color-info--hover)
+		.upvoteIcon, .upvoteIcon path
+			fill: var(--color-info)
 
-.upvote.active
-	color: var(--color-info)
-	background: var(--color-info--hover)
-	.upvoteIcon, .upvoteIcon path
-		fill: var(--color-info)
-
-.downvote.active
-	background: var(--color-danger--hover)
-	color: var(--color-danger)
-	.downvoteIcon, .downvoteIcon path
-		fill: var(--color-danger)
+.rate[data-reaction="downvote"]
+	.downvote
+		background: var(--color-danger--hover)
+		color: var(--color-danger)
+		.downvoteIcon, .downvoteIcon path
+			fill: var(--color-danger)
 
 .upvote:hover, .upvote:focus
 	background: var(--color-info--hover)

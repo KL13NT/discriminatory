@@ -4,55 +4,62 @@ import { withA11y } from '@storybook/addon-a11y'
 import StoryRouter from 'storybook-react-router'
 import { setConsoleOptions } from '@storybook/addon-console'
 
-import { Notifications } from './Notifications.jsx'
+import Notification from './Notifications.jsx'
 
 setConsoleOptions()
 
-const dummyNotifications = [
+import PFP from '../../assets/73.jpg'
+
+const notifications = [
 	{
-		description: 'created a new event event event event event',
-		campus: 'FCAI-CU',
-		courseId: '891237123',
-		location: 'material',
-		id: '89123912873',
-		read: false
+		details: {
+			pfp: PFP,
+			name: 'Leila Selim',
+			id: '89129739817298'
+		},
+		notification: {
+			postId: '129083918273',
+			type: 'comment',
+			read: false
+		}
 	},
 	{
-		description: 'created a new event',
-		campus: 'FCAI-CU',
-		courseId: '891237123',
-		location: 'material',
-		id: '89123912873',
-		read: true
+		details: {
+			pfp: PFP,
+			name: 'Leila Selim',
+			id: '89129739817298'
+		},
+		notification: {
+			postId: '129083918273',
+			type: 'upvote',
+			read: false
+		}
 	},
 	{
-		description: 'created a new event',
-		campus: 'FCAI-CU',
-		courseId: '891237123',
-		location: 'material',
-		id: '89123912873',
-		read: true
-	},
-	{
-		description: 'created a new event',
-		campus: 'FCAI-CU',
-		courseId: '891237123',
-		location: 'material',
-		id: '89123912873',
-		read: true
+		details: {
+			pfp: PFP,
+			name: 'Leila Selim',
+			id: '89129739817298'
+		},
+		notification: {
+			postId: '129083918273',
+			type: 'downvote',
+			read: false
+		}
 	}
 ]
 
 export default {
 	title: 'Notifications',
-	decorators: [ withA11y, StoryRouter() ],
-	component: Notifications,
-	subcomponents: { }
+	decorators: [withA11y, StoryRouter()],
+	component: Notification,
+	subcomponents: {}
 }
 
 export const FullPage = () => (
-	<div style={{height: "80vh"}}>
-	<Notifications notifications={dummyNotifications}/>
-
+	<div style={{ height: '80vh' }}>
+		{notifications.map(notification => (
+			<Notification {...notification} />
+		))}
 	</div>
 )

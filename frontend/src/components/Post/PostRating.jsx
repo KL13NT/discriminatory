@@ -20,23 +20,14 @@ function Score({ ratings }) {
 }
 
 function Rate({ reaction, onUpvote, onDownvote }) {
-	const upvoteClasses = [
-		styles.upvote,
-		reaction === 'upvote' ? styles.active : null
-	].join(' ')
-	const downvoteClasses = [
-		styles.downvote,
-		reaction === 'downvote' ? styles.active : null
-	].join(' ')
-
 	return (
 		<>
 			<hr />
-			<div>
-				<button className={upvoteClasses} onClick={onUpvote}>
+			<div data-reaction={reaction} className={styles.rate}>
+				<button className={styles.upvote} onClick={onUpvote}>
 					{icons[0]} Approve
 				</button>
-				<button className={downvoteClasses} onClick={onDownvote}>
+				<button className={styles.downvote} onClick={onDownvote}>
 					{icons[1]} False
 				</button>
 			</div>
