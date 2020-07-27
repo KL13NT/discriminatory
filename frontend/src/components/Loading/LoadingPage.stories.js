@@ -10,23 +10,20 @@ setConsoleOptions()
 
 export default {
 	title: 'LoadingPage',
-	decorators: [ withA11y, StoryRouter() ],
+	decorators: [withA11y, StoryRouter()],
 	component: LoadingPage,
 	subcomponents: { Spinner }
 }
 
 export const FullPage = () => (
-	<LoadingPage/>
+	<div
+		style={{
+			width: '400px',
+			padding: '20px'
+		}}
+	>
+		<LoadingPage>We&apos;re bringing you your profile!</LoadingPage>
+	</div>
 )
 
-
-export const FullPageCustomText = () => (
-	<LoadingPage>
-		We&apos;re bringing you your profile!
-	</LoadingPage>
-)
-
-
-export const SpinnerDefault = () => (
-	<Spinner/>
-)
+export const SpinnerDefault = () => <Spinner />
