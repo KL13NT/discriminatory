@@ -28,7 +28,7 @@ function CommentComposer({ onCompose, ...details }) {
 
 	return (
 		<form onSubmit={onCompose} className={styles.composer}>
-			<img alt={`${details.name}'s Profile Avatar`} src={details.pfp} />
+			<img alt={`${details.name}'s Profile Avatar`} src={details.avatar} />
 			<textarea
 				name='content'
 				aria-label='Comment content input'
@@ -44,7 +44,7 @@ function CommentComposer({ onCompose, ...details }) {
 function Comments({ comments }) {
 	return comments.map(({ content, details }) => (
 		<div className={styles.comment} key={`${content}${details.id}`}>
-			<img alt={`${details.name}'s Profile Avatar`} src={details.pfp} />
+			<img alt={`${details.name}'s Profile Avatar`} src={details.avatar} />
 			<span className={styles.content}>
 				<Link to={details.id}>
 					<h1>{details.name}</h1>

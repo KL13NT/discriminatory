@@ -13,7 +13,7 @@ import PFP from '../../assets/73.jpg'
 const notifications = [
 	{
 		details: {
-			pfp: PFP,
+			avatar: PFP,
 			name: 'Leila Selim',
 			id: '89129739817298'
 		},
@@ -25,7 +25,7 @@ const notifications = [
 	},
 	{
 		details: {
-			pfp: PFP,
+			avatar: PFP,
 			name: 'Leila Selim',
 			id: '89129739817298'
 		},
@@ -37,7 +37,7 @@ const notifications = [
 	},
 	{
 		details: {
-			pfp: PFP,
+			avatar: PFP,
 			name: 'Leila Selim',
 			id: '89129739817298'
 		},

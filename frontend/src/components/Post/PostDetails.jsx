@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom'
 
 import styles from './PostDetails.module.sass'
 
-function PostDetails({ name, location, date, verified, pfp, id }) {
-	const pfpClasses = [styles.pfp, verified ? styles.verified : null].join(' ')
+function PostDetails({ name, location, date, verified, avatar, id }) {
+	const avatarClasses = [styles.avatar, verified ? styles.verified : null].join(
+		' '
+	)
 
 	return (
 		<div className={styles.detailsContainer}>
-			<div className={pfpClasses}>
+			<div className={avatarClasses}>
 				<Link to={`/${id}`}>
-					<img alt={`${name}'s Profile Avatar`} src={pfp} />
+					<img alt={`${name}'s Profile Avatar`} src={avatar} />
 				</Link>
 			</div>
 			<div className={styles.details}>

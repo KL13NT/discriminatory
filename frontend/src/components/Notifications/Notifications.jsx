@@ -26,7 +26,7 @@ const Notification = ({ details, notification }) => {
 			to={path}
 		>
 			<div>
-				<img src={details.pfp} alt='Profile Avatar' />
+				<img src={details.avatar} alt='Profile Avatar' />
 				<span>
 					<span>{details.name}</span>&nbsp;
 					{event}

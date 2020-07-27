@@ -61,7 +61,7 @@ export const UnverifiedPost = () => {
 				name='Selma Rayan'
 				location='The Lagoons Hotel'
 				date='22 mins'
-				pfp={PFP}
+				avatar={PFP}
 				id='8102371982759'
 				content='The Lagoons Hotel just told me they dont allow Hijab on beaches.'
 				onUpvote={upvote}
@@ -76,7 +76,7 @@ export const UnverifiedPost = () => {
 					{
 						content: 'Test comment',
 						details: {
-							pfp: PFP,
+							avatar: PFP,
 							name: 'Selma Rayan',
 							id: '8102371982759'
 						}
@@ -88,35 +88,35 @@ export const UnverifiedPost = () => {
 }
 
 export const VerifiedPost = () => (
-	<div>
-		<Post
-			onDelete={onTest}
-			onPin={onTest}
-			name='Selma Rayan'
-			location='The Lagoons Hotel'
-			date='22 mins'
-			verified
-			pfp={PFP}
-			content='The Lagoons Hotel just told me they dont allow Hijab on beaches.'
-			onUpvote={onTest}
-			onDownvote={onTest}
-			onCommentCreate={onTest}
-			ratings={{
-				total: 50,
-				majority: 'upvotes'
-			}}
-			comments={[
-				{
-					content: 'Test comment',
-					details: {
-						pfp: PFP,
-						name: 'Selma Rayan',
-						id: '8102371982759'
-					}
-				}
-			]}
-		/>
-	</div>
-)
+					<div>
+						<Post
+							onDelete={onTest}
+							onPin={onTest}
+							name='Selma Rayan'
+							location='The Lagoons Hotel'
+							date='22 mins'
+							verified
+							avatar={PFP}
+							content='The Lagoons Hotel just told me they dont allow Hijab on beaches.'
+							onUpvote={onTest}
+							onDownvote={onTest}
+							onCommentCreate={onTest}
+							ratings={{
+								total: 50,
+								majority: 'upvotes'
+							}}
+							comments={[
+								{
+									content: 'Test comment',
+									details: {
+										avatar: PFP,
+										name: 'Selma Rayan',
+										id: '8102371982759'
+									}
+								}
+							]}
+						/>
+					</div>
+				)
 
 //TODO: add proptypes after refactoring above
