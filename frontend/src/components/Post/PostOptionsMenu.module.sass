@@ -1,0 +1,82 @@
+
+.menuToggle
+	background: transparent
+	position: absolute
+	right: 20px
+	top: 20px
+	cursor: pointer
+	svg
+		fill: var(--color-secondary) !important
+		width: 15px
+		height: 15px
+		background: transparent
+
+.menu
+	position: fixed
+	width: 100%
+	bottom: 0
+	left: 0
+	padding: 20px
+	background: var(--color-containers)
+	border-radius: 10px
+	animation-name: popUp
+	animation-fill-mode: forwards
+	animation-timing-function: ease-in-out
+	animation-iteration-count: 1
+	animation-duration: 0.5s
+
+	button
+		display: flex
+		align-items: center
+		width: 100%
+		margin: 10px 0
+		color: var(--color-primary)
+		transition: color 0.25s
+		cursor: pointer
+		&, span, svg
+			background: transparent
+		svg
+			width: 40px
+			height: 40px
+			margin: 0 20px 0 0
+			fill: var(--color-primary)
+			transition: fill 0.25s
+
+.pin:hover, .pin:active
+	color: var(--color-active)
+	svg
+		fill: var(--color-active) !important
+
+.report:hover, .report:active
+	color: var(--color-links)
+	svg
+		fill: var(--color-links) !important
+
+.delete:hover, .delete:active
+	color: var(--color-danger)
+	svg
+		fill: var(--color-danger) !important
+
+@media screen and (min-width: 414px)
+	.menu button span
+		font-size: var(--font-size-l)
+
+@media screen and (min-width: 1024px)
+	.menu
+		position: absolute
+		left: unset
+		bottom: unset
+		right: 10px
+		top: 10%
+		width: max-content
+		padding: 20px
+		border: solid 1px var(--color-alternative)
+		background: var(--color-containers)
+		border-radius: 10px
+		animation-name: unset
+
+@keyframes popUp
+	0%
+		transform: translateY(110%)
+	100%
+		transform: translateY(0%)

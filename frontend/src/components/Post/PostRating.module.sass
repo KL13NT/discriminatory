@@ -1,0 +1,93 @@
+
+.ratings
+	display: flex
+	justify-content: center
+	flex-direction: column
+	width: 100%
+	hr
+		background: var(--color-alternative)
+		height: 1px
+		margin: 10px 0
+	div:nth-child(1)
+		display: flex
+		align-items: center
+		span
+			margin: 0 0 0 5px
+			font-weight: var(--font-weight-xs)
+	div:nth-child(3)
+		display: flex
+		align-items: center
+		justify-content: space-evenly
+		button
+			display: flex
+			align-items: center
+			justify-content: space-evenly
+			font-weight: var(--font-weight-xs)
+			font-size: var(--font-size-xl)
+			cursor: pointer
+			border-radius: 20px
+			padding: 10px
+			svg
+				height: 30px
+				width: 30px
+				margin: 0 5px 0 0px
+	svg
+		height: 20px
+		width: 20px
+		margin: 0 2px
+
+
+.upvoteIcon, .upvoteIcon path
+	fill: var(--color-info)
+.downvoteIcon, .downvoteIcon path
+	fill: var(--color-danger)
+
+.upvote, .downvote
+	color: var(--color-primary)
+	svg, svg path
+		fill: var(--color-primary)
+
+
+.upvote.active
+	color: var(--color-info)
+	background: var(--color-info--hover)
+	.upvoteIcon, .upvoteIcon path
+		fill: var(--color-info)
+
+.downvote.active
+	background: var(--color-danger--hover)
+	color: var(--color-danger)
+	.downvoteIcon, .downvoteIcon path
+		fill: var(--color-danger)
+
+.upvote:hover, .upvote:focus
+	background: var(--color-info--hover)
+	color: var(--color-info)
+	border: unset
+	svg, svg path
+		fill: var(--color-info)
+
+.downvote:hover, .downvote:focus
+	background: var(--color-danger--hover)
+	color: var(--color-danger)
+	border: unset
+	svg, svg path
+		fill: var(--color-danger)
+
+@media screen and (min-width: 1024px)
+	.ratings
+		div:nth-child(1)
+			span
+				margin: 0 0 0 5px
+				font-weight: var(--font-weight-xs)
+		div:nth-child(3)
+			button
+				font-size: var(--font-size-xl)
+				svg
+					height: 40px
+					width: 40px
+					margin: 0 10px 0 0px
+		svg
+			height: 30px
+			width: 30px
+			margin: 0 2px

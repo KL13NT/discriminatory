@@ -1,0 +1,44 @@
+
+.composer
+	display: flex
+	margin: 20px 0 10px 0
+	svg
+		height: 20px
+		width: 20px
+	img
+		height: 30px
+		width: 30px
+		border-radius: 100%
+	input
+		margin: 0 0 0 5px
+		background: var(--color-background)
+		border-radius: 20px
+		padding: 0 0 0 10px
+		width: 100%
+		color: var(--color-primary)
+
+.comment
+	@extend .composer
+	span
+		h1
+			margin: 0 0 5px 0
+			font-size: var(--font-size-l)
+			font-weight: var(--font-weight-m)
+		p
+			font-size: var(--font-size-l)
+			font-weight: var(--font-weight-xs)
+		margin: 0 0 0 5px
+		background: var(--color-background)
+		border-radius: 20px
+		padding: 10px 10px 10px 15px
+		width: 100%
+		color: var(--color-primary)
+
+@media screen and (min-width: 768px)
+	.composer
+		svg
+			height: 30px
+			width: 30px
+		img
+			height: 40px
+			width: 40px
