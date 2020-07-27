@@ -31,13 +31,17 @@ import create from 'zustand'
 
 const [usePostReaction] = create(set => ({
 	reaction: null,
-	upvote: () => set(() => ({ reaction: 'upvote' })),
+	upvote: () =>
+		set(({ reaction }) => ({
+			reaction: reaction === 'upvote' ? null : 'upvote'
+		})),
 	downvote: () => set(() => ({ reaction: 'downvote' }))
 }))
 
-const onCommentCreate = e => {
-	console.log('test called')
-	e.preventDefault()
+const onCommentCreate = form => {
+	console.log(form.value)
+	// alert(e.currentTarget.value)
+	// console.log('submit')
 }
 
 const onTest = (id, e) => {
