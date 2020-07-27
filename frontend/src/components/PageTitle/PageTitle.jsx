@@ -3,31 +3,27 @@ import PropTypes from 'prop-types'
 
 import styles from './PageTitle.module.sass'
 
-
-function PageTitle ({ children, isCentered, variant, ...props }) {
-	const classes = [ styles.pageTitle, styles[variant] ].join(' ')
-
+function PageTitle({ children, subtitle, tick, ...props }) {
 	return (
-		<h1	className={ classes } data-centered={ isCentered } { ...props }>
-			{ children }
-		</h1>
+		<div className={styles.title} {...props}>
+			<div>
+				<h1>{children}</h1>
+				{tick ? <span>{tick}</span> : null}
+			</div>
+			{subtitle ? <span>{subtitle}</span> : null}
+		</div>
 	)
 }
 
-
 const propTypes = {
-	id: PropTypes.string,
-	variant: PropTypes.oneOf([ 'page', 'section' ]).isRequired,
 	children: PropTypes.node.isRequired,
-	isCentered: PropTypes.boolean
+	subtitle: PropTypes.string,
+	tick: PropTypes.string
 }
 
-const defaultProps = {
-	isCentered: false
-}
+const defaultProps = {}
 
 PageTitle.defaultProps = defaultProps
 PageTitle.propTypes = propTypes
 
-
-export { PageTitle }
+export default PageTitle

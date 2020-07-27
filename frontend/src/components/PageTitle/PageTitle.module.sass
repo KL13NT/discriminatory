@@ -1,16 +1,21 @@
-.pageTitle
+.title
 	font-family: var(--font-family)
-	font-size: var(--font-size--4x)
-	color: var(--text-color--primary)
-	font-weight: var(--font-weight--headers)
-	margin: var(--margin--headers)
+	color: var(--color-primary)
+	font-weight: var(--font-weight-l)
 	text-transform: capitalize
-
-
-.section
-	font-size: var(--font-size--2x)
-
-
-.pageTitle[data-centered='true']
-	width: 100%
-	text-align: center
+	padding: 10px
+	border-bottom: solid 1px var(--color-separator)
+	div
+		display: flex
+		align-items: center
+		span
+			font-weight: var(--font-weight-m)
+			font-size: var(--font-size-s)
+			color: var(--color-alternative)
+	> span
+		font-size: var(--font-size-xl)
+		font-weight: var(--font-weight-s)
+		color: var(--color-secondary)
+	h1
+		font-size: var(--font-size-h5)
+		margin: 0 10px 0 0
