@@ -35,9 +35,14 @@ const [usePostReaction] = create(set => ({
 	downvote: () => set(() => ({ reaction: 'downvote' }))
 }))
 
+const onCommentCreate = e => {
+	console.log('test called')
+	e.preventDefault()
+}
+
 const onTest = (id, e) => {
 	console.log('test called')
-	if (e) e.preventDefault()
+	if (e.preventDefault) e.preventDefault()
 	return null
 }
 
@@ -58,7 +63,7 @@ export const UnverifiedPost = () => {
 				onUpvote={upvote}
 				onDownvote={downvote}
 				reaction={reaction}
-				onCommentCreate={onTest}
+				onCommentCreate={onCommentCreate}
 				ratings={{
 					total: 50,
 					majority: 'upvotes'

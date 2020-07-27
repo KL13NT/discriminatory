@@ -43,9 +43,13 @@
 	fill: var(--color-danger)
 
 .upvote, .downvote
+	transition: filter 0.25s, color 0.25s, background 0.25s
 	color: var(--color-primary)
 	svg, svg path
 		fill: var(--color-primary)
+
+.upvote:active, .downvote:active
+	filter: brightness(0.8)
 
 
 .upvote.active
