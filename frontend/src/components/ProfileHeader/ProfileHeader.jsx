@@ -6,6 +6,7 @@ import Button from '../Button/Button'
 import styles from './ProfileHeader.module.sass'
 
 import { ReactComponent as Location } from '../../assets/gps.svg'
+import { Link } from 'react-router-dom'
 
 function ProfileDetails({
 	name,
@@ -39,6 +40,7 @@ function ProfileDetails({
 					</Button>
 				)
 			) : null}
+			{isOwnProfile ? <Link to='/settings/profile'>Edit</Link> : null}
 		</div>
 	)
 }
