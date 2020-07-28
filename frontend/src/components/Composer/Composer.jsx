@@ -1,84 +1,64 @@
 import React, { useState } from 'react'
 
 import Container from '../Container/Container'
-
-import styles from './Composer.module.sass'
 import Avatar from '../Avatar/Avatar'
 import Textarea from '../Textarea/Textarea'
 import Button from '../Button/Button'
-import Overlay from '../Overlay/Overlay'
+import LocationPicker from './LocationPicker'
 
 import { ReactComponent as GPS } from '../../assets/gps.svg'
 
-//TODO: hook to google maps API
-function LocationPicker({ onPick, toggle, value, onChange, ...props }) {
-	return (
-		<Overlay
-			title='Location'
-			subtitle='Where are you?'
-			onClose={toggle}
-			className={styles.location}
-			{...props}
-		>
-			<form onSubmit={onPick}>
-				<input
-					maxLength={50}
-					name='location'
-					type='text'
-					placeholder='Type your location'
-					value={value}
-					onChange={onChange}
-				/>
-			</form>
-		</Overlay>
-	)
-}
+import styles from './Composer.module.sass'
 
 function Composer({ avatar, verified, onSubmit, ...props }) {
-	const [isLocationPickerOpen, setPickerOpen] = useState(false)
-	const [canSubmit, setCanSubmit] = useState(false)
-	const [state, setState] = useState({ location: null, content: null })
+	const [isLocationPickerOpen, setLocationPickerState] = useState(false)
+	const [canSubmit, setCanSubmitState] = useState(false)
+	const [postData, setPostData] = useState({ location: null, content: null })
 
-	const togglePicker = () => setPickerOpen(!isLocationPickerOpen)
+	const togglePicker = e => {
+		if (e) e.preventDefault()
+		setLocationPickerState(!isLocationPickerOpen)
+	}
 
-	const checkCanSubmit = newState => {
-		if (!newState.content.trim() || !newState.location) setCanSubmit(false)
-		else setCanSubmit(true)
+	const checkCanSubmit = newData => {
+		if ((newData.content && !newData.content.trim()) || !newData.location)
+			setCanSubmitState(false)
+		else setCanSubmitState(true)
 	}
 
 	const onLocationPick = e => {
 		e.preventDefault()
 
 		const form = new FormData(e.target)
-		const location = String(form.get('location'))
+		const location = form.get('location')
 
-		const newState = { ...state, location }
-		setState(newState)
-		checkCanSubmit(newState)
+		const newData = { ...postData, location }
+		setPostData(newData)
+		checkCanSubmit(newData)
 		togglePicker()
 	}
 
 	const onInput = e => {
-		const content = String(e.target.value)
+		const content = e.target.value
 
-		const newState = { ...state, content }
-		setState(newState)
-		checkCanSubmit(newState)
+		const newData = { ...postData, content }
+		setPostData(newData)
+		checkCanSubmit(newData)
 	}
 
 	const onLocationChange = e => {
 		const location = e.target.value
 
-		const newState = { ...state, location }
-		setState(newState)
-		checkCanSubmit(newState)
+		const newData = { ...postData, location }
+		setPostData(newData)
+		checkCanSubmit(newData)
 	}
 
 	const onPostSubmit = e => {
 		e.persist()
 		e.preventDefault()
 
-		onSubmit({ ...state, content: state.content.trim() })
+		onSubmit({ ...postData, content: postData.content.trim() })
 	}
 
 	return (
@@ -88,7 +68,7 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 					toggle={togglePicker}
 					onPick={onLocationPick}
 					onChange={onLocationChange}
-					value={state.location}
+					value={postData.location}
 				/>
 			) : null}
 
@@ -106,7 +86,7 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 						resize
 						required
 						placeholder="What's on your mind?"
-						value={state.content}
+						value={postData.content}
 						onInput={onInput}
 					/>
 					<button onClick={togglePicker} className='u-text-limit'>
@@ -114,7 +94,7 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 							<GPS />
 						</div>
 						<span className='u-text-limit'>
-							{state.location || 'Pick a location'}
+							{postData.location || 'Pick a location'}
 						</span>
 					</button>
 					<Button disabled={!canSubmit} type='submit'>
