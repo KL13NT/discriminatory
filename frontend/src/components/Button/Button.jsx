@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 import styles from './Button.module.sass'
 
-function Button(props) {
-	const { disabled, onClick, className, children, variant, ...rest } = props
+function Button({ disabled, onClick, className, children, variant, ...rest }) {
 	const classes = [styles.button, styles[variant], className].join(' ')
 
 	return (

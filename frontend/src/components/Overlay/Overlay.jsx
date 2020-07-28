@@ -5,10 +5,11 @@ import Container from '../Container/Container'
 import { ReactComponent as Close } from '../../assets/x.svg'
 
 import styles from './Overlay.module.sass'
+import cls from '../../utils/cls'
 
-function Overlay({ title, subtitle, children, onClose, ...props }) {
+function Overlay({ title, subtitle, children, onClose, className, ...props }) {
 	return (
-		<div className={styles.overlay} {...props}>
+		<div className={cls(styles.overlay, className)} {...props}>
 			<Container>
 				<div className={styles.meta}>
 					<div>
@@ -25,7 +26,7 @@ function Overlay({ title, subtitle, children, onClose, ...props }) {
 	)
 }
 
-Overlay.proptypes = {
+Overlay.propTypes = {
 	title: PropTypes.node.isRequired,
 	children: PropTypes.node.isRequired,
 	onClose: PropTypes.func.isRequired
