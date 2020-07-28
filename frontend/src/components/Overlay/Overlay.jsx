@@ -6,13 +6,19 @@ import { ReactComponent as Close } from '../../assets/x.svg'
 
 import styles from './Overlay.module.sass'
 
-function Overlay({ children, onClose }) {
+function Overlay({ title, subtitle, children, onClose, ...props }) {
 	return (
-		<div className={styles.overlay}>
+		<div className={styles.overlay} {...props}>
 			<Container>
-				<button aria-label='close overlay' onClick={onClose}>
-					<Close />
-				</button>
+				<div className={styles.meta}>
+					<div>
+						<span>{title}</span>
+						<span>{subtitle}</span>
+					</div>
+					<button aria-label='close overlay' onClick={onClose}>
+						<Close />
+					</button>
+				</div>
 				{children}
 			</Container>
 		</div>
@@ -20,6 +26,7 @@ function Overlay({ children, onClose }) {
 }
 
 Overlay.proptypes = {
+	title: PropTypes.node.isRequired,
 	children: PropTypes.node.isRequired,
 	onClose: PropTypes.func.isRequired
 }
