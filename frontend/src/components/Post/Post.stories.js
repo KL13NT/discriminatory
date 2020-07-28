@@ -10,7 +10,7 @@ import {
 import { withA11y } from '@storybook/addon-a11y'
 import { setConsoleOptions } from '@storybook/addon-console'
 
-import { Post } from './Post.jsx'
+import Post from './Post.jsx'
 import PFP from '../../assets/73.jpg'
 
 import StoryRouter from 'storybook-react-router'
@@ -88,35 +88,35 @@ export const UnverifiedPost = () => {
 }
 
 export const VerifiedPost = () => (
-					<div>
-						<Post
-							onDelete={onTest}
-							onPin={onTest}
-							name='Selma Rayan'
-							location='The Lagoons Hotel'
-							date='22 mins'
-							verified
-							avatar={PFP}
-							content='The Lagoons Hotel just told me they dont allow Hijab on beaches.'
-							onUpvote={onTest}
-							onDownvote={onTest}
-							onCommentCreate={onTest}
-							ratings={{
-								total: 50,
-								majority: 'upvotes'
-							}}
-							comments={[
-								{
-									content: 'Test comment',
-									details: {
-										avatar: PFP,
-										name: 'Selma Rayan',
-										id: '8102371982759'
-									}
-								}
-							]}
-						/>
-					</div>
-				)
+	<div>
+		<Post
+			onDelete={onTest}
+			onPin={onTest}
+			name='Selma Rayan'
+			location='The Lagoons Hotel'
+			date='22 mins'
+			verified
+			avatar={PFP}
+			content='The Lagoons Hotel just told me they dont allow Hijab on beaches.'
+			onUpvote={onTest}
+			onDownvote={onTest}
+			onCommentCreate={onTest}
+			ratings={{
+				total: 50,
+				majority: 'upvotes'
+			}}
+			comments={[
+				{
+					content: 'Test comment',
+					details: {
+						avatar: PFP,
+						name: 'Selma Rayan',
+						id: '8102371982759'
+					}
+				}
+			]}
+		/>
+	</div>
+)
 
 //TODO: add proptypes after refactoring above

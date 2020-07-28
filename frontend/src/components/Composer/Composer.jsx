@@ -1,34 +1,26 @@
 import React, { useState } from 'react'
 
-import PostRating from './PostRating'
-import PostDetails from './PostDetails'
-import PostOptionsMenu from './PostOptionsMenu'
+import ComposerRating from './ComposerRating'
+import ComposerDetails from './ComposerDetails'
+import ComposerOptionsMenu from './ComposerOptionsMenu'
 import { CommentComposer } from './Comments'
 import { Comments } from './Comments'
 
-import styles from './Post.module.sass'
+import styles from './Composer.module.sass'
 import Container from '../Container/Container'
-//TODO: remove this to save memory. Duplicating this component for each post is
+//TODO: remove this to save memory. Duplicating this component for each Composer is
 //a memory waste. This probably doesn't need to happen because we'll be
-//windowing posts
+//windowing Composers
 
-function Post({
-	content,
-	ratings,
-	comments,
-	reaction,
-	onReport,
-	onDelete,
-	onPin,
-	onUpvote,
-	onDownvote,
-	onCommentCreate,
-	...details
+function Composer({
+	details,
+	onSubmit,
+	...props
 }) {
-	const [isMenuOpened, dispatchToggleMenu] = useState(false)
+	const [isLocationPickerOpen, toggleLocationPicker] = useState(false)
 
 	const toggleMenu = () => {
-		dispatchToggleMenu(!isMenuOpened)
+		toggleLocationPicker(!isMenuOpened)
 	}
 
 	const onAction = (action, e) => {
@@ -42,7 +34,7 @@ function Post({
 
 	return (
 		<Container>
-			<PostOptionsMenu
+			<ComposerOptionsMenu
 				toggle={toggleMenu}
 				isMenuOpened={isMenuOpened}
 				onAction={onAction}
@@ -50,9 +42,9 @@ function Post({
 				onPin={onPin}
 				onReport={onReport}
 			/>
-			<PostDetails {...details} />
+			<ComposerDetails {...details} />
 			<p className={styles.content}>{content}</p>
-			<PostRating
+			<ComposerRating
 				ratings={ratings}
 				reaction={reaction}
 				onUpvote={onUpvote}
@@ -64,4 +56,4 @@ function Post({
 	)
 }
 
-export default Post
+export default Composer
