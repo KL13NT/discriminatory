@@ -30,3 +30,8 @@ export const ButtonDanger = () => (
 		Danger
 	</Button>
 )
+export const Minimalist = () => (
+	<Button disabled={false} id='submit' minimalist variant='danger'>
+		Danger
+	</Button>
+)

@@ -2,9 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './Button.module.sass'
+import cls from '../../utils/cls'
 
-function Button({ disabled, onClick, className, children, variant, ...rest }) {
-	const classes = [styles.button, styles[variant], className].join(' ')
+function Button({
+	disabled,
+	onClick,
+	className,
+	children,
+	variant,
+	minimalist,
+	...rest
+}) {
+	const classes = cls(
+		styles.button,
+		styles[variant],
+		minimalist ? styles.minimalist : null,
+		className
+	)
 
 	return (
 		<button
@@ -23,12 +37,14 @@ const propTypes = {
 	disabled: PropTypes.boolean,
 	className: PropTypes.string,
 	children: PropTypes.children,
+	minimalist: PropTypes.bool,
 	variant: PropTypes.oneOf(['info', 'danger'])
 }
 
 const defaultProps = {
 	disabled: false,
-	variant: 'info'
+	variant: 'info',
+	minimalist: false
 }
 
 Button.defaultProps = defaultProps
