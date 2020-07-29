@@ -1,0 +1,5 @@
+- styles = require("./Button.module.sass");
+mixin Button(name, children)
+	button(class="#{styles.button} #{attributes.classes}" disabled=attributes.disabled onclick=attributes.onclick)
+		if block
+			block

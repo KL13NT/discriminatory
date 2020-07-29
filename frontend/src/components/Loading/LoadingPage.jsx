@@ -2,13 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import LoadingSVG from '../../assets/loading.svg'
-import SpinnerSVG from '../../assets/sand-clock.svg'
 
 import styles from './LoadingPage.module.sass'
 
 const Spinner = () => (
 	<div className={styles.spinnerContainer}>
-		<img alt='loading spinner' src={SpinnerSVG} />
 		<p>Our bots are assembling. Please wait.</p>
 	</div>
 )
@@ -18,16 +16,6 @@ const Spinner = () => (
  * Use `Spinner` when loading specific sections.
  */
 const LoadingPage = ({ children }) => {
-	return (
-		<div className={styles.loadingContainer}>
-			<img alt='loading illustration' src={LoadingSVG} />
-			<h1>Loading</h1>
-			<p>{children}</p>
-		</div>
-	)
-}
-
-const Placeholder = ({ children }) => {
 	return (
 		<div className={styles.loadingContainer}>
 			<img alt='loading illustration' src={LoadingSVG} />
