@@ -9,8 +9,6 @@ import avatar from '../../assets/pfp.png'
 
 setConsoleOptions()
 
-//TODO: refactor this to multiple subcomponents in multiple files in same directory
-
 export default {
 	title: 'Avatar',
 	decorators: [withA11y],

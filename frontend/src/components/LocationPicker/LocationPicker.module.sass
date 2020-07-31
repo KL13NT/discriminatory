@@ -1,0 +1,55 @@
+.location
+	input
+		color: var(--color-primary)
+		font-size: var(--font-size-m)
+		border-bottom: solid 1px var(--color-alternative)
+		padding: 10px 0
+		width: 100%
+		max-width: 100%
+		transition: border-bottom 0.25s
+		white-space: nowrap
+		overflow: hidden
+		text-overflow: ellipsis
+
+		&:invalid
+			border: none
+			outline: none
+			box-shadow: none
+
+		&:focus
+			border-bottom: solid 1px var(--color-primary)
+
+.toggle
+	font-size: var(--font-size-m)
+	color: var(--color-primary)
+	align-items: center
+	font-weight: var(--font-weight-m)
+	margin: 0 0 10px 0
+	display: flex
+	background: var(--color-links-shadow)
+	border-radius: 20px
+	padding: 0 10px 0 0
+	max-width: 100%
+
+	> span
+		max-width: 80%
+
+	&:hover, &:focus, &:active
+		color: var(--color-links)
+
+		> div svg
+			&, path
+				fill: var(--color-links)
+
+	> div
+		width: 40px
+		height: 40px
+		padding: 5px
+		margin: 0 10px 0 0
+
+		svg
+			height: 100%
+			width: 100%
+
+			&, path
+				fill: var(--color-primary)

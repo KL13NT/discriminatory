@@ -16,7 +16,7 @@ function Overlay({ title, subtitle, children, onClose, className, ...props }) {
 						<span>{title}</span>
 						<span>{subtitle}</span>
 					</div>
-					<button aria-label='close overlay' onClick={onClose}>
+					<button aria-label='close overlay' type='button' onClick={onClose}>
 						<Close />
 					</button>
 				</div>

@@ -1,77 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Container from '../Container/Container'
 import Avatar from '../Avatar/Avatar'
 import Textarea from '../Textarea/Textarea'
 import Button from '../Button/Button'
-import LocationPicker from './LocationPicker'
-
-import { ReactComponent as GPS } from '../../assets/gps.svg'
+import LocationPicker from '../LocationPicker/LocationPicker'
 
 import styles from './Composer.module.sass'
 
+// REFACTORME: use useCallback & useEffect
 function Composer({ avatar, verified, onSubmit, ...props }) {
-	const [isLocationPickerOpen, setLocationPickerState] = useState(false)
 	const [canSubmit, setCanSubmitState] = useState(false)
-	const [postData, setPostData] = useState({ location: null, content: null })
+	const [postData, setPostData] = useState({ location: null, content: '' })
 
-	const togglePicker = e => {
-		if (e) e.preventDefault()
-		setLocationPickerState(!isLocationPickerOpen)
-	}
+	useEffect(() => {
+		console.log(
+			postData,
+			postData.content.trim().length > 0 && postData.location
+		)
+		if (postData.content.trim().length > 0 && postData.location)
+			setCanSubmitState(true)
+	}, [postData.content, postData.location, postData])
 
-	const checkCanSubmit = newData => {
-		if ((newData.content && !newData.content.trim()) || !newData.location)
-			setCanSubmitState(false)
-		else setCanSubmitState(true)
-	}
+	const onInput = ({ currentTarget }) =>
+		setPostData({ ...postData, content: currentTarget.value })
 
-	const onLocationPick = e => {
-		e.preventDefault()
-
-		const form = new FormData(e.target)
-		const location = form.get('location')
-
-		const newData = { ...postData, location }
-		setPostData(newData)
-		checkCanSubmit(newData)
-		togglePicker()
-	}
-
-	const onInput = e => {
-		const content = e.target.value
-
-		const newData = { ...postData, content }
-		setPostData(newData)
-		checkCanSubmit(newData)
-	}
-
-	const onLocationChange = e => {
-		const location = e.target.value
-
-		const newData = { ...postData, location }
-		setPostData(newData)
-		checkCanSubmit(newData)
-	}
+	const onLocationPick = location => setPostData({ ...postData, location })
 
 	const onPostSubmit = e => {
 		e.persist()
 		e.preventDefault()
 
-		onSubmit({ ...postData, content: postData.content.trim() })
+		if (canSubmit) onSubmit({ ...postData, content: postData.content.trim() })
 	}
 
 	return (
 		<>
-			{isLocationPickerOpen ? (
-				<LocationPicker
-					toggle={togglePicker}
-					onPick={onLocationPick}
-					onChange={onLocationChange}
-					value={postData.location}
-				/>
-			) : null}
-
 			<Container className={styles.composer} {...props}>
 				<form onSubmit={onPostSubmit}>
 					<div>
@@ -89,14 +53,7 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 						value={postData.content}
 						onInput={onInput}
 					/>
-					<button onClick={togglePicker} className='u-text-limit'>
-						<div>
-							<GPS />
-						</div>
-						<span className='u-text-limit'>
-							{postData.location || 'Pick a location'}
-						</span>
-					</button>
+					<LocationPicker onPick={onLocationPick} />
 					<Button disabled={!canSubmit} type='submit'>
 						Post
 					</Button>

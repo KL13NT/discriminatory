@@ -37,6 +37,9 @@
 	transition: background-color 0.25s
 	border-radius: 20px
 	padding: 10px
+	display: flex
+	align-items: center
+	justify-content: center
 	span
 		font-family: var(--font-family)
 		font-size: var(--font-size-xl)
@@ -61,7 +64,6 @@
 		svg, svg path
 			fill: var(--color-active) !important
 .compose
-	background: #284DF6
 	height: 50px
 	width: 50px
 	border-radius: 100%
@@ -77,10 +79,6 @@
 		background: transparent
 	span
 		display: none
-	&:hover
-		background: var(--color-info--hover)
-	&:active
-		background: var(--color-info--active)
 
 @media screen and (min-width: 414px)
 	.compose
@@ -131,6 +129,9 @@
 		display: flex
 		align-items: center
 		width: 100%
+		display: flex
+		align-items: center
+		justify-content: unset
 		span
 			display: block
 			margin: 0 0 0 20px
