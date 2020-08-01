@@ -100,12 +100,6 @@ function Ads({ isEnabled }) {
 					{script}
 				</script>
 			</Container>
-			{isBlocked ? (
-				<p className={styles.disclaimer}>
-					Advertisements can be disabled in{' '}
-					<Link to='/settings/ads'>settings</Link>.
-				</p>
-			) : null}
 		</>
 	)
 }
