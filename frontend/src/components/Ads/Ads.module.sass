@@ -1,0 +1,32 @@
+.ads
+	font-weight: var(--font-weight-l)
+	margin: 0
+
+.disclaimer
+	@extend .ads
+	color: var(--color-alternative)
+	font-size: var(--font-size-xs)
+	margin: var(--padding-container)
+
+.placeholder
+	@extend .ads
+	@extend .disclaimer
+	color: var(--color-secondary)
+	margin: 0
+
+	div
+		position: relative
+		margin-bottom: 5px
+
+	img
+		width: 100%
+		object-fit: cover
+		border-radius: 5px
+
+.credits
+	position: absolute
+	top: 0px
+	right: 0
+	padding: 5px
+	border-radius: 0 0 0 5px
+	background: #000000

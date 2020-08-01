@@ -11,6 +11,8 @@ function LocationPicker({ onPick, ...props }) {
 	const [isLocationPickerOpen, setLocationPickerState] = useState(false)
 	const [location, setLocation] = useState(null)
 
+	let timeout = 0
+
 	const toggle = () => {
 		setLocationPickerState(!isLocationPickerOpen)
 	}
@@ -30,8 +32,10 @@ function LocationPicker({ onPick, ...props }) {
 	}
 
 	const onChange = ({ currentTarget }) => {
-		// TODO: should load send requests on change here
-		// setLocation(currentTarget.value)
+		clearTimeout(timeout)
+		timeout = setTimeout(() => {
+			//TODO: fetch from /locations in Mongo
+		}, 2000)
 	}
 
 	return (
