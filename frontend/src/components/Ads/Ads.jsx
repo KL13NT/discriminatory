@@ -3,13 +3,17 @@ import PropTypes from 'prop-types'
 import Container from '../Container/Container'
 
 import styles from './Ads.module.sass'
-import { Link } from 'react-router-dom'
 
 import Img1 from '../../media/ad-placeholder-01.jpg'
 import Img2 from '../../media/ad-placeholder-02.jpg'
 import Img3 from '../../media/ad-placeholder-03.jpg'
 import Img4 from '../../media/ad-placeholder-04.jpg'
 import Img5 from '../../media/ad-placeholder-05.jpg'
+import Img6 from '../../media/ad-placeholder-06.jpg'
+import Img7 from '../../media/ad-placeholder-07.jpg'
+import Img8 from '../../media/ad-placeholder-08.jpg'
+import Img9 from '../../media/ad-placeholder-09.jpg'
+import Img10 from '../../media/ad-placeholder-010.jpg'
 
 const SCRIPT_URL =
 	'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
@@ -53,10 +57,48 @@ const IMAGES = [
 		photographer: 'Riley',
 		link:
 			'https://unsplash.com/@rldgs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'
+	},
+	{
+		src: Img6,
+		alt:
+			'white building under white clouds during daytime at Sheikh Zayed Grand Mosque Center',
+		photographer: 'Razvan Horhat',
+		link:
+			'https://unsplash.com/@liveauthentic?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'
+	},
+	{
+		src: Img7,
+		alt: 'shooting star between twinkling stars in dusk sky',
+		photographer: 'Diego PH',
+		link:
+			'https://unsplash.com/@jdiegoph?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'
+	},
+	{
+		src: Img8,
+		alt: 'orange jellyfish in water during daytime',
+		photographer: 'Trae Gould',
+		link:
+			'https://unsplash.com/@trae_waves?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'
+	},
+	{
+		src: Img9,
+		alt: 'two mountains around Lake Louise, Canada',
+		photographer: 'Daniel Roe',
+		link:
+			'https://unsplash.com/@danielroe?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'
+	},
+	{
+		src: Img10,
+		alt: 'group of people walking on an alley in Købmagergade, Denmark',
+		photographer: 'Andreas Dress',
+		link:
+			'https://unsplash.com/@andreasdress?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'
 	}
 ]
 
-function Placeholder() {
+function Placeholder({ isEnabled }) {
+	const reason = isEnabled ? 'a network error occured' : "you've disabled them"
+
 	const { src, alt, photographer, link } = IMAGES[
 		Math.floor(Math.random() * IMAGES.length)
 	]
@@ -71,9 +113,8 @@ function Placeholder() {
 				</span>
 			</div>
 			<span>
-				We couldn't load ads because you've disabled them or a network error
-				occurred, so here's a beautiful picture instead, handpicked by our
-				developers.
+				We couldn't load ads because {reason}, so here's a beautiful picture
+				instead, handpicked by our developers.
 			</span>
 		</div>
 	)
@@ -91,11 +132,10 @@ function Ads({ isEnabled }) {
 			.catch(() => setBlocked(true))
 	}, [])
 
-	if (!isEnabled) return null
 	return (
 		<>
 			<Container className={styles.ads}>
-				{isBlocked ? <Placeholder /> : null}
+				{isBlocked ? <Placeholder isEnabled={isEnabled} /> : null}
 				<script data-ad-client='ca-pub-4278004686608414' async>
 					{script}
 				</script>
