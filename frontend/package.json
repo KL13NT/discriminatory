@@ -98,6 +98,7 @@
 		"react": "^16.13.1",
 		"react-contextmenu": "^2.14.0",
 		"react-dom": "^16.13.1",
+		"react-intl": "^5.4.5",
 		"react-router-dom": "^5.1.2",
 		"react-tabs": "^3.1.1",
 		"zustand": "^2.2.3"
