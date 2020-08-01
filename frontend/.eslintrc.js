@@ -23,8 +23,18 @@ module.exports = {
 	},
 	plugins: ['react', 'jsx-a11y', 'sort-destructure-keys', 'react-hooks'],
 	rules: {
+		'react/no-unescaped-entities': 0,
 		'react/jsx-curly-spacing': 0,
 		'prefer-rest-params': 0,
+		'react/prop-types': 0,
+		'no-unused-vars': 1,
+		'no-whitespace-before-property': 2,
+		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+		'object-curly-spacing': ['error', 'always'],
+		'comma-dangle': ['error', 'never'],
+		semi: ['error', 'never'],
+		'block-spacing': [2, 'always'],
+		'arrow-spacing': ['error', { before: true, after: true }],
 		quotes: [
 			'error',
 			'single',
@@ -32,8 +42,6 @@ module.exports = {
 				avoidEscape: true
 			}
 		],
-		semi: ['error', 'never'],
-		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'no-unused-vars': [
 			'error',
 			{
@@ -47,8 +55,6 @@ module.exports = {
 				keywords: false
 			}
 		],
-		'object-curly-spacing': ['error', 'always'],
-		'no-whitespace-before-property': 2,
 		'space-unary-ops': [
 			2,
 			{
@@ -76,11 +82,6 @@ module.exports = {
 				destructuring: 'any',
 				ignoreReadBeforeAssign: false
 			}
-		],
-		'comma-dangle': ['error', 'never'],
-		'react/prop-types': 0,
-		'arrow-spacing': ['error', { before: true, after: true }],
-		'block-spacing': [2, 'always'],
-		'no-unused-vars': 1
+		]
 	}
 }
