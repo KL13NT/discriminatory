@@ -1,0 +1,1 @@
+import('./landing.global.sass')

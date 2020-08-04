@@ -1,25 +1,29 @@
+const Webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssets = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 const imageminMozjpeg = require('imagemin-mozjpeg')
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MinifyPlugin = require('babel-minify-webpack-plugin')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
 	mode: 'production',
 	devtool: '',
 
 	entry: {
-		index: path.resolve(__dirname, './src/index.js')
+		index: path.resolve(__dirname, './src/index.js'),
+		pages: path.resolve(__dirname, './src/pages/index.js')
 	},
 
 	output: {
 		libraryTarget: 'umd',
-		filename: '[name].prod.js',
+		filename: '[name].js',
 		path: path.resolve(__dirname, 'build')
 	},
 
@@ -40,7 +44,8 @@ module.exports = {
 			{
 				test: /\.jsx?$/i,
 				exclude: path.resolve(__dirname, 'node_modules'),
-				use: ['babel-loader']
+				use: ['babel-loader'],
+				resolve: { extensions: ['.js', '.jsx'] }
 			},
 			{
 				test: /\.module\.sass$/i,
@@ -77,7 +82,7 @@ module.exports = {
 			{
 				test: /\.tokens\.sass$/i,
 				use: [
-					'style-loader',
+					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
 						options: {
@@ -105,27 +110,38 @@ module.exports = {
 			},
 			{
 				test: /\.pug/i,
-				use: ['html-loader', 'pug-html-loader']
+				use: ['pug-loader']
 			}
 		]
 	},
 
 	plugins: [
+		new CleanWebpackPlugin({
+			verbose: true,
+			cleanStaleWebpackAssets: false
+		}),
+		new MinifyPlugin({}, { comments: false }),
 		new MiniCssExtractPlugin({
-			filename: '[name].css'
+			filename: '[chunkhash].css',
+			chunkFilename: '[chunkhash].css'
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/pages/en/index.pug',
-			inject: 'body'
+			filename: 'en.html',
+			excludeChunks: ['js'],
+			chunks: ['css']
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/pages/ar/index.pug',
-			inject: 'body'
+			filename: 'ar.html',
+			excludeChunks: ['js'],
+			chunks: ['css']
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/index.pug', //in order to include multiple templates make sure to use multiple instances of the plugin
-			inject: 'body'
+			inject: false
 		}),
+		// new HtmlWebpackExcludeAssetsPlugin(),
 		new CompressionPlugin({
 			test: /\.(js|png|jpg|webp|css|jpeg)$/i,
 			cache: true,
@@ -133,28 +149,31 @@ module.exports = {
 			threshold: 4096,
 			deleteOriginalAssets: false
 		}),
-		new ImageminPlugin({
-			minFileSize: 2024 * 20,
-			pngquant: { quality: '40-40' },
-			plugins: [imageminMozjpeg({ quality: 30 })]
-		}),
+		// new ImageminPlugin({
+		// 	minFileSize: 2024 * 20,
+		// 	pngquant: { quality: '40-40' },
+		// 	plugins: [imageminMozjpeg({ quality: 85 })]
+		// }),
 		new ImageminWebpWebpackPlugin({
 			config: [{ test: /\.(jpe?g|png)/, options: { quality: 60 } }]
 		}),
-		new CopyWebpackPlugin([{ from: './static/', to: './' }])
+		new Webpack.DefinePlugin({
+			'process.env': { NODE_ENV: JSON.stringify('production') }
+		})
 	],
 
 	optimization: {
-		minimizer: [
-			new OptimizeCssAssets(),
-			new UglifyJsPlugin({
-				cache: true,
-				parallel: true,
-				sourceMap: false
-			})
-		],
+		minimizer: [new OptimizeCssAssets()],
 		splitChunks: {
-			chunks: 'all'
+			chunks: 'all',
+			cacheGroups: {
+				js: {
+					test: /js$/
+				},
+				css: {
+					test: /css/
+				}
+			}
 		}
 	}
 }

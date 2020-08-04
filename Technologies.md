@@ -9,7 +9,7 @@ This document describes the languages, frameworks, libraries, tools, and configu
 - React
 - Sass (CSSModules)
 
-- Theming - React.Context
+- Theming - Stores & Sass Variables
 - ReCaptcha protection
 - Gatsby image lazy load
 - Initial load < 5mb
@@ -21,7 +21,6 @@ This document describes the languages, frameworks, libraries, tools, and configu
 #### Routing
 
 - React Router
-- `/settings` is a sub router or nested path, whichever is easier to manage and more scalable
 
 #### Static Pages
 

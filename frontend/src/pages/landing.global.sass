@@ -1,0 +1,173 @@
+@import '../components/Button/Button.module'
+@import '../style/base.global'
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400900&display=swap')
+
+body
+	background: #F8F4ED
+	color: black
+	font-family: "Playfair Display", serif
+	scrollbar-width: initial
+	-ms-overflow-style: initial
+	scrollbar-width: initial
+	-ms-overflow-style: initial
+
+*
+	font-display: swap
+
+a
+	color: white
+
+.m-navbar
+	position: absolute
+	top: 0
+	width: 100%
+	padding: 20px
+	display: flex
+	align-items: center
+
+	> a
+		color:#fff
+		font-size: var(--font-size-h6)
+
+	> img
+		flex-basis: 100%
+		height:60px
+
+.m-header
+	color:#fff
+	height:90vh
+	background: url('./static/landing-01.jpg')
+	background-size: cover
+	background-blend-mode: lighten
+
+	> div
+		color: #fff
+		height: 100%
+		width: 100%
+		background: rgba(0,0,0,.5)
+		text-align: center
+		padding: 10px
+		display: flex
+		flex-direction: column
+		align-items: center
+		justify-content: space-evenly
+
+.m-header-text
+	text-align: center
+	width: 50%
+	margin-top: 50px
+
+	> h1
+		margin: 10px 0
+		font-size: calc(var(--font-size-h1) * 2)
+		font-family: 'Playfair Display', sans-serif
+
+	> p
+		margin: 5px 0
+		font-family: 'Raleway', sans-serif
+		font-size: var(--font-size-h6)
+
+.button
+	margin: 5px 0
+	display: flex
+	justify-content: center
+	align-items: center
+
+.header-links > a:nth-of-type(2)
+	color: #ffffffd6
+
+
+.c-section
+	margin: 40px auto
+	width: 95%
+	padding: 20px
+	display: flex
+	justify-content: space-between
+
+.c-section-text
+	width: 60%
+	padding: 40px 0
+	margin: 0 20px
+
+	> p
+		font-family: 'Raleway', sans-serif
+		font-size: var(--font-size-h4)
+
+	> p:nth-of-type(1)
+		line-height: 50px
+		margin: 0 0 40px 0
+
+	> p:nth-of-type(2)
+		font-family: 'Playfair Display', serif
+		font-size: var(--font-size-h6)
+
+.c-section-img
+	> img
+		width: 100%
+		height: 100%
+		object-fit: cover
+
+.c-section-img:nth-of-type(2)
+	height: 95vh
+	width: 70%
+
+.c-section:nth-of-type(3)
+	> .c-section-text
+		width: 50%
+		margin: 10px 0
+		padding: 0
+
+		> p
+			line-height: inherit
+			text-align: center
+			font-size: var(--font-size-h4)
+
+.preview
+	height: auto
+	width: 60%
+	position: relative
+
+	> .preview-img:nth-of-type(2)
+		top: 10%
+		right: -40px
+		position: absolute
+
+.preview-img
+	background: #6F5AF1
+	padding: 5px
+	border-radius: 10px
+
+	> img
+		width: 100%
+		height: 400px
+		object-fit: cover
+		border-radius: 10px
+
+
+.big
+	font-size: calc(var(--font-size-h1) * 2.2)
+	font-family: 'Playfair Display', serif
+
+.bold
+	font-weight: bold
+
+.forwards
+	flex-direction: row
+
+.backwards
+	flex-direction: row-reverse
+
+.vertical
+	flex-direction: column
+	align-items: center
+
+.c-tagline
+	text-align: center
+	margin: 0px 0 40px 0
+
+	> img
+		height: 60px

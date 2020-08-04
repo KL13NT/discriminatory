@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import Router from './router.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
 
-import './style/base.global.sass'
+import('./style/base.global.sass')
 
 const root = document.querySelector('#root')
 

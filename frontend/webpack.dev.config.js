@@ -7,13 +7,14 @@ module.exports = {
 	devtool: 'source-map',
 
 	entry: {
-		index: path.resolve(__dirname, './src/index.js')
+		index: path.resolve(__dirname, './src/index.js'),
+		pages: path.resolve(__dirname, './src/pages/index.js')
 	},
 
 	output: {
 		libraryTarget: 'umd',
 		filename: '[name].dev.js',
-		path: path.resolve(__dirname, 'build_dev'),
+		path: path.resolve(__dirname, 'build'),
 		publicPath: '/'
 	},
 
@@ -44,7 +45,8 @@ module.exports = {
 					{
 						loader: 'source-map-loader'
 					}
-				]
+				],
+				resolve: { extensions: ['.js', '.jsx'] }
 			},
 
 			{
@@ -112,7 +114,7 @@ module.exports = {
 
 			{
 				test: /\.pug/i,
-				use: ['html-loader', 'pug-html-loader']
+				use: ['pug-loader']
 			}
 		]
 	},
@@ -120,16 +122,16 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
-			template: './src/pages/en/index.pug', //in order to include multiple templates make sure to use multiple instances of the plugin
-			inject: 'body'
+			template: './src/pages/en/index.pug',
+			filename: 'en.html'
 		}),
 		new HtmlWebpackPlugin({
-			template: './src/pages/ar/index.pug', //in order to include multiple templates make sure to use multiple instances of the plugin
-			inject: 'body'
+			template: './src/pages/ar/index.pug',
+			filename: 'ar.html'
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/index.pug', //in order to include multiple templates make sure to use multiple instances of the plugin
-			inject: 'body'
+			inject: false
 		})
 	],
 
