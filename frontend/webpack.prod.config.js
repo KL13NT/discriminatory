@@ -3,13 +3,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssets = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
-const ImageminPlugin = require('imagemin-webpack-plugin').default
-const imageminMozjpeg = require('imagemin-mozjpeg')
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MinifyPlugin = require('babel-minify-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+
+// const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin')
+// const ImageminPlugin = require('imagemin-webpack-plugin').default
+// const imageminMozjpeg = require('imagemin-mozjpeg')
 // const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
@@ -101,7 +103,8 @@ module.exports = {
 
 			{
 				test: /\.(svg)$/i,
-				use: ['@svgr/webpack', 'file-loader'] // this provies startUrl when importing, and ReactComponent as inline
+				// import default, {ReactComponent as SVGComponent} from '<img>'
+				use: ['@svgr/webpack', 'file-loader']
 			},
 
 			{
@@ -121,10 +124,7 @@ module.exports = {
 			cleanStaleWebpackAssets: false
 		}),
 		new MinifyPlugin({}, { comments: false }),
-		new MiniCssExtractPlugin({
-			filename: '[chunkhash].css',
-			chunkFilename: '[chunkhash].css'
-		}),
+		new MiniCssExtractPlugin({}),
 		new HtmlWebpackPlugin({
 			template: './src/pages/en/index.pug',
 			filename: 'en.html',
@@ -138,10 +138,8 @@ module.exports = {
 			chunks: ['css']
 		}),
 		new HtmlWebpackPlugin({
-			template: './src/index.pug', //in order to include multiple templates make sure to use multiple instances of the plugin
-			inject: false
+			template: './src/index.pug'
 		}),
-		// new HtmlWebpackExcludeAssetsPlugin(),
 		new CompressionPlugin({
 			test: /\.(js|png|jpg|webp|css|jpeg)$/i,
 			cache: true,
@@ -149,13 +147,14 @@ module.exports = {
 			threshold: 4096,
 			deleteOriginalAssets: false
 		}),
+		// new HtmlWebpackExcludeAssetsPlugin(),
 		// new ImageminPlugin({
 		// 	minFileSize: 2024 * 20,
 		// 	pngquant: { quality: '40-40' },
 		// 	plugins: [imageminMozjpeg({ quality: 85 })]
 		// }),
 		new ImageminWebpWebpackPlugin({
-			config: [{ test: /\.(jpe?g|png)/, options: { quality: 60 } }]
+			config: [{ test: /\.(jpe?g|png)/, options: { quality: 85 } }]
 		}),
 		new Webpack.DefinePlugin({
 			'process.env': { NODE_ENV: JSON.stringify('production') }
