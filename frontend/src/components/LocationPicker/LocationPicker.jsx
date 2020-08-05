@@ -19,7 +19,7 @@ function LocationPicker({ onPick, ...props }) {
 
 	useEffect(() => {
 		onPick(location)
-	}, [location])
+	}, [location]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const onSubmit = e => {
 		e.preventDefault()
@@ -31,7 +31,7 @@ function LocationPicker({ onPick, ...props }) {
 		// TODO: should load send requests on change here
 	}
 
-	const onChange = ({ currentTarget }) => {
+	const onChange = () => {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => {
 			//TODO: fetch from /locations in Mongo
