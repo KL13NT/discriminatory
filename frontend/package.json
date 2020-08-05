@@ -20,7 +20,7 @@
 		"deploy-pages": "gh-pages -d docs",
 		"lint": "eslint --ext .js,.jsx ./src --config .eslintrc.js --fix --global window",
 		"fix": "prettier --write **/*.ts",
-		"test:jest": "jest --colors --expand --logHeapUsage --config jest.config.js --verbose --coverage",
+		"test": "jest --colors --expand --logHeapUsage --config jest.config.js --verbose --coverage",
 		"cypress:open": "cypress open --config-file ./cypress-config.json",
 		"cypress:run": "cypress run --config-file ./cypress-config.json",
 		"storybook": "start-storybook --port 8080",
