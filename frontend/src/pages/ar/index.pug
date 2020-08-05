@@ -1,0 +1,54 @@
+- var tagline = require("../../assets/logo_tagline_ar.svg").default
+- var landing01 = require("../static/landing-01.jpg").default
+- var landing02 = require("../static/landing-02.jpg").default
+- var landing03 = require("../static/landing-03.jpg").default
+- var landing04 = require("../static/landing-04.jpg").default
+- var landing05 = require("../static/landing-05.jpg").default
+
+include ../components/Header.pug
+include ../components/Section.pug
+
+html(lang="ar")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		script(src="/pages.js" defer)
+		link(href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap", rel="stylesheet")
+		title Discriminatory - معاً للقضاء على التمييز
+	body(dir="rtl")
+		+Header("rtl", "ملاذك الآمن", "التمييز مشكلة يواججها الكثير يوميا. حان وقت التغيير.", "ابدأ البرنامج", "أو تصفح بدون تسجيل", "English")
+
+		+Section("rtl", "forwards")
+			.c-section-text
+				p التمييز ضار
+					span.big  نفسياً
+					|  و يُخلِّد
+					span.big.bold  عدم المساواة,
+			.c-section-img
+				img(src=landing02, loading="lazy")
+
+		+Section("rtl", "backwards")
+			.c-section-text
+				p ونملك جميعاً الحق في معاملة
+					span.big.bold  متساوية.
+				p وعلى الرغم من ذلك ما زلنا نسمع قصصاً مؤسفة عن
+					span.bold  معاناة
+					|  الكثيرين فقط لإنهم ينتمون إلى مجموعات
+					span.bold  "مختلفة"
+					|  عمن يملكون النفوذ.
+			.c-section-img
+				img(src=landing03, loading="lazy")
+
+		+Section("rtl", "vertical")
+			.c-section-text
+				p
+					img(src=logo, alt="Discriminatory")
+					|  شبكة تواصل اجتماعي تسمح لكم بالتبليغ عن المؤسسات و الأعمال القائمة على سياسات تمييزية الأصل, بينما توفر لكم الجو العام المُشجِّع.
+			.c-section-img.preview
+				.preview-img
+					img(src=landing05, loading="lazy")
+				.preview-img
+					img(src=landing04, loading="lazy")
+
+		p.c-tagline
+			img(src=tagline, alt="معاً للقضاء على التمييز.", loading="lazy")

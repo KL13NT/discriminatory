@@ -1,3 +1,4 @@
+- var logo = require("../../assets/logo_full.svg").default
 - var tagline = require("../../assets/logo_tagline.svg").default
 - var landing01 = require("../static/landing-01.jpg").default
 - var landing02 = require("../static/landing-02.jpg").default
@@ -38,7 +39,9 @@ html(lang="en")
 
 		+Section("ltr", "vertical")
 			.c-section-text
-				p Discriminatory allows you to report businesses that implement policies based on prejudice while getting the support you need.
+				p
+					img(src=logo, alt="Discriminatory")
+					|  allows you to report businesses that implement policies based on prejudice while getting the support you need.
 			.c-section-img.preview
 				.preview-img
 					img(src=landing05, loading="lazy")
