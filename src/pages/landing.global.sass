@@ -1,11 +1,6 @@
 @import '../components/Button/Button.module'
 @import '../style/base.global'
 
-// Fonts
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400700&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400900&display=swap')
-
 body
 	background: #F8F4ED
 	color: black
@@ -176,6 +171,18 @@ a
 	> img
 		max-height: 60px
 		height: 60px
+
+body[dir="rtl"]
+	a, span, p, h1, h2, h3, button
+		font-family: "Cairo", sans-serif
+
+.m-header[dir="rtl"] .m-header-text
+	> h1, > p
+		font-family: "Cairo", sans-serif
+
+.c-section[dir="rtl"] .c-section-text
+	> p, > p span
+		font-family: "Cairo", sans-serif
 
 
 @media screen and (max-width: 900px)

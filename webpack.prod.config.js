@@ -127,18 +127,20 @@ module.exports = {
 		new MiniCssExtractPlugin({}),
 		new HtmlWebpackPlugin({
 			template: './src/pages/en/index.pug',
-			filename: 'en.html',
-			excludeChunks: ['js'],
-			chunks: ['css']
+			filename: 'en/index.html',
+			excludeChunks: ['index'],
+			chunks: ['pages']
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/pages/ar/index.pug',
-			filename: 'ar.html',
-			excludeChunks: ['js'],
-			chunks: ['css']
+			filename: 'ar/index.html',
+			excludeChunks: ['index'],
+			chunks: ['pages']
 		}),
 		new HtmlWebpackPlugin({
-			template: './src/index.pug'
+			template: './src/index.pug',
+			excludeChunks: ['pages'],
+			chunks: ['index']
 		}),
 		new CompressionPlugin({
 			test: /\.(js|png|jpg|webp|css|jpeg)$/i,

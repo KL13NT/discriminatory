@@ -123,17 +123,32 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/pages/en/index.pug',
-			filename: 'en.html'
+			filename: 'en/index.html',
+			excludeChunks: ['index'],
+			chunks: ['pages']
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/pages/ar/index.pug',
-			filename: 'ar.html'
+			filename: 'ar/index.html',
+			excludeChunks: ['index'],
+			chunks: ['pages']
 		}),
 		new HtmlWebpackPlugin({
-			template: './src/index.pug', //in order to include multiple templates make sure to use multiple instances of the plugin
-			inject: false
+			template: './src/index.pug'
 		})
 	],
 
-	optimization: {}
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+			cacheGroups: {
+				js: {
+					test: /js$/
+				},
+				css: {
+					test: /css/
+				}
+			}
+		}
+	}
 }
