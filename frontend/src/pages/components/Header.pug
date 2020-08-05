@@ -1,14 +1,19 @@
 - var logo = require("../../assets/logo_full.svg").default
 
-mixin Navbar(dir, link)
+mixin Navbar(dir, link, ar)
 	.m-navbar(dir=dir)
 		img(src=logo, alt="logo")
-		a(href="/ar/")= link
 
-mixin Header(dir, header, sub, button, link, lang)
+		if(ar)
+			a(href="/ar.html")= link
+
+		else
+			a(href="/en.html")= link
+
+mixin Header(dir, header, sub, button, link, lang, ar)
 	header.m-header(dir=dir)
 		div
-			+Navbar(dir, lang)
+			+Navbar(dir, lang, ar)
 			.m-header-text
 				h1= header
 				p= sub

@@ -15,6 +15,7 @@ html(lang="ar")
 		script(src="/pages.js" defer)
 		link(href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap", rel="stylesheet")
 		title Discriminatory - معاً للقضاء على التمييز
+
 	body(dir="rtl")
 		+Header("rtl", "ملاذك الآمن", "التمييز مشكلة يواججها الكثير يوميا. حان وقت التغيير.", "ابدأ البرنامج", "أو تصفح بدون تسجيل", "English")
 
@@ -25,7 +26,7 @@ html(lang="ar")
 					|  و يُخلِّد
 					span.big.bold  عدم المساواة,
 			.c-section-img
-				img(src=landing02, loading="lazy")
+				img(src=landing02, loading="lazy", alt="امرأة تلمس بشرتها في صورة ابيض و اسود")
 
 		+Section("rtl", "backwards")
 			.c-section-text
@@ -37,7 +38,7 @@ html(lang="ar")
 					span.bold  "مختلفة"
 					|  عمن يملكون النفوذ.
 			.c-section-img
-				img(src=landing03, loading="lazy")
+				img(src=landing03, loading="lazy", alt="صورة شخص بحجاب على اعلى تلة خلف السحاب اثناء الغروب")
 
 		+Section("rtl", "vertical")
 			.c-section-text
@@ -46,9 +47,9 @@ html(lang="ar")
 					|  شبكة تواصل اجتماعي تسمح لكم بالتبليغ عن المؤسسات و الأعمال القائمة على سياسات تمييزية الأصل, بينما توفر لكم الجو العام المُشجِّع.
 			.c-section-img.preview
 				.preview-img
-					img(src=landing05, loading="lazy")
+					img(src=landing05, loading="lazy", alt="مثال للبرنامج على الحواسب")
 				.preview-img
-					img(src=landing04, loading="lazy")
+					img(src=landing04, loading="lazy", alt="مثال للبرنامج على الهواتف الذكية")
 
 		p.c-tagline
 			img(src=tagline, alt="معاً للقضاء على التمييز.", loading="lazy")

@@ -77,10 +77,6 @@ a
 	justify-content: center
 	align-items: center
 
-.header-links > a:nth-of-type(2)
-	color: #ffffffd6
-
-
 .c-section
 	margin: 40px auto
 	width: 95%
@@ -111,6 +107,9 @@ a
 		height: 100%
 		object-fit: cover
 
+.c-section:nth-of-type(1) .c-section-img
+	height: 80vh
+
 .c-section:nth-of-type(2) .c-section-img
 	height: 95vh
 	width: 70%
@@ -139,6 +138,7 @@ a
 		top: 10%
 		right: -40px
 		position: absolute
+		width: 190px
 
 .preview-img
 	background: #6F5AF1
@@ -148,7 +148,7 @@ a
 	> img
 		width: 100%
 		height: 400px
-		object-fit: cover
+		object-fit: fill
 		border-radius: 10px
 
 
