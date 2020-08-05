@@ -174,4 +174,68 @@ a
 	margin: 0px 0 40px 0
 
 	> img
+		max-height: 60px
 		height: 60px
+
+
+@media screen and (max-width: 900px)
+	.m-navbar > img
+		height: 60px
+		height: 40px
+
+	.m-navbar > a
+		font-size: var(--font-size-h6)
+		font-size: var(--font-size-l)
+
+	.m-header-text > h1
+		font-size: calc(var(--font-size-h1) * 2)
+		font-size: calc(var(--font-size-h1) * 1.4)
+
+	.m-header-text
+		width: 50%
+		width: 100%
+
+	.big
+		font-size: calc(var(--font-size-h1) * 2.2)
+		font-size: inherit
+		font-style: italic
+
+	.c-section-text > p:nth-of-type(1)
+		line-height: 50px
+		line-height: initial
+
+	.c-section:nth-of-type(3) > .c-section-text
+		width: 100%
+
+	.c-tagline
+		width: 100%
+
+	.c-tagline > img
+		width: 100%
+
+	.preview
+		width: 100%
+
+	.preview-img > img
+		height: unset
+
+	.preview-img
+		padding: 2px
+
+	.preview > .preview-img:nth-of-type(2)
+		display: none
+
+	.c-section
+		padding: unset
+
+	.c-tagline > img
+		height: unset
+
+	.preview-img > img
+		height: unset
+
+	.c-section
+		padding: unset
+
+	div.preview-img:nth-child(2) > img:nth-child(1)
+		display: none
