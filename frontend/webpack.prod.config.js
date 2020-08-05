@@ -7,12 +7,12 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MinifyPlugin = require('babel-minify-webpack-plugin')
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
+// const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 // const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin')
 // const ImageminPlugin = require('imagemin-webpack-plugin').default
 // const imageminMozjpeg = require('imagemin-mozjpeg')
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
 	mode: 'production',
@@ -153,6 +153,9 @@ module.exports = {
 		// 	pngquant: { quality: '40-40' },
 		// 	plugins: [imageminMozjpeg({ quality: 85 })]
 		// }),
+		new CopyWebpackPlugin({
+			patterns: [{ from: './_redirects', to: './build' }]
+		}),
 		new ImageminWebpWebpackPlugin({
 			config: [{ test: /\.(jpe?g|png)/, options: { quality: 85 } }]
 		}),

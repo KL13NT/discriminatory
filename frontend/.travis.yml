@@ -1,27 +1,19 @@
 language: node_js
 node_js:
   - '12.16.0'
+before_script:
+  - cd frontend
 scripts:
-  - npm install -g codecov
-  - npm run build
-before_deploy:
-  - if [ "$TRAVIS_BRANCH" = "development" ]; then npm run alpha; fi
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run release; fi
-cache:
-  directories:
-    - node_modules
+  - yarn build:storybook
 deploy:
-  provider: npm
-  email: nabil.tharwat@outlook.com
-  cleaup: false
+  provider: pages
+  local_dir: '/frontend/build'
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  cleanup: false
   skip_cleanup: true
-  api_key:
-    secure: c+lUCyJ46ZV/56GCT7edw3APNUzLhKOUERsTeyZE2wb/gM673I/dFaE6HV1klkrs98zgKW3It3zfjVoNw3oZSN+u85QRUAAMPJXDomn0ta5qywL41tk5Vn/SjYSYERdphHStXR66/0OnGq555cLbHjyGMTRoFlv/NeT1QVLDcz4O9VnG0h+Dc1vocT3Nx63k8uifLVObC5KY+V3ZrzD1e543CqsRWgH83q5ZG608VV6dzIn3UJW4ZLJDe/5bMjfud7/8c2e0ZHP/lqiDo5G1OGtl3ReN+hyFU7vLOad95P7zB0SIe6p6k+kep7M6enJHw8UsEBSRR0mxXN+W2iLrc6AGphPh4AVw0qADn/J+QKrqHtZAuNU/Nt6KPxF0ts522F24UqZrytlFgbc4oauRHdDVxejQJXvmcVgtk2n89mSYjIrCGJjQN/fK5PchNoQ637/JzKPnI4OSdezJHTOCX75s+q4QSeQSbu//Db7rm56wrtSnZ/2GmZ5AlOzBvmO2SgyZ90qqqHs2lexv00hQiSYo3BjSA/+9z+GUg0DQ4ylBxgQ4Qik8a+gJfUQgYLb39+AWgjGdFUcneu1BbH6+XB0ckkTlu++fE7BlcIG/k4EyZk4Tuhaqbo5U04+ySL+QR/X9hJxfZ/MNLFSQqNp988PqwW9QokUgBoGHoo5HSBQ=
   on:
-    tags: true
+    branch: master
 branches:
   only:
     - master
-    - development
-after_success:
-  - codecov -f ./coverage/clover.xml
