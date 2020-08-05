@@ -12,14 +12,13 @@ const registrationSchema = Joi.object({
 		.required(),
 
 	email: Joi.string()
-		.email({ minDomainSegments: 2, tlds: { allow: [ 'com', 'net' ] } })
+		.email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 		.required(),
 
 	role: Joi.string()
 		.pattern(new RegExp('(student)|(instructor)|(campus)'))
 		.required()
-})
-	.with('fullName', 'role')
+}).with('fullName', 'role')
 
 const loginSchema = Joi.object({
 	password: Joi.string()
@@ -27,9 +26,8 @@ const loginSchema = Joi.object({
 		.required(),
 
 	email: Joi.string()
-		.email({ minDomainSegments: 2, tlds: { allow: [ 'com', 'net' ] } })
+		.email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 		.required()
-})
-	.with('email', 'password')
+}).with('email', 'password')
 
 module.exports = { registrationSchema, loginSchema }

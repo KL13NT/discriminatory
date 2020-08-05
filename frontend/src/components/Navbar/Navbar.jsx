@@ -34,7 +34,7 @@ function NavbarLink({ to, name, icon: Icon }) {
 		</NavLink>
 	)
 }
-	
+
 function Navbar() {
 	return (
 		<nav className={styles.container}>
