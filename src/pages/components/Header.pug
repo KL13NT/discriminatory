@@ -5,10 +5,10 @@ mixin Navbar(dir, link, ar)
 		img(src=logo, alt="logo")
 
 		if(ar)
-			a(href="/ar.html")= link
+			a(href="/ar/")= link
 
 		else
-			a(href="/en.html")= link
+			a(href="/en/")= link
 
 mixin Header(dir, header, sub, button, link, lang, ar)
 	header.m-header(dir=dir)
