@@ -52,7 +52,7 @@ const optimization = {
 module.exports = (env, argv) => ({
 	mode: 'production',
 	devtool: '',
-	entry: entry,
+	entry,
 	output,
 	plugins,
 	optimization,

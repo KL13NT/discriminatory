@@ -46,21 +46,26 @@ const html = [
 	})
 ]
 
-const jsLoaders = mode => [
+const jsUse = mode =>
+	mode === 'development'
+		? [
+				'babel-loader',
+				{
+					loader: mode === 'development' ? 'source-map-loader' : undefined
+				}
+			]
+		: ['babel-loader']
+
+const jsRules = mode => [
 	{
 		test: /\.jsx?$/i,
 		exclude: path.resolve(__dirname, 'node_modules/'),
-		use: [
-			'babel-loader',
-			{
-				loader: mode === 'development' ? 'source-map-loader' : undefined
-			}
-		],
+		use: jsUse(mode),
 		resolve: { extensions: ['.js', '.jsx'] }
 	}
 ]
 
-const sassLoaders = mode => [
+const sassRules = mode => [
 	{
 		test: /\.module\.sass$/i,
 		use: [
@@ -110,28 +115,28 @@ const sassLoaders = mode => [
 	}
 ]
 
-const fileLoaders = [
+const fileRules = [
 	{
 		test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf)$/i,
 		use: 'file-loader'
 	}
 ]
 
-const svgLoaders = [
+const svgRules = [
 	{
 		test: /\.(svg)$/i,
 		use: ['@svgr/webpack', 'file-loader'] // this provies startUrl when importing, and ReactComponent as inline
 	}
 ]
 
-const htmlLoaders = [
+const htmlRules = [
 	{
 		test: /\.html/i,
 		use: 'html-loader'
 	}
 ]
 
-const pugLoaders = [
+const pugRules = [
 	{
 		test: /\.pug/i,
 		use: ['pug-loader']
@@ -139,12 +144,12 @@ const pugLoaders = [
 ]
 
 const loaders = mode => [
-	...jsLoaders(mode),
-	...sassLoaders(mode),
-	...fileLoaders,
-	...svgLoaders,
-	...htmlLoaders,
-	...pugLoaders
+	...jsRules(mode),
+	...sassRules(mode),
+	...fileRules,
+	...svgRules,
+	...htmlRules,
+	...pugRules
 ]
 
 module.exports = {

@@ -1,5 +1,5 @@
 const path = require('path')
-const custom = require('../webpack.dev.config')
+const { loaders } = require('../webpack.shared.config')
 
 module.exports = {
 	stories: ['../src/**/*.stories.(js|mdx)'],
@@ -17,7 +17,7 @@ module.exports = {
 			...config,
 			module: {
 				...config.module,
-				rules: custom.module.rules.map(rule => {
+				rules: loaders('development').map(rule => {
 					if (Array.isArray(rule.use) && rule.use.includes('babel-loader'))
 						rule.use.push(require.resolve('@storybook/source-loader'))
 

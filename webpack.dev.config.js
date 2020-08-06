@@ -29,17 +29,15 @@ const devServer = {
 
 const plugins = [new webpack.HotModuleReplacementPlugin(), ...html]
 
-module.exports = (env, argv) => {
-	return {
-		mode: 'development',
-		devtool: 'source-map',
-		entry,
-		output,
-		devServer,
-		plugins,
-		optimization: {},
-		module: {
-			rules: loaders(argv.mode)
-		}
+module.exports = (env, argv) => ({
+	mode: 'development',
+	devtool: 'source-map',
+	entry,
+	output,
+	devServer,
+	plugins,
+	optimization: {},
+	module: {
+		rules: loaders(argv.mode)
 	}
-}
+})
