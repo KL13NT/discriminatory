@@ -53,7 +53,7 @@ const jsUse = mode =>
 				{
 					loader: mode === 'development' ? 'source-map-loader' : undefined
 				}
-			]
+		  ]
 		: ['babel-loader']
 
 const jsRules = mode => [
