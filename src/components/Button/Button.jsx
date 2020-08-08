@@ -33,10 +33,10 @@ function Button({
 }
 
 const propTypes = {
-	onClick: PropTypes.func.isRequired,
-	disabled: PropTypes.boolean,
+	onClick: PropTypes.func,
+	disabled: PropTypes.bool,
 	className: PropTypes.string,
-	children: PropTypes.children,
+	children: PropTypes.node,
 	minimalist: PropTypes.bool,
 	variant: PropTypes.oneOf(['info', 'danger'])
 }

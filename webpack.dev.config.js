@@ -27,8 +27,6 @@ const devServer = {
 	}
 }
 
-const plugins = [new webpack.HotModuleReplacementPlugin(), ...html]
-
 module.exports = (env, argv) => {
 	return {
 		mode: 'development',
@@ -36,7 +34,16 @@ module.exports = (env, argv) => {
 		entry,
 		output,
 		devServer,
-		plugins,
+		plugins: [
+			new webpack.HotModuleReplacementPlugin(),
+			...html,
+			new webpack.DefinePlugin(
+				Object.keys(env).reduce((prev, next) => {
+					prev[`process.env.${next}`] = JSON.stringify(env[next])
+					return prev
+				}, {})
+			)
+		],
 		optimization: {},
 		module: {
 			rules: loaders(argv.mode)

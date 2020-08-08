@@ -4,8 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const entry = {
 	index: path.resolve(__dirname, './src/index.js'),
-	pages: path.resolve(__dirname, './src/pages/index.js'),
-	registration: path.resolve(__dirname, './src/pages/registration.js')
+	pages: path.resolve(__dirname, './src/pages/index.js')
+	// registration: path.resolve(__dirname, './src/pages/registration.js')
 }
 
 const html = [
@@ -21,28 +21,30 @@ const html = [
 		excludeChunks: ['index'],
 		chunks: ['pages']
 	}),
+	// new HtmlWebpackPlugin({
+	// 	template: './src/pages/ar/register.pug',
+	// 	filename: 'ar/register/index.html',
+	// 	excludeChunks: ['index', 'pages']
+	// }),
+	// new HtmlWebpackPlugin({
+	// 	template: './src/pages/en/register.pug',
+	// 	filename: 'en/register/index.html',
+	// 	excludeChunks: ['index', 'pages']
+	// }),
+	// new HtmlWebpackPlugin({
+	// 	template: './src/pages/ar/login.pug',
+	// 	filename: 'ar/login/index.html',
+	// 	excludeChunks: ['index', 'pages']
+	// }),
+	// new HtmlWebpackPlugin({
+	// 	template: './src/pages/en/login.pug',
+	// 	filename: 'en/login/index.html',
+	// 	excludeChunks: ['index', 'pages']
+	// }),
 	new HtmlWebpackPlugin({
-		template: './src/pages/ar/register.pug',
-		filename: 'ar/register/index.html',
-		excludeChunks: ['index', 'pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/en/register.pug',
-		filename: 'en/register/index.html',
-		excludeChunks: ['index', 'pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/ar/login.pug',
-		filename: 'ar/login/index.html',
-		excludeChunks: ['index', 'pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/en/login.pug',
-		filename: 'en/login/index.html',
-		excludeChunks: ['index', 'pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/index.pug'
+		template: './src/index.pug',
+		excludeChunks: ['pages'],
+		chunks: ['index']
 	})
 ]
 
@@ -51,7 +53,7 @@ const jsLoaders = mode => [
 		test: /\.jsx?$/i,
 		exclude: path.resolve(__dirname, 'node_modules/'),
 		use: [
-			'babel-loader',
+			{ loader: 'babel-loader', options: { cacheDirectory: true } },
 			{
 				loader: mode === 'development' ? 'source-map-loader' : undefined
 			}

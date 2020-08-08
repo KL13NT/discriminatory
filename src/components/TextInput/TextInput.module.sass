@@ -27,7 +27,7 @@
 	position: relative
 
 
-.input:invalid
+.input:not(:placeholder-shown):invalid
 	background: var(--color-danger--hover)
 	box-shadow: none
 
@@ -36,6 +36,9 @@
 	border-radius: 0
 	background: transparent
 	padding: 0
+	font-size: var(--font-size-xl)
+	margin: 40px 0
 
 	input
+		border-radius: 0
 		padding: 5px

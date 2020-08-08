@@ -1,45 +1,62 @@
-@import './landing.global'
-@import '../components/TextInput/TextInput.module'
+body
+	background: #F8F4ED
+	color: black
+	scrollbar-width: initial
+	-ms-overflow-style: initial
+	scrollbar-width: initial
+	-ms-overflow-style: initial
+
 
 :root
-	--color-primary: black
+	//TODO: FIX THIS BS
+	--color-primary: black !important
+	--font-family: "Raleway", sans-serif
 
 a
 	color: var(--color-links)
 
-.m-navbar a
+.navbar a
 	color: black
 	float: left
 
-.m-submission
+.register
 	width: 80%
 	margin: 0 auto
 	display: flex
 	justify-content: center
 	height: 100vh
 
-.m-submission[dir="ltr"]
-	h1, p, span, img, input, button, .m-submission-header, .m-submission-form
+.register[dir="ltr"]
+	h1, p, span, img, input, button, .header, .form
 		font-family: 'Raleway', sans-serif
 
-	.m-submission-header
+	.header
 		> h1
 			font-family: 'Bebas Neue', cursive
 			text-transform: uppercase
 			font-size: calc(var(--font-size-h1) * 2)
 
-.m-submission[dir="rtl"]
-	h1, p, span, img, input, button, .m-submission-header, .m-submission-form
+.register[dir="rtl"]
+	h1, p, span, img, input, button, .header, .form
 		font-family: 'Cairo', sans-serif
 
-	.m-submission-header
+	.header
 		> h1
 			font-family: 'Cairo', sans-serif
 			text-transform: uppercase
 			font-size: auto
 
-.m-submission-header
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0,0,0,0.5) 100%), url('./static/form.jpg')
+
+body[dir="rtl"]
+	a, span, p, h1, h2, h3, button, input
+		font-family: "Cairo", sans-serif
+
+.header[dir="rtl"] .header-text
+	> h1, > p
+		font-family: "Cairo", sans-serif
+
+.header
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0,0,0,0.5) 100%), url('../media/form.jpg')
 	height: 100%
 	width: 100%
 	display: flex
@@ -56,6 +73,7 @@ a
 
 	img, h1, span
 		color: white
+		font-family: Bebas Neue, cursive
 
 	span
 		font-size: var(--font-size-l)
@@ -66,38 +84,22 @@ a
 		width: 80%
 		line-height: 60px
 
-.m-submission-form
+.form
 	width: 40%
 	display: flex
 	flex-direction: column
 	margin: 0
 	padding: 20px
 
-	> div
+	> div:nth-of-type(1)
 		margin: 10% 0 0 0
 
 		> h1
-			font-family: inherit
+			font-family: "Raleway", sans-serif
 			font-weight: 900
 
 		> span
 				font-size: var(--font-size-xl)
 
-	> form
+	> div:nth-of-type(2)
 		margin: 5% 0 10% 0
-
-.button.minimalist
-	text-align: start
-	justify-content: flex-start
-	margin: 20% 0 20px
-	padding: 0
-	font-weight: 900
-	font-size: var(--font-size-xl)
-
-.container.minimalist
-	border-bottom: solid 1px var(--color-alternative)
-	border-radius: 0
-	background: transparent
-	padding: 0
-	font-size: var(--font-size-xl)
-	margin: 40px 0

@@ -47,9 +47,13 @@ export default class Router extends React.Component {
 				{this.props.children}
 				<Switch>
 					{routes.map(route => {
-						if (route.requiresLogin)
-							return <PrivateRoute exact {...route} key={route.name} />
-						else return <PublicRoute exact {...route} key={route.name} />
+						return (
+							<Route
+								path={route.path}
+								key={route.path}
+								component={route.component}
+							/>
+						)
 					})}
 				</Switch>
 			</BrowserRouter>

@@ -1,10 +1,18 @@
-import React from 'react'
+import client from 'firebase'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
+import { createClient, Provider } from 'urql'
+
+import('./style/base.global.sass')
 
 import Router from './router.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
+import { LoadingPage } from './components/Loading/LoadingPage.jsx'
 
-import('./style/base.global.sass')
+import config from '../client.firebase.json'
+
+client.initializeApp(config)
+const graphql = createClient({ url: `http://${process.env.api}/graphql` })
 
 const root = document.querySelector('#root')
 
@@ -17,9 +25,11 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
-				<Router>
-					<Navbar />
-				</Router>
+				<Provider value={graphql}>
+					<Suspense fallback={<LoadingPage />}>
+						<Router>{this.props.user ? <Navbar /> : null}</Router>
+					</Suspense>
+				</Provider>
 			</>
 		)
 	}

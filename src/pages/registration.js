@@ -1,1 +1,0 @@
-import './registration.global.sass'

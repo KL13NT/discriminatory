@@ -1,22 +1,23 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 
+const Register = React.lazy(() => import('../views/register'))
+const Login = React.lazy(() => import('../views/login'))
+
 const routes = [
 	{
 		path: '/register', // Route path
 		name: 'Register',
-		component: () => 'Register',
+		component: Register,
 		requiresLogin: false, // Requires loggin in
-		anonymousOnly: true, // Whether path go home when login
-		redirectTo: '/'
+		anonymousOnly: false // Whether path go home when login
 	},
 	{
 		path: '/login',
 		name: 'Login',
-		component: () => 'Login',
+		component: Login,
 		requiresLogin: false,
-		anonymousOnly: true,
-		redirectTo: '/'
+		anonymousOnly: false
 	},
 
 	{
