@@ -36,7 +36,7 @@ function NavbarLink({ to, name, icon: Icon }) {
 }
 
 function PrivateLink({ user, ...props }) {
-	if (!user) return null
+	if (!user || !user.emailVerified) return null
 	else return <NavbarLink {...props} />
 }
 

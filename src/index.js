@@ -12,7 +12,6 @@ import { ToastContainer } from './components/Toast/Toast.jsx'
 import config from '../client.firebase.json'
 import { useAuth } from './stores/auth.js'
 import { useToasts } from './components/Toast/Toast.jsx'
-import Navbar from './components/Navbar/Navbar.jsx'
 
 client.initializeApp(config)
 const graphql = createClient({ url: `http://${process.env.api}/graphql` })
@@ -30,8 +29,12 @@ function App() {
 
 	useEffect(() => {
 		client.auth().onAuthStateChanged(user => {
-			if (user && user.emailVerified) setUser(user)
-			else add({ type: 'warn', text: 'Verify your email to use the service' })
+			if (!user) return
+
+			setUser(user)
+
+			if (!user.emailVerified)
+				add({ type: 'warn', text: 'Verify your email to use the service' })
 		})
 	}, [])
 

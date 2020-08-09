@@ -13,8 +13,10 @@ import Navbar from './components/Navbar/Navbar'
 import routes from './config/routes'
 
 export const PrivateRoute = ({ component: Component, user, ...rest }) => {
-	if (user) return <Route component={Component} {...rest} />
-	else return <Redirect to='/login' />
+	if (user) {
+		if (user.emailVerified) return <Route component={Component} {...rest} />
+		else return <Redirect to='/explore' />
+	} else return <Redirect to='/login' />
 }
 
 export const SharedRoute = ({ component: Component, ...rest }) => {
