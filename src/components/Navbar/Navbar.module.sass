@@ -1,10 +1,10 @@
 :global
 	.active span
-		color: var(--color-active) !important
+		color: var(--color-blue-lighter) !important
 	.active svg
-		fill: var(--color-active) !important
+		fill: var(--color-blue-lighter) !important
 		path
-			fill: var(--color-active) !important
+			fill: var(--color-blue-lighter) !important
 
 .container
 	width: 100%
@@ -57,12 +57,14 @@
 		path
 			fill: #FFFFFF
 			transition: fill 0.25s
-	&:hover, &:active
-		background-color: var(--color-active--hover)
+	&:hover
+		filter: var(--brightness-hover)
+	&:active
+		filter: var(--brightness-active)
 		span
-			color: var(--color-active)
+			color: var(--color-blue-lighter)
 		svg, svg path
-			fill: var(--color-active) !important
+			fill: var(--color-blue-lighter) !important
 .compose
 	height: 50px
 	width: 50px

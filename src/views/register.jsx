@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import { useMutation } from 'urql'
 
 import TextInput from '../components/TextInput/TextInput'
 import Button from '../components/Button/Button'
@@ -10,47 +9,59 @@ import Button from '../components/Button/Button'
 import styles from './register.module.sass'
 import logo from '../assets/logo_small.svg'
 
+import firebase from 'firebase'
+import { useState } from 'react'
+import { useToasts } from '../components/Toast/Toast'
+
 function Register() {
-	const [result, register] = useMutation(`
-	mutation RegisterMutation($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!){
-			register (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location) {
-				id
-			}
-	}`)
+	// const [result, register] = useMutation(`
+	// mutation RegisterMutation($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $password: String!){
+	// 		register (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, password: $password) {
+	// 			id
+	// 		}
+	// }`)
+	const [fetching, setFetching] = useState(false)
+	const [verificationSent, setVerificationSent] = useState(false)
+	const { add } = useToasts()
 
 	useEffect(() => {
-		console.log(result)
-	}, [result, register])
+		if (fetching) add({ text: 'Attempting to register', type: 'info' })
+	}, [fetching, add])
 
 	const onSubmit = e => {
 		e.preventDefault()
 
 		const data = new FormData(e.target)
 		const body = {
-			displayName: data.get('name'),
 			email: data.get('email'),
-			dateofbirth: data.get('dateofbirth'),
-			location: data.get('location')
+			password: data.get('password')
 		}
 
-		try {
-			register(body)
-			// firebase
-			// 	.auth()
-			// 	.createUserWithEmailAndPassword(body.email, body.password)
-			// 	.then(({ user }) => {
-			// 		register({ displayName: body.displayName, uid: user.uid }).then(
-			// 			() => {
-			// 				alert('Registration successful, you can login now')
-			// 			}
-			// 		)
-			// 	})
-			// 	.catch(err => {
-			// 		console.log(err)
-			// 	})
-		} catch (err) {
-			console.log(result)
-		}
+		setFetching(true)
+
+		firebase
+			.auth()
+			.createUserWithEmailAndPassword(body.email, body.password)
+			.then(() => {
+				firebase
+					.auth()
+					.currentUser.sendEmailVerification()
+					.then(() => {
+						setVerificationSent(true)
+						add({
+							type: 'success',
+							text: 'A verification link has been sent to your email.'
+						})
+					})
+			})
+			.catch(err => {
+				add({ type: 'danger', text: err.message })
+			})
+	}
+
+	const resend = e => {
+		e.preventDefault()
+		firebase.auth().currentUser.sendEmailVerification()
 	}
 
 	return (
@@ -69,8 +80,6 @@ function Register() {
 				<link href='/pages.css' rel='stylesheet' />
 				<title>Discriminatory - Register</title>
 			</Helmet>
-			{result.fetching ? 'Fetching' : null}
-			{result.error ? console.log(result.error) : null}
 
 			<header className={styles.register} dir={'ltr'}>
 				<div className={styles.header}>
@@ -91,17 +100,6 @@ function Register() {
 					</div>
 
 					<div>
-						<label htmlFor='name'>Name</label>
-						<TextInput
-							minimalist
-							type='text'
-							name='name'
-							id='name'
-							minLength='4'
-							maxLength='36'
-							required
-							placeholder='John Doe'
-						/>
 						<label htmlFor='email'>Email</label>
 						<TextInput
 							minimalist
@@ -113,30 +111,33 @@ function Register() {
 							required
 							placeholder='example@example.com'
 						/>
-						<label htmlFor='dateofbirth'>Date of birth</label>
+						<label htmlFor='password'>Password</label>
 						<TextInput
 							minimalist
-							type='date'
-							name='dateofbirth'
-							id='dateofbirth'
-							minLength='4'
+							type='password'
+							name='password'
+							id='password'
+							minLength='8'
 							maxLength='50'
 							required
-						/>
-						<label htmlFor='location'>Location</label>
-						<TextInput
-							minimalist
-							type='text'
-							name='location'
-							id='location'
-							placeholder='The Spiderverse'
-							required
+							placeholder='********'
 						/>
 						<Button type='submit' minimalist>
 							Continue
 						</Button>
+
+						{verificationSent ? (
+							<span>
+								Verification email not sent?
+								<button className='u-link' onClick={resend}>
+									Try again
+								</button>
+								<br />
+							</span>
+						) : null}
+
 						<span className={styles.disclaimer}>
-							By clicking Continue, I confirm that I have read and agree to the
+							By clicking Continue, I confirm that I have read and agree to the{' '}
 							<a href='/terms'>Terms Of Service</a>,{' '}
 							<a href='/privacy'>Privacy Policy</a>, and to receive emails and
 							updates.

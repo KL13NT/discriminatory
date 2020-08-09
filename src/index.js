@@ -1,15 +1,18 @@
 import client from 'firebase'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { createClient, Provider } from 'urql'
 
 import('./style/base.global.sass')
 
 import Router from './router.jsx'
-import Navbar from './components/Navbar/Navbar.jsx'
 import { LoadingPage } from './components/Loading/LoadingPage.jsx'
+import { ToastContainer } from './components/Toast/Toast.jsx'
 
 import config from '../client.firebase.json'
+import { useAuth } from './stores/auth.js'
+import { useToasts } from './components/Toast/Toast.jsx'
+import Navbar from './components/Navbar/Navbar.jsx'
 
 client.initializeApp(config)
 const graphql = createClient({ url: `http://${process.env.api}/graphql` })
@@ -21,18 +24,25 @@ if (process.env.NODE_ENV !== 'production') {
 	axe(React, ReactDOM, 1000)
 }
 
-class App extends React.Component {
-	render() {
-		return (
-			<>
-				<Provider value={graphql}>
-					<Suspense fallback={<LoadingPage />}>
-						<Router>{this.props.user ? <Navbar /> : null}</Router>
-					</Suspense>
-				</Provider>
-			</>
-		)
-	}
+function App() {
+	const { user, setUser } = useAuth()
+	const { add } = useToasts()
+
+	useEffect(() => {
+		client.auth().onAuthStateChanged(user => {
+			if (user && user.emailVerified) setUser(user)
+			else add({ type: 'warn', text: 'Verify your email to use the service' })
+		})
+	}, [])
+
+	return (
+		<Provider value={graphql}>
+			<Suspense fallback={<LoadingPage />}>
+				<ToastContainer />
+				<Router user={user} />
+			</Suspense>
+		</Provider>
+	)
 }
 
 ReactDOM.render(<App />, root)

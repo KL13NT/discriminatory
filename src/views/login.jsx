@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { auth } from 'firebase'
@@ -8,6 +8,8 @@ import Button from '../components/Button/Button'
 
 import styles from './register.module.sass'
 import logo from '../assets/logo_small.svg'
+import { useToasts } from '../components/Toast/Toast'
+import { useQuery } from 'urql'
 
 const actionCodeSettings = {
 	url: 'https://discriminatorynetwork.netlify.app/verify',
@@ -15,20 +17,44 @@ const actionCodeSettings = {
 }
 
 function Login() {
+	// const [result, login] = useQuery(`
+	// 	mutation LoginMutation ($email: String!){
+	// 		mutation login (email: $email){
+	// 			token
+	// 		}
+	// 	}
+	// `)
+	const [fetching, setFetching] = useState(false)
+	const { add } = useToasts()
+
+	useEffect(() => {
+		if (fetching) add({ text: 'Attempting to login', type: 'info' })
+	}, [fetching, add])
+
 	const onSubmit = e => {
 		e.preventDefault()
 
 		const data = new FormData(e.target)
 		const email = data.get('email')
+		const password = data.get('password')
+
+		setFetching(true)
+
+		// login({ email })
 
 		auth()
-			.sendSignInLinkToEmail(email, actionCodeSettings)
-			.then(() => {
-				window.localStorage.setItem('emailForSignIn', email)
-				//TODO: add info
+			.signInWithEmailAndPassword(email, password)
+			.then(user => {
+				add({
+					text: 'Login successful, redirecting you',
+					type: 'success'
+				})
 			})
 			.catch(error => {
-				console.log(error)
+				add({
+					text: error.message,
+					type: 'danger'
+				})
 			})
 	}
 
@@ -69,23 +95,29 @@ function Login() {
 					</div>
 
 					<div>
+						<label htmlFor='email'>Email</label>
 						<TextInput
-							minimalist
 							type='email'
 							name='email'
 							minLength='4'
 							maxLength='50'
 							required
-							placeholder='Enter your email'
+							minimalist
+							placeholder='example@example.com'
+						/>
+						<label htmlFor='password'>Password</label>
+						<TextInput
+							type='password'
+							name='password'
+							minLength='8'
+							maxLength='50'
+							required
+							minimalist
+							placeholder='********'
 						/>
 						<Button type='submit' minimalist>
 							Continue
 						</Button>
-						<span className={styles.disclaimer}>
-							A link will be sent to your email. Clicking it will sign you in
-							and verify your account. You'll be redirected to the home page
-							automatically.
-						</span>
 					</div>
 				</form>
 			</header>

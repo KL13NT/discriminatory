@@ -28,7 +28,7 @@ function Toast({ type, text, remove }) {
 		setTimeout(() => {
 			setDismiss(true)
 			setTimeout(dismiss, 500)
-		}, 3000)
+		}, 5000)
 	})
 
 	return (
@@ -44,6 +44,7 @@ function Toast({ type, text, remove }) {
 			<button onClick={dismiss}>
 				<Close />
 			</button>
+			<div className={styles.progress}></div>
 		</li>
 	)
 }

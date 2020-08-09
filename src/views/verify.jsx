@@ -4,13 +4,16 @@ import { Helmet } from 'react-helmet'
 import firebase from 'firebase'
 import { Link, Redirect } from 'react-router-dom'
 
-import styles from './register.module.sass'
-import logo from '../assets/logo_small.svg'
-import Container from '../components/Container/Container'
+import { useToasts } from '../components/Toast/Toast'
 
 function Verify() {
+	const { add } = useToasts()
 	const [loading, setLoading] = useState(false)
 	const [redirect, setRedirect] = useState(null)
+
+	useEffect(() => {
+		if (loading) add({ text: 'Verifying your credentials', type: 'info' })
+	}, [add, loading])
 
 	useEffect(() => {
 		if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
@@ -26,9 +29,8 @@ function Verify() {
 					window.localStorage.removeItem('emailForSignIn')
 					setRedirect('/home')
 				})
-				.catch(function(error) {
-					// Some error occurred, you can inspect the code: error.code
-					// Common errors could be invalid email and invalid or expired OTPs.
+				.catch(() => {
+					setRedirect('/login')
 				})
 		} else setRedirect('/login')
 	}, [])

@@ -3,7 +3,7 @@
 	bottom: 0
 	margin: 0 auto
 	width: 100%
-	z-index: -1
+	z-index: 0
 
 	> ul
 		width: 90%
@@ -11,16 +11,18 @@
 		list-style: none
 
 .toast
-	z-index: 10
-	position: relative
 	font-size: var(--font-size-m)
-	padding: 10px
-	margin: 10px
-	border-radius: 10px
-	color: var(--color-primary)
+
+	position: relative
 	display: flex
 	align-items: center
 	justify-content: space-between
+	margin: 10px
+	padding: 20px 10px 10px 20px
+	border-radius: 10px
+	z-index: 30
+	color: black
+
 	transition: opacity 0.5s
 
 	animation-name: popin
@@ -30,32 +32,90 @@
 	animation-timing-function: cubic-bezier(.68,-0.55,.27,1.55)
 
 	> button
-		height: 15px
-		width: 15px
-		margin: 0 10px
+		height: 40px
+		width: 40px
+		padding: 14px
+		border-radius: 100%
+		display: flex
+		justify-content: center
+		align-items: center
+		transition: brightness var(--transition-duration-base)
+
+		&:hover
+			filter: var(--brightness-hover)
+
+		&:active
+			filter: var(--brightness-active)
 
 		> svg
 			height: 100%
 			width: 100%
 
 		> svg, > svg path
-			fill: var(--color-primary)
+			fill: black
 
 
 .info
-	background: var(--color-info)
+	background: var(--color-blue-light)
+	// background: #fdf5dc
+
+	> button
+		background: var(--color-blue-lighter)
+
+	> .progress
+		background: var(--color-blue-base)
 
 .warn
-	background: var(--color-warn)
+	background: var(--color-yellow-light)
+	// background: #fdf5dc
 
-.success
-	background: var(--color-success)
+	> button
+		background: var(--color-yellow-lighter)
+
+	> .progress
+		background: var(--color-yellow-base)
 
 .danger
-	background: var(--color-danger)
+	background: var(--color-red-light)
+	// background: #fdf5dc
+
+	> button
+		background: var(--color-red-lighter)
+
+	> .progress
+		background: var(--color-red-base)
+
+.success
+	background: var(--color-green-light)
+	// background: #fdf5dc
+
+	> button
+		background: var(--color-green-lighter)
+
+	> .progress
+		background: var(--color-green-base)
+
+
 
 .dismissed
 	opacity: 0
+
+.progress
+	width: 100%
+	position: absolute
+	top: 0
+	left: 0
+	height: 10px
+
+	animation-name: shrink
+	animation-duration: 6s
+	animation-iteration-count: 1
+	animation-play-state: running
+	animation-timing-function: linear
+
+	transform-origin: left
+
+	border-radius: 5px 5px 0 0
 
 @keyframes popin
 	0%
@@ -66,5 +126,11 @@
 
 @media screen and (min-width: 768px)
 	.toast
-		width: 40%
+		width: 35%
 		margin: 10px auto
+
+@keyframes shrink
+	0%
+		transform: scaleX(1)
+	100%
+		transform: scaleX(0)

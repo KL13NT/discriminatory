@@ -47,31 +47,31 @@
 
 .rate[data-reaction="upvote"]
 	.upvote
-		color: var(--color-info)
-		background: var(--color-info--hover)
+		color: var(--color-blue-base)
+		background: var(--color-blue-dark)
 		.upvoteIcon, .upvoteIcon path
-			fill: var(--color-info)
+			fill: var(--color-blue-base)
 
 .rate[data-reaction="downvote"]
 	.downvote
-		background: var(--color-danger--hover)
-		color: var(--color-danger)
+		color: var(--color-red-base)
+		background: var(--color-red-dark)
 		.downvoteIcon, .downvoteIcon path
-			fill: var(--color-danger)
+			fill: var(--color-red-base)
 
 .upvote:hover, .upvote:focus
-	background: var(--color-info--hover)
-	color: var(--color-info)
+	background: var(--color-blue-dark)
+	color: var(--color-blue-base)
 	border: unset
 	svg, svg path
-		fill: var(--color-info)
+		fill: var(--color-blue-base)
 
 .downvote:hover, .downvote:focus
-	background: var(--color-danger--hover)
-	color: var(--color-danger)
+	color: var(--color-red-base)
+	background: var(--color-red-dark)
 	border: unset
 	svg, svg path
-		fill: var(--color-danger)
+		fill: var(--color-red-base)
 
 @media screen and (min-width: 1024px)
 	.ratings

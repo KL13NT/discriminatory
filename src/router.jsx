@@ -1,62 +1,60 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import { isLoggedIn } from './controllers/auth'
+import {
+	BrowserRouter,
+	Switch,
+	Route,
+	Redirect,
+	useLocation
+} from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+import Navbar from './components/Navbar/Navbar'
 
 import routes from './config/routes'
 
-export const PrivateRoute = ({ component: Component, ...rest }) => {
-	console.log(rest)
-	return (
-		// Show the component only when the user is logged in
-		// Otherwise, redirect the user to /signin page
-		<Route
-			{...rest}
-			render={props =>
-				isLoggedIn() ? <Component {...props} /> : <Redirect to='/login' />
-			}
-		/>
-	)
+export const PrivateRoute = ({ component: Component, user, ...rest }) => {
+	if (user) return <Route component={Component} {...rest} />
+	else return <Redirect to='/login' />
 }
 
-export const PublicRoute = ({
-	component: Component,
-	anonymousOnly,
-	redirectTo,
-	...rest
-}) => {
-	return (
-		// restricted = false meaning public route
-		// restricted = true meaning restricted route
-		<Route
-			{...rest}
-			render={props =>
-				isLoggedIn() && anonymousOnly ? (
-					<Redirect to={redirectTo} />
-				) : (
-					<Component {...props} />
-				)
-			}
-		/>
-	)
+export const SharedRoute = ({ component: Component, ...rest }) => {
+	return <Route {...rest} component={Component} {...rest} />
 }
 
-export default class Router extends React.Component {
-	render() {
-		return (
-			<BrowserRouter>
-				{this.props.children}
+export const AnonymousOnly = ({ component: Component, user, ...rest }) => {
+	if (!user) return <Route component={Component} {...rest} />
+	else return <Redirect to='/home' />
+}
+
+const renderRoutes = (routes, user) =>
+	routes.map(route => {
+		if (!route.private && !route.anonymousOnly)
+			return <SharedRoute {...route} user={user} />
+		else if (route.private) return <PrivateRoute {...route} user={user} />
+		else if (route.anonymousOnly)
+			return <AnonymousOnly {...route} user={user} />
+	})
+
+const AnimatedRoutes = ({ user }) => {
+	const location = useLocation()
+
+	return (
+		<TransitionGroup>
+			<CSSTransition key={location.key} classNames='fade' timeout={300}>
 				<Switch>
-					{routes.map(route => {
-						return (
-							<Route
-								path={route.path}
-								key={route.path}
-								component={route.component}
-							/>
-						)
-					})}
+					{renderRoutes(routes, user)}
+					<Redirect from='/' to='/home' exact />
 				</Switch>
-			</BrowserRouter>
-		)
-	}
+			</CSSTransition>
+		</TransitionGroup>
+	)
+}
+
+export default function Router({ user }) {
+	return (
+		<BrowserRouter>
+			<Navbar user={user} />
+			<AnimatedRoutes user={user} />
+		</BrowserRouter>
+	)
 }

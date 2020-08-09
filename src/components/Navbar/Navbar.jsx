@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import styles from './Navbar.module.sass'
 
@@ -35,20 +35,28 @@ function NavbarLink({ to, name, icon: Icon }) {
 	)
 }
 
-function Navbar() {
+function PrivateLink({ user, ...props }) {
+	if (!user) return null
+	else return <NavbarLink {...props} />
+}
+
+function Navbar({ user }) {
+	const { pathname } = useLocation()
+
+	if (pathname === '/login' || pathname === '/register') return null
 	return (
 		<nav className={styles.container}>
 			<FullLogo className={styles.logo} />
 			<div className={styles.links}>
-				{/* TODO: replace protected with ProtectedPath */}
-				<NavbarLink to='/home' name='Home' icon={Home} />
+				<PrivateLink to='/home' name='Home' icon={Home} user={user} />
 				<NavbarLink to='/explore' name='Explore' icon={Explore} />
-				<NavbarLink
+				<PrivateLink
 					to='/notifications'
 					name='Notifications'
 					icon={Notifications}
+					user={user}
 				/>
-				<NavbarLink to='/profile' name='Profile' icon={Profile} />
+				<PrivateLink to='/profile' name='Profile' icon={Profile} user={user} />
 				<NavbarLink
 					to='/discriminators'
 					name='Discriminators'
