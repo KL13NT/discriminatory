@@ -38,17 +38,17 @@ const renderRoutes = (routes, user) =>
 	})
 
 const AnimatedRoutes = ({ user }) => {
-	const location = useLocation()
+	// const location = useLocation()
 
 	return (
-		<TransitionGroup>
-			<CSSTransition key={location.key} classNames='fade' timeout={300}>
-				<Switch>
-					{renderRoutes(routes, user)}
-					<Redirect from='/' to='/home' exact />
-				</Switch>
-			</CSSTransition>
-		</TransitionGroup>
+		// <TransitionGroup>
+		// 	<CSSTransition key={location.key} classNames='fade' timeout={300}>
+		<Switch>
+			{renderRoutes(routes, user)}
+			<Redirect from='/' to='/home' exact />
+		</Switch>
+		// 	</CSSTransition>
+		// </TransitionGroup>
 	)
 }
 

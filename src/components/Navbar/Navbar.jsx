@@ -35,9 +35,9 @@ function NavbarLink({ to, name, icon: Icon }) {
 	)
 }
 
-function PrivateLink({ user, ...props }) {
+function PrivateLink({ user, children }) {
 	if (!user || !user.emailVerified) return null
-	else return <NavbarLink {...props} />
+	else return children
 }
 
 function Navbar({ user }) {
@@ -48,15 +48,24 @@ function Navbar({ user }) {
 		<nav className={styles.container}>
 			<FullLogo className={styles.logo} />
 			<div className={styles.links}>
-				<PrivateLink to='/home' name='Home' icon={Home} user={user} />
+				<PrivateLink user={user}>
+					<NavbarLink to='/home' name='Home' icon={Home} />
+				</PrivateLink>
+
 				<NavbarLink to='/explore' name='Explore' icon={Explore} />
-				<PrivateLink
-					to='/notifications'
-					name='Notifications'
-					icon={Notifications}
-					user={user}
-				/>
-				<PrivateLink to='/profile' name='Profile' icon={Profile} user={user} />
+
+				<PrivateLink user={user}>
+					<NavbarLink
+						to='/notifications'
+						name='Notifications'
+						icon={Notifications}
+					/>{' '}
+				</PrivateLink>
+
+				<PrivateLink user={user}>
+					<NavbarLink to='/profile' name='Profile' icon={Profile} />
+				</PrivateLink>
+
 				<NavbarLink
 					to='/discriminators'
 					name='Discriminators'
@@ -64,7 +73,9 @@ function Navbar({ user }) {
 				/>
 				<NavbarLink to='/settings' name='Settings' icon={Settings} />
 			</div>
-			<Compose />
+			<PrivateLink user={user}>
+				<Compose />
+			</PrivateLink>
 		</nav>
 	)
 }

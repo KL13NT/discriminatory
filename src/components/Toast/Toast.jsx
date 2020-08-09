@@ -5,6 +5,8 @@ import styles from './Toast.module.sass'
 import cls from '../../utils/cls'
 
 import { ReactComponent as Close } from '../../assets/x.svg'
+import { useRef } from 'react'
+import { useCallback } from 'react'
 
 const [useToasts] = create(set => ({
 	toasts: [],
@@ -22,14 +24,22 @@ const [useToasts] = create(set => ({
 
 function Toast({ type, text, remove }) {
 	const [dismissed, setDismiss] = useState(false)
-	const dismiss = () => remove({ text })
+	const styleTimeout = useRef(null)
+	const dismissTimeout = useRef(null)
+
+	const dismiss = useCallback(() => {
+		clearTimeout(styleTimeout)
+		clearTimeout(dismissTimeout)
+
+		remove({ text })
+	}, [remove, text])
 
 	useEffect(() => {
-		setTimeout(() => {
+		styleTimeout.current = setTimeout(() => {
 			setDismiss(true)
-			setTimeout(dismiss, 500)
+			dismissTimeout.current = setTimeout(dismiss, 500)
 		}, 5000)
-	})
+	}, [dismiss])
 
 	return (
 		<li

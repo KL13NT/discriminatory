@@ -34,7 +34,7 @@ function App() {
 			setUser(user)
 
 			if (!user.emailVerified)
-				add({ type: 'warn', text: 'Verify your email to use the service' })
+				add({ type: 'danger', text: 'Verify your email to use the service' })
 		})
 	}, [])
 
