@@ -16,6 +16,9 @@ import { ReactComponent as Add } from '../../assets/plus 1.svg'
 import { useComposer } from '../../stores/composer'
 import Button from '../Button/Button'
 
+import firebase from 'firebase'
+import { useToasts } from '../Toast/Toast'
+
 function Compose() {
 	const { toggle } = useComposer()
 	return (
@@ -42,6 +45,20 @@ function PrivateLink({ user, children }) {
 
 function Navbar({ user }) {
 	const { pathname } = useLocation()
+	const { add } = useToasts()
+
+	const resend = e => {
+		e.preventDefault()
+		firebase
+			.auth()
+			.currentUser.sendEmailVerification()
+			.then(() => {
+				add({ text: 'Resent verification link to your email', type: 'success' })
+			})
+			.catch(err => {
+				add({ text: err.message, type: 'danger' })
+			})
+	}
 
 	if (pathname === '/login' || pathname === '/register') return null
 	return (
@@ -73,6 +90,11 @@ function Navbar({ user }) {
 				/>
 				<NavbarLink to='/settings' name='Settings' icon={Settings} />
 			</div>
+			{user && !user.emailVerified ? (
+				<button className='u-link' onClick={resend}>
+					Resend verification link
+				</button>
+			) : null}
 			<PrivateLink user={user}>
 				<Compose />
 			</PrivateLink>

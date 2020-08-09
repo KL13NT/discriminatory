@@ -28,8 +28,8 @@ function Toast({ type, text, remove }) {
 	const dismissTimeout = useRef(null)
 
 	const dismiss = useCallback(() => {
-		clearTimeout(styleTimeout)
-		clearTimeout(dismissTimeout)
+		clearTimeout(styleTimeout.current)
+		clearTimeout(dismissTimeout.current)
 
 		remove({ text })
 	}, [remove, text])
