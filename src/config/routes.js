@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 const Register = React.lazy(() => import('../views/register'))
 const Login = React.lazy(() => import('../views/login'))
+const Verify = React.lazy(() => import('../views/verify'))
 
 const routes = [
 	{
@@ -16,6 +17,13 @@ const routes = [
 		path: '/login',
 		name: 'Login',
 		component: Login,
+		requiresLogin: false,
+		anonymousOnly: false
+	},
+	{
+		path: '/verify',
+		name: 'Verify',
+		component: Verify,
 		requiresLogin: false,
 		anonymousOnly: false
 	},

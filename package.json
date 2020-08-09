@@ -1,7 +1,6 @@
 {
-	"name": "valalearn",
+	"name": "discriminatorynetwork-frontend",
 	"version": "1.0.0",
-	"description": "The best online campus experience!",
 	"main": "./src/index.js",
 	"author": "Nabil <nabil.tharwat@outlook.com>",
 	"license": "GPL-3.0-only",
@@ -10,7 +9,7 @@
 	"bugs": "https://github.com/kl13nt/valalearn/issues",
 	"homepage": "https://github.com/kl13nt/valalearn#readme",
 	"scripts": {
-		"develop": "webpack-dev-server --mode development --port 8080 --config webpack.dev.config.js --env.api='localhost:3000'",
+		"develop": "node --max-old-space-size=512 node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode development --port 8080 --config webpack.dev.config.js --env.api='localhost:3000'",
 		"storybook": "start-storybook --port 8080",
 		"watch": "run-p watch:webpack watch:server",
 		"watch:webpack": "webpack --watch --mode production --config webpack.prod.config.js",

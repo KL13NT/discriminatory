@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import { auth } from 'firebase'
 
 import TextInput from '../components/TextInput/TextInput'
 import Button from '../components/Button/Button'
@@ -8,24 +9,27 @@ import Button from '../components/Button/Button'
 import styles from './register.module.sass'
 import logo from '../assets/logo_small.svg'
 
+const actionCodeSettings = {
+	url: 'https://discriminatorynetwork.netlify.app/verify',
+	handleCodeInApp: true
+}
+
 function Login() {
 	const onSubmit = e => {
 		e.preventDefault()
 
 		const data = new FormData(e.target)
-		const body = {
-			email: data.get('email'),
-			password: data.get('password')
-		}
+		const email = data.get('email')
 
-		console.log('submitting', body)
-
-		try {
-			console.log(`${process.env.api}/graphql`)
-			// register(body)
-		} catch (err) {
-			// console.log(result)
-		}
+		auth()
+			.sendSignInLinkToEmail(email, actionCodeSettings)
+			.then(() => {
+				window.localStorage.setItem('emailForSignIn', email)
+				//TODO: add info
+			})
+			.catch(error => {
+				console.log(error)
+			})
 	}
 
 	return (
@@ -74,21 +78,13 @@ function Login() {
 							required
 							placeholder='Enter your email'
 						/>
-						<TextInput
-							minimalist
-							type='password'
-							name='password'
-							minLength='4'
-							maxLength='50'
-							required
-							placeholder='Enter your password'
-						/>
 						<Button type='submit' minimalist>
 							Continue
 						</Button>
 						<span className={styles.disclaimer}>
-							If your credentials are correct you'll be redirected to the home
-							page automatically.
+							A link will be sent to your email. Clicking it will sign you in
+							and verify your account. You'll be redirected to the home page
+							automatically.
 						</span>
 					</div>
 				</form>

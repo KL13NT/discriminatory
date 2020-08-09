@@ -1,4 +1,5 @@
-import React, { useEffect, useCallback } from 'react'
+// import firebase from 'firebase'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { useMutation } from 'urql'
@@ -11,8 +12,8 @@ import logo from '../assets/logo_small.svg'
 
 function Register() {
 	const [result, register] = useMutation(`
-	mutation RegisterMutation($displayName: String!, $email: String!, $password: String!){
-			register (displayName: $displayName, email: $email, password: $password) {
+	mutation RegisterMutation($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!){
+			register (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location) {
 				id
 			}
 	}`)
@@ -28,18 +29,28 @@ function Register() {
 		const body = {
 			displayName: data.get('name'),
 			email: data.get('email'),
-			password: data.get('password')
+			dateofbirth: data.get('dateofbirth'),
+			location: data.get('location')
 		}
 
-		console.log('submitting', body)
-
 		try {
-			console.log(`${process.env.api}/graphql`)
 			register(body)
+			// firebase
+			// 	.auth()
+			// 	.createUserWithEmailAndPassword(body.email, body.password)
+			// 	.then(({ user }) => {
+			// 		register({ displayName: body.displayName, uid: user.uid }).then(
+			// 			() => {
+			// 				alert('Registration successful, you can login now')
+			// 			}
+			// 		)
+			// 	})
+			// 	.catch(err => {
+			// 		console.log(err)
+			// 	})
 		} catch (err) {
 			console.log(result)
 		}
-		// submitconst Todos = () => {
 	}
 
 	return (
@@ -80,32 +91,46 @@ function Register() {
 					</div>
 
 					<div>
+						<label htmlFor='name'>Name</label>
 						<TextInput
 							minimalist
 							type='text'
 							name='name'
+							id='name'
 							minLength='4'
 							maxLength='36'
 							required
-							placeholder='Enter your first name and surname'
+							placeholder='John Doe'
 						/>
+						<label htmlFor='email'>Email</label>
 						<TextInput
 							minimalist
 							type='email'
 							name='email'
+							id='email'
 							minLength='4'
 							maxLength='50'
 							required
-							placeholder='Add your email'
+							placeholder='example@example.com'
 						/>
+						<label htmlFor='dateofbirth'>Date of birth</label>
 						<TextInput
 							minimalist
-							type='password'
-							name='password'
+							type='date'
+							name='dateofbirth'
+							id='dateofbirth'
 							minLength='4'
 							maxLength='50'
 							required
-							placeholder='Choose a string password'
+						/>
+						<label htmlFor='location'>Location</label>
+						<TextInput
+							minimalist
+							type='text'
+							name='location'
+							id='location'
+							placeholder='The Spiderverse'
+							required
 						/>
 						<Button type='submit' minimalist>
 							Continue
