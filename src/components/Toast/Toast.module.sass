@@ -1,0 +1,70 @@
+.container
+	position: fixed
+	bottom: 0
+	margin: 0 auto
+	width: 100%
+	z-index: -1
+
+	> ul
+		width: 90%
+		margin: 0 auto
+		list-style: none
+
+.toast
+	z-index: 10
+	position: relative
+	font-size: var(--font-size-m)
+	padding: 10px
+	margin: 10px
+	border-radius: 10px
+	color: var(--color-primary)
+	display: flex
+	align-items: center
+	justify-content: space-between
+	transition: opacity 0.5s
+
+	animation-name: popin
+	animation-duration: 0.25s
+	animation-iteration-count: 1
+	animation-play-state: running
+	animation-timing-function: cubic-bezier(.68,-0.55,.27,1.55)
+
+	> button
+		height: 15px
+		width: 15px
+		margin: 0 10px
+
+		> svg
+			height: 100%
+			width: 100%
+
+		> svg, > svg path
+			fill: var(--color-primary)
+
+
+.info
+	background: var(--color-info)
+
+.warn
+	background: var(--color-warn)
+
+.success
+	background: var(--color-success)
+
+.danger
+	background: var(--color-danger)
+
+.dismissed
+	opacity: 0
+
+@keyframes popin
+	0%
+		transform: translateY(100px)
+	100%
+		transform: translateY(0)
+
+
+@media screen and (min-width: 768px)
+	.toast
+		width: 40%
+		margin: 10px auto
