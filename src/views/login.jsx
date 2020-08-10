@@ -9,21 +9,8 @@ import Button from '../components/Button/Button'
 import styles from './register.module.sass'
 import logo from '../assets/logo_small.svg'
 import { useToasts } from '../components/Toast/Toast'
-import { useQuery } from 'urql'
-
-const actionCodeSettings = {
-	url: 'https://discriminatorynetwork.netlify.app/verify',
-	handleCodeInApp: true
-}
 
 function Login() {
-	// const [result, login] = useQuery(`
-	// 	mutation LoginMutation ($email: String!){
-	// 		mutation login (email: $email){
-	// 			token
-	// 		}
-	// 	}
-	// `)
 	const [fetching, setFetching] = useState(false)
 	const { add } = useToasts()
 
@@ -40,11 +27,9 @@ function Login() {
 
 		setFetching(true)
 
-		// login({ email })
-
 		auth()
 			.signInWithEmailAndPassword(email, password)
-			.then(user => {
+			.then(() => {
 				add({
 					text: 'Login successful, redirecting you',
 					type: 'success'

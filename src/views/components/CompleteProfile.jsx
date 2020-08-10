@@ -1,9 +1,7 @@
-// import firebase from 'firebase'
 import React, { useEffect } from 'react'
 
 import TextInput from '../../components/TextInput/TextInput'
 import Button from '../../components/Button/Button'
-import Container from '../../components/Container/Container'
 
 import { useToasts } from '../../components/Toast/Toast'
 import { useAuth } from '../../stores/auth'
@@ -12,9 +10,9 @@ import { useProfile } from '../../stores/profile'
 import Overlay from '../../components/Overlay/Overlay'
 
 function CompleteProfile() {
-	const [result, register] = useMutation(`
-	mutation RegisterMutation($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $tagline: String!, $uid: String!){
-			register (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, tagline: $tagline, uid: $uid) {
+	const [response, updateProfile] = useMutation(`
+	mutation ProfileMutation ($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $tagline: String!, $id: String!){
+			profile (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, tagline: $tagline, id: $id) {
 				id
 				displayName
 				email
@@ -28,8 +26,20 @@ function CompleteProfile() {
 	const { update } = useProfile()
 
 	useEffect(() => {
-		if (result.fetching) add({ text: 'Saving your profile', type: 'info' })
-	}, [result, add])
+		if (response.data) {
+			update(response.data.profile)
+			add({
+				text: 'Profile updated successfully.',
+				type: 'success'
+			})
+		}
+	}, [response.data, update])
+
+	useEffect(() => {
+		if (response.fetching) add({ text: 'Saving your profile', type: 'info' })
+		else if (response.error)
+			add({ text: response.error.message, type: 'danger' })
+	}, [add, response.error, response.fetching])
 
 	const onSubmit = e => {
 		e.preventDefault()
@@ -37,24 +47,14 @@ function CompleteProfile() {
 		const data = new FormData(e.target)
 		const body = {
 			email: user.email,
-			uid: user.uid,
-			displaName: data.get('name'),
+			id: user.uid,
+			displayName: data.get('name'),
 			dateofbirth: data.get('dateofbirth'),
 			location: data.get('location'),
 			tagline: data.get('tagline')
 		}
 
-		add({ type: 'info', text: 'Updating profile' })
-
-		register(body)
-			.then(() => {
-				add({ type: 'success', text: 'Profile updated successfully' })
-				update(body)
-			})
-			.catch(err => {
-				console.log(err)
-				add({ type: 'danger', text: err })
-			})
+		updateProfile(body)
 	}
 
 	const onClose = () => {
@@ -65,7 +65,11 @@ function CompleteProfile() {
 	}
 
 	return (
-		<Overlay title='Complete your profile' onClose={onClose}>
+		<Overlay
+			title='First time setup'
+			subtitle='Complete your profile to fully use the service'
+			onClose={onClose}
+		>
 			<form onSubmit={onSubmit}>
 				<label htmlFor='name'>Name</label>
 				<TextInput
@@ -103,6 +107,7 @@ function CompleteProfile() {
 					type='text'
 					name='tagline'
 					id='tagline'
+					maxLength='160'
 					placeholder='The Spiderverse'
 					required
 				/>
