@@ -1,11 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 
+import cls from '../../utils/cls'
+import styles from './LoadingPage.module.sass'
 import LoadingSVG from '../../assets/loading.svg'
 
-import styles from './LoadingPage.module.sass'
+const context = require.context('../../assets/loading', false, /\.gif$/)
 
-const Spinner = () => (
+const gifs = {}
+function importAll(r) {
+	r.keys().forEach(key => (gifs[key] = r(key)))
+}
+
+importAll(context)
+
+const randomGif = () => {
+	const filename = Object.values(gifs)[
+		Math.floor(Math.random() * Object.keys(gifs).length)
+	].default
+
+	return filename
+}
+
+export const FullscreenLoader = ({ loading, children }) => {
+	const [visible, setVisible] = useState(loading)
+	const [src, setSrc] = useState(randomGif())
+	const timeout = useRef(null)
+
+	useEffect(() => {
+		if (!loading) {
+			if (timeout) clearTimeout(timeout.current)
+
+			timeout.current = setTimeout(() => {
+				setVisible(false)
+			}, 1000)
+		}
+	}, [loading, timeout])
+
+	const onClick = () => {
+		setSrc(randomGif())
+	}
+
+	if (!visible) return null
+	return (
+		<div
+			onClick={onClick}
+			onKeyDown={onClick}
+			role={alert}
+			className={cls(
+				styles.fullscreenLoader,
+				visible ? styles.visible : styles.hidden
+			)}
+		>
+			<img src={src} alt='Loading gif' />
+			<span>{children || 'Loading'}</span>
+		</div>
+	)
+}
+
+export const Spinner = () => (
 	<div className={styles.spinnerContainer}>
 		<p>Our bots are assembling. Please wait.</p>
 	</div>
@@ -15,7 +68,7 @@ const Spinner = () => (
  * Use `LoadingPage` when loading full views.
  * Use `Spinner` when loading specific sections.
  */
-const LoadingPage = ({ children }) => {
+export const LoadingPage = ({ children }) => {
 	return (
 		<div className={styles.loadingContainer}>
 			<img alt='loading illustration' src={LoadingSVG} />
@@ -37,4 +90,8 @@ const defaultProps = {
 LoadingPage.propTypes = propTypes
 LoadingPage.defaultProps = defaultProps
 
-export { Spinner, LoadingPage }
+FullscreenLoader.propTypes = {
+	...propTypes,
+	loading: PropTypes.bool.isRequired
+}
+FullscreenLoader.defaultProps = defaultProps
