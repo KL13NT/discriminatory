@@ -1,7 +1,7 @@
 import client from 'firebase'
 import React, { Suspense, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import { createClient, Provider } from 'urql'
+import { createClient, Provider, useMutation, useQuery } from 'urql'
 
 import('./style/base.global.sass')
 
@@ -12,6 +12,8 @@ import { ToastContainer } from './components/Toast/Toast.jsx'
 import config from '../client.firebase.json'
 import { useAuth } from './stores/auth.js'
 import { useToasts } from './components/Toast/Toast.jsx'
+import { useProfile } from './stores/profile.js'
+import CompleteProfile from './views/components/CompleteProfile.jsx'
 
 client.initializeApp(config)
 const graphql = createClient({ url: `http://${process.env.api}/graphql` })
@@ -26,6 +28,43 @@ if (process.env.NODE_ENV !== 'production') {
 function App() {
 	const { user, setUser } = useAuth()
 	const { add } = useToasts()
+	const { profile, update } = useProfile()
+
+	const [response, reexecuteQuery] = useQuery({
+		query: `
+			query ($id: String!){
+				profile(id: $id) {
+					id
+					displayName
+					email
+					location
+					dateofbirth
+					tagline
+				}
+			}
+	`,
+		variables: {
+			id: user ? user.uid : null
+		},
+		pause: !user
+	})
+
+	useEffect(() => {
+		const { data, fetching, error } = response
+
+		if (!data || !data.profile) return
+
+		const newProfile = {
+			email: data.profile.email,
+			uid: data.profile.uid,
+			displaName: data.profile.name,
+			dateofbirth: data.profile.dateofbirth,
+			location: data.profile.location,
+			tagline: data.profile.tagline
+		}
+
+		update(newProfile)
+	}, [response, update])
 
 	useEffect(() => {
 		client.auth().onAuthStateChanged(user => {
@@ -34,15 +73,21 @@ function App() {
 			setUser(user)
 
 			if (!user.emailVerified)
-				add({ type: 'danger', text: 'Verify your email to use the service' })
+				return add({
+					type: 'danger',
+					text: 'Verify your email to use the service'
+				})
+
+			reexecuteQuery()
 		})
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Provider value={graphql}>
 			<Suspense fallback={<LoadingPage />}>
 				<ToastContainer />
 				<Router user={user} />
+				{!profile ? <CompleteProfile /> : null}
 			</Suspense>
 		</Provider>
 	)

@@ -1,17 +1,17 @@
 // import firebase from 'firebase'
 import React, { useEffect } from 'react'
 
-import TextInput from '../components/TextInput/TextInput'
-import Button from '../components/Button/Button'
+import TextInput from '../../components/TextInput/TextInput'
+import Button from '../../components/Button/Button'
 import Container from '../../components/Container/Container'
 
-import styles from './register.module.sass'
-
-import { useToasts } from '../components/Toast/Toast'
+import { useToasts } from '../../components/Toast/Toast'
 import { useAuth } from '../../stores/auth'
 import { useMutation } from 'urql'
+import { useProfile } from '../../stores/profile'
+import Overlay from '../../components/Overlay/Overlay'
 
-function Register() {
+function CompleteProfile() {
 	const [result, register] = useMutation(`
 	mutation RegisterMutation($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $tagline: String!, $uid: String!){
 			register (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, tagline: $tagline, uid: $uid) {
@@ -25,6 +25,7 @@ function Register() {
 	}`)
 	const { add } = useToasts()
 	const { user } = useAuth()
+	const { update } = useProfile()
 
 	useEffect(() => {
 		if (result.fetching) add({ text: 'Saving your profile', type: 'info' })
@@ -43,19 +44,29 @@ function Register() {
 			tagline: data.get('tagline')
 		}
 
+		add({ type: 'info', text: 'Updating profile' })
+
 		register(body)
 			.then(() => {
 				add({ type: 'success', text: 'Profile updated successfully' })
+				update(body)
 			})
 			.catch(err => {
+				console.log(err)
 				add({ type: 'danger', text: err })
 			})
 	}
 
+	const onClose = () => {
+		add({
+			text: "You can't fully use the service without a complete profile",
+			type: 'danger'
+		})
+	}
+
 	return (
-		<Container>
-			<h1>Complete your profile</h1>
-			<form className={styles.form} onSubmit={onSubmit}>
+		<Overlay title='Complete your profile' onClose={onClose}>
+			<form onSubmit={onSubmit}>
 				<label htmlFor='name'>Name</label>
 				<TextInput
 					minimalist
@@ -99,8 +110,8 @@ function Register() {
 					Submit
 				</Button>
 			</form>
-		</Container>
+		</Overlay>
 	)
 }
 
-export default Register
+export default CompleteProfile
