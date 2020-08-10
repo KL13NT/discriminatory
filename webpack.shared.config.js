@@ -114,7 +114,7 @@ const sassLoaders = mode => [
 
 const fileLoaders = [
 	{
-		test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf)$/i,
+		test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf|mp4)$/i,
 		use: 'file-loader'
 	}
 ]
