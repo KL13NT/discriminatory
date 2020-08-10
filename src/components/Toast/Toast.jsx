@@ -9,17 +9,20 @@ import { useRef } from 'react'
 import { useCallback } from 'react'
 
 const [useToasts] = create(set => ({
-	toasts: [],
+	toasts: {},
 
 	add: toast =>
 		set(state => ({
-			toasts: [...state.toasts, toast]
+			toasts: { ...state.toasts, [toast.text]: toast }
 		})),
 
 	remove: toast =>
-		set(state => ({
-			toasts: state.toasts.filter(t => t.text !== toast.text)
-		}))
+		set(state => {
+			const newState = { toasts: { ...state.toasts } }
+			delete newState.toasts[toast.text]
+
+			return newState
+		})
 }))
 
 function Toast({ type, text, remove }) {
@@ -65,8 +68,8 @@ function ToastContainer() {
 	return (
 		<div className={styles.container}>
 			<ul>
-				{toasts.map(toast => {
-					return <Toast {...toast} key={toast.text} remove={remove} />
+				{Object.values(toasts).map((toast, index) => {
+					return <Toast {...toast} key={toast.text + index} remove={remove} />
 				})}
 			</ul>
 		</div>
