@@ -7,10 +7,10 @@ import Router from './router.jsx'
 import ProfileAuthController from './ProfileAuthController.jsx'
 import CompleteProfile from './views/components/CompleteProfile.jsx'
 import { createClient, Provider } from 'urql'
-import { LoadingPage } from './components/Loading/LoadingPage.jsx'
 import { ToastContainer } from './components/Toast/Toast.jsx'
 import { useAuth } from './stores/auth.js'
 import { useProfile } from './stores/profile.js'
+import { FullscreenLoader } from './components/Loading/LoadingPage'
 
 import './style/base.global.sass'
 
@@ -35,7 +35,7 @@ if (process.env.NODE_ENV !== 'production') {
 function Wrappers() {
 	return (
 		<Provider value={graphql}>
-			<Suspense fallback={<LoadingPage />}>
+			<Suspense fallback={<FullscreenLoader loading={true} />}>
 				<App />
 			</Suspense>
 		</Provider>

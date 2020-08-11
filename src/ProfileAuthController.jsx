@@ -4,7 +4,6 @@ import { useQuery } from 'urql'
 import { useAuth } from './stores/auth.js'
 import { useToasts } from './components/Toast/Toast.jsx'
 import { useProfile } from './stores/profile.js'
-import { FullscreenLoader } from './components/Loading/LoadingPage'
 
 export default function ProfileAuthController() {
 	const { user, setUser } = useAuth()
@@ -68,5 +67,5 @@ export default function ProfileAuthController() {
 		})
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-	return <FullscreenLoader loading={!user} />
+	return null
 }
