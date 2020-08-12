@@ -4,13 +4,16 @@ import {
 	Switch,
 	Route,
 	Redirect,
-	useLocation
+	useLocation,
+	Link
 } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { useIntl } from 'react-intl'
 
 import Navbar from './components/Navbar/Navbar'
 
 import routes from './config/routes'
+import Banner from './components/Banner/Banner'
 
 export const PrivateRoute = ({ component: Component, user, ...rest }) => {
 	if (user) {
@@ -38,15 +41,32 @@ const renderRoutes = (routes, user) =>
 	})
 
 const AnimatedRoutes = ({ user }) => {
-	// const location = useLocation()
+	const { pathname } = useLocation()
+	const { formatMessage: f } = useIntl()
+	const isBannerVisible =
+		!user && pathname !== '/login' && pathname !== '/register'
 
+	console.log(pathname)
 	return (
 		// <TransitionGroup>
 		// 	<CSSTransition key={location.key} classNames='fade' timeout={300}>
-		<Switch>
-			{renderRoutes(routes, user)}
-			<Redirect from='/' to='/home' exact />
-		</Switch>
+		<>
+			{isBannerVisible ? (
+				<Banner size='big'>
+					<h6>
+						{f({ id: 'banners.register.title' })}{' '}
+						<Link to='/register' style={{ color: 'var(--color-primary)' }}>
+							{f({ id: 'banners.register.link' })}
+						</Link>
+					</h6>
+					<span>{f({ id: 'banners.register.subtitle' })}</span>
+				</Banner>
+			) : null}
+			<Switch>
+				{renderRoutes(routes, user)}
+				<Redirect from='/' to='/home' exact />
+			</Switch>
+		</>
 		// 	</CSSTransition>
 		// </TransitionGroup>
 	)
