@@ -29,7 +29,7 @@ const propTypes = {
 	name: PropTypes.string.isRequired,
 	icon: PropTypes.node,
 	minimalist: PropTypes.bool,
-	onChange: PropTypes.func.isRequired
+	onChange: PropTypes.func
 }
 
 const defaultProps = {
