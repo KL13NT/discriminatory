@@ -1,6 +1,5 @@
 import React from 'react'
-
-import { NavLink, useLocation } from 'react-router-dom'
+import Button from '../Button/Button'
 
 import styles from './Navbar.module.sass'
 
@@ -13,11 +12,9 @@ import { ReactComponent as Discriminators } from '../../assets/blocked 2.svg'
 import { ReactComponent as Settings } from '../../assets/gear.inline.svg'
 import { ReactComponent as Add } from '../../assets/plus 1.svg'
 
+import { NavLink, useLocation } from 'react-router-dom'
 import { useComposer } from '../../stores/composer'
-import Button from '../Button/Button'
-
-import firebase from 'firebase'
-import { useToasts } from '../Toast/Toast'
+import { useIntl } from 'react-intl'
 
 function Compose() {
 	const { toggle } = useComposer()
@@ -40,25 +37,17 @@ function NavbarLink({ to, name, icon: Icon }) {
 
 function PrivateLink({ user, children }) {
 	if (!user || !user.emailVerified) return null
-	else return children
+	return children
+}
+
+function PublicOnly({ user, children }) {
+	if (user) return null
+	return children
 }
 
 function Navbar({ user }) {
 	const { pathname } = useLocation()
-	const { add } = useToasts()
-
-	const resend = e => {
-		e.preventDefault()
-		firebase
-			.auth()
-			.currentUser.sendEmailVerification()
-			.then(() => {
-				add({ text: 'Resent verification link to your email', type: 'success' })
-			})
-			.catch(err => {
-				add({ text: err.message, type: 'danger' })
-			})
-	}
+	const { formatMessage: f } = useIntl()
 
 	if (pathname === '/login' || pathname === '/register') return null
 	return (
@@ -66,35 +55,51 @@ function Navbar({ user }) {
 			<FullLogo className={styles.logo} />
 			<div className={styles.links}>
 				<PrivateLink user={user}>
-					<NavbarLink to='/home' name='Home' icon={Home} />
+					<NavbarLink to='/home' name={f({ id: 'navbar.home' })} icon={Home} />
 				</PrivateLink>
 
-				<NavbarLink to='/explore' name='Explore' icon={Explore} />
+				<NavbarLink
+					to='/explore'
+					name={f({ id: 'navbar.explore' })}
+					icon={Explore}
+				/>
 
 				<PrivateLink user={user}>
 					<NavbarLink
 						to='/notifications'
-						name='Notifications'
+						name={f({ id: 'navbar.notifications' })}
 						icon={Notifications}
-					/>{' '}
+					/>
 				</PrivateLink>
 
+				<PublicOnly user={user}>
+					<NavbarLink
+						to='/login'
+						name={f({ id: 'navbar.login' })}
+						icon={Profile}
+					/>
+				</PublicOnly>
+
 				<PrivateLink user={user}>
-					<NavbarLink to='/profile' name='Profile' icon={Profile} />
+					<NavbarLink
+						to='/profile'
+						name={f({ id: 'navbar.profile' })}
+						icon={Profile}
+					/>
 				</PrivateLink>
 
 				<NavbarLink
 					to='/discriminators'
-					name='Discriminators'
+					name={f({ id: 'navbar.discriminators' })}
 					icon={Discriminators}
 				/>
-				<NavbarLink to='/settings' name='Settings' icon={Settings} />
+				<NavbarLink
+					to='/settings'
+					name={f({ id: 'navbar.settings' })}
+					icon={Settings}
+				/>
 			</div>
-			{user && !user.emailVerified ? (
-				<button className='u-link' onClick={resend}>
-					Resend verification link
-				</button>
-			) : null}
+
 			<PrivateLink user={user}>
 				<Compose />
 			</PrivateLink>

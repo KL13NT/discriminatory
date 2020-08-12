@@ -18,9 +18,12 @@
 	scrollbar-width: none
 	-ms-overflow-style: none
 
+[dir="rtl"] .container
+	right: 0
+	left: auto
+
 .container::-webkit-scrollbar
 	display: none
-
 
 .logo
 	display: none
@@ -140,4 +143,5 @@
 		justify-content: unset
 		span
 			display: block
-			margin: 0 0 0 20px
+			margin-inline-start: 20px
+			writing-mode: horizontal-tb
