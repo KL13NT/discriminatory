@@ -61,7 +61,7 @@ function Toast({ type, text, id, remove }) {
 			)}
 		>
 			{text}
-			<button onClick={dismiss}>
+			<button aria-label='Dismiss notification' onClick={dismiss}>
 				<Close />
 			</button>
 			<div className={styles.progress}></div>
