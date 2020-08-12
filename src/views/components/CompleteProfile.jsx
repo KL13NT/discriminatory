@@ -1,15 +1,25 @@
+import firebase from 'firebase'
 import React, { useEffect } from 'react'
 
 import TextInput from '../../components/TextInput/TextInput'
 import Button from '../../components/Button/Button'
+import Overlay from '../../components/Overlay/Overlay'
 
 import { useToasts } from '../../components/Toast/Toast'
 import { useAuth } from '../../stores/auth'
 import { useMutation } from 'urql'
 import { useProfile } from '../../stores/profile'
-import Overlay from '../../components/Overlay/Overlay'
+import { useIntl } from 'react-intl'
+import { useSettings } from '../../stores/settings'
 
 function CompleteProfile() {
+	const { add } = useToasts()
+	const { user } = useAuth()
+	const { update } = useProfile()
+	const { formatMessage: f } = useIntl()
+	const { settings } = useSettings()
+	const { dir } = settings.display.language.selected
+
 	const [response, updateProfile] = useMutation(`
 	mutation ProfileMutation ($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $tagline: String!, $id: String!){
 			profile (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, tagline: $tagline, id: $id) {
@@ -21,25 +31,26 @@ function CompleteProfile() {
 				tagline
 			}
 	}`)
-	const { add } = useToasts()
-	const { user } = useAuth()
-	const { update } = useProfile()
 
 	useEffect(() => {
 		if (response.data) {
 			update(response.data.profile)
 			add({
-				text: 'Profile updated successfully.',
+				text: f({ id: 'setup.success' }),
 				type: 'success'
 			})
 		}
-	}, [response.data, update])
+	}, [add, f, response.data, update])
 
 	useEffect(() => {
-		if (response.fetching) add({ text: 'Saving your profile', type: 'info' })
+		if (response.fetching)
+			add({
+				text: f({ id: 'setup.progress' }),
+				type: 'info'
+			})
 		else if (response.error)
 			add({ text: response.error.message, type: 'danger' })
-	}, [add, response.error, response.fetching])
+	}, [add, f, response.error, response.fetching])
 
 	const onSubmit = e => {
 		e.preventDefault()
@@ -59,19 +70,63 @@ function CompleteProfile() {
 
 	const onClose = () => {
 		add({
-			text: "You can't fully use the service without a complete profile",
+			text: f({ id: 'setup.profileNotComplete' }),
 			type: 'danger'
 		})
 	}
 
+	const resend = e => {
+		e.preventDefault()
+		firebase
+			.auth()
+			.currentUser.sendEmailVerification()
+			.then(() => {
+				add({
+					text: 'Resent verification link to your email',
+					type: 'success'
+				})
+			})
+			.catch(err => {
+				add({
+					text: err.message,
+					type: 'danger'
+				})
+			})
+	}
+
+	const logout = () => {
+		add({
+			text: f({
+				id: 'notify.logout.progress',
+				type: 'warn'
+			})
+		})
+
+		firebase
+			.auth()
+			.signOut()
+			.then(() => {
+				add({
+					text: f({ id: 'notify.logout.success' }),
+					type: 'success'
+				})
+			})
+			.catch(() => {
+				add({
+					text: f({ id: 'notify.logout.error', type: 'error' })
+				})
+			})
+	}
+
 	return (
 		<Overlay
-			title='First time setup'
-			subtitle='Complete your profile to fully use the service'
+			title={f({ id: 'setup.title' })}
+			subtitle={f({ id: 'setup.subtitle' })}
 			onClose={onClose}
+			dir={dir}
 		>
 			<form onSubmit={onSubmit}>
-				<label htmlFor='name'>Name</label>
+				<label htmlFor='name'>{f({ id: 'setup.name' })}</label>
 				<TextInput
 					minimalist
 					type='text'
@@ -80,9 +135,9 @@ function CompleteProfile() {
 					minLength='4'
 					maxLength='36'
 					required
-					placeholder='John Doe'
+					placeholder={f({ id: 'setup.name.placeholder' })}
 				/>
-				<label htmlFor='dateofbirth'>Date of birth</label>
+				<label htmlFor='dateofbirth'>{f({ id: 'setup.dateofbirth' })}</label>
 				<TextInput
 					minimalist
 					type='date'
@@ -92,28 +147,38 @@ function CompleteProfile() {
 					maxLength='50'
 					required
 				/>
-				<label htmlFor='location'>Location</label>
+				<label htmlFor='location'>{f({ id: 'setup.location' })}</label>
 				<TextInput
 					minimalist
 					type='text'
 					name='location'
 					id='location'
-					placeholder='The Spiderverse'
+					placeholder={f({ id: 'setup.location.placeholder' })}
 					required
 				/>
-				<label htmlFor='tagline'>Tagline</label>
+				<label htmlFor='tagline'>{f({ id: 'setup.tagline' })}</label>
 				<TextInput
 					minimalist
 					type='text'
 					name='tagline'
 					id='tagline'
 					maxLength='160'
-					placeholder='The Spiderverse'
+					placeholder={f({ id: 'setup.tagline.placeholder' })}
 					required
 				/>
 				<Button type='submit' variant='info'>
-					Submit
+					{f({ id: 'setup.submit' })}
 				</Button>
+
+				<Button onClick={logout} variant='link'>
+					{f({ id: 'setup.logout' })}
+				</Button>
+
+				{user && !user.emailVerified ? (
+					<Button onClick={resend} variant='link'>
+						{f({ id: 'setup.verify' })}
+					</Button>
+				) : null}
 			</form>
 		</Overlay>
 	)
