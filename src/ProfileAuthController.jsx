@@ -6,9 +6,9 @@ import { useToasts } from './components/Toast/Toast.jsx'
 import { useProfile } from './stores/profile.js'
 
 export default function ProfileAuthController() {
-	const { user, setUser } = useAuth()
+	const { user, setUser, clear: clearAuth } = useAuth()
 	const { add } = useToasts()
-	const { profile, update } = useProfile()
+	const { profile, update, clear: clearProfile } = useProfile()
 
 	const [response, reloadProfile] = useQuery({
 		query: `
@@ -30,7 +30,7 @@ export default function ProfileAuthController() {
 	})
 
 	useEffect(() => {
-		reloadProfile()
+		if (user) reloadProfile()
 	}, [user])
 
 	useEffect(() => {
@@ -43,7 +43,11 @@ export default function ProfileAuthController() {
 
 	useEffect(() => {
 		firebase.auth().onAuthStateChanged(user => {
-			if (!user) return
+			if (!user) {
+				clearAuth()
+				clearProfile()
+				return
+			}
 
 			setUser(user)
 
