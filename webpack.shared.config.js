@@ -21,26 +21,6 @@ const html = [
 		excludeChunks: ['index'],
 		chunks: ['pages']
 	}),
-	// new HtmlWebpackPlugin({
-	// 	template: './src/pages/ar/register.pug',
-	// 	filename: 'ar/register/index.html',
-	// 	excludeChunks: ['index', 'pages']
-	// }),
-	// new HtmlWebpackPlugin({
-	// 	template: './src/pages/en/register.pug',
-	// 	filename: 'en/register/index.html',
-	// 	excludeChunks: ['index', 'pages']
-	// }),
-	// new HtmlWebpackPlugin({
-	// 	template: './src/pages/ar/login.pug',
-	// 	filename: 'ar/login/index.html',
-	// 	excludeChunks: ['index', 'pages']
-	// }),
-	// new HtmlWebpackPlugin({
-	// 	template: './src/pages/en/login.pug',
-	// 	filename: 'en/login/index.html',
-	// 	excludeChunks: ['index', 'pages']
-	// }),
 	new HtmlWebpackPlugin({
 		template: './src/index.pug',
 		excludeChunks: ['pages'],
@@ -71,7 +51,10 @@ const sassLoaders = mode => [
 				loader: 'css-loader',
 				options: {
 					modules: {
-						localIdentName: '[local]___[hash:base64:5]',
+						localIdentName:
+							mode === 'development'
+								? '[local]___[hash:base64:5]'
+								: '[hash:base64:5]',
 						mode: 'local'
 					}
 				}
@@ -119,6 +102,21 @@ const fileLoaders = [
 	}
 ]
 
+const localeLoaders = [
+	{
+		type: 'javascript/auto',
+		test: /\.locale\.json$/,
+		use: [
+			{
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]'
+				}
+			}
+		]
+	}
+]
+
 const svgLoaders = [
 	{
 		test: /\.(svg)$/i,
@@ -146,7 +144,8 @@ const loaders = mode => [
 	...fileLoaders,
 	...svgLoaders,
 	...htmlLoaders,
-	...pugLoaders
+	...pugLoaders,
+	...localeLoaders
 ]
 
 module.exports = {
