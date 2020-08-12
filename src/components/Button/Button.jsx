@@ -21,7 +21,7 @@ function Button({
 	)
 
 	return (
-		<button
+	<button
 			className={classes}
 			disabled={disabled}
 			onClick={disabled ? null : onClick}
@@ -38,7 +38,7 @@ const propTypes = {
 	className: PropTypes.string,
 	children: PropTypes.node,
 	minimalist: PropTypes.bool,
-	variant: PropTypes.oneOf(['info', 'danger'])
+	variant: PropTypes.oneOf(['info', 'danger', 'warn', 'link'])
 }
 
 const defaultProps = {
