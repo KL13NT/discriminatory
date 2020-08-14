@@ -72,14 +72,6 @@ function Navbar({ user }) {
 					/>
 				</PrivateLink>
 
-				<PublicOnly user={user}>
-					<NavbarLink
-						to='/login'
-						name={f({ id: 'navbar.login' })}
-						icon={Profile}
-					/>
-				</PublicOnly>
-
 				<PrivateLink user={user}>
 					<NavbarLink
 						to='/profile'
