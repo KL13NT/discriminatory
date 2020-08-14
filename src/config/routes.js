@@ -1,4 +1,5 @@
 import React from 'react'
+import Home from '../views/Home'
 
 const Register = React.lazy(() => import('../views/register'))
 const Login = React.lazy(() => import('../views/login'))
@@ -8,7 +9,7 @@ const routes = [
 	{
 		path: '/home',
 		name: 'Home',
-		component: () => 'Home',
+		component: Home,
 		private: true,
 		anonymousOnly: false
 	},

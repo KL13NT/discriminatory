@@ -11,7 +11,7 @@ const defaultConfig = {
 			selected: 'dark-blue'
 		},
 		language: {
-			possible: [
+			navbar: [
 				{ locale: 'ar', dir: 'rtl' },
 				{ locale: 'en', dir: 'ltr' }
 			],
