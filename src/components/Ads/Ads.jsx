@@ -135,6 +135,7 @@ function Ads({ isEnabled }) {
 	return (
 		<>
 			<Container className={styles.ads}>
+				<h1>Advertisement</h1>
 				{isBlocked ? <Placeholder isEnabled={isEnabled} /> : null}
 				<script data-ad-client='ca-pub-4278004686608414' async>
 					{script}
