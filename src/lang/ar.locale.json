@@ -16,12 +16,15 @@
 	"setup.verify.success": "تم ارسال رابط التفعيل لبريدك الالكتروني",
 	"setup.verify.error": "حدث خطأ ما اثناء الارسال",
 	"setup.logout": "تسجيل الخروج",
+
 	"notify.logout.progress": "جاري تسجيل الخروج",
 	"notify.logout.success": "تم تسجيل الخروج بنجاح",
 	"notify.logout.error": "حدث خطأ ما اثناء تسجيل الخروج",
+
 	"banners.register.title": "لا تفوت ما يحدث.",
 	"banners.register.link": "سجل الآن.",
 	"banners.register.subtitle": "العديد من المستخدمين يتمتعون بمزايا كثيرة. كن واحداً منهم.",
+
 	"navbar.home": "الرئيسيّة",
 	"navbar.explore": "اكتشف",
 	"navbar.notifications": "الإشعارات",
@@ -29,5 +32,7 @@
 	"navbar.profile": "ملفّك",
 	"navbar.discriminators": "المُمِيزين",
 	"navbar.settings": "الإعدادات",
-	"navbar.compose": "انشر"
+	"navbar.compose": "انشر",
+
+	"home.title": "الرئيسيّة"
 }

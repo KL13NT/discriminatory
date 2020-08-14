@@ -29,5 +29,7 @@
 	"navbar.profile": "Profile",
 	"navbar.discriminators": "Discriminators",
 	"navbar.settings": "Settings",
-	"navbar.compose": "Compose"
+	"navbar.compose": "Compose",
+
+	"home.title": "Home"
 }
