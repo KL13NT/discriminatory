@@ -1,12 +1,12 @@
 import config from '../client.firebase.json'
 
-import firebase from 'firebase'
-import React, { Suspense, useEffect, useState, useCallback } from 'react'
+import React, { Suspense, useEffect, useCallback } from 'react'
 import ReactDOM from 'react-dom'
 import Router from './router.jsx'
 import ProfileAuthController from './ProfileAuthController.jsx'
 import CompleteProfile from './views/components/CompleteProfile.jsx'
 import PageError from './views/components/PageError'
+import { initializeApp as initFirebase } from 'firebase'
 import { createClient, Provider } from 'urql'
 import { ToastContainer } from './components/Toast/Toast.jsx'
 import { useAuth } from './stores/auth.js'
@@ -14,19 +14,15 @@ import { useProfile } from './stores/profile.js'
 import { FullscreenLoader } from './components/Loading/LoadingPage'
 import { IntlProvider } from 'react-intl'
 import { useSettings } from './stores/settings'
-
-/**
- * Global Styling
- */
-import './style/base.global.sass'
 import { useLocale } from './stores/locale'
-import Banner from './components/Banner/Banner'
-import { useLocation } from 'react-router-dom'
+
+import './style/base.global.sass'
+import Layout from './views/components/Layout'
 
 /**
  * GraphQL & Firebase Initialisation
  */
-firebase.initializeApp(config)
+initFirebase(config)
 const graphql = createClient({
 	url: `http://${process.env.api}/graphql`,
 	fetchOptions: () => {
@@ -72,7 +68,9 @@ function Wrappers() {
 						messages={messages}
 					>
 						<LanguageWrapper>
-							<App />
+							<Layout>
+								<App />
+							</Layout>
 						</LanguageWrapper>
 					</IntlProvider>
 				</Suspense>
