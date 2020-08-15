@@ -1,0 +1,66 @@
+.select
+	width: 100%
+	padding: 5px 10px
+	display: flex
+	justify-content: space-between
+	align-items: center
+	color: var(--color-negative)
+	border: solid 1px var(--color-alternative)
+	background: var(--color-primary)
+	border-radius: 5px
+	cursor: pointer
+	position: relative
+
+	&:focus, &[data-focus="true"]
+		border: solid 2px var(--color-blue-base)
+
+.selected
+	flex-grow: 10
+	font-size: var(--font-size-m)
+
+.dropdown
+	background: var(--color-primary)
+	position: absolute
+	bom: 0
+	top: 120%
+	list-style: none
+	padding: 0
+	background: white
+	width: 100%
+	left: 0
+	border-radius: 5px
+
+.option
+	padding: 10px
+	border-radius: inherit
+	color: var(--color-negative)
+	font-size: var(--font-size-m)
+
+	&:focus, &:hover
+		background: var(--color-purple-light)
+
+.option[data-selected="true"]
+	background: var(--color-purple-base)
+
+
+.actions
+	flex-grow: 0
+	display: flex
+	height: 100%
+
+	button
+		height: 100%
+		width: auto
+		transition: filter var(--transition-duration-base)
+
+		> svg
+			height: 100%
+			width: 100%
+			vertical-align: middle
+			fill: var(--color-negative)
+
+		&:hover
+			filter: var(--brightness-hover)
+
+		&:active
+			filter: var(--brightness-active)
