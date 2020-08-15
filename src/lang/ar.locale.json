@@ -17,9 +17,9 @@
 	"setup.verify.error": "حدث خطأ ما اثناء الارسال",
 	"setup.logout": "تسجيل الخروج",
 
-	"notify.logout.progress": "جاري تسجيل الخروج",
-	"notify.logout.success": "تم تسجيل الخروج بنجاح",
-	"notify.logout.error": "حدث خطأ ما اثناء تسجيل الخروج",
+	"logout.progress": "جاري تسجيل الخروج",
+	"logout.success": "تم تسجيل الخروج بنجاح",
+	"logout.error": "حدث خطأ ما اثناء تسجيل الخروج",
 
 	"banners.register.title": "لا تفوت ما يحدث.",
 	"banners.register.link": "سجل الآن.",
@@ -47,5 +47,25 @@
 	"login.form.email.placeholder": "بريدك المستخدم في تسجيل حسابك",
 	"login.form.password.label": "كلمة المرور",
 	"login.form.password.placeholder": "كلمة المرور المستخدمة في تسجيل حسابك",
-	"login.form.submit": "تقدم"
+	"login.form.submit": "تقدم",
+
+	"register.form.title": "تسجيل حساب جديد",
+	"register.form.question": "مسجل بالفعل؟",
+	"register.form.link": "سجل الدخول",
+	"register.form.password.placeholder": "اختر كلمة مرور قوية",
+	"register.verification.question": "رسالة التفعيل لم تصلك؟",
+	"register.verification.link": "لا مشكلة, حاول مجدداً",
+	"register.disclaimer.base": "بضغطي زر التقدم أقر بأنني قد قرأت وأقبل ",
+	"register.disclaimer.emails": "وأقبل أن استقبل الرسائل الإلكترونية وأخبار الشبكة على بريدي الإلكتروني.",
+	"shared.terms.long": "بشروط الخدمة",
+	"shared.privacy.long": "سياسية الخصوصية",
+	"register.password.strength": "8 احرف على الاقل, يحتوي على حرف كبير, حرف صغير, و حرف من نوع خاص",
+
+	"register.success": "تم ارسال بريد التفعيل لبريدك الالكتروني",
+	"register.progress": "جاري التسجيل",
+
+	"login.progress": "جاري تسجيل الدخول",
+	"login.success": "تم تسجيل الدخول بنجاح",
+
+	"account.verification.resend.success": "تم ارسال رسالة التفعيل مجدداً بنجاح"
 }

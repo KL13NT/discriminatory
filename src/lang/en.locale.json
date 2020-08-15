@@ -44,5 +44,25 @@
 	"login.form.email.placeholder": "example@example.com",
 	"login.form.password.label": "Password",
 	"login.form.password.placeholder": "Your account's password",
-	"login.form.submit": "Continue"
+	"login.form.submit": "Continue",
+
+	"register.form.title": "Register",
+	"register.form.question": "Already registered?",
+	"register.form.link": "Login instead",
+	"register.form.password.placeholder": "Pick a strong password",
+	"register.verification.question": "Verification email not sent?",
+	"register.verification.link": "Try again",
+	"register.disclaimer.base": "By clicking Continue, I confirm that I have read and agree to the ",
+	"register.disclaimer.emails": "and to receive emails and updates.",
+	"shared.terms.long": "Terms Of Service",
+	"shared.privacy.long": "Privacy Policy",
+	"register.password.strength": "8 characters minimum, must contain at least 1 uppercase, 1 lowercase, and 1 special character",
+
+	"register.success": "A verification link has been sent to your email.",
+	"register.progress": "Attempting to register you",
+
+	"login.progress": "Attempting to login",
+	"login.success": "Login successful, redirecting you",
+
+	"account.verification.resend.success": "Resent verification link successfully"
 }
