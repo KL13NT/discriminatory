@@ -17,7 +17,7 @@ import { useSettings } from './stores/settings'
 import { useLocale } from './stores/locale'
 
 import './style/base.global.sass'
-import Layout from './views/components/Layout'
+import { Helmet } from 'react-helmet'
 
 /**
  * GraphQL & Firebase Initialisation
@@ -55,6 +55,7 @@ function Wrappers() {
 	}, []) // eslint-disable-line
 
 	useEffect(() => {
+		console.log('locale changed')
 		fetchAndUpdateLocale(locales[settings.display.language.selected.locale])
 	}, [fetchAndUpdateLocale, locales, settings.display.language])
 
@@ -81,7 +82,32 @@ function LanguageWrapper({ children }) {
 	const { settings } = useSettings()
 	const { dir } = settings.display.language.selected
 
-	return <div dir={dir}>{children}</div>
+	const enFonts = [
+		<link
+			href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
+			rel='stylesheet'
+		/>,
+		<link
+			href='https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap'
+			rel='stylesheet'
+		/>
+	]
+
+	return (
+		<div dir={dir}>
+			<Helmet>
+				{dir === 'ltr' ? (
+					enFonts
+				) : (
+					<link
+						href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap'
+						rel='stylesheet'
+					/>
+				)}
+			</Helmet>
+			{children}
+		</div>
+	)
 }
 
 function App() {

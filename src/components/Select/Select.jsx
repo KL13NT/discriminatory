@@ -46,7 +46,6 @@ const Option = React.forwardRef((props, ref) => {
 			if (isDownArrow(keyCode)) focusSibling('next', currentTarget)
 			else if (isUpArrow(keyCode)) focusSibling('prev', currentTarget)
 			else if (isEnter(keyCode)) onPick(option)
-			else onPick(null)
 		}
 	}
 
@@ -77,7 +76,9 @@ function Select(props) {
 		defaultValue,
 		canBeNull
 	} = props
-	const [selected, select] = useState(canBeNull ? defaultValue : options[0])
+	const [selected, select] = useState(
+		canBeNull ? options[defaultValue] : options[0]
+	)
 	const [expanded, expand] = useState(null)
 
 	const firstElement = useRef()
@@ -85,7 +86,11 @@ function Select(props) {
 
 	const clearSelection = () => select(null)
 	const onClick = () => expand(!expanded)
-	const onPick = option => select(option) && expand(false) && onChange(option)
+	const onPick = option => {
+		select(option)
+		expand(false)
+		if (onChange) onChange(option)
+	}
 	const onOutsideClick = e => {
 		if (!findParentByClass(e.target, styles.select)) {
 			expand(false)
@@ -161,17 +166,17 @@ function Select(props) {
 
 const propTypes = {
 	options: PropTypes.array.isRequired,
-	onChange: PropTypes.func.isRequired,
+	onChange: PropTypes.func,
 	disabled: PropTypes.bool,
 	className: PropTypes.string,
-	defaultValue: PropTypes.object,
+	defaultValue: PropTypes.number,
 	canBeNull: PropTypes.bool
 }
 
 const defaultProps = {
 	disabled: false,
 	canBeNull: true,
-	defaultValue: null,
+	defaultValue: 0,
 	options: []
 }
 

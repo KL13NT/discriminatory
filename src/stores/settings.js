@@ -11,7 +11,7 @@ const defaultConfig = {
 			selected: 'dark-blue'
 		},
 		language: {
-			navbar: [
+			locales: [
 				{ locale: 'ar', dir: 'rtl' },
 				{ locale: 'en', dir: 'ltr' }
 			],
@@ -37,7 +37,10 @@ const [useSettings] = create(set => ({
 
 	update: newState =>
 		set(state => {
-			localStorage.setItem('settings', { ...state, ...newState })
+			localStorage.setItem(
+				'settings',
+				JSON.stringify({ ...state.settings, ...newState.settings })
+			)
 
 			return {
 				...state,

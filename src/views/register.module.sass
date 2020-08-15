@@ -1,6 +1,6 @@
 .register
 	color: var(--color-primary)
-	width: 80%
+	width: 100%
 	margin: 0 auto
 	display: flex
 	justify-content: center
@@ -9,12 +9,13 @@
 	*
 		font-family: var(--font-family-secondary)
 
-.register[dir="ltr"]
-	.header
-		> h1
-			font-family: var(--font-family-display)
-			text-transform: uppercase
-			font-size: calc(var(--font-size-h1) * 2)
+[dir="rtl"]
+	.register *
+		font-family: var(--font-family-rtl)
+
+	.header h1
+		font-family: var(--font-family-rtl)
+		line-height: 1.2
 
 
 .header
@@ -29,25 +30,25 @@
 	max-width: 380px
 	margin-inline-end: 20px
 	background-size: cover
+	display: none
+
+	h1
+		font-family: var(--font-family-display)
+		text-transform: uppercase
+		font-size: calc(var(--font-size-h1) * 2)
+		width: 80%
+		line-height: 60px
+		color: white
 
 	img
 		height: 60px
-
-	img, h1
-		color: white
-		font-family: var(--font-family-display)
 
 	span
 		font-size: var(--font-size-l)
 		font-weight: var(--font-weight-s)
 
-	h1
-		font-size: calc(var(--font-size-h1) * 1.4)
-		width: 80%
-		line-height: 60px
-
 .form
-	width: 40%
+	width: 100%
 	display: flex
 	flex-direction: column
 	margin: 0
@@ -70,3 +71,28 @@
 
 		> button
 			margin: 20px 0
+
+.language
+	position: fixed
+	top: 20px
+	right: 20px
+
+[dir="rtl"] .register
+	*
+		text-align: right
+
+
+@media screen and (min-width: 768px)
+	.register
+		margin: 0 20px
+
+@media screen and (min-width: 1024px)
+	.form
+		width: 40%
+
+	.register
+		width: 80%
+		margin: 0 auto
+
+	.header
+		display: flex

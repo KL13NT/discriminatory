@@ -10,11 +10,19 @@ import styles from './register.module.sass'
 import logo from '../assets/logo_small.svg'
 import { useToasts } from '../components/Toast/Toast'
 import { useIntl } from 'react-intl'
+import Select from '../components/Select/Select'
+import { useSettings } from '../stores/settings'
 
 function Login() {
 	const [fetching, setFetching] = useState(false)
 	const { add } = useToasts()
 	const { formatMessage: f } = useIntl()
+	const { settings, update } = useSettings()
+	const { locales } = settings.display.language
+	const languages = [
+		{ value: 'en', name: 'English' },
+		{ value: 'ar', name: 'Arabic - العربية' }
+	]
 
 	useEffect(() => {
 		if (fetching) add({ text: 'Attempting to login', type: 'info' })
@@ -45,22 +53,36 @@ function Login() {
 			})
 	}
 
+	const onLanguageChange = target => {
+		update({
+			settings: {
+				display: {
+					language: {
+						locales,
+						selected: locales.find(locale => locale.locale === target.value)
+					}
+				}
+			}
+		})
+	}
+
 	return (
 		<>
 			<Helmet>
 				<meta charset='UTF-8' />
 				<meta name='viewport' content='width=device-width initial-scale=1.0' />
-				<link
-					href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
-					rel='stylesheet'
-				/>
-				<link
-					href='https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap'
-					rel='stylesheet'
-				/>
 				<link href='/pages.css' rel='stylesheet' />
 				<title>{f({ id: 'login.title' })}</title>
 			</Helmet>
+
+			<div className={styles.language}>
+				<Select
+					options={languages}
+					defaultValue={0}
+					canBeNull={false}
+					onChange={onLanguageChange}
+				/>
+			</div>
 
 			<header className={styles.register} dir={'ltr'}>
 				<div className={styles.header}>
