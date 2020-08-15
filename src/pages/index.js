@@ -1,1 +1,1 @@
-import './landing.global.sass'
+import('./landing.global.sass')
