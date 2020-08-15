@@ -34,5 +34,18 @@
 	"navbar.settings": "الإعدادات",
 	"navbar.compose": "انشر",
 
-	"home.title": "الرئيسيّة"
+	"home.title": "الرئيسيّة",
+
+	"login.title": "ديسكريميناتوري - تسجيل الدخول",
+	"login.header.title": "انضم لنا لمواجهة التمييز بكل اشكاله",
+	"login.header.subtitle": "شارك وقتك في أول شبكة أنشئت خصيصاً لمكافحة التمييز و التعاطف مع ضحاياه. متوفر على جميع الشاشات مجاناً.",
+	"login.header.logoAlt": "رمز ديسكريميناتوري (لوجو)",
+	"login.form.title": "تسجيل الدخول",
+	"login.form.question": "لا تمتلك حساباً؟",
+	"login.form.link": "لا مشكلة, سجل مجاناً",
+	"login.form.email.label": "بريدك الإلكتروني",
+	"login.form.email.placeholder": "بريدك المستخدم في تسجيل حسابك",
+	"login.form.password.label": "كلمة المرور",
+	"login.form.password.placeholder": "كلمة المرور المستخدمة في تسجيل حسابك",
+	"login.form.submit": "تقدم"
 }

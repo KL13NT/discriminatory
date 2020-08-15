@@ -9,10 +9,12 @@ import Button from '../components/Button/Button'
 import styles from './register.module.sass'
 import logo from '../assets/logo_small.svg'
 import { useToasts } from '../components/Toast/Toast'
+import { useIntl } from 'react-intl'
 
 function Login() {
 	const [fetching, setFetching] = useState(false)
 	const { add } = useToasts()
+	const { formatMessage: f } = useIntl()
 
 	useEffect(() => {
 		if (fetching) add({ text: 'Attempting to login', type: 'info' })
@@ -57,30 +59,26 @@ function Login() {
 					rel='stylesheet'
 				/>
 				<link href='/pages.css' rel='stylesheet' />
-				<title>Discriminatory - Login</title>
+				<title>{f({ id: 'login.title' })}</title>
 			</Helmet>
 
 			<header className={styles.register} dir={'ltr'}>
 				<div className={styles.header}>
-					<img src={logo} alt='Discriminatory logo' />
-					<h1>Join the cause against discrimination</h1>
-					<span>
-						Share, empathise, and enjoy your time on the first social network
-						built specifically to fight discrimination. Available on all screens
-						for free.
-					</span>
+					<img src={logo} alt={f({ id: 'login.header.logoAlt' })} />
+					<h1>{f({ id: 'login.header.title' })}</h1>
+					<span>{f({ id: 'login.header.subtitle' })}</span>
 				</div>
 				<form className={styles.form} onSubmit={onSubmit}>
 					<div>
-						<h1>Login</h1>
+						<h1>{f({ id: 'login.form.title' })}</h1>
 						<span>
-							Don't have an account?{' '}
-							<Link to='/register'>Register for free</Link>
+							{f({ id: 'login.form.question' })}{' '}
+							<Link to='/register'>{f({ id: 'login.form.link' })}</Link>
 						</span>
 					</div>
 
 					<div>
-						<label htmlFor='email'>Email</label>
+						<label htmlFor='email'>{f({ id: 'login.form.email.label' })}</label>
 						<TextInput
 							type='email'
 							name='email'
@@ -88,9 +86,11 @@ function Login() {
 							maxLength='50'
 							required
 							minimalist
-							placeholder='example@example.com'
+							placeholder={f({ id: 'login.form.email.placeholder' })}
 						/>
-						<label htmlFor='password'>Password</label>
+						<label htmlFor='password'>
+							{f({ id: 'login.form.password.label' })}
+						</label>
 						<TextInput
 							type='password'
 							name='password'
@@ -98,10 +98,10 @@ function Login() {
 							maxLength='50'
 							required
 							minimalist
-							placeholder='********'
+							placeholder={f({ id: 'login.form.password.placeholder' })}
 						/>
 						<Button type='submit' minimalist>
-							Continue
+							{f({ id: 'login.form.submit' })}
 						</Button>
 					</div>
 				</form>

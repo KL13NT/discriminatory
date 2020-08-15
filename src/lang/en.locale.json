@@ -31,5 +31,18 @@
 	"navbar.settings": "Settings",
 	"navbar.compose": "Compose",
 
-	"home.title": "Home"
+	"home.title": "Home",
+
+	"login.title": "Discriminatory - Login",
+	"login.header.title": "Join the cause against discrimination",
+	"login.header.subtitle": "Share, empathise, and enjoy your time on the first social network built specifically to fight discrimination. Available on all screens for free.",
+	"login.header.logoAlt": "Discriminatory logo",
+	"login.form.title": "Login",
+	"login.form.question": "Don't have an account?",
+	"login.form.link": "Register for free",
+	"login.form.email.label": "Email",
+	"login.form.email.placeholder": "example@example.com",
+	"login.form.password.label": "Password",
+	"login.form.password.placeholder": "Your account's password",
+	"login.form.submit": "Continue"
 }
