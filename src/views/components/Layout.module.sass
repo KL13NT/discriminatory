@@ -8,13 +8,14 @@
 .content
 	flex-grow: 10
 
-.left
-	display: none
-
 .right
 	display: none
 	width: 30%
 	margin-top: 10px
+
+.left
+	position: sticky
+	height: 100%
 
 
 @media screen and (min-width: 768px)
@@ -22,30 +23,40 @@
 		padding: 0 40px
 
 	.content
-		margin: 0 10px
-
-		nav
-			margin: 0 20px
+		margin: 0 20px
 
 	.left
-		display: block
-		height: 0px
 		flex-grow: 0
 		width: 10%
 
+		nav
+			position: relative
+			width: 100%
+			height: 100%
+
 @media screen and (min-width: 1024px)
+	.layout
+		padding: 0 40px
+
 	.left
 		width: 22%
 
 @media screen and (min-width: 1366px)
 	.right
 		display: block
-
-	.layout
-		padding: 0 40px
+		padding: 0 20px
 
 	.content
 		margin: 0 20px
 
 	.content nav
 		width: 22%
+
+	.left
+		position: sticky
+		height: 100%
+
+		nav
+			position: relative
+			width: 100%
+			height: 100%

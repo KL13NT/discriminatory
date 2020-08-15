@@ -14,6 +14,7 @@ import Navbar from './components/Navbar/Navbar'
 
 import routes from './config/routes'
 import Banner from './components/Banner/Banner'
+import Layout from './views/components/Layout'
 
 export const PrivateRoute = ({ component: Component, user, ...rest }) => {
 	if (user) {
@@ -75,8 +76,9 @@ const AnimatedRoutes = ({ user }) => {
 export default function Router({ user }) {
 	return (
 		<BrowserRouter>
-			<Navbar user={user} />
-			<AnimatedRoutes user={user} />
+			<Layout user={user}>
+				<AnimatedRoutes user={user} />
+			</Layout>
 		</BrowserRouter>
 	)
 }

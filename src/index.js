@@ -68,9 +68,7 @@ function Wrappers() {
 						messages={messages}
 					>
 						<LanguageWrapper>
-							<Layout>
-								<App />
-							</Layout>
+							<App />
 						</LanguageWrapper>
 					</IntlProvider>
 				</Suspense>
