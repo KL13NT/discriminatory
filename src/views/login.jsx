@@ -5,27 +5,24 @@ import { auth } from 'firebase'
 
 import TextInput from '../components/TextInput/TextInput'
 import Button from '../components/Button/Button'
+import QuickLangSwitch from './components/QuickLangSwitch'
+import { useToasts } from '../components/Toast/Toast'
+import { useIntl } from 'react-intl'
 
 import styles from './register.module.sass'
 import logo from '../assets/logo_small.svg'
-import { useToasts } from '../components/Toast/Toast'
-import { useIntl } from 'react-intl'
-import Select from '../components/Select/Select'
-import { useSettings } from '../stores/settings'
 
 function Login() {
 	const [fetching, setFetching] = useState(false)
 	const { add } = useToasts()
 	const { formatMessage: f } = useIntl()
-	const { settings, update } = useSettings()
-	const { locales } = settings.display.language
-	const languages = [
-		{ value: 'en', name: 'English' },
-		{ value: 'ar', name: 'Arabic - العربية' }
-	]
 
 	useEffect(() => {
-		if (fetching) add({ text: 'Attempting to login', type: 'info' })
+		if (fetching)
+			add({
+				text: f({ id: 'login.progress' }),
+				type: 'info'
+			})
 	}, [fetching, add])
 
 	const onSubmit = e => {
@@ -41,7 +38,7 @@ function Login() {
 			.signInWithEmailAndPassword(email, password)
 			.then(() => {
 				add({
-					text: 'Login successful, redirecting you',
+					text: f({ id: 'login.success' }),
 					type: 'success'
 				})
 			})
@@ -51,19 +48,6 @@ function Login() {
 					type: 'danger'
 				})
 			})
-	}
-
-	const onLanguageChange = target => {
-		update({
-			settings: {
-				display: {
-					language: {
-						locales,
-						selected: locales.find(locale => locale.locale === target.value)
-					}
-				}
-			}
-		})
 	}
 
 	return (
@@ -76,12 +60,7 @@ function Login() {
 			</Helmet>
 
 			<div className={styles.language}>
-				<Select
-					options={languages}
-					defaultValue={0}
-					canBeNull={false}
-					onChange={onLanguageChange}
-				/>
+				<QuickLangSwitch />
 			</div>
 
 			<header className={styles.register} dir={'ltr'}>
