@@ -76,9 +76,7 @@ function Select(props) {
 		defaultValue,
 		canBeNull
 	} = props
-	const [selected, select] = useState(
-		canBeNull ? options[defaultValue] : options[0]
-	)
+	const [selected, select] = useState(!canBeNull ? options[defaultValue] : null)
 	const [expanded, expand] = useState(null)
 
 	const firstElement = useRef()
