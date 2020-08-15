@@ -46,7 +46,7 @@ function CompleteProfile() {
 		if (response.fetching)
 			add({
 				text: f({ id: 'setup.progress' }),
-				type: 'info'
+				type: 'warn'
 			})
 		else if (response.error)
 			add({ text: response.error.message, type: 'danger' })
@@ -82,7 +82,7 @@ function CompleteProfile() {
 			.currentUser.sendEmailVerification()
 			.then(() => {
 				add({
-					text: 'Resent verification link to your email',
+					text: f({ id: 'account.verification.resend.success' }),
 					type: 'success'
 				})
 			})
@@ -96,10 +96,8 @@ function CompleteProfile() {
 
 	const logout = () => {
 		add({
-			text: f({
-				id: 'notify.logout.progress',
-				type: 'warn'
-			})
+			text: f({ id: 'logout.progress' }),
+			type: 'info'
 		})
 
 		firebase
@@ -107,13 +105,14 @@ function CompleteProfile() {
 			.signOut()
 			.then(() => {
 				add({
-					text: f({ id: 'notify.logout.success' }),
+					text: f({ id: 'logout.success' }),
 					type: 'success'
 				})
 			})
 			.catch(() => {
 				add({
-					text: f({ id: 'notify.logout.error', type: 'error' })
+					text: f({ id: 'logout.error' }),
+					type: 'error'
 				})
 			})
 	}
