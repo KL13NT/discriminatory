@@ -7,9 +7,9 @@ const [useAuth] = create(set => ({
 			return { user }
 		}),
 	clear: () =>
-		set(() => {
-			null
-		})
+		set(() => ({
+			user: null
+		}))
 }))
 
 export { useAuth }

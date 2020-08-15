@@ -10,9 +10,9 @@ const [useProfile] = create(set => ({
 			return { ...state, profile }
 		}),
 	clear: () =>
-		set(() => {
-			null
-		})
+		set(() => ({
+			profile: null
+		}))
 }))
 
 export { useProfile }

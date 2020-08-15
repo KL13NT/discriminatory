@@ -33,7 +33,7 @@ const defaultConfig = {
 }
 
 const [useSettings] = create(set => ({
-	settings: localStorage.getItem('settings') || defaultConfig,
+	settings: JSON.parse(localStorage.getItem('settings')) || defaultConfig,
 
 	update: newState =>
 		set(state => {
