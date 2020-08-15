@@ -12,20 +12,21 @@ import logo from '../assets/logo_small.svg'
 import firebase from 'firebase'
 import { useState } from 'react'
 import { useToasts } from '../components/Toast/Toast'
+import { useIntl } from 'react-intl'
+import QuickLangSwitch from './components/QuickLangSwitch'
 
 function Register() {
-	// const [result, register] = useMutation(`
-	// mutation RegisterMutation($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $password: String!){
-	// 		register (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, password: $password) {
-	// 			id
-	// 		}
-	// }`)
 	const [fetching, setFetching] = useState(false)
 	const [verificationSent, setVerificationSent] = useState(false)
 	const { add } = useToasts()
+	const { formatMessage: f } = useIntl()
 
 	useEffect(() => {
-		if (fetching) add({ text: 'Attempting to register', type: 'info' })
+		if (fetching)
+			add({
+				text: f({ id: 'register.progress' }),
+				type: 'info'
+			})
 	}, [fetching, add])
 
 	const onSubmit = e => {
@@ -50,7 +51,7 @@ function Register() {
 						setVerificationSent(true)
 						add({
 							type: 'success',
-							text: 'A verification link has been sent to your email.'
+							text: f({ id: 'register.succes' })
 						})
 					})
 			})
@@ -69,38 +70,31 @@ function Register() {
 			<Helmet>
 				<meta charset='UTF-8' />
 				<meta name='viewport' content='width=device-width initial-scale=1.0' />
-				<link
-					href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
-					rel='stylesheet'
-				/>
-				<link
-					href='https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap'
-					rel='stylesheet'
-				/>
 				<link href='/pages.css' rel='stylesheet' />
-				<title>Discriminatory - Register</title>
+				<title>{f({ id: 'register.title' })}</title>
 			</Helmet>
 
-			<header className={styles.register} dir={'ltr'}>
+			<div className={styles.language}>
+				<QuickLangSwitch />
+			</div>
+
+			<header className={styles.register}>
 				<div className={styles.header}>
-					<img src={logo} alt='Discriminatory logo' />
-					<h1>Join the cause against discrimination</h1>
-					<span>
-						Share, empathise, and enjoy your time on the first social network
-						built specifically to fight discrimination. Available on all screens
-						for free.
-					</span>
+					<img src={logo} alt={f({ id: 'login.header.logoAlt' })} />
+					<h1>{f({ id: 'login.header.title' })}</h1>
+					<span>{f({ id: 'login.header.subtitle' })}</span>
 				</div>
 				<form className={styles.form} onSubmit={onSubmit}>
 					<div>
-						<h1>Join Discriminatory</h1>
+						<h1>{f({ id: 'register.form.title' })}</h1>
 						<span>
-							Already registered? <Link to='/login'>Login instead</Link>
+							{f({ id: 'register.form.question' })}{' '}
+							<Link to='/login'>{f({ id: 'register.form.link' })}</Link>
 						</span>
 					</div>
 
 					<div>
-						<label htmlFor='email'>Email</label>
+						<label htmlFor='email'>{f({ id: 'login.form.email.label' })}</label>
 						<TextInput
 							minimalist
 							type='email'
@@ -109,9 +103,14 @@ function Register() {
 							minLength='4'
 							maxLength='50'
 							required
-							placeholder='example@example.com'
+							placeholder={f({ id: 'login.form.email.placeholder' })}
 						/>
-						<label htmlFor='password'>Password</label>
+						<label htmlFor='password'>
+							{f({ id: 'login.form.password.label' })}
+						</label>
+						<span className={styles.labelSub}>
+							{f({ id: 'register.password.strength' })}
+						</span>
 						<TextInput
 							minimalist
 							type='password'
@@ -120,27 +119,27 @@ function Register() {
 							minLength='8'
 							maxLength='50'
 							required
-							placeholder='********'
+							placeholder={f({ id: 'register.form.password.placeholder' })}
 						/>
 						<Button type='submit' minimalist>
-							Continue
+							{f({ id: 'login.form.submit' })}
 						</Button>
 
 						{verificationSent ? (
 							<span>
-								Verification email not sent?
+								{f({ id: 'register.verification.question' })}
 								<button className='u-link' onClick={resend}>
-									Try again
+									{f({ id: 'register.verification.link' })}
 								</button>
 								<br />
 							</span>
 						) : null}
 
 						<span className={styles.disclaimer}>
-							By clicking Continue, I confirm that I have read and agree to the{' '}
-							<a href='/terms'>Terms Of Service</a>,{' '}
-							<a href='/privacy'>Privacy Policy</a>, and to receive emails and
-							updates.
+							{f({ id: 'register.disclaimer.base' })}
+							<a href='/terms'>{f({ id: 'shared.terms.long' })}</a>,{' '}
+							<a href='/privacy'>{f({ id: 'shared.privacy.long' })}</a>,{' '}
+							{f({ id: 'register.disclaimer.emails' })}
 						</span>
 					</div>
 				</form>
