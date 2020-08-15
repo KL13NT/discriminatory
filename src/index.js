@@ -55,7 +55,6 @@ function Wrappers() {
 	}, []) // eslint-disable-line
 
 	useEffect(() => {
-		console.log('locale changed')
 		fetchAndUpdateLocale(locales[settings.display.language.selected.locale])
 	}, [fetchAndUpdateLocale, locales, settings.display.language])
 
@@ -82,29 +81,31 @@ function LanguageWrapper({ children }) {
 	const { settings } = useSettings()
 	const { dir } = settings.display.language.selected
 
-	const enFonts = [
-		<link
-			href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
-			rel='stylesheet'
-		/>,
-		<link
-			href='https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap'
-			rel='stylesheet'
-		/>
-	]
+	const EnFonts = (
+		<Helmet>
+			<link
+				href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
+				rel='stylesheet'
+			/>
+			<link
+				href='https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap'
+				rel='stylesheet'
+			/>
+		</Helmet>
+	)
+
+	const ArFonts = (
+		<Helmet>
+			<link
+				href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap'
+				rel='stylesheet'
+			/>
+		</Helmet>
+	)
 
 	return (
 		<div dir={dir}>
-			<Helmet>
-				{dir === 'ltr' ? (
-					enFonts
-				) : (
-					<link
-						href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap'
-						rel='stylesheet'
-					/>
-				)}
-			</Helmet>
+			{dir === 'ltr' ? <EnFonts /> : <ArFonts />}
 			{children}
 		</div>
 	)
