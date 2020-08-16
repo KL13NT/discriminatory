@@ -9,7 +9,7 @@ import QuickLangSwitch from './components/QuickLangSwitch'
 import { useToasts } from '../components/Toast/Toast'
 import { useIntl } from 'react-intl'
 
-import styles from './register.module.sass'
+import styles from './auth.module.sass'
 import logo from '../assets/logo_small.svg'
 
 function Login() {

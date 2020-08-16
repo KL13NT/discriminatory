@@ -2,18 +2,20 @@ import React from 'react'
 import Select from '../../components/Select/Select'
 import { useSettings } from '../../stores/settings'
 
+import SA from '../../assets/002-saudi-arabia.svg'
+import GB from '../../assets/001-united-kingdom.svg'
+
 export default function QuickLangSwitch() {
 	const { settings, update } = useSettings()
 	const { locales, selected } = settings.display.language
 	const languages = [
-		{ value: 'en', name: 'English' },
-		{ value: 'ar', name: 'Arabic - العربية' }
+		{ value: 'en', name: 'English', icon: GB },
+		{ value: 'ar', name: 'Arabic - العربية', icon: SA }
 	]
 
 	const defaultValue = languages.findIndex(
 		lang => selected.locale === lang.value
 	)
-	console.log(languages[defaultValue])
 
 	const onLanguageChange = target => {
 		update({

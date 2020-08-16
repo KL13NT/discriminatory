@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import TextInput from '../components/TextInput/TextInput'
 import Button from '../components/Button/Button'
 
-import styles from './register.module.sass'
+import styles from './auth.module.sass'
 import logo from '../assets/logo_small.svg'
 
 import firebase from 'firebase'
