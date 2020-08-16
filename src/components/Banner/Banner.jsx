@@ -27,7 +27,7 @@ Banner.propTypes = {
 	/** What to be displayed as subtitle */
 	children: PropTypes.node.isRequired,
 	title: PropTypes.string.isRequired,
-	big: PropTypes.bool.isRequired,
+	big: PropTypes.bool,
 	position: PropTypes.oneOf(['top', 'bottom']),
 	onDismiss: PropTypes.func
 }
