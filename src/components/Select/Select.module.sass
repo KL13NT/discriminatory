@@ -10,13 +10,16 @@
 	border-radius: 5px
 	cursor: pointer
 	position: relative
+	min-width: 180px
 
 	&:focus, &[data-focus="true"]
-		border: solid 2px var(--color-blue-base)
+		box-shadow: 0 0 0px 2px var(--color-blue-base)
 
 .selected
 	flex-grow: 10
 	font-size: var(--font-size-m)
+	display: flex
+	align-items: center
 
 .dropdown
 	background: var(--color-primary)
@@ -30,9 +33,18 @@
 	left: 0
 	border-radius: 5px
 
+.icon
+	height: 20px
+	width: 20px
+	object-fit: cover
+	margin-inline-end: 5px
+
+
 .option
 	padding: 10px
 	border-radius: inherit
+	display: flex
+	align-items: center
 	color: var(--color-negative)
 	font-size: var(--font-size-m)
 

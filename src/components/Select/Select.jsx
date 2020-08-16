@@ -29,10 +29,14 @@ const findParentByClass = (target, selector) => {
 		return findParentByClass(target.parentNode, selector)
 }
 
+const Icon = ({ icon, name }) => (
+	<img className={styles.icon} src={icon} alt={name} />
+)
+
 // eslint-disable-next-line react/display-name
 const Option = React.forwardRef((props, ref) => {
 	const { option, onPick, selected, ...rest } = props
-	const { value, name } = option
+	const { value, name, icon } = option
 
 	const onClick = () => onPick(option)
 	const onKeyDown = e => {
@@ -62,6 +66,7 @@ const Option = React.forwardRef((props, ref) => {
 			ref={ref}
 			{...rest}
 		>
+			{icon ? <Icon {...option} /> : null}
 			{name}
 		</li>
 	)
@@ -136,6 +141,7 @@ function Select(props) {
 			ref={container}
 		>
 			<div className={styles.selected}>
+				{selected.icon ? <Icon {...selected} /> : null}
 				{selected ? selected.name : 'Select...'}
 			</div>
 			<div className={styles.actions}>
