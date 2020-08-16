@@ -67,5 +67,15 @@
 	"login.progress": "جاري تسجيل الدخول",
 	"login.success": "تم تسجيل الدخول بنجاح",
 
-	"account.verification.resend.success": "تم ارسال رسالة التفعيل مجدداً بنجاح"
+	"account.verification.resend.success": "تم ارسال رسالة التفعيل مجدداً بنجاح",
+
+	"emojis.pleading": "Face with big pleading eyes",
+
+	"errors.404.title": "هذه الصفحة غير موجودة",
+	"errors.404.description": "حاول مجدداً او ارجع للصفحة السابقة.",
+
+	"error.general.title": "احم.. ايه الاحراج ده",
+	"error.general.description": "حاول مرة اخرى او عد للصفحة السابقة.",
+	"error.general.subtitle": "نعدك بإصلاح الخطأ اذا ",
+	"error.general.report": "قمت بالتبليغ عنه"
 }

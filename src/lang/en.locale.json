@@ -64,5 +64,15 @@
 	"login.progress": "Attempting to login",
 	"login.success": "Login successful, redirecting you",
 
-	"account.verification.resend.success": "Resent verification link successfully"
+	"account.verification.resend.success": "Resent verification link successfully",
+
+	"emojis.pleading": "Face with big pleading eyes",
+
+	"errors.404.title": "This page doesn't exist",
+	"errors.404.description": "Try double-checking the link or go back.",
+
+	"error.general.title": "Yikes, this is embarrassing",
+	"error.general.description": "Try double-checking or going back.",
+	"error.general.subtitle": "We promise to fix it if you ",
+	"error.general.report": "report it"
 }
