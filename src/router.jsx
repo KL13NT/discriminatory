@@ -10,8 +10,6 @@ import {
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { useIntl } from 'react-intl'
 
-import Navbar from './components/Navbar/Navbar'
-
 import routes from './config/routes'
 import Banner from './components/Banner/Banner'
 import Layout from './views/components/Layout'
@@ -53,14 +51,11 @@ const AnimatedRoutes = ({ user }) => {
 		// 	<CSSTransition key={location.key} classNames='fade' timeout={300}>
 		<>
 			{isBannerVisible ? (
-				<Banner size='big'>
-					<h6>
-						{f({ id: 'banners.register.title' })}{' '}
-						<Link to='/register' style={{ color: 'var(--color-primary)' }}>
-							{f({ id: 'banners.register.link' })}
-						</Link>
-					</h6>
-					<span>{f({ id: 'banners.register.subtitle' })}</span>
+				<Banner title={f({ id: 'banners.register.title' })}>
+					<span>
+						{f({ id: 'banners.register.subtitle' })}{' '}
+						<Link to='/register'>{f({ id: 'banners.register.link' })}</Link>
+					</span>
 				</Banner>
 			) : null}
 			<Switch>

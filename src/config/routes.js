@@ -5,6 +5,8 @@ const Register = React.lazy(() => import('../views/register'))
 const Login = React.lazy(() => import('../views/login'))
 const Verify = React.lazy(() => import('../views/verify'))
 
+import { Four0Four } from '../components/Errors/PageError'
+
 const routes = [
 	{
 		path: '/home',
@@ -75,6 +77,14 @@ const routes = [
 		path: '/:user_id',
 		name: 'Profile',
 		component: () => 'Profile',
+		private: false,
+		anonymousOnly: false,
+		exact: true
+	},
+	{
+		path: '*',
+		name: '404',
+		component: Four0Four,
 		private: false,
 		anonymousOnly: false,
 		exact: true

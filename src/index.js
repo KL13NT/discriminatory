@@ -5,8 +5,10 @@ import ReactDOM from 'react-dom'
 import Router from './router.jsx'
 import ProfileAuthController from './ProfileAuthController.jsx'
 import CompleteProfile from './views/components/CompleteProfile.jsx'
-import PageError from './views/components/PageError'
+
 import { initializeApp as initFirebase } from 'firebase'
+import { Helmet } from 'react-helmet'
+import { ErrorBoundaryPage } from './components/Errors/PageError'
 import { createClient, Provider } from 'urql'
 import { ToastContainer } from './components/Toast/Toast.jsx'
 import { useAuth } from './stores/auth.js'
@@ -17,7 +19,7 @@ import { useSettings } from './stores/settings'
 import { useLocale } from './stores/locale'
 
 import './style/base.global.sass'
-import { Helmet } from 'react-helmet'
+import { IntlErrorBoundary } from './components/Errors/PageError'
 
 /**
  * GraphQL & Firebase Initialisation
@@ -60,7 +62,7 @@ function Wrappers() {
 
 	if (!messages) return <FullscreenLoader loading={true} />
 	return (
-		<PageError>
+		<ErrorBoundaryPage>
 			<Provider value={graphql}>
 				<Suspense fallback={<FullscreenLoader loading={true} />}>
 					<IntlProvider
@@ -68,12 +70,14 @@ function Wrappers() {
 						messages={messages}
 					>
 						<LanguageWrapper>
-							<App />
+							<IntlErrorBoundary>
+								<App />
+							</IntlErrorBoundary>
 						</LanguageWrapper>
 					</IntlProvider>
 				</Suspense>
 			</Provider>
-		</PageError>
+		</ErrorBoundaryPage>
 	)
 }
 
@@ -81,7 +85,7 @@ function LanguageWrapper({ children }) {
 	const { settings } = useSettings()
 	const { dir } = settings.display.language.selected
 
-	const EnFonts = (
+	const EnFonts = () => (
 		<Helmet>
 			<link
 				href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
@@ -94,7 +98,7 @@ function LanguageWrapper({ children }) {
 		</Helmet>
 	)
 
-	const ArFonts = (
+	const ArFonts = () => (
 		<Helmet>
 			<link
 				href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap'
@@ -125,9 +129,4 @@ function App() {
 	)
 }
 
-ReactDOM.render(
-	<PageError>
-		<Wrappers />
-	</PageError>,
-	root
-)
+ReactDOM.render(<Wrappers />, root)
