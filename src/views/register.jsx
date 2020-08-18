@@ -27,7 +27,7 @@ function Register() {
 				text: f({ id: 'register.progress' }),
 				type: 'info'
 			})
-	}, [fetching, add])
+	}, [fetching, add, f])
 
 	const onSubmit = e => {
 		e.preventDefault()

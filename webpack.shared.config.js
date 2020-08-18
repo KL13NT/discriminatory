@@ -28,16 +28,22 @@ const html = [
 	})
 ]
 
+const jsWithSourceMap = [
+	{ loader: 'babel-loader', options: { cacheDirectory: true } },
+	{
+		loader: 'source-map-loader'
+	}
+]
+
+const jsWithoutSourceMap = [
+	{ loader: 'babel-loader', options: { cacheDirectory: true } }
+]
+
 const jsLoaders = mode => [
 	{
 		test: /\.jsx?$/i,
 		exclude: path.resolve(__dirname, 'node_modules/'),
-		use: [
-			{ loader: 'babel-loader', options: { cacheDirectory: true } },
-			{
-				loader: mode === 'development' ? 'source-map-loader' : undefined
-			}
-		],
+		use: mode === 'development' ? jsWithSourceMap : jsWithoutSourceMap,
 		resolve: { extensions: ['.js', '.jsx'] }
 	}
 ]

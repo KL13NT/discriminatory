@@ -23,7 +23,7 @@ function Login() {
 				text: f({ id: 'login.progress' }),
 				type: 'info'
 			})
-	}, [fetching, add])
+	}, [fetching, add, f])
 
 	const onSubmit = e => {
 		e.preventDefault()

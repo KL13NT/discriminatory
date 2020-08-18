@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import cls from '../../utils/cls'
 import styles from './LoadingPage.module.sass'
 import LoadingSVG from '../../assets/loading.svg'
 
@@ -11,8 +10,22 @@ const gifs = {}
 function importAll(r) {
 	r.keys().forEach(key => (gifs[key] = r(key)))
 }
+const messages = [
+	'Adding randomly mispeled words into text',
+	'Attaching beards to dwarves',
+	'Does anyone actually read this?',
+	'Dusting off spellbooks',
+	'Ensuring everything works perfektly',
+	"Hitting your keyboard won't make this faster",
+	"If you squeeze dark elves you don't get wine"
+]
 
 importAll(context)
+
+const randomMessage = () => {
+	const index = Math.floor(Math.random() * messages.length)
+	return messages[index]
+}
 
 const randomGif = () => {
 	const filename = Object.values(gifs)[
@@ -22,38 +35,23 @@ const randomGif = () => {
 	return filename
 }
 
-export const FullscreenLoader = ({ loading, children }) => {
-	const [visible, setVisible] = useState(loading)
+export const FullscreenLoader = ({ children }) => {
 	const [src, setSrc] = useState(randomGif())
-	const timeout = useRef(null)
-
-	useEffect(() => {
-		if (!loading) {
-			if (timeout) clearTimeout(timeout.current)
-
-			timeout.current = setTimeout(() => {
-				setVisible(false)
-			}, 1000)
-		}
-	}, [loading, timeout])
 
 	const onClick = () => {
 		setSrc(randomGif())
 	}
 
-	if (!visible) return null
 	return (
 		<div
 			onClick={onClick}
 			onKeyDown={onClick}
 			role={alert}
-			className={cls(
-				styles.fullscreenLoader,
-				visible ? styles.visible : styles.hidden
-			)}
+			className={styles.fullscreenLoader}
 		>
 			<img src={src} alt='Loading gif' />
-			<span>{children || 'Loading'}</span>
+			<span>Loading</span>
+			<p>{children || randomMessage()}</p>
 		</div>
 	)
 }

@@ -1,5 +1,4 @@
 import create from 'zustand'
-import { createIntl, createIntlCache } from 'react-intl'
 
 /**
  * Locales that webpack copy to dist directory for us to dynamically fetch so that we don't load unused locales

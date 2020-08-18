@@ -21,9 +21,8 @@ function CompleteProfile() {
 	const { dir } = settings.display.language.selected
 
 	const [response, updateProfile] = useMutation(`
-	mutation ProfileMutation ($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $tagline: String!, $id: String!){
-			profile (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, tagline: $tagline, id: $id) {
-				id
+	mutation AccountMutation ($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $tagline: String!){
+			account (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, tagline: $tagline) {
 				displayName
 				email
 				location
@@ -34,7 +33,7 @@ function CompleteProfile() {
 
 	useEffect(() => {
 		if (response.data) {
-			update(response.data.profile)
+			update(response.data.account)
 			add({
 				text: f({ id: 'setup.success' }),
 				type: 'success'
@@ -58,7 +57,6 @@ function CompleteProfile() {
 		const data = new FormData(e.target)
 		const body = {
 			email: user.email,
-			id: user.uid,
 			displayName: data.get('name'),
 			dateofbirth: data.get('dateofbirth'),
 			location: data.get('location'),
@@ -81,6 +79,8 @@ function CompleteProfile() {
 			.auth()
 			.currentUser.sendEmailVerification()
 			.then(() => {
+				firebase.auth().currentUser.getIdToken(true)
+
 				add({
 					text: f({ id: 'account.verification.resend.success' }),
 					type: 'success'

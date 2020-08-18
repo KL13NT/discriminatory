@@ -10,8 +10,13 @@
 	align-items: center
 	flex-direction: column
 	background: var(--color-background)
+	z-index: 60
 
 	transition: opacity var(--transition-duration-base)
+
+	> p
+		font-size: var(--font-size-m)
+		color: var(--color-secondary)
 
 	> span
 		color: transparent
@@ -27,11 +32,6 @@
 		width: 40px
 		margin: 10px 0
 
-.visible
-	opacity: 1
-
-.hidden
-	opacity: 0
 
 @keyframes gradient
 	0%
@@ -77,8 +77,6 @@
 		animation-timing-function: ease
 	p
 		margin: var(--margin--elements)
-
-
 
 @keyframes spinner
 	0%

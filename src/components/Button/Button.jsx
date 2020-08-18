@@ -21,7 +21,7 @@ function Button({
 	)
 
 	return (
-	<button
+		<button
 			className={classes}
 			disabled={disabled}
 			onClick={disabled ? null : onClick}

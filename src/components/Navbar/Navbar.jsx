@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import Button from '../Button/Button'
 
 import styles from './Navbar.module.sass'
@@ -37,11 +39,6 @@ function NavbarLink({ to, name, icon: Icon }) {
 
 function PrivateLink({ user, children }) {
 	if (!user || !user.emailVerified) return null
-	return children
-}
-
-function PublicOnly({ user, children }) {
-	if (user) return null
 	return children
 }
 
@@ -99,7 +96,9 @@ function Navbar({ user }) {
 	)
 }
 
-const propTypes = {}
+const propTypes = {
+	user: PropTypes.object.isRequired
+}
 const defaultProps = {}
 
 Navbar.propTypes = propTypes

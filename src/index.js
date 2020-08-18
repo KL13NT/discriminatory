@@ -1,25 +1,31 @@
+import { initializeApp as initFirebase } from 'firebase'
+
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom'
+import {
+	createClient,
+	dedupExchange,
+	cacheExchange,
+	fetchExchange,
+	Provider as GraphqlProvider
+} from 'urql'
+import { retryExchange } from '@urql/exchange-retry'
+
 import config from '../client.firebase.json'
 
-import React, { Suspense, useEffect, useCallback } from 'react'
-import ReactDOM from 'react-dom'
-import Router from './router.jsx'
-import ProfileAuthController from './ProfileAuthController.jsx'
-import CompleteProfile from './views/components/CompleteProfile.jsx'
+import ProfileAuthController from './views/controllers/ProfileAuthController.jsx'
+import IntlController from './views/controllers/IntlController'
 
-import { initializeApp as initFirebase } from 'firebase'
-import { Helmet } from 'react-helmet'
-import { ErrorBoundaryPage } from './components/Errors/PageError'
-import { createClient, Provider } from 'urql'
-import { ToastContainer } from './components/Toast/Toast.jsx'
-import { useAuth } from './stores/auth.js'
-import { useProfile } from './stores/profile.js'
+import Router from './router.jsx'
+
 import { FullscreenLoader } from './components/Loading/LoadingPage'
-import { IntlProvider } from 'react-intl'
-import { useSettings } from './stores/settings'
-import { useLocale } from './stores/locale'
+import { ErrorBoundaryPage } from './components/Errors/PageError'
+import { ToastContainer } from './components/Toast/Toast.jsx'
+
+import { useAuth } from './stores/auth.js'
+import { useFullscreenLoader } from './stores/loading'
 
 import './style/base.global.sass'
-import { IntlErrorBoundary } from './components/Errors/PageError'
 
 /**
  * GraphQL & Firebase Initialisation
@@ -32,7 +38,15 @@ const graphql = createClient({
 		return {
 			headers: { authorization: token ? `Bearer ${token}` : '' }
 		}
-	}
+	},
+	exchanges: [
+		dedupExchange,
+		cacheExchange,
+		retryExchange({
+			retryIf: err => err
+		}), // Use the retryExchange factory to add a new exchange
+		fetchExchange
+	]
 })
 
 const root = document.querySelector('#root')
@@ -43,88 +57,32 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 function Wrappers() {
-	const { settings } = useSettings()
-	const { locales, messages, updateMessages } = useLocale()
-
-	const fetchAndUpdateLocale = useCallback(path => {
-		fetch(path)
-			.then(res => res.json())
-			.then(messages => {
-				updateMessages(messages)
-				console.log('MESSAGESS', messages)
-			})
-			.catch(console.log)
-	}, []) // eslint-disable-line
-
-	useEffect(() => {
-		fetchAndUpdateLocale(locales[settings.display.language.selected.locale])
-	}, [fetchAndUpdateLocale, locales, settings.display.language])
-
-	if (!messages) return <FullscreenLoader loading={true} />
 	return (
 		<ErrorBoundaryPage>
-			<Provider value={graphql}>
-				<Suspense fallback={<FullscreenLoader loading={true} />}>
-					<IntlProvider
-						locale={settings.display.language.selected.locale}
-						messages={messages}
-					>
-						<LanguageWrapper>
-							<IntlErrorBoundary>
-								<App />
-							</IntlErrorBoundary>
-						</LanguageWrapper>
-					</IntlProvider>
-				</Suspense>
-			</Provider>
+			<GraphqlProvider value={graphql}>
+				<IntlController>
+					<ProfileAuthController>
+						<Suspense fallback={<FullscreenLoader />}>
+							<App />
+						</Suspense>
+					</ProfileAuthController>
+				</IntlController>
+			</GraphqlProvider>
 		</ErrorBoundaryPage>
-	)
-}
-
-function LanguageWrapper({ children }) {
-	const { settings } = useSettings()
-	const { dir } = settings.display.language.selected
-
-	const EnFonts = () => (
-		<Helmet>
-			<link
-				href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
-				rel='stylesheet'
-			/>
-			<link
-				href='https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap'
-				rel='stylesheet'
-			/>
-		</Helmet>
-	)
-
-	const ArFonts = () => (
-		<Helmet>
-			<link
-				href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap'
-				rel='stylesheet'
-			/>
-		</Helmet>
-	)
-
-	return (
-		<div dir={dir}>
-			{dir === 'ltr' ? <EnFonts /> : <ArFonts />}
-			{children}
-		</div>
 	)
 }
 
 function App() {
 	const { user } = useAuth()
-	const { profile } = useProfile()
+	const { active } = useFullscreenLoader()
+
+	if (active.length > 0)
+		return <FullscreenLoader>{active[0].name}</FullscreenLoader>
 
 	return (
 		<>
 			<ToastContainer />
 			<Router user={user} />
-			<ProfileAuthController />
-			{user && !profile ? <CompleteProfile /> : null}
 		</>
 	)
 }

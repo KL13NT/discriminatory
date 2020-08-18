@@ -14,10 +14,6 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 	const [postData, setPostData] = useState({ location: null, content: '' })
 
 	useEffect(() => {
-		console.log(
-			postData,
-			postData.content.trim().length > 0 && postData.location
-		)
 		if (postData.content.trim().length > 0 && postData.location)
 			setCanSubmitState(true)
 	}, [postData.content, postData.location, postData])

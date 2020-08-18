@@ -42,7 +42,7 @@ export class IntlErrorBoundary extends React.Component {
 						<FormattedMessage
 							id='errors.general.title'
 							defaultMessage='Yikes, this is embarassing'
-						/>
+						/>{' '}
 						<span
 							role='img'
 							aria-label={<FormattedMessage id='emojis.pleading' />}
@@ -54,7 +54,7 @@ export class IntlErrorBoundary extends React.Component {
 						<FormattedMessage
 							id='errors.general.description'
 							defaultMessage='Try double-checking or going back.'
-						/>
+						/>{' '}
 						<span>
 							<FormattedMessage
 								id='errors.general.subtitle'

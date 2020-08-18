@@ -7,7 +7,6 @@ import {
 	useLocation,
 	Link
 } from 'react-router-dom'
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { useIntl } from 'react-intl'
 
 import routes from './config/routes'
@@ -40,15 +39,13 @@ const renderRoutes = (routes, user) =>
 	})
 
 const AnimatedRoutes = ({ user }) => {
-	const { pathname } = useLocation()
+	const location = useLocation()
 	const { formatMessage: f } = useIntl()
+	const { pathname } = location
 	const isBannerVisible =
 		!user && pathname !== '/login' && pathname !== '/register'
 
-	console.log(pathname)
 	return (
-		// <TransitionGroup>
-		// 	<CSSTransition key={location.key} classNames='fade' timeout={300}>
 		<>
 			{isBannerVisible ? (
 				<Banner title={f({ id: 'banners.register.title' })}>
@@ -58,13 +55,11 @@ const AnimatedRoutes = ({ user }) => {
 					</span>
 				</Banner>
 			) : null}
-			<Switch>
+			<Switch location={location}>
 				{renderRoutes(routes, user)}
 				<Redirect from='/' to='/home' exact />
 			</Switch>
 		</>
-		// 	</CSSTransition>
-		// </TransitionGroup>
 	)
 }
 

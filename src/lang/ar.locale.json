@@ -74,8 +74,8 @@
 	"errors.404.title": "هذه الصفحة غير موجودة",
 	"errors.404.description": "حاول مجدداً او ارجع للصفحة السابقة.",
 
-	"error.general.title": "احم.. ايه الاحراج ده",
-	"error.general.description": "حاول مرة اخرى او عد للصفحة السابقة.",
-	"error.general.subtitle": "نعدك بإصلاح الخطأ اذا ",
-	"error.general.report": "قمت بالتبليغ عنه"
+	"errors.general.title": "احم.. هذا محرج قليلاً",
+	"errors.general.description": "حاول مرة اخرى او عد للصفحة السابقة.",
+	"errors.general.subtitle": "نعدك بإصلاح الخطأ اذا ",
+	"errors.general.report": "قمت بالتبليغ عنه"
 }

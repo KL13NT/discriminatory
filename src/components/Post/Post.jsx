@@ -32,7 +32,6 @@ function Post({
 	}
 
 	const onAction = (action, e) => {
-		console.log(action)
 		if (action === 'report') onReport(details.id, e)
 		else if (action === 'delete') onDelete(details.id, e)
 		else if (action === 'pin') onPin(details.id, e)
