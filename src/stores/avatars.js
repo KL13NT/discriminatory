@@ -1,5 +1,4 @@
 import create from 'zustand'
-import { storage } from 'firebase'
 
 /**
  * an avatar is an object with 2 props {key: uid, src: actual source, either generated or a real one}

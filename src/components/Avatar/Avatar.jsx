@@ -5,40 +5,33 @@ import styles from './Avatar.module.sass'
 import cls from '../../utils/cls'
 import { useEffect } from 'react'
 import { getAvatarUrl } from '../../utils/profiles'
-import { useState } from 'react'
 
 import Placeholder from '../../assets/placeholder.png'
 import { useAvatars } from '../../stores/avatars'
 
 function Avatar({ avatar, _id, verified, displayName, variant, className }) {
-	const { updateAvatars, getAvatar } = useAvatars()
-	const [avatarSrc, setAvatarSrc] = useState(Placeholder)
+	const { avatars, updateAvatars } = useAvatars()
+	const av = avatars.find(av => av.key === avatar)
+	const src = av ? av.avatar : Placeholder
 
 	useEffect(() => {
-		if(avatar){
-			if (getAvatar(avatar)) setAvatarSrc(getAvatar(avatar))
-			else {
-				if (avatar)
-					getAvatarUrl(avatar)
-						.then(avatar => {
-							setAvatarSrc(avatar)
-							updateAvatars({ avatar, key: avatar })
-						})
-						.catch(e => {
-							setAvatarSrc(Placeholder)
-							updateAvatars({ avatar, _id })
-							console.log('COPY THIS WHEN REPORTING', e)
-						})
-			}
+		if (src === Placeholder && avatar) {
+			getAvatarUrl(avatar)
+				.then(av => {
+					updateAvatars({ avatar: av, key: avatar })
+				})
+				.catch(e => {
+					console.log('COPY THIS WHEN REPORTING', e)
+				})
 		}
-	}, [])
+	}, [_id, avatar, avatars, src, updateAvatars])
 
 	return (
 		<div
 			className={cls(styles.avatar, className, styles[variant])}
 			data-verified={verified}
 		>
-			<img src={avatarSrc} alt={`${displayName}'s Avatar`} />
+			<img src={src} alt={`${displayName}'s Avatar`} />
 		</div>
 	)
 }

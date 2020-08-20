@@ -1,17 +1,19 @@
 import React, { useEffect, useCallback } from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
-import { useIntl } from 'react-intl'
 import Composer from '../components/Composer/Composer'
-import { useQuery, useMutation } from 'urql'
-import { useState } from 'react'
 import Container from '../components/Container/Container'
 import Post from '../components/Post/Post'
+
+import { useIntl } from 'react-intl'
+import { useQuery, useMutation } from 'urql'
+import { useState } from 'react'
 import { useAuth } from '../stores/auth'
 import { Link } from 'react-router-dom'
 
-import * as queries from '../queries/posts'
 import { useToasts } from '../components/Toast/Toast'
 import { useProfile } from '../stores/profile'
+
+import * as queries from '../queries/posts'
 
 const EmptyFeed = () => (
 	<Container>
@@ -41,6 +43,7 @@ function Home() {
 		before: null
 	})
 	const [shouldRefetch, setShouldRefetch] = useState(true)
+	const [posts, setPosts] = useState([])
 	const { user } = useAuth()
 
 	const [postRes, post] = useMutation(queries.post)
@@ -63,7 +66,10 @@ function Home() {
 	)
 
 	useEffect(() => {
-		if (feedRes.data) setShouldRefetch(false)
+		if (feedRes.data) {
+			setShouldRefetch(false)
+			setPosts(feedRes.data.posts)
+		}
 	}, [feedRes])
 
 	useEffect(() => postRes.error && error(), [postRes, error])
@@ -79,7 +85,14 @@ function Home() {
 	}
 
 	const onReact = (post, reaction) => {
-		react({ post, reaction })
+		react({ post, reaction }).then(response => {
+			if (!response.error) {
+				const modifiedPost = posts.find(p => p._id === post)
+				modifiedPost.reactions.reaction = reaction
+
+				setPosts([...posts.filter(p => p._id === post), modifiedPost])
+			}
+		})
 	}
 
 	const onComment = (post, content) => {
