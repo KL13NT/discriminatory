@@ -1,8 +1,21 @@
+.location
+	display: flex
+	align-items: center
+	color: var(--color-secondary)
+
+	> svg
+		height: 30px
+		margin-inline-end: 10px
+
+	> svg, > svg path
+		fill: var(--color-purple-base)
+
 .content
 	font-size: var(--font-size-m)
 	font-weight: var(--font-weight-s)
 	margin: 20px 0 20px 0
 	background: transparent
+	direction: revert
 
 @media screen and (min-width: 768px)
 	.content

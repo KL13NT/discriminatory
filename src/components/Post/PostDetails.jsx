@@ -32,21 +32,16 @@ function PostDetails({
 					<h1 className={cls(styles.name, 'u-text-limit')} dir='auto'>
 						{displayName}
 					</h1>
-
-					<Link
-						to={`/post/${_id}`}
-						className={cls('u-text-limit', styles.date)}
-					>
-						<FormattedTime value={new Date(Number(created))} /> .{' '}
-						<FormattedDate
-							value={new Date(Number(created))}
-							year='numeric'
-							month='short'
-							day='2-digit'
-						/>{' '}
-					</Link>
 				</Link>
-				<span className={styles.location}>{location}</span>
+				<Link to={`/post/${_id}`} className={cls('u-text-limit', styles.date)}>
+					<FormattedTime value={new Date(Number(created))} /> .{' '}
+					<FormattedDate
+						value={new Date(Number(created))}
+						year='numeric'
+						month='short'
+						day='2-digit'
+					/>{' '}
+				</Link>
 			</div>
 		</div>
 	)

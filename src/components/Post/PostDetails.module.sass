@@ -16,28 +16,25 @@
 .details
 	background: transparent
 	line-height: 1.1
+	display: flex
+	flex-direction: column
 
 	a
-		a, h1
-			display: inline-block
+		display: inline-block
+		margin-inline-start: 5px
 
-		a
-			margin-inline-start: 5px
-
-		h1
-			max-width: 50%
-			direction: revert
-
-	h1, span
-		background: transparent
-		font-weight: var(--font-weight-m)
 
 	h1
+		background: transparent
+		font-weight: var(--font-weight-m)
+		max-width: 50%
+		direction: revert
+		display: inline
 		font-size: var(--font-size-l)
 		font-weight: var(--font-weight-m)
 
-	span
-		color: var(--color-alternative)
+	a:nth-of-type(2)
+		color: var(--color-secondary)
 		font-size: var(--font-size-m)
 		unicode-bidi: plaintext
 		display: block

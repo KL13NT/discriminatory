@@ -6,7 +6,7 @@ import styles from './Comments.module.sass'
 
 import Avatar from '../Avatar/Avatar'
 
-function CommentComposer({ onCompose, ...details }) {
+function CommentComposer({ onCompose, ...profile }) {
 	const [isHoldingShift, dispatchShift] = useState(false)
 	const { formatMessage: f } = useIntl()
 
@@ -32,7 +32,7 @@ function CommentComposer({ onCompose, ...details }) {
 
 	return (
 		<form onSubmit={onCompose} className={styles.composer}>
-			<Avatar {...details} className={styles.avatar} />
+			<Avatar {...profile} className={styles.avatar} />
 			<textarea
 				name='content'
 				aria-label='Comment content input'

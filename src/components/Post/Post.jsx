@@ -10,13 +10,18 @@ import styles from './Post.module.sass'
 import Container from '../Container/Container'
 import { FormattedTime, FormattedDate } from 'react-intl'
 import { Link } from 'react-router-dom'
+
+import { ReactComponent as Location } from '../../assets/gps.svg'
+import { useProfile } from '../../stores/profile'
+
 //TODO: remove this to save memory. Duplicating this component for each post is
 //a memory waste. This probably doesn't need to happen because we'll be
 //windowing posts
 
 function Post({ onReport, onDelete, onPin, onReact, onComment, ...props }) {
-	const { content, comments, reactions, created, _id } = props
+	const { content, comments, reactions, location, _id } = props
 	const [isMenuOpened, dispatchToggleMenu] = useState(false)
+	const { profile } = useProfile()
 
 	const toggleMenu = () => dispatchToggleMenu(!isMenuOpened)
 
@@ -39,20 +44,15 @@ function Post({ onReport, onDelete, onPin, onReact, onComment, ...props }) {
 				onPin={onPin}
 			/>
 			<PostDetails {...props} />
-			<p className={styles.content}>{content}</p>
-			{/* <Link to={`/post/${_id}`}>
-				<span className={styles.date}>
-					<FormattedTime value={new Date(Number(created))} /> .{' '}
-					<FormattedDate
-						value={new Date(Number(created))}
-						year='numeric'
-						month='short'
-						day='2-digit'
-					/>{' '}
-				</span>
-			</Link> */}
+			<p className={styles.content} dir='auto'>
+				{content}
+			</p>
+			<span className={styles.location}>
+				<Location />
+				{location}
+			</span>
 			<PostRating reactions={reactions} onReact={onReact} />
-			<CommentComposer onCompose={onComment} {...props} />
+			<CommentComposer onCompose={onComment} {...profile} />
 			<Comments comments={comments} />
 		</Container>
 	)

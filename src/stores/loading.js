@@ -9,7 +9,7 @@ const [useFullscreenLoader] = create(set => ({
 				...state.active,
 				{
 					name,
-					id: normal()()
+					id: normal(5)
 				}
 			]
 		})),
