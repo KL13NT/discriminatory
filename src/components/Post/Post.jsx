@@ -57,7 +57,7 @@ function Post(props) {
 				onUpvote={onUpvote}
 				onDownvote={onDownvote}
 			/>
-			<CommentComposer onCompose={onComment} {...profile} />
+			<CommentComposer onComment={onComment} {...profile} />
 			<Comments comments={comments} />
 		</Container>
 	)

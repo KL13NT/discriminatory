@@ -7,9 +7,7 @@ export const react = `
 
 export const comment = `
 	mutation CommentMutation ($post: ID!, $content: String!){
-			comment(post: $post, content: $content) {
-				_id
-			}
+			comment(post: $post, content: $content)
 	}
 `
 
@@ -27,6 +25,10 @@ export const feed = `
 			comments{
 				_id
 				content
+				author {
+					displayName
+					_id
+				}
 			}
 			reactions{
 				upvotes

@@ -61,7 +61,7 @@ function Home() {
 	})
 
 	const error = useCallback(
-		() => add({ text: f({ id: 'errors.general', type: 'danger' }) }),
+		() => add({ text: f({ id: 'errors.general' }), type: 'danger' }),
 		[] // eslint-disable-line
 	)
 
@@ -122,8 +122,30 @@ function Home() {
 		})
 	}
 
-	const onComment = (post, content) => {
-		comment({ post, content })
+	const onComment = e => {
+		e.preventDefault()
+		const { currentTarget } = e
+		const { id: post } = currentTarget.parentNode.dataset
+		const { value: content } = currentTarget.elements['content']
+
+		comment({ post, content }).then(response => {
+			if (!response.error) {
+				const index = posts.findIndex(p => p._id === post)
+				const dupe = [...posts]
+				const ref = dupe[index]
+				const author = profile
+
+				const comment = {
+					content,
+					author,
+					_id: response.data
+				}
+
+				ref.comments.push(comment)
+
+				setPosts(dupe)
+			}
+		})
 	}
 
 	const onPin = (post, content) => {

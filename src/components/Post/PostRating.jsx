@@ -16,11 +16,11 @@ function Score({ reactions: { upvotes, downvotes } }) {
 
 	if (upvotes + downvotes === 0) return <div></div>
 	return (
-		<div>
-			<Upvote className={styles.upvoteIcon} />
+		<div className={styles.score}>
 			<span>{upvotes === 0 ? f({ id: 'numbers.zero' }) : fn(upvotes)}</span>
-			<Downvote className={styles.downvoteIcon} />
+			<Upvote className={styles.upvoteIcon} />
 			<span>{downvotes === 0 ? f({ id: 'numbers.zero' }) : fn(downvotes)}</span>
+			<Downvote className={styles.downvoteIcon} />
 		</div>
 	)
 }
