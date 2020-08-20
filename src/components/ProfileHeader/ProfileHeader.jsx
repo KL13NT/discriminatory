@@ -7,9 +7,10 @@ import styles from './ProfileHeader.module.sass'
 
 import { ReactComponent as Location } from '../../assets/gps.svg'
 import { Link } from 'react-router-dom'
+import Cover from '../../assets/cover.jpg'
 
 function ProfileDetails({
-	name,
+	displayName,
 	tagline,
 	location,
 	avatar,
@@ -21,9 +22,9 @@ function ProfileDetails({
 	return (
 		<div className={styles.details}>
 			<div className={styles.avatar} data-verified={isVerified}>
-				<img src={avatar} alt={`${name}'s Avatar`} />
+				<img src={avatar} alt={`${displayName}'s Avatar`} />
 			</div>
-			<h1>{name}</h1>
+			<h1>{displayName}</h1>
 			<span>{tagline}</span>
 			<span>
 				<Location />
@@ -45,7 +46,7 @@ function ProfileDetails({
 	)
 }
 
-function ProfileHeader({ onClick, profile }) {
+export function ProfileHeader({ onClick, profile }) {
 	return (
 		<Container className={styles.header}>
 			<img src={profile.header} alt='Profile header' />
@@ -54,4 +55,25 @@ function ProfileHeader({ onClick, profile }) {
 	)
 }
 
-export default ProfileHeader
+export function ProfilePreview({ displayName, avatar, tagline, location }) {
+	const onClick = e => e.preventDefault()
+	return (
+		<div className={styles.preview}>
+			<img src={Cover} alt='Profile header' />
+			<div className={styles.details}>
+				<div className={styles.avatar}>
+					<img src={avatar} alt={`${displayName}'s Avatar`} />
+				</div>
+				<h1>{displayName}</h1>
+				<span>{tagline}</span>
+				<span>
+					<Location />
+					{location}
+				</span>
+				<Button variant='info' onClick={onClick}>
+					Follow
+				</Button>
+			</div>
+		</div>
+	)
+}
