@@ -33,6 +33,7 @@ function CommentComposer({ onComment, ...profile }) {
 		resize(currentTarget)
 	}
 
+	if (!onComment) return null
 	return (
 		<form onSubmit={onComment} ref={formRef} className={styles.composer}>
 			<Avatar {...profile} variant='tiny' />
@@ -62,4 +63,14 @@ function Comments({ comments }) {
 	))
 }
 
-export { CommentComposer, Comments }
+function CommentsSection({ comments, onComment, ...profile }) {
+	if (!onComment) return null
+	return (
+		<>
+			<CommentComposer onComment={onComment} {...profile} />
+			<Comments comments={comments} />
+		</>
+	)
+}
+
+export { CommentComposer, Comments, CommentsSection }

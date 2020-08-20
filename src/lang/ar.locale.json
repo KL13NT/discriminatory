@@ -103,5 +103,7 @@
 	"postOptions.delete": "امسح هذا المنشور",
 	"postOptions.report": "بلغ عن هذا المنشور",
 
-	"commentComposer.placeholder": "اكتب تعليق..."
+	"commentComposer.placeholder": "اكتب تعليق...",
+
+	"post.pin.success": "تم تثبيت هذا المنشور على ملفّك"
 }

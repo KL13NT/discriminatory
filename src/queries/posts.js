@@ -47,13 +47,13 @@ export const pin = `
 	}
 `
 
-export const report = `
-	mutation ReportMutation ($post: ID!, reason: String!){
-			report(post: $post, reason: $reason) {
-				_id
-			}
-	}
-`
+// export const report = `
+// 	mutation ReportMutation ($post: ID!, reason: String!){
+// 			report(post: $post, reason: $reason) {
+// 				_id
+// 			}
+// 	}
+// `
 
 export const remove = `
 	mutation RemoveMutation ($post: ID!){

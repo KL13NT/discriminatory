@@ -50,7 +50,7 @@ function Home() {
 	const [reactionRes, react] = useMutation(queries.react)
 	const [commentRes, comment] = useMutation(queries.comment)
 	const [pinRes, pin] = useMutation(queries.pin)
-	const [reportRes, report] = useMutation(queries.report)
+	// const [reportRes, report] = useMutation(queries.report)
 	const [removeRes, remove] = useMutation(queries.remove)
 	const [feedRes, reFeed] = useQuery({
 		query: queries.feed,
@@ -76,7 +76,7 @@ function Home() {
 	useEffect(() => reactionRes.error && error(), [reactionRes, error])
 	useEffect(() => commentRes.error && error(), [commentRes, error])
 	useEffect(() => pinRes.error && error(), [pinRes, error])
-	useEffect(() => reportRes.error && error(), [reportRes, error])
+	// useEffect(() => reportRes.error && error(), [reportRes, error])
 	useEffect(() => removeRes.error && error(), [removeRes, error])
 
 	const onCompose = (content, location) => {
@@ -148,13 +148,23 @@ function Home() {
 		})
 	}
 
-	const onPin = (post, content) => {
-		pin({ post, content })
+	const onPin = ({ currentTarget }) => {
+		const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
+
+		pin({ post: id }).then(response => {
+			if (!response.error)
+				add({ text: f({ id: 'post.pin.success' }), type: 'success' })
+		})
 	}
 
-	const onReport = (post, content) => {
-		report({ post, content })
-	}
+	// const onReport = ({currentTarget}) => {
+	// 	const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
+
+	// 	report({ post: id }).then(response => {
+	// 		if (!response.error)
+	// 			add({ text: f({ id: 'post.pin.success' }), type: 'success' })
+	// 	})
+	// }
 
 	const onDelete = (post, content) => {
 		remove({ post, content })
@@ -172,7 +182,7 @@ function Home() {
 				<PostList
 					onComment={onComment}
 					onPin={onPin}
-					onReport={onReport}
+					// onReport={onReport}
 					onDelete={onDelete}
 					onUpvote={onUpvote}
 					onDownvote={onDownvote}
