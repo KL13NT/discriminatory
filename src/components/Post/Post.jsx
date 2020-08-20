@@ -14,15 +14,15 @@ import Container from '../Container/Container'
 
 function Post({
 	content,
-	ratings,
 	comments,
-	reaction,
+	reactions,
 	onReport,
 	onDelete,
 	onPin,
-	onUpvote,
-	onDownvote,
-	onCommentCreate,
+	onReact,
+	onComment,
+	_id,
+	profile,
 	...details
 }) {
 	const [isMenuOpened, dispatchToggleMenu] = useState(false)
@@ -32,9 +32,9 @@ function Post({
 	}
 
 	const onAction = (action, e) => {
-		if (action === 'report') onReport(details.id, e)
-		else if (action === 'delete') onDelete(details.id, e)
-		else if (action === 'pin') onPin(details.id, e)
+		if (action === 'report') onReport(_id, e)
+		else if (action === 'delete') onDelete(_id, e)
+		else if (action === 'pin') onPin(_id, e)
 
 		toggleMenu()
 	}
@@ -51,13 +51,8 @@ function Post({
 			/>
 			<PostDetails {...details} />
 			<p className={styles.content}>{content}</p>
-			<PostRating
-				ratings={ratings}
-				reaction={reaction}
-				onUpvote={onUpvote}
-				onDownvote={onDownvote}
-			/>
-			<CommentComposer onCompose={onCommentCreate} {...details} />
+			<PostRating reactions={reactions} onReact={onReact} />
+			<CommentComposer onCompose={onComment} {...profile} />
 			<Comments comments={comments} />
 		</Container>
 	)

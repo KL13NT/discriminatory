@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 
 import styles from './Comments.module.sass'
 
+import Avatar from '../Avatar/Avatar'
+
 function CommentComposer({ onCompose, ...details }) {
 	const [isHoldingShift, dispatchShift] = useState(false)
 
@@ -28,7 +30,7 @@ function CommentComposer({ onCompose, ...details }) {
 
 	return (
 		<form onSubmit={onCompose} className={styles.composer}>
-			<img alt={`${details.name}'s Profile Avatar`} src={details.avatar} />
+			<Avatar {...details} className={styles.avatar} />
 			<textarea
 				name='content'
 				aria-label='Comment content input'

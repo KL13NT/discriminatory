@@ -3,13 +3,15 @@
 	align-items: center
 	color: var(--color-primary)
 	background: transparent
+	unicode-bidi: plaintext
+	margin-inline-start: 5px
 
 .avatar
-	width: 60px
-	height: 60px
+	width: 40px
+	height: 40px
 	border-radius: 100%
 	padding: 4px
-	margin: 0 10px 0 0
+	margin-inline-end: 10px
 
 	img
 		width: 100%
@@ -38,20 +40,16 @@
 		font-weight: var(--font-weight-s)
 	span
 		color: var(--color-alternative)
-		margin-left: 10px
+		margin-inline-start: 10px
+		unicode-bidi: plaintext
 
-
-@media screen and (min-width: 414px)
-	.avatar
-		width: 70px
-		height: 70px
 
 @media screen and (min-width: 768px)
+	.avatar
+		width: 60px
+		height: 60px
 	.details
 		h1
 			font-size: var(--font-size-xl)
-	.avatar
-		width: 80px
-		height: 80px
 	.date
 		font-size: var(--font-size-m)

@@ -12,7 +12,8 @@
 		display: flex
 		align-items: center
 		span
-			margin: 0 0 0 5px
+			margin-inline-end: 6px
+			margin-inline-start: 4px
 			font-weight: var(--font-weight-s)
 	div:nth-child(3)
 		display: flex
@@ -30,7 +31,7 @@
 			svg
 				height: 30px
 				width: 30px
-				margin: 0 5px 0 0px
+				margin-inline-end: 5px
 	svg
 		height: 20px
 		width: 20px
@@ -40,7 +41,7 @@
 .upvote, .downvote
 	transition: filter 0.25s, color 0.25s, background 0.25s
 	color: var(--color-primary)
-		fill: var(--color-primary)
+	fill: var(--color-primary)
 
 .upvote:active, .downvote:active
 	filter: brightness(0.8)
@@ -77,7 +78,6 @@
 	.ratings
 		div:nth-child(1)
 			span
-				margin: 0 0 0 5px
 				font-weight: var(--font-weight-s)
 		div:nth-child(3)
 			button
@@ -85,7 +85,7 @@
 				svg
 					height: 40px
 					width: 40px
-					margin: 0 10px 0 0px
+					margin-inline-end: 10px
 		svg
 			height: 30px
 			width: 30px

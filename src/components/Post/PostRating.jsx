@@ -10,11 +10,13 @@ const icons = [
 	<Downvote className={styles.downvoteIcon} key='downvote' />
 ]
 
-function Score({ ratings }) {
+function Score({ reactions }) {
 	return (
 		<div>
-			{ratings.majority === 'upvotes' ? icons : icons.reverse()}
-			<span>{ratings.total}</span>
+			<Upvote className={styles.upvoteIcon} />
+			<span>{reactions.upvotes}</span>
+			<Downvote className={styles.downvoteIcon} />
+			<span>{reactions.upvotes}</span>
 		</div>
 	)
 }
@@ -35,13 +37,11 @@ function Rate({ reaction, onUpvote, onDownvote }) {
 	)
 }
 
-function PostRating({ ratings, onUpvote, onDownvote, reaction }) {
+function PostRating({ reactions, onReact }) {
 	return (
 		<div className={styles.ratings}>
-			<Score ratings={ratings} />
-			{onUpvote && onDownvote ? (
-				<Rate onUpvote={onUpvote} onDownvote={onDownvote} reaction={reaction} />
-			) : null}
+			<Score reactions={reactions} />
+			{onReact ? <Rate onReact reaction={reactions.reaction} /> : null}
 		</div>
 	)
 }
