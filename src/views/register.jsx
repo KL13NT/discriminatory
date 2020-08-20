@@ -46,7 +46,7 @@ function Register() {
 			.then(() => {
 				firebase
 					.auth()
-					.currentUser.sendEmailVerification()
+					.currentUser.sendEmailVerification({ url: 'localhost:8080' })
 					.then(() => {
 						setVerificationSent(true)
 						add({
