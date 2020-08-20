@@ -9,7 +9,6 @@ import styles from './PostOptionsMenu.module.sass'
 import { useIntl } from 'react-intl'
 
 function PostOptionsMenu({
-	onAction,
 	onReport,
 	onDelete,
 	onPin,
@@ -27,14 +26,14 @@ function PostOptionsMenu({
 			{isMenuOpened ? (
 				<div className={styles.menu}>
 					{onPin ? (
-						<button onClick={e => onAction('pin', e)} className={styles.pin}>
+						<button onClick={onPin} className={styles.pin}>
 							<Pin />
 							<span>{f({ id: 'postOptions.pin' })}</span>
 						</button>
 					) : null}
 					{onDelete ? (
 						<button
-							onClick={e => onAction('delete', e)}
+							onClick={onDelete}
 							className={styles.delete}
 						>
 							<Delete />
@@ -43,7 +42,7 @@ function PostOptionsMenu({
 					) : null}
 					{onReport ? (
 						<button
-							onClick={e => onAction('report', e)}
+							onClick={onReport}
 							className={styles.report}
 						>
 							<Report />

@@ -8,8 +8,6 @@ import { Comments } from './Comments'
 
 import styles from './Post.module.sass'
 import Container from '../Container/Container'
-import { FormattedTime, FormattedDate } from 'react-intl'
-import { Link } from 'react-router-dom'
 
 import { ReactComponent as Location } from '../../assets/gps.svg'
 import { useProfile } from '../../stores/profile'
@@ -18,27 +16,30 @@ import { useProfile } from '../../stores/profile'
 //a memory waste. This probably doesn't need to happen because we'll be
 //windowing posts
 
-function Post({ onReport, onDelete, onPin, onReact, onComment, ...props }) {
-	const { content, comments, reactions, location, _id } = props
+function Post(props) {
+	const {
+		onComment,
+		onDelete,
+		onReport,
+		onPin,
+		onUpvote,
+		onDownvote,
+		content,
+		comments,
+		reactions,
+		location,
+		_id
+	} = props
 	const [isMenuOpened, dispatchToggleMenu] = useState(false)
 	const { profile } = useProfile()
 
 	const toggleMenu = () => dispatchToggleMenu(!isMenuOpened)
 
-	const onAction = (action, e) => {
-		if (action === 'report') onReport(_id, e)
-		else if (action === 'delete') onDelete(_id, e)
-		else if (action === 'pin') onPin(_id, e)
-
-		toggleMenu()
-	}
-
 	return (
-		<Container>
+		<Container data-id={_id}>
 			<PostOptionsMenu
 				toggle={toggleMenu}
 				isMenuOpened={isMenuOpened}
-				onAction={onAction}
 				onDelete={onDelete}
 				onReport={onReport}
 				onPin={onPin}
@@ -51,7 +52,11 @@ function Post({ onReport, onDelete, onPin, onReact, onComment, ...props }) {
 				<Location />
 				{location}
 			</span>
-			<PostRating reactions={reactions} onReact={onReact} />
+			<PostRating
+				reactions={reactions}
+				onUpvote={onUpvote}
+				onDownvote={onDownvote}
+			/>
 			<CommentComposer onCompose={onComment} {...profile} />
 			<Comments comments={comments} />
 		</Container>

@@ -68,9 +68,9 @@ function Home() {
 	useEffect(() => {
 		if (feedRes.data) {
 			setShouldRefetch(false)
-			setPosts(feedRes.data.posts)
+			setPosts([...posts, ...feedRes.data.feed])
 		}
-	}, [feedRes])
+	}, [feedRes.data])
 
 	useEffect(() => postRes.error && error(), [postRes, error])
 	useEffect(() => reactionRes.error && error(), [reactionRes, error])
@@ -84,13 +84,40 @@ function Home() {
 		reFeed()
 	}
 
+	const onUpvote = ({ currentTarget }) => {
+		const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
+
+		onReact(id, 'UPVOTE')
+	}
+
+	const onDownvote = ({ currentTarget }) => {
+		const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
+
+		onReact(id, 'DOWNVOTE')
+	}
+
 	const onReact = (post, reaction) => {
 		react({ post, reaction }).then(response => {
 			if (!response.error) {
-				const modifiedPost = posts.find(p => p._id === post)
-				modifiedPost.reactions.reaction = reaction
+				const index = posts.findIndex(p => p._id === post)
+				const dupe = [...posts]
+				const ref = dupe[index]
+				const old = ref.reactions.reaction
 
-				setPosts([...posts.filter(p => p._id === post), modifiedPost])
+				const updated = {
+					...ref.reactions,
+					reaction
+				}
+
+				// add 1 to specified reaction
+				updated[`${reaction.toLowerCase()}s`] += 1
+
+				// remove old reaction if there is one
+				if (old) updated[`${old.toLowerCase()}s`] -= 1
+
+				ref.reactions = updated
+
+				setPosts(dupe)
 			}
 		})
 	}
@@ -121,12 +148,13 @@ function Home() {
 			/>
 			{feedRes.data ? (
 				<PostList
-					onReact={onReact}
 					onComment={onComment}
 					onPin={onPin}
 					onReport={onReport}
 					onDelete={onDelete}
-					feed={feedRes.data.feed}
+					onUpvote={onUpvote}
+					onDownvote={onDownvote}
+					feed={posts}
 					user={user}
 					profile={profile}
 				/>

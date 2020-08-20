@@ -29,8 +29,9 @@ export const feed = `
 				content
 			}
 			reactions{
-			upvotes,
+				upvotes
 				downvotes
+				reaction
 			}
 		}
 	}

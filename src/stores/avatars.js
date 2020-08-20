@@ -17,6 +17,3 @@ const [useAvatars] = create((set, get) => ({
 }))
 
 export { useAvatars }
-
-//TODO: add caching logic to useAvatars
-//TODO: implement useAvatars in all avatars
