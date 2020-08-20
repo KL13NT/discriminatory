@@ -86,6 +86,20 @@ const sassLoaders = mode => [
 	},
 
 	{
+		test: /\.css$/i,
+		use: [
+			mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+			{
+				loader: 'css-loader',
+				options: {
+					modules: false
+				}
+			},
+			'postcss-loader'
+		]
+	},
+
+	{
 		test: /\.tokens\.sass$/i,
 		use: [
 			mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,

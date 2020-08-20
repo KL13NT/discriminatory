@@ -1,6 +1,6 @@
 import create from 'zustand'
 
-const defaultConfig = {
+const defaultConfig = JSON.parse(localStorage.getItem('settings')) || {
 	display: {
 		font: {
 			possible: ['1x', '2x', '3x', '4x'],
@@ -15,7 +15,7 @@ const defaultConfig = {
 				{ locale: 'ar', dir: 'rtl' },
 				{ locale: 'en', dir: 'ltr' }
 			],
-			selected: { locale: 'en', dir: 'ltr' }
+			selected: { locale: 'ar', dir: 'rtl' }
 		}
 	},
 	advertisements: {
@@ -32,8 +32,10 @@ const defaultConfig = {
 	}
 }
 
+localStorage.setItem('settings', JSON.stringify(defaultConfig))
+
 const [useSettings] = create(set => ({
-	settings: JSON.parse(localStorage.getItem('settings')) || defaultConfig,
+	settings: defaultConfig,
 
 	update: newState =>
 		set(state => {
