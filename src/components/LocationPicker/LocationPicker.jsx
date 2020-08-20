@@ -5,9 +5,11 @@ import styles from './LocationPicker.module.sass'
 
 import { ReactComponent as GPS } from '../../assets/gps.svg'
 import cls from '../../utils/cls'
+import { useIntl } from 'react-intl'
 
 //TODO: hook to google maps API
 function LocationPicker({ onPick, ...props }) {
+	const { formatMessage: f } = useIntl()
 	const [isLocationPickerOpen, setLocationPickerState] = useState(false)
 	const [location, setLocation] = useState(null)
 
@@ -48,12 +50,14 @@ function LocationPicker({ onPick, ...props }) {
 				<div>
 					<GPS />
 				</div>
-				<span className='u-text-limit'>{location || 'Pick a location'}</span>
+				<span className='u-text-limit'>
+					{location || f({ id: 'locationPicker.button.placeholder' })}
+				</span>
 			</button>
 			{isLocationPickerOpen ? (
 				<Overlay
-					title='Location'
-					subtitle='Where are you?'
+					title={f({ id: 'locationPicker.overlay.title' })}
+					subtitle={f({ id: 'locationPicker.overlay.subtitle' })}
 					onClose={toggle}
 					className={styles.location}
 					{...props}
@@ -67,7 +71,7 @@ function LocationPicker({ onPick, ...props }) {
 							type='text'
 							value={location}
 							onChange={onChange}
-							placeholder='Type your location'
+							placeholder={f({ id: 'locationPicker.form.placeholder' })}
 						/>
 					</form>
 				</Overlay>
