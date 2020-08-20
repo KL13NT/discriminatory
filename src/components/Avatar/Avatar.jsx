@@ -39,7 +39,7 @@ function Avatar({ avatar, _id, verified, displayName, variant, className }) {
 Avatar.propTypes = {
 	avatar: PropTypes.string,
 	verified: PropTypes.bool,
-	variant: PropTypes.oneOf(['big', 'small'])
+	variant: PropTypes.oneOf(['big', 'small', 'tiny'])
 }
 
 Avatar.defaultProps = {
