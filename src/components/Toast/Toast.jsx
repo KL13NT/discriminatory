@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import create from 'zustand'
-import {normal} from 'random'
 
 import styles from './Toast.module.sass'
 import cls from '../../utils/cls'
@@ -18,7 +17,7 @@ const [useToasts] = create(set => ({
 				...state.toasts,
 				{
 					text: toast.text,
-					id: normal()(),
+					id: toast.text,
 					type: toast.type
 				}
 			]
