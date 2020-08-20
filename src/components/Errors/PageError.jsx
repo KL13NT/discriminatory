@@ -40,7 +40,7 @@ export class IntlErrorBoundary extends React.Component {
 					<span>{error.code || 'BEEP_BOOP_ERROR'}</span>
 					<h1>
 						<FormattedMessage
-							id='errors.general.title'
+							id='errors.page.title'
 							defaultMessage='Yikes, this is embarassing'
 						/>{' '}
 						<span
@@ -57,12 +57,12 @@ export class IntlErrorBoundary extends React.Component {
 						/>{' '}
 						<span>
 							<FormattedMessage
-								id='errors.general.subtitle'
+								id='errors.page.subtitle'
 								defaultMessage='We promise to fix it if you '
 							/>
 							<a href='/bug'>
 								<FormattedMessage
-									id='errors.general.report'
+									id='errors.page.report'
 									defaultMessage='report it'
 								/>
 							</a>

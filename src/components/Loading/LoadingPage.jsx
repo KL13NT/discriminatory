@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import styles from './LoadingPage.module.sass'
 import LoadingSVG from '../../assets/loading.svg'
+import { useEffect } from 'react'
 
 const context = require.context('../../assets/loading', false, /\.gif$/)
 
@@ -37,6 +38,14 @@ const randomGif = () => {
 
 export const FullscreenLoader = ({ children }) => {
 	const [src, setSrc] = useState(randomGif())
+	const [error, setError] = useState(false)
+	const timeout = 0
+
+	useEffect(() => {
+		setTimeout(() => setError(true), 10 * 1000)
+
+		return () => clearTimeout(timeout)
+	}, [])
 
 	const onClick = () => {
 		setSrc(randomGif())
@@ -52,6 +61,12 @@ export const FullscreenLoader = ({ children }) => {
 			<img src={src} alt='Loading gif' />
 			<span>Loading</span>
 			<p>{children || randomMessage()}</p>
+			{error ? (
+				<p>
+					If you're seeing this it may mean something went wrong or your
+					connection is slow.
+				</p>
+			) : null}
 		</div>
 	)
 }
