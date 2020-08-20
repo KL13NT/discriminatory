@@ -6,11 +6,14 @@ import Textarea from '../Textarea/Textarea'
 import Button from '../Button/Button'
 import LocationPicker from '../LocationPicker/LocationPicker'
 
+import { useIntl } from 'react-intl'
+
 import styles from './Composer.module.sass'
 
 // REFACTORME: use useCallback & useEffect
 function Composer({ avatar, verified, onSubmit, ...props }) {
 	const [canSubmit, setCanSubmitState] = useState(false)
+	const { formatMessage: f } = useIntl()
 	const [postData, setPostData] = useState({ location: null, content: '' })
 
 	useEffect(() => {
@@ -35,23 +38,19 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 			<Container className={styles.composer} {...props}>
 				<form onSubmit={onPostSubmit}>
 					<div>
-						<Avatar
-							avatar={avatar}
-							verified={verified}
-							className={styles.avatar}
-						/>
-						<h1>Compose</h1>
+						<Avatar avatar={avatar} verified={verified} />
+						<h1>{f({ id: 'composer.title' })}</h1>
 					</div>
 					<Textarea
 						resize
 						required
-						placeholder="What's on your mind?"
+						placeholder={f({ id: 'composer.placeholder' })}
 						value={postData.content}
 						onInput={onInput}
 					/>
 					<LocationPicker onPick={onLocationPick} />
 					<Button disabled={!canSubmit} type='submit'>
-						Post
+						{f({ id: 'composer.submit' })}
 					</Button>
 				</form>
 			</Container>
