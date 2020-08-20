@@ -5,7 +5,7 @@
 	flex-direction: column
 	width: 100%
 	hr
-		background: var(--color-alternative)
+		background: var(--color-separator)
 		height: 1px
 		margin: 10px 0
 	div:nth-child(1)
@@ -49,19 +49,19 @@
 .rate[data-reaction="upvote"]
 	.upvote
 		color: var(--color-blue-base)
-		background: var(--color-blue-dark)
+		background: var(--color-blue-light)
 		.upvoteIcon, .upvoteIcon path
 			fill: var(--color-blue-base)
 
 .rate[data-reaction="downvote"]
 	.downvote
 		color: var(--color-red-base)
-		background: var(--color-red-dark)
+		background: var(--color-red-light)
 		.downvoteIcon, .downvoteIcon path
 			fill: var(--color-red-base)
 
 .upvote:hover, .upvote:focus
-	background: var(--color-blue-dark)
+	background: var(--color-blue-light)
 	color: var(--color-blue-base)
 	border: unset
 	svg, svg path
@@ -69,7 +69,7 @@
 
 .downvote:hover, .downvote:focus
 	color: var(--color-red-base)
-	background: var(--color-red-dark)
+	background: var(--color-red-light)
 	border: unset
 	svg, svg path
 		fill: var(--color-red-base)

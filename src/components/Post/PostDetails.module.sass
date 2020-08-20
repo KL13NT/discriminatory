@@ -6,18 +6,6 @@
 	unicode-bidi: plaintext
 	margin-inline-start: 5px
 
-.avatar
-	width: 40px
-	height: 40px
-	border-radius: 100%
-	padding: 4px
-	margin-inline-end: 10px
-
-	img
-		width: 100%
-		height: 100%
-		border-radius: 100%
-
 .verified
 	background: linear-gradient(#6F5AF1 0%,#F15AB5 100%)
 
@@ -27,27 +15,40 @@
 
 .details
 	background: transparent
-	h1, h4, span
+	line-height: 1.1
+
+	a
+		a, h1
+			display: inline-block
+
+		a
+			margin-inline-start: 5px
+
+		h1
+			max-width: 50%
+			direction: revert
+
+	h1, span
 		background: transparent
 		font-weight: var(--font-weight-m)
+
 	h1
-		font-size: var(--font-size-m)
+		font-size: var(--font-size-l)
 		font-weight: var(--font-weight-m)
-	h1, h4
-		margin: 5px 0 5px 0
-	h4
-		font-size: var(--font-size-s)
-		font-weight: var(--font-weight-s)
+
 	span
 		color: var(--color-alternative)
-		margin-inline-start: 10px
+		font-size: var(--font-size-m)
 		unicode-bidi: plaintext
+		display: block
+		max-width: max-content
+		margin: 0
+
+	span:nth-child(2)
+		margin: 0
 
 
 @media screen and (min-width: 768px)
-	.avatar
-		width: 60px
-		height: 60px
 	.details
 		h1
 			font-size: var(--font-size-xl)
