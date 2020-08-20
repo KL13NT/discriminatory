@@ -144,6 +144,7 @@ function Home() {
 				ref.comments.push(comment)
 
 				setPosts(dupe)
+				add({ text: f({ id: 'post.comment.success' }), type: 'success' })
 			}
 		})
 	}
@@ -166,8 +167,15 @@ function Home() {
 	// 	})
 	// }
 
-	const onDelete = (post, content) => {
-		remove({ post, content })
+	const onDelete = ({ currentTarget }) => {
+		const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
+
+		remove({ post: id }).then(response => {
+			if (!response.error) {
+				setPosts(posts.filter(p => p._id !== post))
+				add({ text: f({ id: 'post.remove.success' }), type: 'success' })
+			}
+		})
 	}
 
 	return (

@@ -105,5 +105,7 @@
 
 	"commentComposer.placeholder": "اكتب تعليق...",
 
-	"post.pin.success": "تم تثبيت هذا المنشور على ملفّك"
+	"post.pin.success": "تم تثبيت هذا المنشور على ملفّك",
+	"post.remove.success": "تم مسح هذا المنشور",
+	"post.comment.success": "تم نشر هذه التعليق"
 }
