@@ -6,9 +6,10 @@ import create from 'zustand'
 const [useAvatars] = create((set, get) => ({
 	avatars: [],
 
-	updateAvatars: ({ avatar, key }) =>
+	updateAvatars: newState =>
 		set(state => ({
-			avatars: [...state.avatars, { avatar, key: key }]
+			...state,
+			...newState
 		})),
 
 	getAvatar: key => {

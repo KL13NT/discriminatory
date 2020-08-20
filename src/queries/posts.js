@@ -20,6 +20,7 @@ export const feed = `
 			_id
 			author{
 				displayName
+				avatar
 				_id
 			}
 			comments{
@@ -27,6 +28,7 @@ export const feed = `
 				content
 				author {
 					displayName
+					avatar
 					_id
 				}
 			}

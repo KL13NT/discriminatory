@@ -107,5 +107,6 @@
 
 	"post.pin.success": "تم تثبيت هذا المنشور على ملفّك",
 	"post.remove.success": "تم مسح هذا المنشور",
-	"post.comment.success": "تم نشر هذه التعليق"
+	"post.comment.success": "تم نشر هذه التعليق",
+	"post.options.empty": "لا يوجد شئ هنا"
 }

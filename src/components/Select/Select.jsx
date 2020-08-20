@@ -6,6 +6,7 @@ import cls from '../../utils/cls'
 
 import { ReactComponent as Arrow } from '../../assets/chev.svg'
 import { ReactComponent as X } from '../../assets/xd.svg'
+import { findParentByClass } from '../../utils/general'
 
 const isDownArrow = key => key === 40
 const isUpArrow = key => key === 38
@@ -21,13 +22,6 @@ const focusSibling = (dir, currentTarget) =>
 		: dir === 'next' && currentTarget.nextSibling
 		? currentTarget.nextSibling.focus()
 		: null
-
-const findParentByClass = (target, selector) => {
-	if (target === document || target.parentNode === document) return false
-	if (Array.from(target.classList).includes(selector)) return true
-	if (target.parentNode && target.parentNode !== document)
-		return findParentByClass(target.parentNode, selector)
-}
 
 const Icon = ({ icon, name }) => (
 	<img className={styles.icon} src={icon} alt={name} />

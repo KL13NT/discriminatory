@@ -3,28 +3,11 @@ import PropTypes from 'prop-types'
 
 import styles from './Avatar.module.sass'
 import cls from '../../utils/cls'
-import { useEffect } from 'react'
-import { getAvatarUrl } from '../../utils/profiles'
 
 import Placeholder from '../../assets/placeholder.png'
-import { useAvatars } from '../../stores/avatars'
 
-function Avatar({ avatar, _id, verified, displayName, variant, className }) {
-	const { avatars, updateAvatars } = useAvatars()
-	const av = avatars.find(av => av.key === avatar)
-	const src = av ? av.avatar : Placeholder
-
-	useEffect(() => {
-		if (src === Placeholder && avatar) {
-			getAvatarUrl(avatar)
-				.then(av => {
-					updateAvatars({ avatar: av, key: avatar })
-				})
-				.catch(e => {
-					console.log('COPY THIS WHEN REPORTING', e)
-				})
-		}
-	}, [_id, avatar, avatars, src, updateAvatars])
+function Avatar({ avatar, verified, displayName, variant, className }) {
+	const src = avatar || Placeholder
 
 	return (
 		<div
