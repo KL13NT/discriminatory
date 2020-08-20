@@ -43,9 +43,7 @@ export const feed = `
 
 export const pin = `
 	mutation PinMutation ($post: ID!){
-			pin(post: $post) {
-				_id
-			}
+			pin(post: $post)
 	}
 `
 
@@ -59,16 +57,12 @@ export const pin = `
 
 export const remove = `
 	mutation RemoveMutation ($post: ID!){
-			delete(post: $post) {
-				_id
-			}
+			delete(post: $post)
 	}
 `
 
 export const post = `
 	mutation CreatePostMutation ($content: String!, $location: String!){
-		post(content: $content,  location: $location){
-			_id
-		}
+		post(content: $content,  location: $location)
 	}
 `

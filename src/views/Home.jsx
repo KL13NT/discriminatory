@@ -42,7 +42,6 @@ function Home() {
 		limit: 20,
 		before: null
 	})
-	const [shouldRefetch, setShouldRefetch] = useState(true)
 	const [posts, setPosts] = useState([])
 	const { user } = useAuth()
 
@@ -57,7 +56,7 @@ function Home() {
 		variables: {
 			...pagination
 		},
-		pause: !user || !shouldRefetch
+		pause: !user
 	})
 
 	const error = useCallback(
@@ -66,11 +65,8 @@ function Home() {
 	)
 
 	useEffect(() => {
-		if (feedRes.data) {
-			setShouldRefetch(false)
-			setPosts([...posts, ...feedRes.data.feed])
-		}
-	}, [feedRes.data])
+		if (feedRes.data) setPosts([...feedRes.data.feed])
+	}, [feedRes])
 
 	useEffect(() => postRes.error && error(), [postRes, error])
 	useEffect(() => reactionRes.error && error(), [reactionRes, error])
@@ -79,9 +75,10 @@ function Home() {
 	// useEffect(() => reportRes.error && error(), [reportRes, error])
 	useEffect(() => removeRes.error && error(), [removeRes, error])
 
-	const onCompose = (content, location) => {
-		post({ content, location })
-		reFeed()
+	const onCompose = newPost => {
+		post(newPost).then(response => {
+			if (!response.error) reFeed({ requestPolicy: 'network-only' })
+		})
 	}
 
 	const onUpvote = ({ currentTarget }) => {
@@ -106,14 +103,17 @@ function Home() {
 
 				const updated = {
 					...ref.reactions,
-					reaction
+					reaction: old === reaction ? null : reaction
 				}
 
-				// add 1 to specified reaction
-				updated[`${reaction.toLowerCase()}s`] += 1
+				if (old === reaction) updated[`${reaction.toLowerCase()}s`] -= 1
+				else {
+					// add 1 to specified reaction
+					updated[`${reaction.toLowerCase()}s`] += 1
 
-				// remove old reaction if there is one
-				if (old) updated[`${old.toLowerCase()}s`] -= 1
+					// remove old reaction if there is one
+					if (old) updated[`${old.toLowerCase()}s`] -= 1
+				}
 
 				ref.reactions = updated
 
@@ -145,6 +145,8 @@ function Home() {
 
 				setPosts(dupe)
 				add({ text: f({ id: 'post.comment.success' }), type: 'success' })
+
+				currentTarget.elements['content'].value = ''
 			}
 		})
 	}
@@ -172,7 +174,7 @@ function Home() {
 
 		remove({ post: id }).then(response => {
 			if (!response.error) {
-				setPosts(posts.filter(p => p._id !== post))
+				setPosts(posts.filter(p => p._id !== id))
 				add({ text: f({ id: 'post.remove.success' }), type: 'success' })
 			}
 		})

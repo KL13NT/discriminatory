@@ -46,9 +46,9 @@ function Post(props) {
 			<PostOptionsMenu
 				toggle={toggleMenu}
 				isMenuOpened={isMenuOpened}
-				onDelete={isMethodAllowed(user._id, authorId, onDelete)}
-				onPin={isMethodAllowed(user._id, authorId, onPin)}
-				onReport={isMethodNotAllowed(user._id, authorId, onReport)}
+				onDelete={isMethodAllowed(user.uid, authorId, onDelete)}
+				onPin={isMethodAllowed(user.uid, authorId, onPin)}
+				onReport={isMethodNotAllowed(user.uid, authorId, onReport)}
 			/>
 
 			<PostDetails {...props} />

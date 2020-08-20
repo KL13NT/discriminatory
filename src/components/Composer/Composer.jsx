@@ -31,6 +31,8 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 		e.preventDefault()
 
 		if (canSubmit) onSubmit({ ...postData, content: postData.content.trim() })
+
+		setPostData({ content: '', location: null })
 	}
 
 	return (

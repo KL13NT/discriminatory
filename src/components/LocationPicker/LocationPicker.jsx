@@ -25,6 +25,7 @@ function LocationPicker({ onPick, ...props }) {
 
 	const onSubmit = e => {
 		e.preventDefault()
+		e.stopPropagation()
 
 		const { currentTarget } = e
 		const data = new FormData(currentTarget)
@@ -33,8 +34,9 @@ function LocationPicker({ onPick, ...props }) {
 		// TODO: should load send requests on change here
 	}
 
-	const onChange = () => {
+	const onChange = ({ currentTarget }) => {
 		clearTimeout(timeout)
+		setLocation(currentTarget.value)
 		timeout = setTimeout(() => {
 			//TODO: fetch from /locations in Mongo
 		}, 2000)
