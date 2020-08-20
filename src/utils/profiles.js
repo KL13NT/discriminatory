@@ -1,8 +1,7 @@
-import firebase from 'firebase'
+import { storage } from 'firebase'
 
 export const getAvatarUrl = avatar => {
-	return firebase
-		.storage()
+	return storage()
 		.ref(avatar)
 		.getDownloadURL()
 }

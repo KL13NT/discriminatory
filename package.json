@@ -111,13 +111,11 @@
 		"prop-types-extra": "^1.1.1",
 		"random": "^2.2.0",
 		"react": "^16.13.1",
-		"react-contextmenu": "^2.14.0",
 		"react-dom": "^16.13.1",
 		"react-helmet": "^6.1.0",
 		"react-intl": "^5.4.5",
 		"react-router-dom": "^5.1.2",
 		"react-tabs": "^3.1.1",
-		"react-transition-group": "^4.4.1",
 		"urql": "^1.10.0",
 		"zustand": "^2.2.3"
 	}

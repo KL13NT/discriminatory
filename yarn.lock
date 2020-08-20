@@ -15132,14 +15132,6 @@ react-color@^2.17.0:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
-react-contextmenu@^2.14.0:
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/react-contextmenu/-/react-contextmenu-2.14.0.tgz#d8966f30614b9b780b928be4c8d92bd740d55cdd"
-  integrity sha512-ktqMOuad6sCFNJs/ltEwppN8F0YeXmqoZfwycgtZR/MxOXMYx1xgYC44SzWH259HdGyshk1/7sXGuIRwj9hzbw==
-  dependencies:
-    classnames "^2.2.5"
-    object-assign "^4.1.0"
-
 react-dev-utils@^9.0.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.1.0.tgz#3ad2bb8848a32319d760d0a84c56c14bdaae5e81"
@@ -15432,7 +15424,7 @@ react-textarea-autosize@^7.1.0:
     "@babel/runtime" "^7.1.2"
     prop-types "^15.6.0"
 
-react-transition-group@^4.3.0, react-transition-group@^4.4.1:
+react-transition-group@^4.3.0:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
   integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==

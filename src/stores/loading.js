@@ -1,7 +1,5 @@
 import create from 'zustand'
-import random from 'random'
-
-const normal = random.normal()
+import { normal } from 'random'
 
 const [useFullscreenLoader] = create(set => ({
 	active: [],
@@ -11,7 +9,7 @@ const [useFullscreenLoader] = create(set => ({
 				...state.active,
 				{
 					name,
-					id: normal()
+					id: normal()()
 				}
 			]
 		})),

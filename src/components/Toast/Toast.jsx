@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import create from 'zustand'
-import random from 'random'
+import {normal} from 'random'
 
 import styles from './Toast.module.sass'
 import cls from '../../utils/cls'
@@ -8,8 +8,6 @@ import cls from '../../utils/cls'
 import { ReactComponent as Close } from '../../assets/x.svg'
 import { useRef } from 'react'
 import { useCallback } from 'react'
-
-const normal = random.normal()
 
 const [useToasts] = create(set => ({
 	toasts: [],
@@ -20,7 +18,7 @@ const [useToasts] = create(set => ({
 				...state.toasts,
 				{
 					text: toast.text,
-					id: normal(),
+					id: normal()(),
 					type: toast.type
 				}
 			]
