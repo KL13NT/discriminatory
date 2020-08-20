@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 import Placeholder from '../../assets/placeholder.png'
 
-function Avatar({ avatar, verified, displayName, className }) {
+function Avatar({ avatar, verified, displayName, variant, className }) {
 	const [avatarSrc, setAvatarSrc] = useState(Placeholder)
 
 	useEffect(() => {
@@ -25,19 +25,24 @@ function Avatar({ avatar, verified, displayName, className }) {
 	}, [avatar])
 
 	return (
-		<div className={cls(styles.avatar, className)} data-verified={verified}>
+		<div
+			className={cls(styles.avatar, className, styles[variant])}
+			data-verified={verified}
+		>
 			<img src={avatarSrc} alt={`${displayName}'s Avatar`} />
 		</div>
 	)
 }
 
 Avatar.propTypes = {
-	avatar: PropTypes.string.isRequired,
-	verified: PropTypes.bool
+	avatar: PropTypes.string,
+	verified: PropTypes.bool,
+	variant: PropTypes.oneOf(['big', 'small'])
 }
 
 Avatar.defaultProps = {
-	verified: false
+	verified: false,
+	variant: 'small'
 }
 
 export default Avatar
