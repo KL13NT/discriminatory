@@ -3,38 +3,40 @@ import firebase from 'firebase'
 import React, { useEffect } from 'react'
 import { useQuery } from 'urql'
 
+import { useIntl } from 'react-intl'
 import { useAuth } from '../../stores/auth.js'
 import { useProfile } from '../../stores/profile.js'
 import { useToasts } from '../../components/Toast/Toast.jsx'
+import { useFullscreenLoader } from '../../stores/loading.js'
 
 import CompleteProfile from '../components/CompleteProfile.jsx'
-import { useFullscreenLoader } from '../../stores/loading.js'
+
+import { accountQuery } from '../../queries/profiles.js'
 
 function ProfileAuthController({ children }) {
 	const { user, setUser, clear: clearAuth } = useAuth()
 	const { profile, update, clear: clearProfile } = useProfile()
 	const { load, finish } = useFullscreenLoader()
+	const { formatMessage: f } = useIntl()
 	const { add } = useToasts()
 
 	const [response, reloadProfile] = useQuery({
-		query: `
-			query{
-				account{
-					displayName
-					email
-					location
-					dateofbirth
-					tagline
-				}
-			}
-	`,
+		query: accountQuery,
 		pause: !user
 	})
 
 	useEffect(() => {
-		if (response.fetching) load('Profile')
-		else finish('Profile')
-	}, [response, load, finish])
+		finish('Authenticating')
+
+		if (response.fetching) load('Loading your profile')
+		else if (response.data && response.data.account) {
+			update({ ...response.data.account })
+			finish('Loading your profile')
+		} else if (response.error) {
+			finish('Loading your profile')
+			add({ text: f({ id: 'errors.general' }), type: 'danger' })
+		}
+	}, [response, load, finish, update, add, f])
 
 	useEffect(() => {
 		if (user) reloadProfile()
@@ -51,8 +53,6 @@ function ProfileAuthController({ children }) {
 	useEffect(() => {
 		load('Authenticating')
 		firebase.auth().onAuthStateChanged(user => {
-			finish('Authenticating')
-
 			if (!user) {
 				clearAuth()
 				clearProfile()
