@@ -8,21 +8,30 @@ import { getAvatarUrl } from '../../utils/profiles'
 import { useState } from 'react'
 
 import Placeholder from '../../assets/placeholder.png'
+import { useAvatars } from '../../stores/avatars'
 
-function Avatar({ avatar, verified, displayName, variant, className }) {
+function Avatar({ avatar, _id, verified, displayName, variant, className }) {
+	const { updateAvatars, getAvatar } = useAvatars()
 	const [avatarSrc, setAvatarSrc] = useState(Placeholder)
 
 	useEffect(() => {
-		if (avatar)
-			getAvatarUrl(avatar)
-				.then(avatar => {
-					setAvatarSrc(avatar)
-				})
-				.catch(e => {
-					setAvatarSrc(Placeholder)
-					console.log('COPY THIS WHEN REPORTING', e)
-				})
-	}, [avatar])
+		if(avatar){
+			if (getAvatar(avatar)) setAvatarSrc(getAvatar(avatar))
+			else {
+				if (avatar)
+					getAvatarUrl(avatar)
+						.then(avatar => {
+							setAvatarSrc(avatar)
+							updateAvatars({ avatar, key: avatar })
+						})
+						.catch(e => {
+							setAvatarSrc(Placeholder)
+							updateAvatars({ avatar, _id })
+							console.log('COPY THIS WHEN REPORTING', e)
+						})
+			}
+		}
+	}, [])
 
 	return (
 		<div

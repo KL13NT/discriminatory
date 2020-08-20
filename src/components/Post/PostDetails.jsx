@@ -6,12 +6,8 @@ import { FormattedDate, FormattedTime } from 'react-intl'
 import Avatar from '../Avatar/Avatar'
 import cls from '../../utils/cls'
 
-function PostDetails({
-	location,
-	created,
-	_id,
-	author: { _id: authorId, displayName, verified, avatar }
-}) {
+function PostDetails({ created, _id, author }) {
+	const { _id: authorId, displayName, verified } = author
 	const avatarClasses = [styles.avatar, verified ? styles.verified : null].join(
 		' '
 	)
@@ -20,11 +16,7 @@ function PostDetails({
 		<div className={styles.detailsContainer}>
 			<div className={avatarClasses}>
 				<Link to={`/${authorId}`}>
-					<Avatar
-						avatar={avatar}
-						verified={verified}
-						className={avatarClasses}
-					/>
+					<Avatar {...author} className={avatarClasses} />
 				</Link>
 			</div>
 			<div className={styles.details}>

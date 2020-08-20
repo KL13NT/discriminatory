@@ -1,14 +1,20 @@
 import create from 'zustand'
+import { storage } from 'firebase'
 
 /**
  * an avatar is an object with 2 props {key: uid, src: actual source, either generated or a real one}
  */
-const [useAvatars] = create(set => ({
+const [useAvatars] = create((set, get) => ({
 	avatars: [],
-	updateAvatars: ({ avatar, _id }) =>
+
+	updateAvatars: ({ avatar, key }) =>
 		set(state => ({
-			avatars: [...state.avatars, { avatar, _id }]
-		}))
+			avatars: [...state.avatars, { avatar, key: key }]
+		})),
+
+	getAvatar: key => {
+		return get().avatars.find(avatar => key === avatar.key)
+	}
 }))
 
 export { useAvatars }
