@@ -10,6 +10,8 @@ const MinifyPlugin = require('babel-minify-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
+const { InjectManifest } = require('workbox-webpack-plugin')
+
 const { html, entry, loaders } = require('./webpack.shared.config')
 
 const plugins = [
@@ -43,6 +45,12 @@ const plugins = [
 	}),
 	new ImageminWebpWebpackPlugin({
 		config: [{ test: /\.(jpe?g|png)/, options: { quality: 85 } }]
+	}),
+	new InjectManifest({
+		swSrc: './src/sw.js',
+		clientsClaim: true,
+		skipWaiting: true,
+		prefix: 'discriminatorynetwork'
 	})
 ]
 
