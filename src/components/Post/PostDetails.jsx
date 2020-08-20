@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import styles from './PostDetails.module.sass'
 import { FormattedDate, FormattedTime } from 'react-intl'
 import Avatar from '../Avatar/Avatar'
+import cls from '../../utils/cls'
 
 function PostDetails({
 	location,
 	created,
-	author: { _id, displayName, verified, avatar }
+	_id,
+	author: { _id: authorId, displayName, verified, avatar }
 }) {
 	const avatarClasses = [styles.avatar, verified ? styles.verified : null].join(
 		' '
@@ -17,7 +19,7 @@ function PostDetails({
 	return (
 		<div className={styles.detailsContainer}>
 			<div className={avatarClasses}>
-				<Link to={`/${_id}`}>
+				<Link to={`/${authorId}`}>
 					<Avatar
 						avatar={avatar}
 						verified={verified}
@@ -26,21 +28,25 @@ function PostDetails({
 				</Link>
 			</div>
 			<div className={styles.details}>
-				<Link to={`/${_id}`}>
-					<h1 className={styles.name}>
+				<Link to={`/${authorId}`}>
+					<h1 className={cls(styles.name, 'u-text-limit')} dir='auto'>
 						{displayName}
-						<span className={styles.date}>
-							<FormattedTime value={new Date(Number(created))} /> .{' '}
-							<FormattedDate
-								value={new Date(Number(created))}
-								year='numeric'
-								month='short'
-								day='2-digit'
-							/>{' '}
-						</span>
 					</h1>
+
+					<Link
+						to={`/post/${_id}`}
+						className={cls('u-text-limit', styles.date)}
+					>
+						<FormattedTime value={new Date(Number(created))} /> .{' '}
+						<FormattedDate
+							value={new Date(Number(created))}
+							year='numeric'
+							month='short'
+							day='2-digit'
+						/>{' '}
+					</Link>
 				</Link>
-				<h4 className={styles.location}>{location}</h4>
+				<span className={styles.location}>{location}</span>
 			</div>
 		</div>
 	)

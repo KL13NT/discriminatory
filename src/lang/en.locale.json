@@ -75,10 +75,28 @@
 	"errors.404.title": "This page doesn't exist",
 	"errors.404.description": "Try double-checking the link or go back.",
 
+	"errors.general": "Something went wrong",
 	"errors.page.title": "Yikes, this is embarrassing",
 	"errors.general.description": "Try double-checking or going back.",
 	"errors.page.subtitle": "We promise to fix it if you ",
 	"errors.page.report": "report it",
 
-	"errors.general": "Something went wrong"
+	"composer.title": "Compose",
+	"composer.placeholder": "What's on your mind?",
+	"composer.submit": "Post",
+
+	"locationPicker.button.placeholder": "Pick a location",
+	"locationPicker.overlay.title": "Location",
+	"locationPicker.overlay.subtitle": "Where are you?",
+	"locationPicker.form.placeholder": "Type your current location",
+
+	"post.rate.upvote": "Upvote",
+	"post.rate.downvote": "Downvote",
+
+	"numbers.zero": "zero",
+
+	"postOptions.toggle": "Toggle post options menu",
+	"postOptions.pin": "Pin this post to your profile",
+	"postOptions.delete": "Delete post permanently",
+	"postOptions.report": "Report this post to support"
 }

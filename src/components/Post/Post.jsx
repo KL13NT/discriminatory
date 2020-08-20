@@ -8,28 +8,17 @@ import { Comments } from './Comments'
 
 import styles from './Post.module.sass'
 import Container from '../Container/Container'
+import { FormattedTime, FormattedDate } from 'react-intl'
+import { Link } from 'react-router-dom'
 //TODO: remove this to save memory. Duplicating this component for each post is
 //a memory waste. This probably doesn't need to happen because we'll be
 //windowing posts
 
-function Post({
-	content,
-	comments,
-	reactions,
-	onReport,
-	onDelete,
-	onPin,
-	onReact,
-	onComment,
-	_id,
-	profile,
-	...details
-}) {
+function Post({ onReport, onDelete, onPin, onReact, onComment, ...props }) {
+	const { content, comments, reactions, created, _id } = props
 	const [isMenuOpened, dispatchToggleMenu] = useState(false)
 
-	const toggleMenu = () => {
-		dispatchToggleMenu(!isMenuOpened)
-	}
+	const toggleMenu = () => dispatchToggleMenu(!isMenuOpened)
 
 	const onAction = (action, e) => {
 		if (action === 'report') onReport(_id, e)
@@ -46,13 +35,24 @@ function Post({
 				isMenuOpened={isMenuOpened}
 				onAction={onAction}
 				onDelete={onDelete}
-				onPin={onPin}
 				onReport={onReport}
+				onPin={onPin}
 			/>
-			<PostDetails {...details} />
+			<PostDetails {...props} />
 			<p className={styles.content}>{content}</p>
+			{/* <Link to={`/post/${_id}`}>
+				<span className={styles.date}>
+					<FormattedTime value={new Date(Number(created))} /> .{' '}
+					<FormattedDate
+						value={new Date(Number(created))}
+						year='numeric'
+						month='short'
+						day='2-digit'
+					/>{' '}
+				</span>
+			</Link> */}
 			<PostRating reactions={reactions} onReact={onReact} />
-			<CommentComposer onCompose={onComment} {...profile} />
+			<CommentComposer onCompose={onComment} {...props} />
 			<Comments comments={comments} />
 		</Container>
 	)

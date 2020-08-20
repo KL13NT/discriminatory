@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useIntl } from 'react-intl'
 
 import styles from './Comments.module.sass'
 
@@ -7,6 +8,7 @@ import Avatar from '../Avatar/Avatar'
 
 function CommentComposer({ onCompose, ...details }) {
 	const [isHoldingShift, dispatchShift] = useState(false)
+	const { formatMessage: f } = useIntl()
 
 	const onKeyDown = ({ currentTarget, key }) => {
 		if (key === 'Shift') dispatchShift(true)
@@ -34,7 +36,7 @@ function CommentComposer({ onCompose, ...details }) {
 			<textarea
 				name='content'
 				aria-label='Comment content input'
-				placeholder='Write a comment...'
+				placeholder={f({ id: 'commentComposer.placeholder' })}
 				onKeyDown={onKeyDown}
 				onKeyUp={onKeyUp}
 				onInput={onInput}

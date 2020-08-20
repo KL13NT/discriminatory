@@ -82,5 +82,26 @@
 	"errors.page.title": "احم.. هذا محرج قليلاً",
 	"errors.general.description": "حاول مرة اخرى او عد للصفحة السابقة.",
 	"errors.page.subtitle": "نعدك بإصلاح الخطأ اذا ",
-	"errors.page.report": "قمت بالتبليغ عنه"
+	"errors.page.report": "قمت بالتبليغ عنه",
+
+	"composer.title": "اكتب",
+	"composer.placeholder": "ماذا يدور في ذهنك؟",
+	"composer.submit": "انشر",
+
+	"locationPicker.button.placeholder": "اختر مكاناً",
+	"locationPicker.overlay.title": "موقعك",
+	"locationPicker.overlay.subtitle": "اين انت؟",
+	"locationPicker.form.placeholder": "اكتب مكانك الحالي",
+
+	"post.rate.upvote": "صدّق",
+	"post.rate.downvote": "ارفض",
+
+	"numbers.zero": "صفر",
+
+	"postOptions.toggle": "افتح قائمة المنشور",
+	"postOptions.pin": "ثبت هذا المنشور على صفحتك",
+	"postOptions.delete": "امسح هذا المنشور",
+	"postOptions.report": "بلغ عن هذا المنشور",
+
+	"commentComposer.placeholder": "اكتب تعليق..."
 }

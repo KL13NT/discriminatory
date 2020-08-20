@@ -6,6 +6,7 @@ import { ReactComponent as Delete } from '../../assets/delete.svg'
 import { ReactComponent as Pin } from '../../assets/security-pin.svg'
 
 import styles from './PostOptionsMenu.module.sass'
+import { useIntl } from 'react-intl'
 
 function PostOptionsMenu({
 	onAction,
@@ -15,10 +16,12 @@ function PostOptionsMenu({
 	toggle,
 	isMenuOpened
 }) {
+	const { formatMessage: f } = useIntl()
+
 	return (
 		<div>
 			<button onClick={toggle} className={styles.menuToggle}>
-				<Arrow alt='Post list icon' />
+				<Arrow alt={f({ id: 'postOptions.toggle' })} />
 			</button>
 
 			{isMenuOpened ? (
@@ -26,7 +29,7 @@ function PostOptionsMenu({
 					{onPin ? (
 						<button onClick={e => onAction('pin', e)} className={styles.pin}>
 							<Pin />
-							<span>Pin this post to your profile</span>
+							<span>{f({ id: 'postOptions.pin' })}</span>
 						</button>
 					) : null}
 					{onDelete ? (
@@ -35,7 +38,7 @@ function PostOptionsMenu({
 							className={styles.delete}
 						>
 							<Delete />
-							<span>Delete post permanently</span>
+							<span>{f({ id: 'postOptions.delete' })}</span>
 						</button>
 					) : null}
 					{onReport ? (
@@ -44,7 +47,7 @@ function PostOptionsMenu({
 							className={styles.report}
 						>
 							<Report />
-							<span>Report this post to support</span>
+							<span>{f({ id: 'postOptions.report' })}</span>
 						</button>
 					) : null}
 				</div>
