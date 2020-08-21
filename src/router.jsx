@@ -56,8 +56,10 @@ const AnimatedRoutes = ({ user }) => {
 				</Banner>
 			) : null}
 			<Switch location={location}>
+				<Route path='/' exact>
+					<Redirect to='/home' />
+				</Route>
 				{renderRoutes(routes, user)}
-				<Redirect from='/' to='/home' exact />
 			</Switch>
 		</>
 	)

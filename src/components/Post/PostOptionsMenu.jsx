@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 
 import { ReactComponent as Arrow } from '../../assets/arrow.svg'
 import { ReactComponent as Report } from '../../assets/police-badge.svg'
@@ -18,17 +18,16 @@ function PostOptionsMenu({ onReport, onDelete, onPin }) {
 	const [isMenuOpened, toggle] = useState()
 	const { formatMessage: f } = useIntl()
 
-	const onClickOutside = e => {
-		console.log('clicked', !findParentByRef(e.target, menuRef))
+	const onClickOutside = useCallback(e => {
 		if (!findParentByRef(e.target, menuRef)) {
 			toggle(false)
 			document.removeEventListener('click', onClickOutside)
 		}
-	}
+	}, [])
 
 	useEffect(() => {
-		if (toggle) document.addEventListener('click', onClickOutside)
-	}, [toggle])
+		if (isMenuOpened) document.addEventListener('click', onClickOutside)
+	}, [isMenuOpened, onClickOutside])
 
 	return (
 		<div ref={menuRef}>

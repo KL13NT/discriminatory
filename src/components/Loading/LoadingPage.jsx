@@ -63,8 +63,9 @@ export const FullscreenLoader = ({ children }) => {
 			<p>{children || randomMessage()}</p>
 			{error ? (
 				<p>
-					If you're seeing this it may mean something went wrong or your
-					connection is slow.
+					If you're seeing this screen for too long it means your internet is
+					slow, something went wrong when loading, or some features are not
+					supported on your version of your browser.
 				</p>
 			) : null}
 		</div>
