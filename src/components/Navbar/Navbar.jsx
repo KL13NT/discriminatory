@@ -71,7 +71,7 @@ function Navbar({ user }) {
 
 				<PrivateLink user={user}>
 					<NavbarLink
-						to='/profile'
+						to={`/${user ? user.uid : null}`}
 						name={f({ id: 'navbar.profile' })}
 						icon={Profile}
 					/>
