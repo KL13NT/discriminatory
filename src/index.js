@@ -43,7 +43,7 @@ const graphql = createClient({
 		dedupExchange,
 		cacheExchange,
 		retryExchange({
-			retryIf: err => err
+			retryIf: err => err && err.networkError
 		}), // Use the retryExchange factory to add a new exchange
 		fetchExchange
 	]

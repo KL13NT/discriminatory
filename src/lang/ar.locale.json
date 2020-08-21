@@ -38,6 +38,10 @@
 	"navbar.compose": "انشر",
 
 	"home.title": "الرئيسيّة",
+	"explore.title": "اكتشف",
+
+	"explore.tabs.latest": "الأحدث",
+	"explore.tabs.top": "الأعلى تقييماً",
 
 	"login.title": "ديسكريميناتوري - تسجيل الدخول",
 	"login.header.title": "انضم لنا لمواجهة التمييز بكل اشكاله",

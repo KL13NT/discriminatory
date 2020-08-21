@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
-import Composer from '../components/Composer/Composer'
 import Container from '../components/Container/Container'
 import Post from '../components/Post/Post'
 
@@ -8,7 +7,6 @@ import { useIntl } from 'react-intl'
 import { useQuery, useMutation } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
-import { Link } from 'react-router-dom'
 
 import { useToasts } from '../components/Toast/Toast'
 import { useProfile } from '../stores/profile'
@@ -17,10 +15,7 @@ import * as queries from '../queries/posts'
 
 const EmptyFeed = () => (
 	<Container>
-		<p>
-			Oh no, your feed is empty! <Link to='/explore'>Explore</Link> to find
-			people and engage with the community.
-		</p>
+		<p>Oh no, there are no posts! This is awkward. Wanna play some chess?</p>
 	</Container>
 )
 
@@ -34,7 +29,7 @@ const PostList = ({ feed, ...props }) => {
 	return null
 }
 
-function Home() {
+function Explore() {
 	const { add } = useToasts()
 	const { profile } = useProfile()
 	const { formatMessage: f } = useIntl()
@@ -44,18 +39,16 @@ function Home() {
 	const [posts, setPosts] = useState([])
 	const { user } = useAuth()
 
-	const [postRes, post] = useMutation(queries.post)
 	const [reactionRes, react] = useMutation(queries.react)
 	const [commentRes, comment] = useMutation(queries.comment)
 	const [pinRes, pin] = useMutation(queries.pin)
-	// const [reportRes, report] = useMutation(queries.report)
 	const [removeRes, remove] = useMutation(queries.remove)
-	const [feedRes, reFeed] = useQuery({
-		query: queries.feed,
+
+	const [latestRes, reLatest] = useQuery({
+		query: queries.explore,
 		variables: {
 			...pagination
-		},
-		pause: !user
+		}
 	})
 
 	const error = useCallback(
@@ -64,21 +57,14 @@ function Home() {
 	)
 
 	useEffect(() => {
-		if (feedRes.data) setPosts([...feedRes.data.feed])
-	}, [feedRes])
+		if (latestRes.data) setPosts([...latestRes.data.explore])
+	}, [latestRes])
 
-	useEffect(() => postRes.error && error(), [postRes, error])
 	useEffect(() => reactionRes.error && error(), [reactionRes, error])
 	useEffect(() => commentRes.error && error(), [commentRes, error])
 	useEffect(() => pinRes.error && error(), [pinRes, error])
 	// useEffect(() => reportRes.error && error(), [reportRes, error])
 	useEffect(() => removeRes.error && error(), [removeRes, error])
-
-	const onCompose = newPost => {
-		post(newPost).then(response => {
-			if (!response.error) reFeed({ requestPolicy: 'network-only' })
-		})
-	}
 
 	const onUpvote = ({ currentTarget }) => {
 		const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
@@ -142,7 +128,7 @@ function Home() {
 
 				ref.comments.push(comment)
 
-				setPosts(dupe)
+				setPosts([...dupe])
 				add({ text: f({ id: 'post.comment.success' }), type: 'success' })
 
 				currentTarget.elements['content'].value = ''
@@ -159,15 +145,6 @@ function Home() {
 		})
 	}
 
-	// const onReport = ({currentTarget}) => {
-	// 	const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
-
-	// 	report({ post: id }).then(response => {
-	// 		if (!response.error)
-	// 			add({ text: f({ id: 'post.pin.success' }), type: 'success' })
-	// 	})
-	// }
-
 	const onDelete = ({ currentTarget }) => {
 		const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
 
@@ -181,13 +158,8 @@ function Home() {
 
 	return (
 		<>
-			<PageTitle>{f({ id: 'home.title' })}</PageTitle>
-			<Composer
-				{...profile}
-				verified={user.email_verified}
-				onSubmit={onCompose}
-			/>
-			{feedRes.data ? (
+			<PageTitle>{f({ id: 'explore.title' })}</PageTitle>
+			{latestRes.data ? (
 				<PostList
 					onComment={onComment}
 					onPin={onPin}
@@ -204,4 +176,4 @@ function Home() {
 	)
 }
 
-export default Home
+export default Explore

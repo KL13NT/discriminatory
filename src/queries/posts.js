@@ -12,8 +12,38 @@ export const comment = `
 `
 
 export const feed = `
-	query($limit: Int!, $before: ID){
-		feed(limit: $limit, before: $before){
+	query($before: ID){
+		feed(before: $before){
+			content
+			created
+			location
+			_id
+			author{
+				displayName
+				avatar
+				_id
+			}
+			comments{
+				_id
+				content
+				author {
+					displayName
+					avatar
+					_id
+				}
+			}
+			reactions{
+				upvotes
+				downvotes
+				reaction
+			}
+		}
+	}
+`
+
+export const explore = `
+	query($before: ID){
+		explore(before: $before){
 			content
 			created
 			location

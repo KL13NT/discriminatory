@@ -19,7 +19,10 @@ function PostOptionsMenu({ onReport, onDelete, onPin }) {
 	const { formatMessage: f } = useIntl()
 
 	const onClickOutside = useCallback(e => {
-		if (!findParentByRef(e.target, menuRef)) {
+		if (
+			!findParentByRef(e.target, menuRef) ||
+			(findParentByRef(e.target, menuRef) && e.target.nodeName === 'BUTTON')
+		) {
 			toggle(false)
 			document.removeEventListener('click', onClickOutside)
 		}
@@ -29,9 +32,11 @@ function PostOptionsMenu({ onReport, onDelete, onPin }) {
 		if (isMenuOpened) document.addEventListener('click', onClickOutside)
 	}, [isMenuOpened, onClickOutside])
 
+	const onToggle = () => toggle(!isMenuOpened)
+
 	return (
 		<div ref={menuRef}>
-			<button onClick={toggle} className={styles.menuToggle}>
+			<button onClick={onToggle} className={styles.menuToggle}>
 				<Arrow alt={f({ id: 'postOptions.toggle' })} />
 			</button>
 
