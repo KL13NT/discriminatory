@@ -15,6 +15,7 @@ import { useProfile } from '../../stores/profile'
 import { useAuth } from '../../stores/auth'
 
 import { isMethodAllowed, isMethodNotAllowed } from '../../utils/general'
+import Button from '../Button/Button'
 
 //TODO: remove this to save memory. Duplicating this component for each post is
 //a memory waste. This probably doesn't need to happen because we'll be
@@ -36,6 +37,7 @@ function Post(props) {
 		_id
 	} = props
 	const [isMenuOpened, dispatchToggleMenu] = useState(false)
+	const [commentsExpanded, setCommentsExpanded] = useState(false)
 	const { profile } = useProfile()
 	const { user } = useAuth()
 
@@ -68,7 +70,21 @@ function Post(props) {
 				onDownvote={onDownvote}
 			/>
 
-			<CommentsSection onComment={onComment} comments={comments} {...profile} />
+			{
+				<Button
+					variant='link'
+					onClick={() => setCommentsExpanded(!commentsExpanded)}
+				>
+					{commentsExpanded ? 'Hide comments' : 'Show comments'}
+				</Button>
+			}
+			{commentsExpanded ? (
+				<CommentsSection
+					onComment={onComment}
+					comments={comments}
+					{...profile}
+				/>
+			) : null}
 		</Container>
 	)
 }
