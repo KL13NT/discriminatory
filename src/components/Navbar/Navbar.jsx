@@ -61,13 +61,13 @@ function Navbar({ user }) {
 					icon={Explore}
 				/>
 
-				<PrivateLink user={user}>
+				{/* <PrivateLink user={user}>
 					<NavbarLink
 						to='/notifications'
 						name={f({ id: 'navbar.notifications' })}
 						icon={Notifications}
 					/>
-				</PrivateLink>
+				</PrivateLink> */}
 
 				<PrivateLink user={user}>
 					<NavbarLink

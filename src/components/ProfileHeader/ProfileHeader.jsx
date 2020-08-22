@@ -8,49 +8,39 @@ import styles from './ProfileHeader.module.sass'
 import { ReactComponent as Location } from '../../assets/gps.svg'
 import { Link } from 'react-router-dom'
 import Cover from '../../assets/cover.jpg'
-
-function ProfileDetails({
-	displayName,
-	tagline,
-	location,
-	avatar,
-	isOwnProfile,
-	isFollowed,
-	isVerified,
-	onClick
-}) {
-	return (
-		<div className={styles.details}>
-			<div className={styles.avatar} data-verified={isVerified}>
-				<img src={avatar} alt={`${displayName}'s Avatar`} />
-			</div>
-			<h1>{displayName}</h1>
-			<span>{tagline}</span>
-			<span>
-				<Location />
-				{location}
-			</span>
-			{!isOwnProfile ? (
-				isFollowed ? (
-					<Button variant='info' onClick={onClick}>
-						Unfollow
-					</Button>
-				) : (
-					<Button variant='info' onClick={onClick}>
-						Follow
-					</Button>
-				)
-			) : null}
-			{isOwnProfile ? <Link to='/settings/profile'>Edit</Link> : null}
-		</div>
-	)
-}
+import { useAuth } from '../../stores/auth'
+import Avatar from '../Avatar/Avatar'
 
 export function ProfileHeader({ onClick, profile }) {
+	const { user } = useAuth()
+	const { displayName, tagline, location, avatar, verified, _id } = profile.user
+
 	return (
 		<Container className={styles.header}>
-			<img src={profile.header} alt='Profile header' />
-			<ProfileDetails {...profile} onClick={onClick} />
+			<img src={Cover} alt='Profile header' />
+			<div className={styles.details}>
+				<Avatar avatar={avatar} displayName={displayName} variant='big' />
+				<h1>{displayName}</h1>
+				<span>{tagline}</span>
+				<span>
+					<Location />
+					{location}
+				</span>
+				{_id !== user.uid ? (
+					profile.following ? (
+						<Button variant='info' onClick={onClick}>
+							Unfollow
+						</Button>
+					) : (
+						<Button variant='info' onClick={onClick}>
+							Follow
+						</Button>
+					)
+				) : null}
+				{user && user.uid === _id ? (
+					<Link to='/settings/profile'>Edit</Link>
+				) : null}
+			</div>
 		</Container>
 	)
 }

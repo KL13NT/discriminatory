@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Home = React.lazy(() => import('../views/home'))
+const Profile = React.lazy(() => import('../views/profile'))
 const Explore = React.lazy(() => import('../views/explore'))
 const Register = React.lazy(() => import('../views/register'))
 const Login = React.lazy(() => import('../views/login'))
@@ -23,13 +24,13 @@ const routes = [
 		private: false,
 		anonymousOnly: false
 	},
-	{
-		path: '/notifications',
-		name: 'Notifications',
-		component: () => 'Notifications',
-		private: true,
-		anonymousOnly: false
-	},
+	// {
+	// 	path: '/notifications',
+	// 	name: 'Notifications',
+	// 	component: () => 'Notifications',
+	// 	private: true,
+	// 	anonymousOnly: false
+	// },
 	{
 		path: '/discriminators',
 		name: 'Discriminators',
@@ -77,8 +78,8 @@ const routes = [
 	{
 		path: '/:user_id',
 		name: 'Profile',
-		component: () => 'Profile',
-		private: false,
+		component: Profile,
+		private: true,
 		anonymousOnly: false,
 		exact: true
 	},
