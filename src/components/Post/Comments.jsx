@@ -50,11 +50,12 @@ function CommentComposer({ onComment, ...profile }) {
 }
 
 function Comments({ comments }) {
+	console.log(comments)
 	return comments.map(({ content, _id, author }) => (
 		<div className={styles.comment} key={_id}>
 			<Avatar {...author} variant='tiny' />
 			<span className={styles.content}>
-				<Link to={author._id}>
+				<Link to={`/${author._id}`}>
 					<h1 dir='auto'>{author.displayName}</h1>
 				</Link>
 				<p dir='auto'>{content}</p>
