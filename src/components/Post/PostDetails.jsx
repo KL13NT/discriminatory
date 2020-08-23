@@ -7,25 +7,23 @@ import Avatar from '../Avatar/Avatar'
 import cls from '../../utils/cls'
 
 function PostDetails({ created, _id, author }) {
-	const { _id: authorId, displayName, verified } = author
-	const avatarClasses = [styles.avatar, verified ? styles.verified : null].join(
-		' '
-	)
+	const { _id: authorId, displayName } = author
 
 	return (
 		<div className={styles.detailsContainer}>
-			<div className={avatarClasses}>
-				<Link to={`/${authorId}`}>
-					<Avatar {...author} className={avatarClasses} />
-				</Link>
-			</div>
+			<Link to={`/${authorId}`}>
+				<Avatar {...author} />
+			</Link>
 			<div className={styles.details}>
 				<Link to={`/${authorId}`}>
 					<h1 className={cls(styles.name, 'u-text-limit')} dir='auto'>
 						{displayName}
 					</h1>
 				</Link>
-				<Link to={`/post/${_id}`} className={cls('u-text-limit', styles.date)}>
+				<Link
+					to={`/${authorId}/${_id}`}
+					className={cls('u-text-limit', styles.date)}
+				>
 					<FormattedTime value={new Date(Number(created))} /> .{' '}
 					<FormattedDate
 						value={new Date(Number(created))}
