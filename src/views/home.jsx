@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
+import PostMaster from './components/PostMaster'
 import Composer from '../components/Composer/Composer'
 
 import { useIntl } from 'react-intl'
@@ -11,7 +12,8 @@ import { useToasts } from '../components/Toast/Toast'
 import { useProfile } from '../stores/profile'
 
 import * as queries from '../queries/posts'
-import PostMaster from './components/PostMaster'
+import { usePosts } from '../stores/posts'
+import { Spinner } from '../components/Loading/LoadingPage'
 
 function Home() {
 	const { add } = useToasts()
@@ -19,7 +21,10 @@ function Home() {
 	const { formatMessage: f } = useIntl()
 	const { user } = useAuth()
 
-	const [posts, setPosts] = useState([])
+	const { posts, setPosts } = usePosts(state => ({
+		posts: state.home,
+		setPosts: state.setHome
+	}))
 	const [pagination] = useState({
 		before: null
 	})
@@ -30,7 +35,8 @@ function Home() {
 		variables: {
 			...pagination
 		},
-		pause: !user
+		pause: !user,
+		requestPolicy: 'network-only'
 	})
 
 	const error = useCallback(
@@ -58,6 +64,7 @@ function Home() {
 				verified={user.email_verified}
 				onSubmit={onCompose}
 			/>
+			{feedRes.fetching ? <Spinner /> : null}
 			<PostMaster feedRes={feedRes} posts={posts} setPosts={setPosts} />
 		</>
 	)

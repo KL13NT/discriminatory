@@ -98,5 +98,13 @@
 	"postOptions.toggle": "Toggle post options menu",
 	"postOptions.pin": "Pin this post to your profile",
 	"postOptions.delete": "Delete post permanently",
-	"postOptions.report": "Report this post to support"
+	"postOptions.report": "Report this post to support",
+
+	"loading.random[0]": "Adding randomly mispeled words into text",
+	"loading.random[1]": "Attaching beards to dwarves",
+	"loading.random[2]": "Does anyone actually read this?",
+	"loading.random[3]": "Dusting off spellbooks",
+	"loading.random[4]": "Ensuring everything works perfektly",
+	"loading.random[5]": "Hitting your keyboard won't make this faster",
+	"loading.random[6]": "If you squeeze dark elves you don't get wine"
 }

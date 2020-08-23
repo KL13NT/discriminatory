@@ -68,6 +68,7 @@
 	"shared.privacy.long": "سياسية الخصوصية",
 	"register.password.strength": "8 احرف على الاقل, يحتوي على حرف كبير, حرف صغير, و حرف من نوع خاص",
 
+	"register.title": "ديسكريميناتوري - تسجيل حساب جديد",
 	"register.success": "تم ارسال بريد التفعيل لبريدك الالكتروني",
 	"register.progress": "جاري التسجيل",
 
@@ -76,12 +77,14 @@
 
 	"account.verification.resend.success": "تم ارسال رسالة التفعيل مجدداً بنجاح",
 
-	"emojis.pleading": "Face with big pleading eyes",
+	"emojis.pleading": "وجه بعيون كبيرة تدمع",
 
 	"errors.404.title": "هذه الصفحة غير موجودة",
 	"errors.404.description": "حاول مجدداً او ارجع للصفحة السابقة.",
 
-	"errors.general": "حدث خطأ ما, حاول مره اخرى او زر صفحة الابلاغ عن الاخطاء",
+	"errors.authentication": "حدث خطأ اثناء تأكيد هويتك. حاول اعادة تسجيل الدخول او التبليغ عن هذا الخطأ اذا تكرر.",
+	"errors.verify": "أكد حسابك لتستخدم الخدمة بحرية",
+	"errors.general": "حدث خطأ ما. حاول اعادة تسجيل الدخول. اذا لم ينجح ذلك بلغ عن هذا الخطأ. ",
 
 	"errors.page.title": "احم.. هذا محرج قليلاً",
 	"errors.general.description": "حاول مرة اخرى او عد للصفحة السابقة.",
@@ -104,6 +107,7 @@
 
 	"postOptions.toggle": "افتح قائمة المنشور",
 	"postOptions.pin": "ثبت هذا المنشور على صفحتك",
+	"postOptions.unpin": "الغاء تثبيت هذه المنشور",
 	"postOptions.delete": "امسح هذا المنشور",
 	"postOptions.report": "بلغ عن هذا المنشور",
 
@@ -112,5 +116,34 @@
 	"post.pin.success": "تم تثبيت هذا المنشور على ملفّك",
 	"post.remove.success": "تم مسح هذا المنشور",
 	"post.comment.success": "تم نشر هذه التعليق",
-	"post.options.empty": "لا يوجد شئ هنا"
+	"post.options.empty": "لا يوجد شئ هنا",
+	"post.create.success": "تم نشر هذا المنشور. سيظهر عندما نقوم بجلب منشورات جديدة.",
+
+	"errors.auth/user-not-found": "لا يوجد مستخدم بهذه البيانات",
+	"errors.auth/wrong-password": "كلمة المرور غير صحيحة",
+	"errors.auth/email-already-in-use": "هذا البريد الالكتروني مربوط بحساب آخر",
+
+	"general.pinned": "هذا المنشور مثبت",
+	"general.posts": "منشورات",
+	"plurals.post.one": "منشور",
+	"plurals.post.few": "منشورات",
+	"plurals.post.many": "منشور",
+
+	"profile.edit": "تعديل",
+	"profile.follow": "تابع",
+	"profile.unfollow": "الغاء المتابعة",
+	"profile.follow.success": "تمت متابعة هذا الحساب",
+	"profile.unfollow.success": "تم الغاء متابعة هذه الحساب",
+
+	"loading.title": "يجري التحميل",
+	"loading.warning": "اذا كنت ترى هذه الرسالة هذا يعني اما ان اتصالك بطئ او متصفحك ليس على احدث اصدار او ان هناك خطأ ما. اذا تكرر ذلك بلغ عنه. ",
+	"loading.random[0]": "نلعب الكرة",
+	"loading.random[1]": "نمرر الكرة",
+	"loading.random[2]": "احياناً لا نعرف ماذا نفعل",
+	"loading.random[3]": "[اضف جملة عميقة]",
+	"loading.random[4]": "نتأكد من جودة الخدمة",
+	"loading.random[5]": "تدمير لوحة المفاتيح الخاصة بك لن يسرّع هذه العملية",
+	"loading.random[6]": "نضيف المرح الى الغذاء",
+
+	"images.loading": "صورة التحميل"
 }

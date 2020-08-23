@@ -4,7 +4,12 @@ import create from 'zustand'
  * Make sure the name is unique
  */
 const [useFullscreenLoader] = create(set => ({
-	active: [],
+	active: [
+		{
+			name: 'Authenticating',
+			id: 'Authenticating'
+		}
+	],
 	load: name =>
 		set(state => ({
 			active: [

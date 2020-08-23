@@ -1,14 +1,14 @@
-export const isMethodAllowed = (userId, resourceCreatorId, returned) =>
-	resourceCreatorId === userId ? returned : null
+export const isMethodAllowed = (user, resourceCreatorId, returned) =>
+	user && resourceCreatorId === user.uid ? returned : null
 
 export const isMethodNotAllowed = (userId, resourceCreatorId, returned) =>
 	resourceCreatorId === userId ? null : returned
 
-export const findParentByRef = (target, ref) => {
+export const findParentByRef = (target, ref, iterations = 0) => {
 	if (target === document || target.parentNode === document) return false
-	if (target === ref || target === ref.current) return true
+	if ((target === ref || target === ref.current) && iterations > 0) return true
 	if (target.parentNode && target.parentNode !== document)
-		return findParentByRef(target.parentNode, ref)
+		return findParentByRef(target.parentNode, ref, iterations + 1)
 }
 
 export const findParentByClass = (target, selector) => {
