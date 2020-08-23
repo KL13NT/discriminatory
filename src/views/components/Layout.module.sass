@@ -41,16 +41,20 @@
 	.left
 		width: 22%
 
+	.content
+		flex: 0 0 60%
+
 @media screen and (min-width: 1366px)
 	.right
 		display: block
 		padding: 0 20px
+		flex: 0 0 30%
+		max-width: 600px
 
 	.content
 		margin: 0 20px
-
-	.content nav
-		width: 22%
+		flex: 0 0 44%
+		max-width: 600px
 
 	.left, .right
 		position: sticky
@@ -58,6 +62,9 @@
 		top: 0
 
 	.left
+		flex: 0 0 22%
+		max-width: 600px
+
 		nav
 			position: relative
 			width: 100%

@@ -1,16 +1,7 @@
 import React from 'react'
-import {
-	BrowserRouter,
-	Switch,
-	Route,
-	Redirect,
-	useLocation,
-	Link
-} from 'react-router-dom'
-import { useIntl } from 'react-intl'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import routes from './config/routes'
-import Banner from './components/Banner/Banner'
 import Layout from './views/components/Layout'
 
 export const PrivateRoute = ({ component: Component, user, ...rest }) => {
@@ -39,38 +30,29 @@ const renderRoutes = (routes, user) =>
 	})
 
 const AnimatedRoutes = ({ user }) => {
-	const location = useLocation()
-	const { formatMessage: f } = useIntl()
-	const { pathname } = location
-	const isBannerVisible =
-		!user && pathname !== '/login' && pathname !== '/register'
-
 	return (
-		<>
-			{isBannerVisible ? (
-				<Banner title={f({ id: 'banners.register.title' })}>
-					<span>
-						{f({ id: 'banners.register.subtitle' })}{' '}
-						<Link to='/register'>{f({ id: 'banners.register.link' })}</Link>
-					</span>
-				</Banner>
-			) : null}
-			<Switch location={location}>
-				<Route path='/' exact>
-					<Redirect to='/home' />
-				</Route>
-				{renderRoutes(routes, user)}
-			</Switch>
-		</>
+		<Switch location={location}>
+			<Route path='/' exact>
+				<Redirect to='/home' />
+			</Route>
+			<Layout user={user}>
+				{renderRoutes(
+					routes.filter(route => route.hasLayout),
+					user
+				)}
+			</Layout>
+			{renderRoutes(
+				routes.filter(route => !route.hasLayout),
+				user
+			)}
+		</Switch>
 	)
 }
 
 export default function Router({ user }) {
 	return (
 		<BrowserRouter>
-			<Layout user={user}>
-				<AnimatedRoutes user={user} />
-			</Layout>
+			<AnimatedRoutes user={user} />
 		</BrowserRouter>
 	)
 }

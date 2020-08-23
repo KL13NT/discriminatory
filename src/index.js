@@ -2,6 +2,7 @@ import { initializeApp as initFirebase } from 'firebase'
 
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {
 	createClient,
 	dedupExchange,
@@ -17,15 +18,17 @@ import InitialController from './views/controllers/InitialController.jsx'
 import IntlController from './views/controllers/IntlController'
 
 import Router from './router.jsx'
+import Banner from './components/Banner/Banner'
 
+import { FormattedMessage } from 'react-intl'
 import { FullscreenLoader } from './components/Loading/LoadingPage'
 import { ErrorBoundaryPage } from './components/Errors/PageError'
 import { ToastContainer } from './components/Toast/Toast.jsx'
+import { OverlayComposer } from './components/Composer/Composer'
 
 import { useAuth } from './stores/auth.js'
 
 import './style/base.global.sass'
-import { OverlayComposer } from './components/Composer/Composer'
 
 /**
  * GraphQL & Firebase Initialisation
@@ -69,8 +72,24 @@ if (process.env.NODE_ENV !== 'production') {
 	axe(React, ReactDOM, 1000)
 }
 
+const RegisterBanner = () => (
+	<Banner title={<FormattedMessage id='banners.register.title' />}>
+		<span>
+			<FormattedMessage id='banners.register.subtitle' />
+			<Link to='/register'>
+				<FormattedMessage id='banners.register.link' />
+			</Link>
+		</span>
+	</Banner>
+)
+
 function App() {
 	const { user } = useAuth()
+	const { pathname } = useLocation()
+	const isBannerVisible =
+		!user && pathname !== '/login' && pathname !== '/register'
+
+	//TODO: add notifications banner
 
 	return (
 		<ErrorBoundaryPage>
@@ -80,7 +99,8 @@ function App() {
 						<Suspense fallback={<FullscreenLoader />}>
 							<ToastContainer />
 							<Router user={user} />
-							<OverlayComposer/>
+							<OverlayComposer />
+							{isBannerVisible ? <RegisterBanner /> : null}
 						</Suspense>
 					</InitialController>
 				</IntlController>

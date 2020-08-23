@@ -15,14 +15,16 @@ const routes = [
 		name: 'Home',
 		component: Home,
 		private: true,
-		anonymousOnly: false
+		anonymousOnly: false,
+		hasLayout: true
 	},
 	{
 		path: '/explore',
 		name: 'Explore',
 		component: Explore,
 		private: false,
-		anonymousOnly: false
+		anonymousOnly: false,
+		hasLayout: true
 	},
 	// {
 	// 	path: '/notifications',
@@ -36,21 +38,24 @@ const routes = [
 		name: 'Discriminators',
 		component: () => 'discriminators',
 		private: false,
-		anonymousOnly: false
+		anonymousOnly: false,
+		hasLayout: true
 	},
 	{
 		path: '/search',
 		name: 'Search',
 		component: () => 'Search',
 		private: true,
-		anonymousOnly: false
+		anonymousOnly: false,
+		hasLayout: true
 	},
 	{
 		path: '/settings',
 		name: 'Settings',
 		component: () => 'Settings',
 		private: false,
-		anonymousOnly: false
+		anonymousOnly: false,
+		hasLayout: true
 	},
 	{
 		path: '/verify',
@@ -81,7 +86,8 @@ const routes = [
 		component: Profile,
 		private: true,
 		anonymousOnly: false,
-		exact: true
+		exact: true,
+		hasLayout: true
 	},
 	{
 		path: '*',
@@ -89,7 +95,8 @@ const routes = [
 		component: Four0Four,
 		private: false,
 		anonymousOnly: false,
-		exact: true
+		exact: true,
+		hasLayout: true
 	}
 ]
 
