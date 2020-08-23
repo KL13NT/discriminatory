@@ -42,9 +42,10 @@ function Login() {
 					type: 'success'
 				})
 			})
-			.catch(error => {
+			.catch(err => {
+				console.log('COPY THIS WHEN REPORTING', err)
 				add({
-					text: error.message,
+					text: f({ id: `errors.${err.code}` }),
 					type: 'danger'
 				})
 			})

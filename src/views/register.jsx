@@ -44,18 +44,19 @@ function Register() {
 			.auth()
 			.createUserWithEmailAndPassword(body.email, body.password)
 			.then(() => {
-				firebase
+				return firebase
 					.auth()
 					.currentUser.sendEmailVerification({ url: 'localhost:8080' })
-					.then(() => {
-						setVerificationSent(true)
-						add({
-							type: 'success',
-							text: f({ id: 'register.succes' })
-						})
-					})
+			})
+			.then(() => {
+				setVerificationSent(true)
+				add({
+					type: 'success',
+					text: f({ id: 'register.succes' })
+				})
 			})
 			.catch(err => {
+				console.log('COPY THIS WHEN REPORTING', err)
 				add({ type: 'danger', text: err.message })
 			})
 	}
