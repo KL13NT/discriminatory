@@ -1,0 +1,136 @@
+general.title: First time setup
+general.subtitle: Complete your profile to fully use the service
+general.displayName: Name
+general.dateofbirth: Date of birth
+general.location: Location
+general.tagline: Tagline
+general.progress: Saving your profile
+general.avatar: Your profile picture
+general.terms.long: Terms Of Service
+general.privacy.long: Privacy Policy
+general.picklocation: Pick a location
+general.empty: Nothing to see here
+general.pinned: This post is pinned
+general.posts: Posts
+general.terms.long: Terms of Service
+general.privacy.long: Privacy Policy
+
+placeholders.composer: Write a comment...
+placeholders.location: Type your current location
+placeholders.displayName: Alex Doe
+placeholders.tagline: Be yourself
+
+actions.completeprofile: Submit
+actions.completeprofile.success: Profile updated successfully
+actions.verify: Resend verification link
+actions.verify.success: Verification link sent successfully
+actions.verify.error: Something went wrong
+actions.logout: Logout
+actions.logout.progress: Logging you out
+actions.logout.success: Logout successful
+actions.logout.error: Something went wrong while logging you out
+actions.register.success: A verification link has been sent to your email.
+actions.register.progress: Attempting to register you
+actions.login.progress: Attempting to login
+actions.login.success: Login successful, redirecting you
+actions.upvote: Upvote
+actions.downvote: Downvote
+actions.pinpost: Pin this post to your profile
+actions.deletepost: Delete post permanently
+actions.reportpost: Report this post to support
+actions.deletepost.success: Post deleted successfully
+actions.commentpost.success: Comment posted successfully
+actions.createpost.success: Post created successfully
+actions.pinpost.success: Pinned post successfully
+actions.editprofile: Edit
+actions.followprofile: Follow
+actions.unfollowprofile: Unfollow
+actions.followprofile.success: Followed this user successfully
+actions.unfollowprofile.success: Unfollowed this user successfully
+actions.resendverification.success: Resent verification link successfully
+
+
+banners.register.title: Don't miss what's happening.
+banners.register.link: Register now.
+banners.register.subtitle: Registered users enjoy more benefits and features.
+
+prompts.completeprofile: Is this data correct? You can only change your avatar once every 24 hours.
+
+titles.home: Home
+titles.explore: Explore
+titles.notifications: Notifications
+titles.login: Login
+titles.profile: Profile
+titles.discriminators: Discriminators
+titles.settings: Settings
+titles.compose: Compose
+titles.register: Register
+
+
+
+login.header.title: Join the cause against discrimination
+login.header.subtitle: Share, empathise, and enjoy your time on the first social network built specifically to fight discrimination. Available on all screens for free.
+login.form.title: Login
+login.form.question: Don't have an account?
+login.form.link: Register for free
+login.form.email.label: Email
+login.form.email.placeholder: example@example.com
+login.form.password.label: Password
+login.form.password.placeholder: Your account's password
+login.form.submit: Continue
+
+
+register.question: Already registered?
+register.link: Login instead
+register.password.placeholder: Pick a strong password
+register.verification.question: Verification email not sent?
+register.verification.link: Try again
+register.disclaimer.base: By clicking Continue, I confirm that I have read and agree to the
+register.disclaimer.emails: and to receive emails and updates.
+register.password.strength: 8 characters minimum, must contain at least 1 uppercase, 1 lowercase, and 1 special character
+
+composer.title: Compose
+composer.placeholder: What's on your mind?
+composer.submit: Post
+
+questions.location: Where are you?
+
+numbers.zero: zero
+
+plurals.post.zero: posts
+plurals.post.one: post
+plurals.post.few: posts
+plurals.post.many: posts
+
+loading.title: Loading
+loading.warning: If you're seeing this your connection may be slow, a feature we require isn't supported in your browser version, or something went wrong on our side. If it persists feel free to report it.
+loading.random[0]: Adding randomly mispeled words into text
+loading.random[1]: Attaching beards to dwarves
+loading.random[2]: Does anyone actually read this?
+loading.random[3]: Dusting off spellbooks
+loading.random[4]: Ensuring everything works perfektly
+loading.random[5]: Hitting your keyboard won't make this faster
+loading.random[6]: If you squeeze dark elves you don't get wine
+
+warnings.profilenotcomplete: You can't fully use the service without a complete profile
+
+errors.general: Something went wrong
+errors.authentication: Something went wrong while authenticating. Try signing in agani or report it if it persists.
+errors.verify: Verify your account to use the service
+errors.general: Something went wrong. If logging in again doesn't fix it try again.
+errors.auth/user-not-found: User not found
+errors.auth/wrong-password: Password incorrect
+errors.auth/email-already-in-use: This email is already in use by another account
+
+pageerrors.404.title: This page doesn't exist
+pageerrors.404.description: Try double-checking the link or go back.
+pageerrors.general.title: Yikes, this is embarrassing
+pageerrors.general.description: Try double-checking or going back.
+pageerrors.general.subtitle: We promise to fix it if you
+pageerrors.general.report: report it
+
+emojis.pleading: Face with big pleading eyes
+
+images.registerheader: Discriminatory logo
+images.togglepostoptions: Toggle post options menu
+images.loading: A loading gif

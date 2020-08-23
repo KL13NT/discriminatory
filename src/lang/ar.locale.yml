@@ -1,0 +1,132 @@
+general.title: إتمام التسجيل
+general.subtitle: لإكمال التسجيل يجب ان تقوم بإدخال المطلوب ادناه
+general.displayName: إسمك
+general.dateofbirth: تاريخ الميلاد
+general.location: موقعك الحالي
+general.tagline: سطر المقدمة
+general.progress: جاري التسجيل
+general.avatar: صورتك الشخصية
+general.latest: الأحدث
+general.top: الأعلى تقييماً
+general.picklocation: اختر مكاناً
+general.empty: لا يوجد شئ هنا
+general.pinned: هذا المنشور مثبت
+general.posts: منشورات
+general.terms.long: بشروط الخدمة
+general.privacy.long: سياسية الخصوصية
+
+placeholders.composer: اكتب تعليق...
+placeholders.location: اكتب مكانك الحالي
+placeholders.displayName: نور عماد
+placeholders.tagline: عبر عن نفسك
+
+actions.completeprofile: إتمام التسجيل
+actions.completeprofile.success: تم التسجيل بنجاح
+actions.verify: اعادة ارسال رابط تفعيل الحساب
+actions.verify.success: تم ارسال رابط التفعيل لبريدك الالكتروني
+actions.verify.error: حدث خطأ ما اثناء الارسال
+actions.logout: تسجيل الخروج
+actions.logout.progress: جاري تسجيل الخروج
+actions.logout.success: تم تسجيل الخروج بنجاح
+actions.logout.error: حدث خطأ ما اثناء تسجيل الخروج
+actions.register.success: تم ارسال بريد التفعيل لبريدك الالكتروني
+actions.register.progress: جاري التسجيل
+actions.login.progress: جاري تسجيل الدخول
+actions.login.success: تم تسجيل الدخول بنجاح
+actions.upvote: صدّق
+actions.downvote: ارفض
+actions.pinpost: ثبت هذا المنشور على صفحتك
+actions.unpinpost: الغاء تثبيت هذه المنشور
+actions.deletepost: امسح هذا المنشور
+actions.reportpost: بلغ عن هذا المنشور
+actions.deletepost.success: تم مسح هذا المنشور
+actions.commentpost.success: تم نشر هذه التعليق
+actions.createpost.success: تم نشر هذا المنشور. سيظهر عندما نقوم بجلب منشورات جديدة.
+actions.pinpost.success: تم تثبيت هذا المنشور على ملفّك
+actions.editprofile: تعديل
+actions.followprofile: تابع
+actions.unfollowprofile: الغاء المتابعة
+actions.followprofile.success: تمت متابعة هذا الحساب
+actions.unfollowprofile.success: تم الغاء متابعة هذه الحساب
+actions.resendverification.success: تم ارسال رسالة التفعيل مجدداً بنجاح
+
+banners.register.title: لا تفوت ما يحدث.
+banners.register.link: سجل الآن.
+banners.register.subtitle: العديد من المستخدمين يتمتعون بمزايا كثيرة. كن واحداً منهم.
+
+prompts.completeprofile: هل هذه المعلومات صحيحة؟ يمكنك تعديل الصورة الشخصية مرة كل 24 ساعة.
+
+titles.home: الرئيسيّة
+titles.explore: اكتشف
+titles.notifications: الإشعارات
+titles.login: تسجيل الدخول
+titles.profile: ملفّك
+titles.discriminators: المُمِيزين
+titles.settings: الإعدادات
+titles.compose: انشر
+titles.register: تسجيل حساب جديد
+
+login.header.title: انضم لنا لمواجهة التمييز بكل اشكاله
+login.header.subtitle: شارك وقتك في أول شبكة أنشئت خصيصاً لمكافحة التمييز و التعاطف مع ضحاياه. متوفر على جميع الشاشات مجاناً.
+login.form.title: تسجيل الدخول
+login.form.question: لا تمتلك حساباً؟
+login.form.link: لا مشكلة سجل مجاناً
+login.form.email.label: بريدك الإلكتروني
+login.form.email.placeholder: بريدك المستخدم في تسجيل حسابك
+login.form.password.label: كلمة المرور
+login.form.password.placeholder: كلمة المرور المستخدمة في تسجيل حسابك
+login.form.submit: تقدم
+
+register.question: مسجل بالفعل؟
+register.link: سجل الدخول
+register.password.placeholder: اختر كلمة مرور قوية
+register.verification.question: رسالة التفعيل لم تصلك؟
+register.verification.link: لا مشكلة حاول مجدداً
+register.disclaimer.base: بضغطي زر التقدم أقر بأنني قد قرأت وأقبل
+register.disclaimer.emails: وأقبل أن استقبل الرسائل الإلكترونية وأخبار الشبكة على بريدي الإلكتروني.
+register.password.strength: 8 احرف على الاقل يحتوي على حرف كبير حرف صغير و حرف من نوع خاص
+
+composer.title: اكتب
+composer.placeholder: ماذا يدور في ذهنك؟
+composer.submit: انشر
+
+questions.location: اين انت؟
+
+numbers.zero: صفر
+
+plurals.post.zero: منشورات
+plurals.post.one: منشور
+plurals.post.few: منشورات
+plurals.post.many: منشور
+
+loading.title: يجري التحميل
+loading.warning: اذا كنت ترى هذه الرسالة هذا يعني اما ان اتصالك بطئ او متصفحك ليس على احدث اصدار او ان هناك خطأ ما. اذا تكرر ذلك بلغ عنه.
+loading.random[0]: نلعب الكرة
+loading.random[1]: نمرر الكرة
+loading.random[2]: احياناً لا نعرف ماذا نفعل
+loading.random[3]: [اضف جملة عميقة]
+loading.random[4]: نتأكد من جودة الخدمة
+loading.random[5]: تدمير لوحة المفاتيح الخاصة بك لن يسرّع هذه العملية
+loading.random[6]: نضيف المرح الى الغذاء
+
+warnings.profilenotcomplete: يجب ان تكمل التسجيل لتستعمل الخدمة
+
+errors.authentication: حدث خطأ اثناء تأكيد هويتك. حاول اعادة تسجيل الدخول او التبليغ عن هذا الخطأ اذا تكرر.
+errors.verify: أكد حسابك لتستخدم الخدمة بحرية
+errors.general: حدث خطأ ما. حاول اعادة تسجيل الدخول. اذا لم ينجح ذلك بلغ عن هذا الخطأ.
+errors.auth/user-not-found: لا يوجد مستخدم بهذه البيانات
+errors.auth/wrong-password: كلمة المرور غير صحيحة
+errors.auth/email-already-in-use: هذا البريد الالكتروني مربوط بحساب آخر
+
+pageerrors.404.title: هذه الصفحة غير موجودة
+pageerrors.404.description: حاول مجدداً او ارجع للصفحة السابقة.
+pageerrors.general.title: احم.. هذا محرج قليلاً
+pageerrors.general.description: حاول مرة اخرى او عد للصفحة السابقة.
+pageerrors.general.subtitle: نعدك بإصلاح الخطأ اذا
+pageerrors.general.report: قمت بالتبليغ عنه
+
+emojis.pleading: وجه بعيون كبيرة تدمع
+
+images.registerheader: شعار ديسكريميناتوري (لوجو)
+images.togglepostoptions: افتح قائمة المنشور
+images.loading: صورة التحميل
