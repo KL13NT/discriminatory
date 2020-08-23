@@ -7,6 +7,12 @@
 			{
 				"proposal": "smart"
 			}
+		],
+		[
+			"@babel/plugin-transform-runtime",
+			{
+				"regenerator": true
+			}
 		]
 	]
 }
