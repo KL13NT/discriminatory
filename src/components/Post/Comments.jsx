@@ -40,7 +40,7 @@ function CommentComposer({ onComment, ...profile }) {
 			<textarea
 				name='content'
 				aria-label='Comment content input'
-				placeholder={f({ id: 'commentComposer.placeholder' })}
+				placeholder={f({ id: 'placeholders.composer' })}
 				onKeyDown={onKeyDown}
 				onKeyUp={onKeyUp}
 				onInput={onInput}

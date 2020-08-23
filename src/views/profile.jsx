@@ -4,7 +4,12 @@ import Container from '../components/Container/Container'
 import PostMaster from './components/PostMaster'
 import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
 
-import { useIntl, FormattedPlural } from 'react-intl'
+import {
+	useIntl,
+	FormattedPlural,
+	FormattedNumber,
+	FormattedMessage
+} from 'react-intl'
 import { useQuery, useMutation } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
@@ -23,15 +28,21 @@ const Four0Four = () => (
 const IntlPlural = ({ value, localeContainId }) => {
 	const { formatMessage: f } = useIntl()
 
+	const zero = `${localeContainId}.zero`
 	const one = `${localeContainId}.one`
 	const few = `${localeContainId}.few`
 	const many = `${localeContainId}.many`
 
 	return (
 		<>
-			{value}{' '}
+			{value === 0 ? (
+				<FormattedMessage id='numbers.zero' />
+			) : (
+				<FormattedNumber value={value} />
+			)}{' '}
 			<FormattedPlural
 				value={value}
+				zero={f({ id: zero })}
 				one={f({ id: one })}
 				few={f({ id: few })}
 				many={f({ id: many })}
@@ -97,21 +108,26 @@ function Profile() {
 
 		follow({ member: _id }).then(response => {
 			if (!response.error) {
-				add({ text: f({ id: 'profile.follow.success' }), type: 'success' })
+				add({
+					text: f({ id: 'actions.followprofile.success' }),
+					type: 'success'
+				})
 				setProfile({ ...profile, following: true })
 			}
 		})
 	}
 
 	//TODO: create a profiles store
-	//TODO: refactor all action messages into an 'actions.' id
 
 	const onUnfollow = () => {
 		const { _id } = profileRes.data.profile.user
 
 		unfollow({ member: _id }).then(response => {
 			if (!response.error) {
-				add({ text: f({ id: 'profile.unfollow.success' }), type: 'success' })
+				add({
+					text: f({ id: 'actions.unfollowprofile.success' }),
+					type: 'success'
+				})
 				setProfile({ ...profile, following: false })
 			}
 		})

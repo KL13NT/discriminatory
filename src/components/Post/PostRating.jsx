@@ -32,10 +32,10 @@ function Rate({ reaction, onUpvote, onDownvote }) {
 			<hr />
 			<div data-reaction={reaction} className={styles.rate}>
 				<button className={styles.upvote} onClick={onUpvote}>
-					{icons[0]} {f({ id: 'post.rate.upvote' })}
+					{icons[0]} {f({ id: 'actions.upvote' })}
 				</button>
 				<button className={styles.downvote} onClick={onDownvote}>
-					{icons[1]} {f({ id: 'post.rate.downvote' })}
+					{icons[1]} {f({ id: 'actions.downvote' })}
 				</button>
 			</div>
 		</>

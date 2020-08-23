@@ -125,7 +125,7 @@ const fileLoaders = [
 const localeLoaders = [
 	{
 		type: 'javascript/auto',
-		test: /\.locale\.json$/,
+		test: /\.locale\.yml$/,
 		use: [
 			{
 				loader: 'file-loader',

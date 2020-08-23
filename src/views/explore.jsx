@@ -30,10 +30,10 @@ function Explore() {
 
 	return (
 		<>
-			<PageTitle>{f({ id: 'explore.title' })}</PageTitle>
+			<PageTitle>{f({ id: 'titles.explore' })}</PageTitle>
 
 			{latestRes.fetching ? <Spinner /> : null}
-			
+
 			<PostMaster feedRes={latestRes} posts={posts} setPosts={setPosts} />
 		</>
 	)

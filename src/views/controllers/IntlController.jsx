@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 
 import { Helmet } from 'react-helmet'
 import { IntlProvider } from 'react-intl'
@@ -19,8 +19,21 @@ function IntlController({ children }) {
 		console.log('downloading locale')
 
 		fetch(locales[locale])
-			.then(res => res.json())
-			.then(messages => {
+			.then(res => res.text())
+			.then(text => {
+				const parsed = text
+					.split('\n')
+					.filter(line => !line.startsWith('#') && line.length > 0)
+					.map(line => ({
+						[line.split(':')[0].trim()]: line.split(':')[1].trim()
+					}))
+				const messages = {}
+
+				parsed.forEach(message => {
+					messages[Object.keys(message)[0]] = message[Object.keys(message)[0]]
+				})
+
+				console.log(messages)
 				updateMessages(messages)
 				finish('Downloading Locales')
 			})
@@ -28,7 +41,7 @@ function IntlController({ children }) {
 				finish('Downloading Locales')
 				console.log('YOU SHOULD COPY THIS WHEN REPORTING A BUG', err)
 			})
-	}, [settings.display.language.selected]) // eslint-ignore-line
+	}, [settings.display.language.selected]) // eslint-disable-line
 
 	const EnFonts = () => (
 		<Helmet>

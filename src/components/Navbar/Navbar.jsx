@@ -52,19 +52,19 @@ function Navbar({ user }) {
 			<FullLogo className={styles.logo} />
 			<div className={styles.links}>
 				<PrivateLink user={user}>
-					<NavbarLink to='/home' name={f({ id: 'navbar.home' })} icon={Home} />
+					<NavbarLink to='/home' name={f({ id: 'titles.home' })} icon={Home} />
 				</PrivateLink>
 
 				<NavbarLink
 					to='/explore'
-					name={f({ id: 'navbar.explore' })}
+					name={f({ id: 'titles.explore' })}
 					icon={Explore}
 				/>
 
 				{/* <PrivateLink user={user}>
 					<NavbarLink
 						to='/notifications'
-						name={f({ id: 'navbar.notifications' })}
+						name={f({ id: 'titles.notifications' })}
 						icon={Notifications}
 					/>
 				</PrivateLink> */}
@@ -72,19 +72,19 @@ function Navbar({ user }) {
 				<PrivateLink user={user}>
 					<NavbarLink
 						to={`/${user ? user.uid : null}`}
-						name={f({ id: 'navbar.profile' })}
+						name={f({ id: 'titles.profile' })}
 						icon={Profile}
 					/>
 				</PrivateLink>
 
 				<NavbarLink
 					to='/discriminators'
-					name={f({ id: 'navbar.discriminators' })}
+					name={f({ id: 'titles.discriminators' })}
 					icon={Discriminators}
 				/>
 				<NavbarLink
 					to='/settings'
-					name={f({ id: 'navbar.settings' })}
+					name={f({ id: 'titles.settings' })}
 					icon={Settings}
 				/>
 			</div>

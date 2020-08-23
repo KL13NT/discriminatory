@@ -116,7 +116,7 @@ function PostMaster({ feedRes, posts, setPosts }) {
 				ref.comments.unshift(comment)
 
 				setPosts(dupe)
-				add({ text: f({ id: 'post.comment.success' }), type: 'success' })
+				add({ text: f({ id: 'actions.commentpost.success' }), type: 'success' })
 
 				currentTarget.elements['content'].value = ''
 			}
@@ -131,13 +131,13 @@ function PostMaster({ feedRes, posts, setPosts }) {
 		if (posts[pinnedIndex].pinned) {
 			unpin({ post: id }).then(response => {
 				if (!response.error) {
-					add({ text: f({ id: 'post.unpin.success' }), type: 'success' })
+					add({ text: f({ id: 'actions.unpinpost.success' }), type: 'success' })
 				}
 			})
 		} else {
 			pin({ post: id }).then(response => {
 				if (!response.error) {
-					add({ text: f({ id: 'post.pin.success' }), type: 'success' })
+					add({ text: f({ id: 'actions.pinpost.success' }), type: 'success' })
 				}
 			})
 		}
@@ -148,7 +148,7 @@ function PostMaster({ feedRes, posts, setPosts }) {
 
 	// 	report({ post: id }).then(response => {
 	// 		if (!response.error)
-	// 			add({ text: f({ id: 'post.pin.success' }), type: 'success' })
+	// 			add({ text: f({ id: 'actions.pinpost.success' }), type: 'success' })
 	// 	})
 	// }
 
@@ -158,7 +158,10 @@ function PostMaster({ feedRes, posts, setPosts }) {
 		remove({ post: id }).then(response => {
 			if (!response.error) {
 				setPosts(posts.filter(p => p._id !== id))
-				add({ text: f({ id: 'post.remove.success' }), type: 'success' })
+				add({
+					text: f({ id: 'actions.deletepost.success' }),
+					type: 'success'
+				})
 			}
 		})
 	}

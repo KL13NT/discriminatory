@@ -35,17 +35,17 @@ export function ProfileHeader({ onFollow, onUnfollow, profile }) {
 				{_id !== user.uid ? (
 					profile.following ? (
 						<Button variant='info' onClick={onUnfollow}>
-							<FormattedMessage id='profile.unfollow' />
+							<FormattedMessage id='actions.unfollowprofile' />
 						</Button>
 					) : (
 						<Button variant='info' onClick={onFollow}>
-							<FormattedMessage id='profile.follow' />
+							<FormattedMessage id='actions.followprofile' />
 						</Button>
 					)
 				) : null}
 				{user && user.uid === _id ? (
 					<Link to='/settings/profile'>
-						<FormattedMessage id='profile.edit' />
+						<FormattedMessage id='actions.editprofile' />
 					</Link>
 				) : null}
 			</div>

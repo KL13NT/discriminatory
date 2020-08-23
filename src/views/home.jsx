@@ -58,7 +58,7 @@ function Home() {
 
 	return (
 		<>
-			<PageTitle>{f({ id: 'home.title' })}</PageTitle>
+			<PageTitle>{f({ id: 'titles.home' })}</PageTitle>
 			<Composer
 				{...profile}
 				verified={user.email_verified}

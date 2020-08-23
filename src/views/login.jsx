@@ -20,7 +20,7 @@ function Login() {
 	useEffect(() => {
 		if (fetching)
 			add({
-				text: f({ id: 'login.progress' }),
+				text: f({ id: 'actions.login.progress' }),
 				type: 'info'
 			})
 	}, [fetching, add, f])
@@ -38,7 +38,7 @@ function Login() {
 			.signInWithEmailAndPassword(email, password)
 			.then(() => {
 				add({
-					text: f({ id: 'login.success' }),
+					text: f({ id: 'actions.login.success' }),
 					type: 'success'
 				})
 			})
@@ -57,7 +57,7 @@ function Login() {
 				<meta charset='UTF-8' />
 				<meta name='viewport' content='width=device-width initial-scale=1.0' />
 				<link href='/pages.css' rel='stylesheet' />
-				<title>{f({ id: 'login.title' })}</title>
+				<title>{f({ id: 'titles.login' })}</title>
 			</Helmet>
 
 			<div className={styles.language}>
@@ -66,7 +66,7 @@ function Login() {
 
 			<header className={styles.register} dir={'ltr'}>
 				<div className={styles.header}>
-					<img src={logo} alt={f({ id: 'login.header.logoAlt' })} />
+					<img src={logo} alt={f({ id: 'images.registerheader' })} />
 					<h1>{f({ id: 'login.header.title' })}</h1>
 					<span>{f({ id: 'login.header.subtitle' })}</span>
 				</div>

@@ -53,13 +53,13 @@ function LocationPicker({ onPick, ...props }) {
 					<GPS />
 				</div>
 				<span className='u-text-limit'>
-					{location || f({ id: 'locationPicker.button.placeholder' })}
+					{location || f({ id: 'general.picklocation' })}
 				</span>
 			</button>
 			{isLocationPickerOpen ? (
 				<Overlay
-					title={f({ id: 'locationPicker.overlay.title' })}
-					subtitle={f({ id: 'locationPicker.overlay.subtitle' })}
+					title={f({ id: 'general.location' })}
+					subtitle={f({ id: 'questions.location' })}
 					onClose={toggle}
 					className={styles.location}
 					{...props}
@@ -73,7 +73,7 @@ function LocationPicker({ onPick, ...props }) {
 							type='text'
 							value={location}
 							onChange={onChange}
-							placeholder={f({ id: 'locationPicker.form.placeholder' })}
+							placeholder={f({ id: 'placeholders.location' })}
 						/>
 					</form>
 				</Overlay>

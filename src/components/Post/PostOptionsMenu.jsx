@@ -37,34 +37,34 @@ function PostOptionsMenu({ onReport, onDelete, onPin, pinned }) {
 	return (
 		<div ref={menuRef}>
 			<button onClick={onToggle} className={styles.menuToggle}>
-				<Arrow alt={f({ id: 'postOptions.toggle' })} />
+				<Arrow alt={f({ id: 'images.togglepostoptions' })} />
 			</button>
 
 			{isMenuOpened ? (
 				<div className={styles.menu}>
 					{!onPin && !onReport && !onDelete ? (
-						<p>{f({ id: 'post.options.empty' })}</p>
+						<p>{f({ id: 'general.empty' })}</p>
 					) : null}
 					{onPin ? (
 						<button onClick={onPin} className={styles.pin}>
 							<Pin />
 							{!pinned ? (
-								<span>{f({ id: 'postOptions.pin' })}</span>
+								<span>{f({ id: 'actions.pinpost' })}</span>
 							) : (
-								<span>{f({ id: 'postOptions.unpin' })}</span>
+								<span>{f({ id: 'actions.unpinpost' })}</span>
 							)}
 						</button>
 					) : null}
 					{onDelete ? (
 						<button onClick={onDelete} className={styles.delete}>
 							<Delete />
-							<span>{f({ id: 'postOptions.delete' })}</span>
+							<span>{f({ id: 'actions.deletepost' })}</span>
 						</button>
 					) : null}
 					{onReport ? (
 						<button onClick={onReport} className={styles.report}>
 							<Report />
-							<span>{f({ id: 'postOptions.report' })}</span>
+							<span>{f({ id: 'actions.reportpost' })}</span>
 						</button>
 					) : null}
 				</div>

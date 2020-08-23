@@ -20,9 +20,9 @@ function ProfileEditor() {
 	const { update } = useProfile()
 	const { formatMessage: f } = useIntl()
 	const [data, setData] = useState({
-		displayName: f({ id: 'labels.displayName.placeholder' }),
-		tagline: f({ id: 'labels.tagline.placeholder' }),
-		location: f({ id: 'labels.location.placeholder' }),
+		displayName: f({ id: 'placeholders.displayName' }),
+		tagline: f({ id: 'placeholders.tagline' }),
+		location: f({ id: 'placeholders.location' }),
 		dateofbirth: '2003-12-12'
 	})
 	const [avatar, setAvatar] = useState(null)
@@ -45,12 +45,12 @@ function ProfileEditor() {
 	useEffect(() => {
 		if (response.data)
 			add({
-				text: f({ id: 'labels.success' }),
+				text: f({ id: 'actions.completeprofile.success' }),
 				type: 'success'
 			})
 		if (response.fetching)
 			add({
-				text: f({ id: 'labels.progress' }),
+				text: f({ id: 'general.progress' }),
 				type: 'warn'
 			})
 		else if (response.error)
@@ -103,7 +103,7 @@ function ProfileEditor() {
 				location={data.location}
 			/>
 			<form onSubmit={onSubmit}>
-				<Label htmlFor='name'>{f({ id: 'labels.displayName' })}</Label>
+				<Label htmlFor='name'>{f({ id: 'general.displayName' })}</Label>
 				<TextInput
 					minimalist
 					type='text'
@@ -114,9 +114,9 @@ function ProfileEditor() {
 					value={data.displayName}
 					onChange={onChange}
 					required
-					placeholder={f({ id: 'labels.displayName.placeholder' })}
+					placeholder={f({ id: 'placeholders.displayName' })}
 				/>
-				<Label htmlFor='dateofbirth'>{f({ id: 'labels.dateofbirth' })}</Label>
+				<Label htmlFor='dateofbirth'>{f({ id: 'general.dateofbirth' })}</Label>
 				<TextInput
 					minimalist
 					type='date'
@@ -128,7 +128,7 @@ function ProfileEditor() {
 					onChange={onChange}
 					required
 				/>
-				<Label htmlFor='location'>{f({ id: 'labels.location' })}</Label>
+				<Label htmlFor='location'>{f({ id: 'general.location' })}</Label>
 				<TextInput
 					minimalist
 					type='text'
@@ -136,10 +136,10 @@ function ProfileEditor() {
 					id='location'
 					value={data.location}
 					onChange={onChange}
-					placeholder={f({ id: 'labels.location.placeholder' })}
+					placeholder={f({ id: 'placeholders.location' })}
 					required
 				/>
-				<Label htmlFor='tagline'>{f({ id: 'labels.tagline' })}</Label>
+				<Label htmlFor='tagline'>{f({ id: 'general.tagline' })}</Label>
 				<TextInput
 					minimalist
 					type='text'
@@ -148,17 +148,17 @@ function ProfileEditor() {
 					maxLength='160'
 					value={data.tagline}
 					onChange={onChange}
-					placeholder={f({ id: 'labels.tagline.placeholder' })}
+					placeholder={f({ id: 'placeholders.tagline' })}
 					required
 				/>
-				<Label htmlFor='avatar'>{f({ id: 'labels.avatar' })}</Label>
+				<Label htmlFor='avatar'>{f({ id: 'general.avatar' })}</Label>
 				<Uploader
 					onChange={onAvatarProcess}
 					name='avatar'
 					accept='image/jpg,image/jpeg,image/webp'
 				/>
 				<Button type='submit' variant='info'>
-					{f({ id: 'labels.submit' })}
+					{f({ id: 'actions.completeprofile' })}
 				</Button>
 			</form>
 		</>

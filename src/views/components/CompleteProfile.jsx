@@ -17,7 +17,7 @@ function CompleteProfile() {
 
 	const onClose = () =>
 		add({
-			text: f({ id: 'labels.profileNotComplete' }),
+			text: f({ id: 'warnings.profilenotcomplete' }),
 			type: 'danger'
 		})
 
@@ -30,7 +30,7 @@ function CompleteProfile() {
 				firebase.auth().currentUser.getIdToken(true)
 
 				add({
-					text: f({ id: 'account.verification.resend.success' }),
+					text: f({ id: 'actions.resendverification.success' }),
 					type: 'success'
 				})
 			})
@@ -44,7 +44,7 @@ function CompleteProfile() {
 
 	const logout = () => {
 		add({
-			text: f({ id: 'logout.progress' }),
+			text: f({ id: 'actions.logout.progress' }),
 			type: 'info'
 		})
 
@@ -53,13 +53,13 @@ function CompleteProfile() {
 			.signOut()
 			.then(() => {
 				add({
-					text: f({ id: 'logout.success' }),
+					text: f({ id: 'actions.logout.success' }),
 					type: 'success'
 				})
 			})
 			.catch(() => {
 				add({
-					text: f({ id: 'logout.error' }),
+					text: f({ id: 'actions.logout.error' }),
 					type: 'error'
 				})
 			})
@@ -67,18 +67,18 @@ function CompleteProfile() {
 
 	return (
 		<Overlay
-			title={f({ id: 'labels.title' })}
-			subtitle={f({ id: 'labels.subtitle' })}
+			title={f({ id: 'general.title' })}
+			subtitle={f({ id: 'general.subtitle' })}
 			onClose={onClose}
 		>
 			<ProfileEditor />
 			<Button onClick={logout} variant='link'>
-				{f({ id: 'labels.logout' })}
+				{f({ id: 'actions.logout' })}
 			</Button>
 
 			{user && !user.emailVerified ? (
 				<Button onClick={resend} variant='link'>
-					{f({ id: 'labels.verify' })}
+					{f({ id: 'actions.verify' })}
 				</Button>
 			) : null}
 		</Overlay>

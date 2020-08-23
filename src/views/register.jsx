@@ -24,7 +24,7 @@ function Register() {
 	useEffect(() => {
 		if (fetching)
 			add({
-				text: f({ id: 'register.progress' }),
+				text: f({ id: 'actions.register.progress' }),
 				type: 'info'
 			})
 	}, [fetching, add, f])
@@ -72,7 +72,7 @@ function Register() {
 				<meta charset='UTF-8' />
 				<meta name='viewport' content='width=device-width initial-scale=1.0' />
 				<link href='/pages.css' rel='stylesheet' />
-				<title>{f({ id: 'register.title' })}</title>
+				<title>{f({ id: 'titles.register' })}</title>
 			</Helmet>
 
 			<div className={styles.language}>
@@ -81,16 +81,16 @@ function Register() {
 
 			<header className={styles.register}>
 				<div className={styles.header}>
-					<img src={logo} alt={f({ id: 'login.header.logoAlt' })} />
+					<img src={logo} alt={f({ id: 'images.registerheader' })} />
 					<h1>{f({ id: 'login.header.title' })}</h1>
 					<span>{f({ id: 'login.header.subtitle' })}</span>
 				</div>
 				<form className={styles.form} onSubmit={onSubmit}>
 					<div>
-						<h1>{f({ id: 'register.form.title' })}</h1>
+						<h1>{f({ id: 'titles.register' })}</h1>
 						<span>
-							{f({ id: 'register.form.question' })}{' '}
-							<Link to='/login'>{f({ id: 'register.form.link' })}</Link>
+							{f({ id: 'register.question' })}{' '}
+							<Link to='/login'>{f({ id: 'register.link' })}</Link>
 						</span>
 					</div>
 
@@ -120,7 +120,7 @@ function Register() {
 							minLength='8'
 							maxLength='50'
 							required
-							placeholder={f({ id: 'register.form.password.placeholder' })}
+							placeholder={f({ id: 'register.password.placeholder' })}
 						/>
 						<Button type='submit' minimalist>
 							{f({ id: 'login.form.submit' })}
@@ -138,8 +138,8 @@ function Register() {
 
 						<span className={styles.disclaimer}>
 							{f({ id: 'register.disclaimer.base' })}
-							<a href='/terms'>{f({ id: 'shared.terms.long' })}</a>,{' '}
-							<a href='/privacy'>{f({ id: 'shared.privacy.long' })}</a>,{' '}
+							<a href='/terms'>{f({ id: 'general.terms.long' })}</a>,{' '}
+							<a href='/privacy'>{f({ id: 'general.privacy.long' })}</a>,{' '}
 							{f({ id: 'register.disclaimer.emails' })}
 						</span>
 					</div>

@@ -12,16 +12,20 @@ const [useToasts] = create(set => ({
 	toasts: [],
 
 	add: toast =>
-		set(state => ({
-			toasts: [
-				...state.toasts,
-				{
-					text: toast.text,
-					id: toast.text,
-					type: toast.type
-				}
-			]
-		})),
+		set(state => {
+			if (state.toasts.find(t => t.id === toast.text)) return state
+
+			return {
+				toasts: [
+					...state.toasts,
+					{
+						text: toast.text,
+						id: toast.text,
+						type: toast.type
+					}
+				]
+			}
+		}),
 
 	remove: id =>
 		set(state => ({

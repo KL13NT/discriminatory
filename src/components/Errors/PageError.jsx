@@ -9,8 +9,8 @@ export const Four0Four = () => {
 	return (
 		<div className={styles.page}>
 			<span>404</span>
-			<h1>{f({ id: 'errors.404.title' })}</h1>
-			<p>{f({ id: 'errors.404.description' })}</p>
+			<h1>{f({ id: 'pageerrors.404.title' })}</h1>
+			<p>{f({ id: 'pageerrors.404.description' })}</p>
 		</div>
 	)
 }
@@ -40,7 +40,7 @@ export class IntlErrorBoundary extends React.Component {
 					<span>{error.code || 'BEEP_BOOP_ERROR'}</span>
 					<h1>
 						<FormattedMessage
-							id='errors.page.title'
+							id='pageerrors.general.title'
 							defaultMessage='Yikes, this is embarassing'
 						/>{' '}
 						<span
@@ -52,17 +52,17 @@ export class IntlErrorBoundary extends React.Component {
 					</h1>
 					<p>
 						<FormattedMessage
-							id='errors.general.description'
+							id='pageerrors.general.description'
 							defaultMessage='Try double-checking or going back.'
 						/>{' '}
 						<span>
 							<FormattedMessage
-								id='errors.page.subtitle'
+								id='pageerrors.general.subtitle'
 								defaultMessage='We promise to fix it if you '
 							/>
 							<a href='/bug'>
 								<FormattedMessage
-									id='errors.page.report'
+									id='pageerrors.general.report'
 									defaultMessage='report it'
 								/>
 							</a>

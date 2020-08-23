@@ -90,7 +90,7 @@ function OverlayComposer() {
 		post(newPost).then(res => {
 			if (!res.error) {
 				add({
-					text: f({ id: 'post.create.success' }),
+					text: f({ id: 'actions.createpost.success' }),
 					type: 'success'
 				})
 
