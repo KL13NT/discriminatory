@@ -10,8 +10,9 @@ import { Link } from 'react-router-dom'
 import Cover from '../../assets/cover.jpg'
 import { useAuth } from '../../stores/auth'
 import Avatar from '../Avatar/Avatar'
+import { FormattedMessage } from 'react-intl'
 
-export function ProfileHeader({ onClick, profile }) {
+export function ProfileHeader({ onFollow, onUnfollow, profile }) {
 	const { user } = useAuth()
 	const { displayName, tagline, location, avatar, verified, _id } = profile.user
 
@@ -19,7 +20,12 @@ export function ProfileHeader({ onClick, profile }) {
 		<Container className={styles.header}>
 			<img src={Cover} alt='Profile header' />
 			<div className={styles.details}>
-				<Avatar avatar={avatar} displayName={displayName} variant='big' />
+				<Avatar
+					variant='big'
+					avatar={avatar}
+					displayName={displayName}
+					verified={verified}
+				/>
 				<h1>{displayName}</h1>
 				<span>{tagline}</span>
 				<span>
@@ -28,17 +34,19 @@ export function ProfileHeader({ onClick, profile }) {
 				</span>
 				{_id !== user.uid ? (
 					profile.following ? (
-						<Button variant='info' onClick={onClick}>
-							Unfollow
+						<Button variant='info' onClick={onUnfollow}>
+							<FormattedMessage id='profile.unfollow' />
 						</Button>
 					) : (
-						<Button variant='info' onClick={onClick}>
-							Follow
+						<Button variant='info' onClick={onFollow}>
+							<FormattedMessage id='profile.follow' />
 						</Button>
 					)
 				) : null}
 				{user && user.uid === _id ? (
-					<Link to='/settings/profile'>Edit</Link>
+					<Link to='/settings/profile'>
+						<FormattedMessage id='profile.edit' />
+					</Link>
 				) : null}
 			</div>
 		</Container>
