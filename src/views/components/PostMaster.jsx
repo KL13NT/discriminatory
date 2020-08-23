@@ -22,12 +22,9 @@ const EmptyFeed = () => (
 )
 
 const PostList = ({ feed, ...props }) => {
-	if (feed)
-		return feed.length === 0 ? (
-			<EmptyFeed />
-		) : (
-			feed.map(post => <Post key={post._id} {...post} {...props} />)
-		)
+	const posts = feed.map(post => <Post key={post._id} {...post} {...props} />)
+
+	if (feed) return feed.length === 0 ? <EmptyFeed /> : posts
 	return null
 }
 
@@ -40,6 +37,7 @@ function PostMaster({ feedRes, posts, setPosts }) {
 	const [reactionRes, react] = useMutation(queries.react)
 	const [commentRes, comment] = useMutation(queries.comment)
 	const [pinRes, pin] = useMutation(queries.pin)
+	const [unpinRes, unpin] = useMutation(queries.unpin)
 	// const [reportRes, report] = useMutation(queries.report)
 	const [removeRes, remove] = useMutation(queries.remove)
 
@@ -51,6 +49,7 @@ function PostMaster({ feedRes, posts, setPosts }) {
 	useEffect(() => reactionRes.error && error(), [reactionRes, error])
 	useEffect(() => commentRes.error && error(), [commentRes, error])
 	useEffect(() => pinRes.error && error(), [pinRes, error])
+	useEffect(() => unpinRes.error && error(), [unpinRes, error])
 	// useEffect(() => reportRes.error && error(), [reportRes, error])
 	useEffect(() => removeRes.error && error(), [removeRes, error])
 
@@ -127,10 +126,21 @@ function PostMaster({ feedRes, posts, setPosts }) {
 	const onPin = ({ currentTarget }) => {
 		const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
 
-		pin({ post: id }).then(response => {
-			if (!response.error)
-				add({ text: f({ id: 'post.pin.success' }), type: 'success' })
-		})
+		const pinnedIndex = posts.findIndex(post => post._id === id)
+
+		if (posts[pinnedIndex].pinned) {
+			unpin({ post: id }).then(response => {
+				if (!response.error) {
+					add({ text: f({ id: 'post.unpin.success' }), type: 'success' })
+				}
+			})
+		} else {
+			pin({ post: id }).then(response => {
+				if (!response.error) {
+					add({ text: f({ id: 'post.pin.success' }), type: 'success' })
+				}
+			})
+		}
 	}
 
 	// const onReport = ({currentTarget}) => {
