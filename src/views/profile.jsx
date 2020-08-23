@@ -4,15 +4,15 @@ import Container from '../components/Container/Container'
 import PostMaster from './components/PostMaster'
 import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
 
-import { useIntl } from 'react-intl'
-import { useQuery } from 'urql'
+import { useIntl, FormattedPlural } from 'react-intl'
+import { useQuery, useMutation } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
 import { useLocation } from 'react-router-dom'
 import { useToasts } from '../components/Toast/Toast'
-import { useFullscreenLoader } from '../stores/loading'
 
 import * as queries from '../queries/profiles'
+import { Spinner } from '../components/Loading/LoadingPage'
 
 const Four0Four = () => (
 	<Container>
@@ -20,18 +20,39 @@ const Four0Four = () => (
 	</Container>
 )
 
+const IntlPlural = ({ value, localeContainId }) => {
+	const { formatMessage: f } = useIntl()
+
+	const one = `${localeContainId}.one`
+	const few = `${localeContainId}.few`
+	const many = `${localeContainId}.many`
+
+	return (
+		<>
+			{value}{' '}
+			<FormattedPlural
+				value={value}
+				one={f({ id: one })}
+				few={f({ id: few })}
+				many={f({ id: many })}
+			/>
+		</>
+	)
+}
+
 function Profile() {
 	const { add } = useToasts()
 	const { user } = useAuth()
-	const { load, finish } = useFullscreenLoader()
 	const { pathname } = useLocation()
 	const { formatMessage: f } = useIntl()
 
-	const [posts, setPosts] = useState([])
+	const [profile, setProfile] = useState(null)
 	const [pagination] = useState({
 		before: null
 	})
 
+	const [followRes, follow] = useMutation(queries.follow)
+	const [unfollowRes, unfollow] = useMutation(queries.unfollow)
 	const [profileRes, reProfile] = useQuery({
 		query: queries.profile,
 		variables: {
@@ -47,27 +68,86 @@ function Profile() {
 		[] // eslint-disable-line
 	)
 
+	useEffect(() => followRes.error && console.log(followRes.error) && error(), [
+		followRes,
+		error
+	])
+	useEffect(
+		() => unfollowRes.error && console.log(unfollowRes.error) && error(),
+		[unfollowRes, error]
+	)
+	useEffect(
+		() => profileRes.error && console.log(profileRes.error) && error(),
+		[profileRes, error]
+	)
+
 	useEffect(() => {
 		if (profileRes.data)
-			setPosts(
-				profileRes.data.profile.posts.map(post => ({
+			setProfile({
+				...profileRes.data.profile,
+				posts: profileRes.data.profile.posts.map(post => ({
 					...post,
 					author: profileRes.data.profile.user
 				}))
-			)
+			})
 	}, [profileRes])
 
-	useEffect(() => profileRes.error && error(), [profileRes, error])
+	const onFollow = () => {
+		const { _id } = profileRes.data.profile.user
 
-	if (!profileRes.data) return null
+		follow({ member: _id }).then(response => {
+			if (!response.error) {
+				add({ text: f({ id: 'profile.follow.success' }), type: 'success' })
+				setProfile({ ...profile, following: true })
+			}
+		})
+	}
+
+	//TODO: create a profiles store
+	//TODO: refactor all action messages into an 'actions.' id
+
+	const onUnfollow = () => {
+		const { _id } = profileRes.data.profile.user
+
+		unfollow({ member: _id }).then(response => {
+			if (!response.error) {
+				add({ text: f({ id: 'profile.unfollow.success' }), type: 'success' })
+				setProfile({ ...profile, following: false })
+			}
+		})
+	}
+
+	const setPosts = posts => {
+		setProfile({ ...profile, posts })
+	}
+
+	if (!profile || profileRes.fetching) return <Spinner />
+
 	return (
 		<>
-			<PageTitle>{f({ id: 'Profile.title' })}</PageTitle>
-			<ProfileHeader {...profileRes.data} />
-			{posts.length === 0 ? (
+			<PageTitle
+				tick={
+					<IntlPlural
+						value={profile.posts.length}
+						localeContainId='plurals.post'
+					/>
+				}
+			>
+				{profile.user.displayName}
+			</PageTitle>
+			<ProfileHeader
+				profile={profile}
+				onFollow={onFollow}
+				onUnfollow={onUnfollow}
+			/>
+			{profile.posts.length === 0 ? (
 				<Container>This user doesn't have any posts.</Container>
 			) : (
-				<PostMaster feedRes={profileRes} posts={posts} setPosts={setPosts} />
+				<PostMaster
+					feedRes={profileRes}
+					posts={profile.posts}
+					setPosts={setPosts}
+				/>
 			)}
 		</>
 	)
