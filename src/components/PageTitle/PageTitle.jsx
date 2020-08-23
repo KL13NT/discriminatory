@@ -17,8 +17,8 @@ function PageTitle({ children, subtitle, tick, ...props }) {
 
 const propTypes = {
 	children: PropTypes.node.isRequired,
-	subtitle: PropTypes.string,
-	tick: PropTypes.string
+	subtitle: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+	tick: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
 }
 
 const defaultProps = {}
