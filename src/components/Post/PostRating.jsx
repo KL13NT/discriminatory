@@ -42,11 +42,11 @@ function Rate({ reaction, onUpvote, onDownvote }) {
 	)
 }
 
-function PostRating({ reactions, onUpvote, onDownvote }) {
+function PostRating({ reactions, onUpvote, onDownvote, user }) {
 	return (
 		<div className={styles.ratings}>
 			<Score reactions={reactions} />
-			{onUpvote && onDownvote ? (
+			{onUpvote && onDownvote && user && user.emailVerified ? (
 				<Rate
 					onUpvote={onUpvote}
 					onDownvote={onDownvote}

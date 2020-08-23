@@ -13,7 +13,7 @@ import styles from './PostOptionsMenu.module.sass'
 
 import { findParentByRef } from '../../utils/general'
 
-function PostOptionsMenu({ onReport, onDelete, onPin }) {
+function PostOptionsMenu({ onReport, onDelete, onPin, pinned }) {
 	const menuRef = useRef()
 	const [isMenuOpened, toggle] = useState()
 	const { formatMessage: f } = useIntl()
@@ -21,7 +21,7 @@ function PostOptionsMenu({ onReport, onDelete, onPin }) {
 	const onClickOutside = useCallback(e => {
 		if (
 			!findParentByRef(e.target, menuRef) ||
-			(findParentByRef(e.target, menuRef) && e.target.nodeName === 'BUTTON')
+			findParentByRef(e.target, menuRef)
 		) {
 			toggle(false)
 			document.removeEventListener('click', onClickOutside)
@@ -48,7 +48,11 @@ function PostOptionsMenu({ onReport, onDelete, onPin }) {
 					{onPin ? (
 						<button onClick={onPin} className={styles.pin}>
 							<Pin />
-							<span>{f({ id: 'postOptions.pin' })}</span>
+							{!pinned ? (
+								<span>{f({ id: 'postOptions.pin' })}</span>
+							) : (
+								<span>{f({ id: 'postOptions.unpin' })}</span>
+							)}
 						</button>
 					) : null}
 					{onDelete ? (
