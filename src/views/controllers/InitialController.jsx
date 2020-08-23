@@ -12,8 +12,20 @@ import { useFullscreenLoader } from '../../stores/loading.js'
 import CompleteProfile from '../components/CompleteProfile.jsx'
 
 import { accountQuery } from '../../queries/profiles.js'
+import { FullscreenLoader } from '../../components/Loading/LoadingPage.jsx'
 
-function ProfileAuthController({ children }) {
+function Renderer({ children }) {
+	const { active } = useFullscreenLoader()
+
+	console.log(active, active.length)
+
+	if (active.length > 0)
+		return <FullscreenLoader>{active[active.length - 1].name}</FullscreenLoader>
+
+	return children
+}
+
+function InitialController({ children }) {
 	const { user, setUser, clear: clearAuth } = useAuth()
 	const { profile, update, clear: clearProfile } = useProfile()
 	const { load, finish } = useFullscreenLoader()
@@ -22,25 +34,21 @@ function ProfileAuthController({ children }) {
 
 	const [response, reloadProfile] = useQuery({
 		query: accountQuery,
-		pause: !user
+		pause: !user || (user && !user.emailVerified)
 	})
 
 	useEffect(() => {
-		finish('Authenticating')
-
 		if (response.fetching) load('Loading your profile')
 		else if (response.data && response.data.account) {
 			update({ ...response.data.account })
 			finish('Loading your profile')
+			finish('Authenticating')
 		} else if (response.error) {
 			finish('Loading your profile')
+			finish('Authenticating')
 			add({ text: f({ id: 'errors.general' }), type: 'danger' })
 		}
 	}, [response, load, finish, update, add, f])
-
-	useEffect(() => {
-		if (user) reloadProfile()
-	}, [user, reloadProfile])
 
 	useEffect(() => {
 		const { data } = response
@@ -51,42 +59,45 @@ function ProfileAuthController({ children }) {
 	}, [response, update])
 
 	useEffect(() => {
-		load('Authenticating')
 		firebase.auth().onAuthStateChanged(user => {
 			if (!user) {
 				clearAuth()
 				clearProfile()
+				finish('Authenticating')
 				return
 			}
-
-			setUser(user)
 
 			user
 				.getIdToken(true)
 				.then(token => {
 					localStorage.setItem('AUTH_ID_TOKEN', token)
 				})
-				.catch(err =>
+				.catch(err => {
+					console.log('COPY THIS WHEN REPORING', err)
 					add({
-						text: `Failed to properly authenticate, sign in again to fix it or try again later. ${err.message}`,
+						text: f({ id: 'errors.verify' }),
 						type: 'danger'
 					})
-				)
+				})
+				.finally(() => {
+					setUser(user)
+					finish('Authenticating')
+				})
 
 			if (!user.emailVerified)
 				return add({
 					type: 'danger',
-					text: 'Verify your email to use the service'
+					text: f({ id: 'errors.verify' })
 				})
 		})
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<>
+		<Renderer>
 			{user && !profile ? <CompleteProfile /> : null}
 			{children}
-		</>
+		</Renderer>
 	)
 }
 
-export default ProfileAuthController
+export default InitialController

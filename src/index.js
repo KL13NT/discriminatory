@@ -13,7 +13,7 @@ import { retryExchange } from '@urql/exchange-retry'
 
 import config from '../client.firebase.json'
 
-import ProfileAuthController from './views/controllers/ProfileAuthController.jsx'
+import InitialController from './views/controllers/InitialController.jsx'
 import IntlController from './views/controllers/IntlController'
 
 import Router from './router.jsx'
@@ -23,9 +23,9 @@ import { ErrorBoundaryPage } from './components/Errors/PageError'
 import { ToastContainer } from './components/Toast/Toast.jsx'
 
 import { useAuth } from './stores/auth.js'
-import { useFullscreenLoader } from './stores/loading'
 
 import './style/base.global.sass'
+import { OverlayComposer } from './components/Composer/Composer'
 
 /**
  * GraphQL & Firebase Initialisation
@@ -69,35 +69,24 @@ if (process.env.NODE_ENV !== 'production') {
 	axe(React, ReactDOM, 1000)
 }
 
-function Wrappers() {
+function App() {
+	const { user } = useAuth()
+
 	return (
 		<ErrorBoundaryPage>
 			<GraphqlProvider value={graphql}>
 				<IntlController>
-					<ProfileAuthController>
+					<InitialController>
 						<Suspense fallback={<FullscreenLoader />}>
-							<App />
+							<ToastContainer />
+							<Router user={user} />
+							<OverlayComposer/>
 						</Suspense>
-					</ProfileAuthController>
+					</InitialController>
 				</IntlController>
 			</GraphqlProvider>
 		</ErrorBoundaryPage>
 	)
 }
 
-function App() {
-	const { user } = useAuth()
-	const { active } = useFullscreenLoader()
-
-	if (active.length > 0)
-		return <FullscreenLoader>{active[0].name}</FullscreenLoader>
-
-	return (
-		<>
-			<ToastContainer />
-			<Router user={user} />
-		</>
-	)
-}
-
-ReactDOM.render(<Wrappers />, root)
+ReactDOM.render(<App />, root)
