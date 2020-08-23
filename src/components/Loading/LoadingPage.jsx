@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import styles from './LoadingPage.module.sass'
 import LoadingSVG from '../../assets/loading.svg'
 import { useEffect } from 'react'
+import { useRef } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 const context = require.context('../../assets/loading', false, /\.gif$/)
 
@@ -12,13 +14,13 @@ function importAll(r) {
 	r.keys().forEach(key => (gifs[key] = r(key)))
 }
 const messages = [
-	'Adding randomly mispeled words into text',
-	'Attaching beards to dwarves',
-	'Does anyone actually read this?',
-	'Dusting off spellbooks',
-	'Ensuring everything works perfektly',
-	"Hitting your keyboard won't make this faster",
-	"If you squeeze dark elves you don't get wine"
+	<FormattedMessage id='loading.random[0]' key='loading.random[0]' />,
+	<FormattedMessage id='loading.random[1]' key='loading.random[1]' />,
+	<FormattedMessage id='loading.random[2]' key='loading.random[2]' />,
+	<FormattedMessage id='loading.random[3]' key='loading.random[3]' />,
+	<FormattedMessage id='loading.random[4]' key='loading.random[4]' />,
+	<FormattedMessage id='loading.random[5]' key='loading.random[5]' />,
+	<FormattedMessage id='loading.random[6]' key='loading.random[6]' />
 ]
 
 importAll(context)
@@ -39,12 +41,13 @@ const randomGif = () => {
 export const FullscreenLoader = ({ children }) => {
 	const [src, setSrc] = useState(randomGif())
 	const [error, setError] = useState(false)
-	const timeout = 0
+	const { formatMessage: f } = useIntl()
+	const timeout = useRef(0)
 
 	useEffect(() => {
-		setTimeout(() => setError(true), 10 * 1000)
+		timeout.current = setTimeout(() => setError(true), 10 * 1000)
 
-		return () => clearTimeout(timeout)
+		return () => clearTimeout(timeout.current)
 	}, [])
 
 	const onClick = () => {
@@ -58,14 +61,14 @@ export const FullscreenLoader = ({ children }) => {
 			role={alert}
 			className={styles.fullscreenLoader}
 		>
-			<img src={src} alt='Loading gif' />
-			<span>Loading</span>
+			<img src={src} alt={f({ id: 'images.loading' })} />
+			<span>
+				<FormattedMessage id='loading.title' />
+			</span>
 			<p>{children || randomMessage()}</p>
 			{error ? (
 				<p>
-					If you're seeing this screen for too long it means your internet is
-					slow, something went wrong when loading, or some features are not
-					supported on your version of your browser.
+					<FormattedMessage id='loading.warning' />
 				</p>
 			) : null}
 		</div>
@@ -74,23 +77,10 @@ export const FullscreenLoader = ({ children }) => {
 
 export const Spinner = () => (
 	<div className={styles.spinnerContainer}>
-		<p>Our bots are assembling. Please wait.</p>
+		<div></div>
+		<div></div>
 	</div>
 )
-
-/**
- * Use `LoadingPage` when loading full views.
- * Use `Spinner` when loading specific sections.
- */
-export const LoadingPage = ({ children }) => {
-	return (
-		<div className={styles.loadingContainer}>
-			<img alt='loading illustration' src={LoadingSVG} />
-			<h1>Loading</h1>
-			<p>{children}</p>
-		</div>
-	)
-}
 
 const propTypes = {
 	/** Text to be displayed when loading */
@@ -101,11 +91,5 @@ const defaultProps = {
 	children: "We're working hard to bring you that page in no time!"
 }
 
-LoadingPage.propTypes = propTypes
-LoadingPage.defaultProps = defaultProps
-
-FullscreenLoader.propTypes = {
-	...propTypes,
-	loading: PropTypes.bool.isRequired
-}
+FullscreenLoader.propTypes = propTypes
 FullscreenLoader.defaultProps = defaultProps

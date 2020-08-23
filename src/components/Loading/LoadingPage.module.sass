@@ -64,26 +64,37 @@
 		color: inherit
 
 .spinnerContainer
-	@extend .loadingContainer
+	margin: 100px auto
+	position: relative
 
-	img
-		margin: var(--margin--elements)
-		width: 3rem
-		animation-name: spinner
-		animation-duration: 2s
-		animation-delay: 0s
-		animation-iteration-count: infinite
-		animation-play-state: running
-		animation-timing-function: ease
-	p
-		margin: var(--margin--elements)
+	&, div
+		border-radius: 100%
+		width: 40px
+		height: 40px
 
-@keyframes spinner
+	div
+		position: absolute
+		top: 0
+		left: 0
+
+	div:nth-of-type(1)
+		background-color: var(--color-purple-base)
+		animation: sk-scaleout 1.0s infinite ease-in-out
+		animation-delay: 0.5s
+
+	div:nth-of-type(2)
+		background-color: var(--color-purple-base)
+		animation: sk-scaleout 1.0s infinite ease-in-out
+		animation-delay: 1s
+
+
+
+@keyframes sk-scaleout
 	0%
-		transform: rotate(0)
+		transform: scale(0)
 	100%
-		transform: rotate(360deg)
-
+		transform: scale(1.0)
+		opacity: 0
 
 
 @media screen and (max-width: 768px)
