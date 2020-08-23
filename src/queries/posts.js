@@ -21,6 +21,7 @@ export const feed = `
 			author{
 				displayName
 				avatar
+				verified
 				_id
 			}
 			comments{
@@ -29,6 +30,7 @@ export const feed = `
 				author {
 					displayName
 					avatar
+					verified
 					_id
 				}
 			}
@@ -51,6 +53,7 @@ export const explore = `
 			author{
 				displayName
 				avatar
+				verified
 				_id
 			}
 			comments{
@@ -59,6 +62,7 @@ export const explore = `
 				author {
 					displayName
 					avatar
+					verified
 					_id
 				}
 			}
@@ -74,6 +78,12 @@ export const explore = `
 export const pin = `
 	mutation PinMutation ($post: ID!){
 			pin(post: $post)
+	}
+`
+
+export const unpin = `
+	mutation UnpinMutation ($post: ID!){
+			unpin(post: $post)
 	}
 `
 

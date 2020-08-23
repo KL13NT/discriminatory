@@ -6,7 +6,9 @@ export const accountQuery = `
 			email
 			location
 			dateofbirth
+			verified
 			tagline
+			_id
 		}
 	}
 `
@@ -22,7 +24,7 @@ export const profile = `
 				location
 				tagline
 				avatar
-				pinned
+				verified
 				_id
 			}
 
@@ -30,6 +32,7 @@ export const profile = `
 				location
 				content
 				created
+				pinned
 				_id
 
 				reactions{
@@ -52,6 +55,22 @@ export const profile = `
 					}
 				}
 			}
+		}
+	}
+`
+
+export const follow = `
+	mutation FollowMutation ($member: ID!){
+			follow(member: $member){
+				_id
+			}
+	}
+`
+
+export const unfollow = `
+	mutation UnfollowMutation ($member: ID!){
+		unfollow(member: $member){
+			_id
 		}
 	}
 `
