@@ -4,22 +4,27 @@ import PostRating from './PostRating'
 import PostDetails from './PostDetails'
 import PostOptionsMenu from './PostOptionsMenu'
 import Container from '../Container/Container'
+import Button from '../Button/Button'
 
 import { CommentsSection } from './Comments'
+import { FormattedMessage } from 'react-intl'
 
-import styles from './Post.module.sass'
-
+import { ReactComponent as Pin } from '../../assets/security-pin.svg'
 import { ReactComponent as Location } from '../../assets/gps.svg'
 
 import { useProfile } from '../../stores/profile'
 import { useAuth } from '../../stores/auth'
 
-import { isMethodAllowed, isMethodNotAllowed } from '../../utils/general'
-import Button from '../Button/Button'
+import styles from './Post.module.sass'
 
-//TODO: remove this to save memory. Duplicating this component for each post is
-//a memory waste. This probably doesn't need to happen because we'll be
-//windowing posts
+import { isMethodAllowed, isMethodNotAllowed } from '../../utils/general'
+
+const Pinned = () => (
+	<span className={styles.pinned}>
+		<Pin />
+		<FormattedMessage id={'general.pinned'} />
+	</span>
+)
 
 function Post(props) {
 	const {
@@ -33,6 +38,7 @@ function Post(props) {
 		comments,
 		reactions,
 		location,
+		pinned,
 		author: { _id: authorId },
 		_id
 	} = props
@@ -45,12 +51,15 @@ function Post(props) {
 
 	return (
 		<Container data-id={_id}>
+			{pinned ? <Pinned /> : null}
+
 			<PostOptionsMenu
 				toggle={toggleMenu}
+				pinned={pinned}
 				isMenuOpened={isMenuOpened}
-				onDelete={isMethodAllowed(user.uid, authorId, onDelete)}
-				onPin={isMethodAllowed(user.uid, authorId, onPin)}
-				onReport={isMethodNotAllowed(user.uid, authorId, onReport)}
+				onDelete={isMethodAllowed(user, authorId, onDelete)}
+				onPin={isMethodAllowed(user, authorId, onPin)}
+				onReport={isMethodNotAllowed(user, authorId, onReport)}
 			/>
 
 			<PostDetails {...props} />
@@ -68,6 +77,7 @@ function Post(props) {
 				reactions={reactions}
 				onUpvote={onUpvote}
 				onDownvote={onDownvote}
+				user={user}
 			/>
 
 			{
