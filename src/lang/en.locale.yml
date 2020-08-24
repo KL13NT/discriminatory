@@ -14,6 +14,19 @@ general.pinned: This post is pinned
 general.posts: Posts
 general.terms.long: Terms of Service
 general.privacy.long: Privacy Policy
+general.language: Language
+general.fontsize: Font Size
+general.logout: Logout
+general.1x: Normal
+general.2x: 2x Bigger
+general.3x: 3x Bigger
+general.4x: Biggest
+general.enabled: Enabled
+general.disabled: Disabled
+general.status: Status
+general.ads: Advertisement
+general.photoby: Photo by
+general.unsplash: Unsplash
 
 placeholders.composer: Write a comment...
 placeholders.location: Type your current location
@@ -40,6 +53,7 @@ actions.deletepost: Delete post permanently
 actions.reportpost: Report this post to support
 actions.deletepost.success: Post deleted successfully
 actions.commentpost.success: Comment posted successfully
+actions.createpost.progress: Creating post
 actions.createpost.success: Post created successfully
 actions.pinpost.success: Pinned post successfully
 actions.editprofile: Edit
@@ -48,11 +62,16 @@ actions.unfollowprofile: Unfollow
 actions.followprofile.success: Followed this user successfully
 actions.unfollowprofile.success: Unfollowed this user successfully
 actions.resendverification.success: Resent verification link successfully
-
+actions.logout: Click here to logout
+actions.changelanguage.success: Language changed successfully
+actions.changefontsize.success: Font size changed successfully
+actions.changeads.success: Ads settings changed successfully
 
 banners.register.title: Don't miss what's happening.
 banners.register.link: Register now.
 banners.register.subtitle: Registered users enjoy more benefits and features.
+
+disclaimers.settings.ads: Ads are our main source of revenue, disabling them may worsen the quality of the service.
 
 prompts.completeprofile: Is this data correct? You can only change your avatar once every 24 hours.
 
@@ -65,8 +84,15 @@ titles.discriminators: Discriminators
 titles.settings: Settings
 titles.compose: Compose
 titles.register: Register
-
-
+titles.security: Security
+titles.danger: Danger Zone
+titles.a11y: Accessibility
+titles.basics: Basics
+titles.basics.description: Settings regarding the general flow of the app
+titles.display: Display
+titles.display.description: Change visual settings
+titles.ads: Advertisements
+titles.ads.description: Control advertisements
 
 login.header.title: Join the cause against discrimination
 login.header.subtitle: Share, empathise, and enjoy your time on the first social network built specifically to fight discrimination. Available on all screens for free.
@@ -121,6 +147,10 @@ errors.general: Something went wrong. If logging in again doesn't fix it try aga
 errors.auth/user-not-found: User not found
 errors.auth/wrong-password: Password incorrect
 errors.auth/email-already-in-use: This email is already in use by another account
+errors.ads.disabled: We couldn't load ads because you've disabled them, so here's a beautiful picture handpicked by our developers instead.
+errors.ads.network: Something went wrong while loading ads, so here's a beautiful picture handpicked by our developers instead.
+errors.profile.noposts: This user doesn't have any posts yet.
+errors.profile.404: This account doesn't exist.
 
 pageerrors.404.title: This page doesn't exist
 pageerrors.404.description: Try double-checking the link or go back.

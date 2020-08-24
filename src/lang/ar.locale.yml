@@ -14,6 +14,20 @@ general.pinned: هذا المنشور مثبت
 general.posts: منشورات
 general.terms.long: بشروط الخدمة
 general.privacy.long: سياسية الخصوصية
+general.language: اللغة
+general.fontsize: حجم الخط
+general.logout: تسجيل الخروج
+general.1x: متوسط
+general.2x: اكبر مرتين
+general.3x: اكبر ثلاث مرات
+general.4x: اقصى حجم
+general.enabled: مُمكَّن
+general.disabled: ممنوع
+general.status: الحالة
+general.ads: إعلانات
+general.photoby: صوَّرها
+general.unsplash: أونسبلاش
+general.nomoreposts: لم يعد هناك منشورات من أجلك, حاول لاحقاً
 
 placeholders.composer: اكتب تعليق...
 placeholders.location: اكتب مكانك الحالي
@@ -21,7 +35,7 @@ placeholders.displayName: نور عماد
 placeholders.tagline: عبر عن نفسك
 
 actions.completeprofile: إتمام التسجيل
-actions.completeprofile.success: تم التسجيل بنجاح
+actions.completeprofile.success: تم تحديث ملفّك بنجاح
 actions.verify: اعادة ارسال رابط تفعيل الحساب
 actions.verify.success: تم ارسال رابط التفعيل لبريدك الالكتروني
 actions.verify.error: حدث خطأ ما اثناء الارسال
@@ -41,6 +55,7 @@ actions.deletepost: امسح هذا المنشور
 actions.reportpost: بلغ عن هذا المنشور
 actions.deletepost.success: تم مسح هذا المنشور
 actions.commentpost.success: تم نشر هذه التعليق
+actions.createpost.progress: جاري النشر
 actions.createpost.success: تم نشر هذا المنشور. سيظهر عندما نقوم بجلب منشورات جديدة.
 actions.pinpost.success: تم تثبيت هذا المنشور على ملفّك
 actions.editprofile: تعديل
@@ -49,10 +64,16 @@ actions.unfollowprofile: الغاء المتابعة
 actions.followprofile.success: تمت متابعة هذا الحساب
 actions.unfollowprofile.success: تم الغاء متابعة هذه الحساب
 actions.resendverification.success: تم ارسال رسالة التفعيل مجدداً بنجاح
+actions.changelanguage.success: تم تغيير اللغة بنجاح
+actions.changefontsize.success: تم تغيير حجم الخط بنجاح
+actions.changeads.success: تم تغيير اعدادات الإعلانات بنجاح
 
 banners.register.title: لا تفوت ما يحدث.
 banners.register.link: سجل الآن.
 banners.register.subtitle: العديد من المستخدمين يتمتعون بمزايا كثيرة. كن واحداً منهم.
+
+disclaimers.settings.ads: الإعلانات هي مصدر الدخل الأساسي لنا, اذا قمتم بمنعها من الممكن ان تسوء جودة الخدمة.
+disclaimers.register.age: ينبغي ان يكون عمرك اكبر من 13 عاماً او لديك تصريح من والديك.
 
 prompts.completeprofile: هل هذه المعلومات صحيحة؟ يمكنك تعديل الصورة الشخصية مرة كل 24 ساعة.
 
@@ -65,6 +86,15 @@ titles.discriminators: المُمِيزين
 titles.settings: الإعدادات
 titles.compose: انشر
 titles.register: تسجيل حساب جديد
+titles.security: حماية الحساب
+titles.danger: ادارة الحساب
+titles.a11y: سهولة الوصول
+titles.basics: الأساسيات
+titles.basics.description: اعدادات عامة على البرنامج
+titles.display: العرض
+titles.display.description: اعدادات خاصة بشكل البرنامج
+titles.ads: الإعلانات
+titles.ads.description: تحكم في ظهور الإعلانات
 
 login.header.title: انضم لنا لمواجهة التمييز بكل اشكاله
 login.header.subtitle: شارك وقتك في أول شبكة أنشئت خصيصاً لمكافحة التمييز و التعاطف مع ضحاياه. متوفر على جميع الشاشات مجاناً.
@@ -111,17 +141,22 @@ loading.random[6]: نضيف المرح الى الغذاء
 
 warnings.profilenotcomplete: يجب ان تكمل التسجيل لتستعمل الخدمة
 
-errors.authentication: حدث خطأ اثناء تأكيد هويتك. حاول اعادة تسجيل الدخول او التبليغ عن هذا الخطأ اذا تكرر.
+errors.authentication: حدث خطأ اثناء تأكيد هويتك. حاول اعادة تسجيل الدخول او التبليغ عن هذا الخطأ اذا تكرر
 errors.verify: أكد حسابك لتستخدم الخدمة بحرية
-errors.general: حدث خطأ ما. حاول اعادة تسجيل الدخول. اذا لم ينجح ذلك بلغ عن هذا الخطأ.
+errors.general: حدث خطأ ما. حاول اعادة تسجيل الدخول. اذا لم ينجح ذلك بلغ عن هذا الخطأ
 errors.auth/user-not-found: لا يوجد مستخدم بهذه البيانات
 errors.auth/wrong-password: كلمة المرور غير صحيحة
 errors.auth/email-already-in-use: هذا البريد الالكتروني مربوط بحساب آخر
+errors.ads.disabled: الإعلانات غير ممكّنة في اعداداتكم لذلك فلتسمتعوا بهذه الصورة المختارة على يد مطورينا عوضاً عن الإعلانات
+errors.ads.network: حدث خطأ اثناء تحميل الإعلانات لذلك فلتسمتعوا بهذه الصورة المختارة على يد مطورينا عوضاً عن الإعلانات
+errors.profile.noposts: هذا المستخدم لم يشارك اي منشور بعد
+errors.profile.404: هذا الحساب غير موجود
+errors.updateavatar: حدث خطأ اثناء تحديث صورتك الشخصية
 
 pageerrors.404.title: هذه الصفحة غير موجودة
-pageerrors.404.description: حاول مجدداً او ارجع للصفحة السابقة.
+pageerrors.404.description: ارجع للصفحة السابقة او تأكد من الرابط
 pageerrors.general.title: احم.. هذا محرج قليلاً
-pageerrors.general.description: حاول مرة اخرى او عد للصفحة السابقة.
+pageerrors.general.description: حاول مرة اخرى او عد للصفحة السابقة
 pageerrors.general.subtitle: نعدك بإصلاح الخطأ اذا
 pageerrors.general.report: قمت بالتبليغ عنه
 
