@@ -15,6 +15,7 @@ import config from '../client.firebase.json'
 
 import InitialController from './views/controllers/InitialController.jsx'
 import IntlController from './views/controllers/IntlController'
+import StyleController from './views/controllers/StyleController'
 
 import Router from './router.jsx'
 
@@ -74,19 +75,21 @@ function App() {
 	//TODO: add notifications banner
 
 	return (
-		<ErrorBoundaryPage>
-			<GraphqlProvider value={graphql}>
-				<IntlController>
-					<InitialController>
-						<Suspense fallback={<FullscreenLoader />}>
-							<ToastContainer />
-							<Router user={user} />
-							<OverlayComposer />
-						</Suspense>
-					</InitialController>
-				</IntlController>
-			</GraphqlProvider>
-		</ErrorBoundaryPage>
+		<StyleController>
+			<ErrorBoundaryPage>
+				<GraphqlProvider value={graphql}>
+					<IntlController>
+						<InitialController>
+							<Suspense fallback={<FullscreenLoader />}>
+								<ToastContainer />
+								<Router user={user} />
+								<OverlayComposer />
+							</Suspense>
+						</InitialController>
+					</IntlController>
+				</GraphqlProvider>
+			</ErrorBoundaryPage>
+		</StyleController>
 	)
 }
 
