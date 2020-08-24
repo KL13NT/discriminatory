@@ -65,7 +65,7 @@ export const FullscreenLoader = ({ children }) => {
 			<span>
 				<FormattedMessage id='loading.title' />
 			</span>
-			<p>{children || randomMessage()}</p>
+			<p>{randomMessage()}</p>
 			{error ? (
 				<p>
 					<FormattedMessage id='loading.warning' />
