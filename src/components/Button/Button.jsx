@@ -11,11 +11,13 @@ function Button({
 	children,
 	variant,
 	minimalist,
+	inline,
 	...rest
 }) {
 	const classes = cls(
 		styles.button,
 		styles[variant],
+		inline ? styles.inline : null,
 		minimalist ? styles.minimalist : null,
 		className
 	)
@@ -38,6 +40,7 @@ const propTypes = {
 	className: PropTypes.string,
 	children: PropTypes.node,
 	minimalist: PropTypes.bool,
+	inline: PropTypes.bool,
 	variant: PropTypes.oneOf(['info', 'danger', 'warn', 'link'])
 }
 
