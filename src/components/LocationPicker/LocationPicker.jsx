@@ -8,7 +8,7 @@ import cls from '../../utils/cls'
 import { useIntl } from 'react-intl'
 
 //TODO: hook to google maps API
-function LocationPicker({ onPick, ...props }) {
+function LocationPicker({ onPick, disabled, ...props }) {
 	const { formatMessage: f } = useIntl()
 	const [isLocationPickerOpen, setLocationPickerState] = useState(false)
 	const [location, setLocation] = useState(null)
@@ -47,6 +47,7 @@ function LocationPicker({ onPick, ...props }) {
 			<button
 				type='button'
 				onClick={toggle}
+				disabled={disabled}
 				className={cls(styles.toggle, 'u-text-limit')}
 			>
 				<div>

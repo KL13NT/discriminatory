@@ -14,29 +14,27 @@ import { useMutation } from 'urql'
 import { useProfile } from '../../stores/profile'
 import { useIntl } from 'react-intl'
 
+import * as queries from '../../queries/profiles'
+
 function ProfileEditor() {
 	const { add } = useToasts()
 	const { user } = useAuth()
-	const { update } = useProfile()
+	const { profile, update } = useProfile()
 	const { formatMessage: f } = useIntl()
-	const [data, setData] = useState({
-		displayName: f({ id: 'placeholders.displayName' }),
-		tagline: f({ id: 'placeholders.tagline' }),
-		location: f({ id: 'placeholders.location' }),
-		dateofbirth: '2003-12-12'
-	})
+	const [data, setData] = useState(
+		profile
+			? profile
+			: {
+					displayName: f({ id: 'placeholders.displayName' }),
+					tagline: f({ id: 'placeholders.tagline' }),
+					location: f({ id: 'placeholders.location' }),
+					dateofbirth: '2003-12-12'
+			  }
+	)
 	const [avatar, setAvatar] = useState(null)
+	const [canSubmit, setCanSubmit] = useState(false)
 
-	const [response, updateProfile] = useMutation(`
-	mutation AccountMutation ($displayName: String!, $email: String!, $dateofbirth: String!, $location: String!, $tagline: String!){
-			account (displayName: $displayName, email: $email, dateofbirth: $dateofbirth, location: $location, tagline: $tagline) {
-				displayName
-				email
-				location
-				dateofbirth
-				tagline
-			}
-	}`)
+	const [response, updateProfile] = useMutation(queries.updateProfile)
 
 	useEffect(() => {
 		if (response.data) update(response.data.account)
@@ -66,33 +64,36 @@ function ProfileEditor() {
 		}
 	}
 
+	const submitAvatar = avatar => {
+		return firebase
+			.storage()
+			.ref(`avatars/${user.uid}`)
+			.put(avatar.file)
+	}
+
 	const onSubmit = e => {
 		e.preventDefault()
 
-		const body = {
-			email: user.email,
-			...data
-		}
+		if (!confirm(f({ id: 'prompts.completeprofile' }))) return
 
-		if (!prompt(f({ id: 'promps.ProfileEditor' }))) return
+		setCanSubmit(false)
 
-		if (avatar)
-			firebase
-				.storage()
-				.ref(`avatars/${user.uid}`)
-				.put(avatar.file)
-				.then(() => {
-					add({ text: f({ id: 'alerts.avatar.success', type: 'success' }) })
-				})
-				.catch(() => {
-					add({ text: f({ id: 'alerts.avatar.error', type: 'danger' }) })
-				})
-
-		updateProfile(body)
+		updateProfile({
+			...data,
+			dateofbirth: new Date(data.dateofbirth).getTime()
+		})
+			.then(res => {
+				if (!res.error && avatar) return submitAvatar(avatar)
+			})
+			.catch(() => {
+				add({ text: f({ id: 'errors.updateavatar', type: 'danger' }) })
+			})
 	}
 
-	const onChange = ({ currentTarget }) =>
+	const onChange = ({ currentTarget }) => {
+		setCanSubmit(true)
 		setData({ ...data, [currentTarget.name]: currentTarget.value })
+	}
 
 	return (
 		<>
@@ -115,18 +116,6 @@ function ProfileEditor() {
 					onChange={onChange}
 					required
 					placeholder={f({ id: 'placeholders.displayName' })}
-				/>
-				<Label htmlFor='dateofbirth'>{f({ id: 'general.dateofbirth' })}</Label>
-				<TextInput
-					minimalist
-					type='date'
-					name='dateofbirth'
-					id='dateofbirth'
-					minLength='4'
-					maxLength='50'
-					value={data.dateofbirth}
-					onChange={onChange}
-					required
 				/>
 				<Label htmlFor='location'>{f({ id: 'general.location' })}</Label>
 				<TextInput
@@ -157,7 +146,7 @@ function ProfileEditor() {
 					name='avatar'
 					accept='image/jpg,image/jpeg,image/webp'
 				/>
-				<Button type='submit' variant='info'>
+				<Button disabled={!canSubmit} type='submit' variant='info'>
 					{f({ id: 'actions.completeprofile' })}
 				</Button>
 			</form>

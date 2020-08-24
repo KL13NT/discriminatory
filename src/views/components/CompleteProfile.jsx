@@ -65,13 +65,15 @@ function CompleteProfile() {
 			})
 	}
 
+	//TODO: MOVE ALL FIREBASE ACTIONS TO EXTERNAL UTILS FILE FOR REUSE
+
 	return (
 		<Overlay
 			title={f({ id: 'general.title' })}
 			subtitle={f({ id: 'general.subtitle' })}
 			onClose={onClose}
 		>
-			<ProfileEditor />
+			<ProfileEditor create/>
 			<Button onClick={logout} variant='link'>
 				{f({ id: 'actions.logout' })}
 			</Button>
