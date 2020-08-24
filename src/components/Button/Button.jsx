@@ -11,12 +11,14 @@ function Button({
 	children,
 	variant,
 	minimalist,
+	small,
 	inline,
 	...rest
 }) {
 	const classes = cls(
 		styles.button,
 		styles[variant],
+		small ? styles.small : null,
 		inline ? styles.inline : null,
 		minimalist ? styles.minimalist : null,
 		className

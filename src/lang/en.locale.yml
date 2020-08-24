@@ -66,6 +66,7 @@ actions.logout: Click here to logout
 actions.changelanguage.success: Language changed successfully
 actions.changefontsize.success: Font size changed successfully
 actions.changeads.success: Ads settings changed successfully
+actions.reload: Reload
 
 banners.register.title: Don't miss what's happening.
 banners.register.link: Register now.

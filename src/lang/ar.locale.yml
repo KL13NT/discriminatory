@@ -67,6 +67,7 @@ actions.resendverification.success: تم ارسال رسالة التفعيل م
 actions.changelanguage.success: تم تغيير اللغة بنجاح
 actions.changefontsize.success: تم تغيير حجم الخط بنجاح
 actions.changeads.success: تم تغيير اعدادات الإعلانات بنجاح
+actions.reload: اعادة المحاولة
 
 banners.register.title: لا تفوت ما يحدث.
 banners.register.link: سجل الآن.

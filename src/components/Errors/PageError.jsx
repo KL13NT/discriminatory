@@ -56,21 +56,8 @@ export class IntlErrorBoundary extends React.Component {
 							id='pageerrors.general.description'
 							defaultMessage='Try double-checking or going back.'
 						/>{' '}
-						<span>
-							<FormattedMessage
-								id='pageerrors.general.subtitle'
-								defaultMessage='We promise to fix it if you'
-							/>{' '}
-							<a href='/bug'>
-								<FormattedMessage
-									id='pageerrors.general.report'
-									defaultMessage='report it'
-								/>
-							</a>
-							!
-						</span>
 					</p>
-					<Button onClick={reload}>
+					<Button small onClick={() => location.reload(false)}>
 						<FormattedMessage id='actions.reload' />
 					</Button>
 				</div>
@@ -108,12 +95,10 @@ export class ErrorBoundaryPage extends React.Component {
 							&#129402;
 						</span>
 					</h1>
-					<p>
-						Try double-checking or going back.
-						<span>
-							We promise to fix it if you <a href='/bug'>report it</a>!
-						</span>
-					</p>
+					<p>Try double-checking or going back.</p>
+					<Button small onClick={() => location.reload(false)}>
+						<FormattedMessage id='actions.reload' />
+					</Button>
 				</div>
 			)
 		else return this.props.children

@@ -142,7 +142,7 @@ function Register() {
 							<a href='/privacy'>{f({ id: 'general.privacy.long' })}</a>,{' '}
 							{f({ id: 'register.disclaimer.emails' })}
 						</span>
-						<span className='u-disclaimer'>
+						<span className='u-warn'>
 							{f({ id: 'disclaimers.register.age' })}
 						</span>
 					</div>
