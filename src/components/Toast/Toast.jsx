@@ -73,6 +73,7 @@ function Toast({ type, text, id, remove }) {
 function ToastContainer() {
 	const { toasts, remove } = useToasts()
 
+	// if (toasts.length === 0) return null
 	return (
 		<div className={styles.container}>
 			<ul>

@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './Errors.module.sass'
 import { useIntl, FormattedMessage } from 'react-intl'
+import Button from '../Button/Button'
 
 export const Four0Four = () => {
 	const { formatMessage: f } = useIntl()
@@ -58,8 +59,8 @@ export class IntlErrorBoundary extends React.Component {
 						<span>
 							<FormattedMessage
 								id='pageerrors.general.subtitle'
-								defaultMessage='We promise to fix it if you '
-							/>
+								defaultMessage='We promise to fix it if you'
+							/>{' '}
 							<a href='/bug'>
 								<FormattedMessage
 									id='pageerrors.general.report'
@@ -69,6 +70,9 @@ export class IntlErrorBoundary extends React.Component {
 							!
 						</span>
 					</p>
+					<Button onClick={reload}>
+						<FormattedMessage id='actions.reload' />
+					</Button>
 				</div>
 			)
 		else return this.props.children

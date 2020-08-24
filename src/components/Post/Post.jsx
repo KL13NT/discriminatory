@@ -88,7 +88,8 @@ function Post(props) {
 					{commentsExpanded ? 'Hide comments' : 'Show comments'}
 				</Button>
 			}
-			{commentsExpanded ? (
+
+			{commentsExpanded && comments ? (
 				<CommentsSection
 					onComment={onComment}
 					comments={comments}
