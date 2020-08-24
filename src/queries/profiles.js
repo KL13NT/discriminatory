@@ -5,7 +5,6 @@ export const accountQuery = `
 			avatar
 			email
 			location
-			dateofbirth
 			verified
 			tagline
 			_id
@@ -17,6 +16,7 @@ export const profile = `
 	query($member: String!, $before: ID){
 		profile(member:$member, before:$before){
 			following
+			postCount
 
 			user {
 				displayName
@@ -74,3 +74,13 @@ export const unfollow = `
 		}
 	}
 `
+
+export const updateProfile = `
+	mutation AccountMutation ($displayName: String!, $location: String!, $tagline: String!){
+			account (displayName: $displayName,  location: $location, tagline: $tagline) {
+				displayName
+				location
+				email
+				tagline
+			}
+	}`

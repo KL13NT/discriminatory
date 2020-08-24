@@ -4,11 +4,10 @@ import PostMaster from './components/PostMaster'
 import Composer from '../components/Composer/Composer'
 
 import { useIntl } from 'react-intl'
-import { useQuery, useMutation } from 'urql'
+import { useQuery } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
 
-import { useToasts } from '../components/Toast/Toast'
 import { useProfile } from '../stores/profile'
 
 import * as queries from '../queries/posts'
@@ -16,7 +15,6 @@ import { usePosts } from '../stores/posts'
 import { Spinner } from '../components/Loading/LoadingPage'
 
 function Home() {
-	const { add } = useToasts()
 	const { profile } = useProfile()
 	const { formatMessage: f } = useIntl()
 	const { user } = useAuth()
@@ -25,11 +23,8 @@ function Home() {
 		posts: state.home,
 		setPosts: state.setHome
 	}))
-	const [pagination] = useState({
-		before: null
-	})
 
-	const [postRes, post] = useMutation(queries.post)
+	const [pagination, setPagination] = useState({ before: null })
 	const [feedRes, reFeed] = useQuery({
 		query: queries.feed,
 		variables: {
@@ -39,33 +34,47 @@ function Home() {
 		requestPolicy: 'network-only'
 	})
 
-	const error = useCallback(
-		() => add({ text: f({ id: 'errors.general' }), type: 'danger' }),
-		[] // eslint-disable-line
-	)
-
 	useEffect(() => {
-		if (feedRes.data) setPosts([...feedRes.data.feed])
+		if (feedRes.data) setPosts([...posts, ...feedRes.data.feed])
 	}, [feedRes])
 
-	useEffect(() => postRes.error && error(), [postRes, error])
-
-	const onCompose = newPost => {
-		post(newPost).then(response => {
-			if (!response.error) reFeed({ requestPolicy: 'network-only' })
-		})
+	const onSuccess = () => {
+		reFeed({ requestPolicy: 'network-only' })
 	}
 
+	const onScroll = useCallback(() => {
+		if (
+			window.scrollY + window.innerHeight > document.body.clientHeight - 100 &&
+			!feedRes.fetching &&
+			feedRes.data.feed.length > 0
+		) {
+			setPagination({ before: posts[posts.length - 1]._id })
+		}
+	}, [feedRes, posts])
+
+	useEffect(() => {
+		window.addEventListener('scroll', onScroll)
+
+		return () => window.removeEventListener('scroll', onScroll)
+	}, [feedRes, onScroll])
+
+	if (!feedRes.data) return <Spinner />
 	return (
 		<>
 			<PageTitle>{f({ id: 'titles.home' })}</PageTitle>
 			<Composer
-				{...profile}
+				avatar={profile.avatar}
 				verified={user.email_verified}
-				onSubmit={onCompose}
+				onSuccess={onSuccess}
+			/>
+			<PostMaster
+				feedRes={feedRes}
+				reFeed={reFeed}
+				feedResPosts={feedRes.data.feed}
+				posts={posts}
+				setPosts={setPosts}
 			/>
 			{feedRes.fetching ? <Spinner /> : null}
-			<PostMaster feedRes={feedRes} posts={posts} setPosts={setPosts} />
 		</>
 	)
 }

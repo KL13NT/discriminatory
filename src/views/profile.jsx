@@ -13,7 +13,7 @@ import {
 import { useQuery, useMutation } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
-import { useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useToasts } from '../components/Toast/Toast'
 
 import * as queries from '../queries/profiles'
@@ -21,7 +21,9 @@ import { Spinner } from '../components/Loading/LoadingPage'
 
 const Four0Four = () => (
 	<Container>
-		<p>This profile doesn't exist.</p>
+		<p>
+			<FormattedMessage id='errors.profile.404' />
+		</p>
 	</Container>
 )
 
@@ -54,21 +56,21 @@ const IntlPlural = ({ value, localeContainId }) => {
 function Profile() {
 	const { add } = useToasts()
 	const { user } = useAuth()
-	const { pathname } = useLocation()
+	const { user_id } = useParams()
 	const { formatMessage: f } = useIntl()
 
 	const [profile, setProfile] = useState(null)
-	const [pagination] = useState({
-		before: null
-	})
+	const posts = profile ? profile.posts : []
 
 	const [followRes, follow] = useMutation(queries.follow)
 	const [unfollowRes, unfollow] = useMutation(queries.unfollow)
+
+	const [pagination, setPagination] = useState({ before: null })
 	const [profileRes, reProfile] = useQuery({
 		query: queries.profile,
 		variables: {
 			...pagination,
-			member: pathname.replace('/', '')
+			member: user_id
 		},
 		pause: !user,
 		requestPolicy: 'network-only'
@@ -91,17 +93,6 @@ function Profile() {
 		() => profileRes.error && console.log(profileRes.error) && error(),
 		[profileRes, error]
 	)
-
-	useEffect(() => {
-		if (profileRes.data)
-			setProfile({
-				...profileRes.data.profile,
-				posts: profileRes.data.profile.posts.map(post => ({
-					...post,
-					author: profileRes.data.profile.user
-				}))
-			})
-	}, [profileRes])
 
 	const onFollow = () => {
 		const { _id } = profileRes.data.profile.user
@@ -133,18 +124,60 @@ function Profile() {
 		})
 	}
 
-	const setPosts = posts => {
-		setProfile({ ...profile, posts })
-	}
+	useEffect(() => {
+		if (!profileRes.error && profileRes.data) {
+			if (pagination.before) {
+				if (profileRes.data.profile.posts.length > 0)
+					setProfile({
+						...profile,
+						posts: [
+							...posts,
+							...profileRes.data.profile.posts.map(post => ({
+								...post,
+								author: profileRes.data.profile.user
+							}))
+						]
+					})
+			} else {
+				const { profile } = profileRes.data
+				setProfile({
+					...profile,
+					posts: [
+						...posts,
+						...profile.posts.map(post => ({
+							...post,
+							author: profile.user
+						}))
+					]
+				})
+			}
+		}
+	}, [profileRes])
 
-	if (!profile || profileRes.fetching) return <Spinner />
+	const onScroll = useCallback(() => {
+		if (
+			window.scrollY + window.innerHeight > document.body.clientHeight - 100 &&
+			!profileRes.fetching &&
+			profileRes.data.profile.posts.length > 0
+		) {
+			setPagination({ before: profile.posts[profile.posts.length - 1]._id })
+		}
+	}, [profileRes, posts])
 
+	useEffect(() => {
+		window.addEventListener('scroll', onScroll)
+
+		return () => window.removeEventListener('scroll', onScroll)
+	}, [profileRes, onScroll])
+
+	if (profileRes.error) return <Four0Four />
+	if (!profile) return <Spinner />
 	return (
 		<>
 			<PageTitle
 				tick={
 					<IntlPlural
-						value={profile.posts.length}
+						value={profile.postCount}
 						localeContainId='plurals.post'
 					/>
 				}
@@ -156,13 +189,16 @@ function Profile() {
 				onFollow={onFollow}
 				onUnfollow={onUnfollow}
 			/>
-			{profile.posts.length === 0 ? (
-				<Container>This user doesn't have any posts.</Container>
+			{posts.length === 0 ? (
+				<Container>
+					<FormattedMessage id='errors.profile.noposts' />
+				</Container>
 			) : (
 				<PostMaster
 					feedRes={profileRes}
+					reFeed={reProfile}
+					feedResPosts={profileRes.data.profile.posts}
 					posts={profile.posts}
-					setPosts={setPosts}
 				/>
 			)}
 		</>

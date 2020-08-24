@@ -5,12 +5,14 @@ import Container from '../../components/Container/Container'
 import Post from '../../components/Post/Post'
 
 import { useToasts } from '../../components/Toast/Toast'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useProfile } from '../../stores/profile'
 import { useAuth } from '../../stores/auth'
 import { useMutation } from 'urql'
 
 import * as queries from '../../queries/posts'
+import { Spinner } from '../../components/Loading/LoadingPage'
+import { useState } from 'react'
 
 const EmptyFeed = () => (
 	<Container>
@@ -21,18 +23,40 @@ const EmptyFeed = () => (
 	</Container>
 )
 
+const NoMorePosts = () => (
+	<Container>
+		<p>
+			<FormattedMessage id='general.nomoreposts' />
+		</p>
+	</Container>
+)
+
 const PostList = ({ feed, ...props }) => {
+	console.log(feed)
 	const posts = feed.map(post => <Post key={post._id} {...post} {...props} />)
 
 	if (feed) return feed.length === 0 ? <EmptyFeed /> : posts
 	return null
 }
 
-function PostMaster({ feedRes, posts, setPosts }) {
+function PostMaster({
+	feedRes,
+	reFeed,
+	posts,
+	feedResPosts,
+	setBefore,
+	setPosts
+}) {
 	const { add } = useToasts()
 	const { formatMessage: f } = useIntl()
 	const { profile } = useProfile()
 	const { user } = useAuth()
+	const [fetchAgain, setFetchAgain] = useState(feedResPosts.length > 0)
+
+	useEffect(() => {
+		console.log(feedResPosts, feedResPosts.length, feedResPosts.length > 0)
+		setFetchAgain(feedResPosts.length > 0)
+	}, [feedResPosts])
 
 	const [reactionRes, react] = useMutation(queries.react)
 	const [commentRes, comment] = useMutation(queries.comment)
@@ -166,18 +190,23 @@ function PostMaster({ feedRes, posts, setPosts }) {
 		})
 	}
 
+	//REFACTORME
 	return feedRes.data ? (
-		<PostList
-			onComment={onComment}
-			onPin={onPin}
-			// onReport={onReport}
-			onDelete={onDelete}
-			onUpvote={onUpvote}
-			onDownvote={onDownvote}
-			feed={posts}
-			user={user}
-			profile={profile}
-		/>
+		<>
+			<PostList
+				onComment={onComment}
+				onPin={onPin}
+				// onReport={onReport}
+				onDelete={onDelete}
+				onUpvote={onUpvote}
+				onDownvote={onDownvote}
+				feed={posts}
+				user={user}
+				profile={profile}
+			/>
+			{feedRes.fetching ? <Spinner /> : null}
+			{!fetchAgain ? <NoMorePosts /> : null}
+		</>
 	) : null
 }
 

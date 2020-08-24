@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { auth } from 'firebase'
 
 import TextInput from '../components/TextInput/TextInput'
@@ -15,6 +15,7 @@ import logo from '../assets/logo_small.svg'
 function Login() {
 	const [fetching, setFetching] = useState(false)
 	const { add } = useToasts()
+	const history = useHistory()
 	const { formatMessage: f } = useIntl()
 
 	useEffect(() => {
@@ -41,6 +42,7 @@ function Login() {
 					text: f({ id: 'actions.login.success' }),
 					type: 'success'
 				})
+				history.go(0)
 			})
 			.catch(err => {
 				console.log('COPY THIS WHEN REPORTING', err)

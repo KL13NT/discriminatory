@@ -3,7 +3,9 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import Layout from './views/components/Layout'
 import BannerController from './views/controllers/BannerController'
+
 import { Four0Four } from './components/Errors/PageError'
+import { Basics, Display, Ads } from './views/settings'
 
 const Home = React.lazy(() => import('./views/home'))
 const Profile = React.lazy(() => import('./views/profile'))
@@ -32,7 +34,8 @@ function Router({ user }) {
 	return (
 		<BrowserRouter>
 			<Switch>
-				{/* <Redirect from='/' to='/home' exact /> */}
+				<Redirect from='/' to='/home' exact />
+				<Redirect from='/settings' to='/settings/basics' exact />
 
 				<AnonymousOnly component={Login} path='/login' user={user} />
 				<PrivateRoute component={Verify} path='/verify' user={user} />
@@ -52,11 +55,10 @@ function Router({ user }) {
 								path='/discriminators'
 								user={user}
 							/>
-							<PrivateRoute
-								component={() => 'Settings'}
-								path='/settings'
-								user={user}
-							/>
+							<SharedRoute path='/settings/basics' component={Basics} />
+							<PrivateRoute path='/settings/profile' component={Profile} />
+							<SharedRoute path='/settings/display' component={Display} />
+							<SharedRoute path='/settings/ads' component={Ads} />
 							<PrivateRoute component={Profile} path='/:user_id' user={user} />
 						</Switch>
 					</Layout>

@@ -136,11 +136,14 @@ function Register() {
 							</span>
 						) : null}
 
-						<span className={styles.disclaimer}>
-							{f({ id: 'register.disclaimer.base' })}
+						<span className='u-disclaimer'>
+							{f({ id: 'register.disclaimer.base' })}{' '}
 							<a href='/terms'>{f({ id: 'general.terms.long' })}</a>,{' '}
 							<a href='/privacy'>{f({ id: 'general.privacy.long' })}</a>,{' '}
 							{f({ id: 'register.disclaimer.emails' })}
+						</span>
+						<span className='u-disclaimer'>
+							{f({ id: 'disclaimers.register.age' })}
 						</span>
 					</div>
 				</form>

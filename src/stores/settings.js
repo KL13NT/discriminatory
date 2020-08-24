@@ -3,33 +3,36 @@ import create from 'zustand'
 const defaultConfig = JSON.parse(localStorage.getItem('settings')) || {
 	display: {
 		font: {
-			possible: ['1x', '2x', '3x', '4x'],
-			selected: '1x'
+			possible: [
+				{ value: 1, name: '1x' },
+				{ value: 1.125, name: '2x' },
+				{ value: 1.25, name: '3x' },
+				{ value: 1.375, name: '4x' }
+			],
+			selected: { value: 1, name: '1x' },
+			base: 16
 		},
 		theme: {
-			possible: ['dark-blue'],
-			selected: 'dark-blue'
+			possible: ['dark'],
+			selected: 'dark'
 		},
 		language: {
 			locales: [
-				{ locale: 'ar', dir: 'rtl' },
-				{ locale: 'en', dir: 'ltr' }
+				{ locale: 'ar', dir: 'rtl', name: 'Arabic - العربيّة' },
+				{ locale: 'en', dir: 'ltr', name: 'English - الإنجليزية' }
 			],
 			selected: { locale: 'ar', dir: 'rtl' }
 		}
 	},
 	advertisements: {
-		status: {
-			possible: ['enabled', 'disabled'],
-			selected: 'enabled'
-		}
-	},
-	notifications: {
-		from: {
-			possible: ['all', 'following', 'disabled'],
-			selected: 'all'
-		}
+		status: true
 	}
+	// notifications: {
+	// 	from: {
+	// 		possible: ['all', 'following', 'disabled'],
+	// 		selected: 'all'
+	// 	}
+	// }
 }
 
 localStorage.setItem('settings', JSON.stringify(defaultConfig))

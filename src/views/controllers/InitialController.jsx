@@ -17,10 +17,7 @@ import { FullscreenLoader } from '../../components/Loading/LoadingPage.jsx'
 function Renderer({ children }) {
 	const { active } = useFullscreenLoader()
 
-	console.log(active, active.length)
-
-	if (active.length > 0)
-		return <FullscreenLoader>{active[active.length - 1].name}</FullscreenLoader>
+	if (active.length > 0) return <FullscreenLoader />
 
 	return children
 }
@@ -40,26 +37,33 @@ function InitialController({ children }) {
 	useEffect(() => {
 		if (response.fetching) load('Loading your profile')
 		else if (response.data && response.data.account) {
-			update({ ...response.data.account })
+			update({
+				...response.data.account,
+				dateofbirth: new Date(response.data.account)
+			})
 			finish('Loading your profile')
 			finish('Authenticating')
-		} else if (response.error) {
-			finish('Loading your profile')
-			finish('Authenticating')
-			add({ text: f({ id: 'errors.general' }), type: 'danger' })
 		}
 	}, [response, load, finish, update, add, f])
 
 	useEffect(() => {
-		const { data } = response
+		if (response.error) {
+			clearAuth()
+			clearProfile()
+			finish('Loading your profile')
+			finish('Authenticating')
+			add({ text: f({ id: 'errors.general' }), type: 'danger' })
+		}
+	}, [add, clearAuth, clearProfile, f, finish, response.error])
 
-		if (!data || !data.account) return
-
-		update(data.account)
-	}, [response, update])
+	useEffect(() => {
+		console.log(user)
+		if (user && user.emailVerified) reloadProfile()
+	}, [reloadProfile, user])
 
 	useEffect(() => {
 		firebase.auth().onAuthStateChanged(user => {
+			console.log(user)
 			if (!user) {
 				clearAuth()
 				clearProfile()
@@ -70,17 +74,19 @@ function InitialController({ children }) {
 			user
 				.getIdToken(true)
 				.then(token => {
+					setUser(user)
 					localStorage.setItem('AUTH_ID_TOKEN', token)
 				})
 				.catch(err => {
 					console.log('COPY THIS WHEN REPORING', err)
+					clearAuth()
+					clearProfile()
 					add({
 						text: f({ id: 'errors.verify' }),
 						type: 'danger'
 					})
 				})
 				.finally(() => {
-					setUser(user)
 					finish('Authenticating')
 				})
 
