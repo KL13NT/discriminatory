@@ -73,16 +73,21 @@ function Select(props) {
 		options,
 		onChange,
 		defaultValue,
-		canBeNull
+		canBeNull,
+		minimalist
 	} = props
 	const [selected, select] = useState(!canBeNull ? options[defaultValue] : null)
+	const [expander, setExpander] = useState('mouse')
 	const [expanded, expand] = useState(null)
 
 	const firstElement = useRef()
 	const container = useRef()
 
 	const clearSelection = () => select(null)
-	const onClick = () => expand(!expanded)
+	const onClick = () => {
+		if (!expanded) setExpander('mouse')
+		expand(!expanded)
+	}
 	const onPick = option => {
 		select(option)
 		expand(false)
@@ -112,14 +117,17 @@ function Select(props) {
 		if (isEnter(keyCode) || isEscape(keyCode)) {
 			e.preventDefault()
 
-			if (isEnter(keyCode)) expand(!expanded)
-			else if (isEscape(keyCode)) expand(false)
+			if (isEnter(keyCode)) {
+				if (expanded === false) setExpander('keyboard')
+
+				expand(!expanded)
+			} else if (isEscape(keyCode)) expand(false)
 		}
 	}
 
 	useEffect(() => {
-		if (expanded) firstElement.current.focus()
-	}, [expanded])
+		if (expanded && expander === 'keyboard') firstElement.current.focus()
+	}, [expanded, expander])
 
 	return (
 		<div
@@ -131,13 +139,21 @@ function Select(props) {
 			onClick={onClick}
 			onKeyDown={onKeyDown}
 			data-focus={expanded}
-			className={cls(styles.select, className)}
+			className={cls(
+				styles.select,
+				minimalist ? styles.minimalist : null,
+				className
+			)}
 			ref={container}
 		>
-			<div className={styles.selected}>
-				{selected.icon ? <Icon {...selected} /> : null}
-				{selected ? selected.name : 'Select...'}
-			</div>
+			{selected ? (
+				<div className={styles.selected}>
+					{selected.icon ? <Icon {...selected} /> : null}
+					{selected ? selected.name : 'Select...'}
+				</div>
+			) : (
+				'Select...'
+			)}
 			<div className={styles.actions}>
 				{selected && canBeNull ? (
 					<button onClick={clearSelection} aria-label='Clear selection'>

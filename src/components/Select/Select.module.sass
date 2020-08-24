@@ -11,6 +11,7 @@
 	cursor: pointer
 	position: relative
 	min-width: 180px
+	z-index: 20
 
 	&:focus, &[data-focus="true"]
 		box-shadow: 0 0 0px 2px var(--color-blue-base)
@@ -23,14 +24,16 @@
 
 .dropdown
 	background: var(--color-primary)
-	position: absolute
-	bom: 0
-	top: 120%
+	position: fixed
+	bottom: 10px
+	z-index: 110
 	list-style: none
 	padding: 0
 	background: white
-	width: 100%
+	width: 90%
 	left: 0
+	right: 0
+	margin: 0 auto
 	border-radius: 5px
 
 .icon
@@ -76,3 +79,32 @@
 
 		&:active
 			filter: var(--brightness-active)
+
+.minimalist
+	color: var(--color-primary)
+	border: solid 1px var(--color-separator)
+	background: var(--color-background)
+	margin-top: 10px
+
+	.dropdown
+		background: var(--color-containers)
+		border: solid 2px var(--color-separator)
+
+	.option
+		color: var(--color-primary)
+
+	.option:focus, .option:hover
+		background: var(--color-blue-light)
+
+	.actions button > svg
+		fill: var(--color-primary)
+
+	.label
+		margin-bottom: 10px
+		display: block
+
+@media screen and (min-width: 1024px)
+	.dropdown
+		position: absolute
+		top: 120%
+		bottom: auto
