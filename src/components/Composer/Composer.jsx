@@ -17,9 +17,13 @@ import { usePosts } from '../../stores/posts'
 import styles from './Composer.module.sass'
 
 import * as queries from '../../queries/posts'
+import cls from '../../utils/cls'
 
-function Composer({ avatar, verified, onSubmit, ...props }) {
+function Composer({ avatar, verified, onSuccess, ...props }) {
 	const { formatMessage: f } = useIntl()
+
+	const { add } = useToasts()
+	const [enabled, toggle] = useState(true)
 	const [canSubmit, setCanSubmitState] = useState(false)
 	const [postData, setPostData] = useState({ location: null, content: '' })
 
@@ -33,18 +37,47 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 
 	const onLocationPick = location => setPostData({ ...postData, location })
 
+	const error = useCallback(
+		() => add({ text: f({ id: 'errors.general' }), type: 'danger' }),
+		[] // eslint-disable-line
+	)
+	const [postRes, post] = useMutation(queries.post)
+
+	useEffect(() => postRes.error && error(), [postRes, error])
+
 	const onPostSubmit = e => {
 		e.persist()
 		e.preventDefault()
 
-		if (canSubmit) onSubmit({ ...postData, content: postData.content.trim() })
+		toggle(false)
+		add({
+			text: f({ id: 'actions.createpost.progress' }),
+			type: 'info'
+		})
 
-		setPostData({ content: '', location: null })
+		const data = {
+			...postData,
+			content: postData.content.trim()
+		}
+
+		post(data).then(response => {
+			if (!response.error) {
+				onSuccess()
+				toggle(true)
+				setPostData({ content: '', location: null })
+			} else {
+				toggle(true)
+				add({ type: 'danger', text: f({ id: 'errors.general' }) })
+			}
+		})
 	}
 
 	return (
 		<>
-			<Container className={styles.composer} {...props}>
+			<Container
+				className={cls(styles.composer, !enabled ? 'u-disabled' : null)}
+				{...props}
+			>
 				<form onSubmit={onPostSubmit}>
 					<div>
 						<Avatar avatar={avatar} verified={verified} />
@@ -53,12 +86,13 @@ function Composer({ avatar, verified, onSubmit, ...props }) {
 					<Textarea
 						resize
 						required
+						disabled={!enabled}
 						placeholder={f({ id: 'composer.placeholder' })}
 						value={postData.content}
 						onChange={onChange}
 					/>
 					<LocationPicker onPick={onLocationPick} />
-					<Button disabled={!canSubmit} type='submit'>
+					<Button disabled={!canSubmit || !enabled} type='submit'>
 						{f({ id: 'composer.submit' })}
 					</Button>
 				</form>
