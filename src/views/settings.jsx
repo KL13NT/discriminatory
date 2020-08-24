@@ -15,6 +15,7 @@ import Select from '../components/Select/Select'
 import { NavLink, Switch, Route, Redirect } from 'react-router-dom'
 import Button from '../components/Button/Button'
 import ProfileEditor from './components/ProfileEditor'
+import { useAuth } from '../stores/auth'
 
 export const Profile = () => {
 	return <ProfileEditor />
@@ -46,8 +47,8 @@ export const Ads = () => {
 
 	return (
 		<Container
-			title={f({ id: 'titles.display' })}
-			subtitle={f({ id: 'titles.display.description' })}
+			title={f({ id: 'titles.ads' })}
+			subtitle={f({ id: 'titles.ads.description' })}
 		>
 			<Label>
 				<FormattedMessage id='general.status' />
@@ -116,6 +117,7 @@ export const Display = () => {
 export const Basics = () => {
 	const { formatMessage: f } = useIntl()
 	const { add } = useToasts()
+	const { user } = useAuth()
 	const { settings, update } = useSettings()
 	const { locales, selected } = settings.display.language
 
@@ -177,17 +179,23 @@ export const Basics = () => {
 					name
 				}))}
 			/>
-			<Label>
-				<FormattedMessage id='general.logout' />
-			</Label>
-			<Button variant='danger' onClick={logout}>
-				<FormattedMessage id='actions.logout' />
-			</Button>
+			{user ? (
+				<>
+					<Label>
+						<FormattedMessage id='general.logout' />
+					</Label>
+					<Button variant='danger' onClick={logout}>
+						<FormattedMessage id='actions.logout' />
+					</Button>
+				</>
+			) : null}
 		</Container>
 	)
 }
 
-function Settings() {
+export function Settings() {
+	const { user } = useAuth()
+
 	return (
 		<>
 			<PageTitle>
@@ -197,9 +205,11 @@ function Settings() {
 				<NavLink to='/settings/basics'>
 					<FormattedMessage id='titles.basics' />
 				</NavLink>
-				<NavLink to='/settings/profile'>
-					<FormattedMessage id='titles.profile' />
-				</NavLink>
+				{user ? (
+					<NavLink to='/settings/profile'>
+						<FormattedMessage id='titles.profile' />
+					</NavLink>
+				) : null}
 				<NavLink to='/settings/display'>
 					<FormattedMessage id='titles.display' />
 				</NavLink>
@@ -219,5 +229,3 @@ function Settings() {
 		</>
 	)
 }
-
-export default Settings

@@ -5,7 +5,13 @@ import Layout from './views/components/Layout'
 import BannerController from './views/controllers/BannerController'
 
 import { Four0Four } from './components/Errors/PageError'
-import { Basics, Display, Ads } from './views/settings'
+import {
+	Basics,
+	Display,
+	Ads,
+	Profile as ProfileSettings,
+	Settings
+} from './views/settings'
 
 const Home = React.lazy(() => import('./views/home'))
 const Profile = React.lazy(() => import('./views/profile'))
@@ -55,10 +61,32 @@ function Router({ user }) {
 								path='/discriminators'
 								user={user}
 							/>
-							<SharedRoute path='/settings/basics' component={Basics} />
-							<PrivateRoute path='/settings/profile' component={Profile} />
-							<SharedRoute path='/settings/display' component={Display} />
-							<SharedRoute path='/settings/ads' component={Ads} />
+
+							<SharedRoute path='/settings' user={user}>
+								<Settings />
+								<Switch>
+									<SharedRoute
+										path='/settings/basics'
+										component={Basics}
+										user={user}
+									/>
+									<PrivateRoute
+										path='/settings/profile'
+										component={ProfileSettings}
+										user={user}
+									/>
+									<SharedRoute
+										path='/settings/display'
+										component={Display}
+										user={user}
+									/>
+									<SharedRoute
+										path='/settings/ads'
+										component={Ads}
+										user={user}
+									/>
+								</Switch>
+							</SharedRoute>
 							<PrivateRoute component={Profile} path='/:user_id' user={user} />
 						</Switch>
 					</Layout>
