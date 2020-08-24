@@ -23,6 +23,7 @@ module.exports = {
 	},
 	plugins: ['react', 'jsx-a11y', 'sort-destructure-keys', 'react-hooks'],
 	rules: {
+		'react-hooks/exhaustive-deps': 0,
 		'react/no-unescaped-entities': 0,
 		'react/jsx-curly-spacing': 0,
 		'prefer-rest-params': 0,
