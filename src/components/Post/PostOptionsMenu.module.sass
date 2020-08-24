@@ -22,17 +22,22 @@
 
 .menu
 	position: fixed
-	width: 100%
-	bottom: 0
+	z-index: 100
+	width: 90%
+	bottom: 10px
 	left: 0
+	right: 0
+	margin: 0 auto
 	padding: 20px
 	background: var(--color-containers)
 	border-radius: 10px
-	animation-name: popUp
-	animation-fill-mode: forwards
-	animation-timing-function: ease-in-out
+
+	animation-name: popin
+	animation-duration: 0.25s
 	animation-iteration-count: 1
-	animation-duration: 0.5s
+	animation-play-state: running
+	animation-timing-function: cubic-bezier(.68,-0.55,.27,1.55)
+
 
 	button
 		display: flex
@@ -85,8 +90,8 @@
 		border-radius: 10px
 		animation-name: unset
 
-@keyframes popUp
+@keyframes popin
 	0%
-		transform: translateY(110%)
+		transform: translateY(100px)
 	100%
-		transform: translateY(0%)
+		transform: translateY(0)

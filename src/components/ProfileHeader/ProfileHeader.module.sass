@@ -19,6 +19,10 @@
 	border: solid 2px var(--color-purple-dark)
 	border-radius: 10px
 	margin: 10px 0
+	color: var(--color-primary)
+
+	svg, path
+		fill: var(--color-primary)
 
 .details
 	display: flex
@@ -27,29 +31,35 @@
 	margin: 10px
 	z-index: 5
 	width: 90%
+
+	span, h1, a, button
+		margin-top: 10px
+
 	span
 		font-size: var(--font-size-s)
-		margin: 0 0 5px 0
 		display: block
 		max-width: 80%
 		text-align: center
 		overflow: auto
+
 	span:nth-of-type(2)
 		display: flex
 		align-items: center
+
 		svg
-			height: 20px
-			width: 20px
+			height: 30px
+			width: 30px
 			margin: 0 5px
 			writing-mode: horizontal-tb
-			fill: var(--color-primary)
+			fill: var(--color-purple-base)
+
 	h1
 		font-size: var(--font-size-m)
-		margin: 0 0 5px 0
+
 	button
 		font-size: var(--font-size-s)
-		margin: 5px 0 0 0
 		width: 200px
+
 	a
 		font-size: var(--font-size-m)
 

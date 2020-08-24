@@ -1,9 +1,11 @@
 .container
 	position: fixed
-	bottom: 0
+	top: 0
 	margin: 0 auto
 	width: 100%
-	z-index: 20
+	left: 0
+	right: 0
+	z-index: 40
 
 	> ul
 		width: 90%
@@ -119,7 +121,7 @@
 
 
 @media screen and (min-width: 768px)
-	.toast
+	.container
 		width: 35%
 		margin: 10px auto
 
@@ -128,3 +130,9 @@
 		transform: scaleX(1)
 	100%
 		transform: scaleX(0)
+
+
+@media screen and (min-width: 1024px)
+	.container
+		bottom: 0
+		top: auto
