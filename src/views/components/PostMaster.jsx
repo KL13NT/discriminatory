@@ -11,7 +11,6 @@ import { useAuth } from '../../stores/auth'
 import { useMutation } from 'urql'
 
 import * as queries from '../../queries/posts'
-import { Spinner } from '../../components/Loading/LoadingPage'
 import { useState } from 'react'
 
 const EmptyFeed = () => (
@@ -39,14 +38,7 @@ const PostList = ({ feed, ...props }) => {
 	return null
 }
 
-function PostMaster({
-	feedRes,
-	reFeed,
-	posts,
-	feedResPosts,
-	setBefore,
-	setPosts
-}) {
+function PostMaster({ posts, feedResPosts, setPosts }) {
 	const { add } = useToasts()
 	const { formatMessage: f } = useIntl()
 	const { profile } = useProfile()
@@ -54,7 +46,6 @@ function PostMaster({
 	const [fetchAgain, setFetchAgain] = useState(feedResPosts.length > 0)
 
 	useEffect(() => {
-		console.log(feedResPosts, feedResPosts.length, feedResPosts.length > 0)
 		setFetchAgain(feedResPosts.length > 0)
 	}, [feedResPosts])
 
@@ -191,7 +182,7 @@ function PostMaster({
 	}
 
 	//REFACTORME
-	return feedRes.data ? (
+	return (
 		<>
 			<PostList
 				onComment={onComment}
@@ -204,10 +195,9 @@ function PostMaster({
 				user={user}
 				profile={profile}
 			/>
-			{feedRes.fetching ? <Spinner /> : null}
 			{!fetchAgain ? <NoMorePosts /> : null}
 		</>
-	) : null
+	)
 }
 
 export default PostMaster

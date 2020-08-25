@@ -140,7 +140,12 @@ function Ads() {
 		<>
 			<Container className={styles.ads}>
 				<h1>
-					<FormattedMessage id='titles.ads' />
+					<FormattedMessage id='titles.ads' />{' '}
+					<span className='u-tick'>
+						<FormattedMessage
+							id={status ? 'general.enabled' : 'general.disabled'}
+						/>
+					</span>
 				</h1>
 				{isBlocked ? <Placeholder enabled={status} /> : null}
 				<script data-ad-client='ca-pub-4278004686608414' async>
@@ -149,10 +154,6 @@ function Ads() {
 			</Container>
 		</>
 	)
-}
-
-Ads.propTypes = {
-	enabled: PropTypes.bool.isRequired
 }
 
 export default Ads

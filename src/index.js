@@ -75,8 +75,8 @@ function App() {
 	//TODO: add notifications banner
 
 	return (
-		<StyleController>
-			<ErrorBoundaryPage>
+		<ErrorBoundaryPage>
+			<StyleController>
 				<GraphqlProvider value={graphql}>
 					<IntlController>
 						<InitialController>
@@ -88,8 +88,8 @@ function App() {
 						</InitialController>
 					</IntlController>
 				</GraphqlProvider>
-			</ErrorBoundaryPage>
-		</StyleController>
+			</StyleController>
+		</ErrorBoundaryPage>
 	)
 }
 
