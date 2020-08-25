@@ -20,7 +20,9 @@ export default function QuickLangSwitch() {
 	const onLanguageChange = target => {
 		update({
 			settings: {
+				...settings,
 				display: {
+					...settings.display,
 					language: {
 						locales,
 						selected: locales.find(locale => locale.locale === target.value)
