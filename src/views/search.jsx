@@ -4,14 +4,12 @@ import Container from '../components/Container/Container'
 import PostMaster from './components/PostMaster'
 import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
 
-import { Spinner } from '../components/Loading/LoadingPage'
 import {
 	useIntl,
 	FormattedPlural,
 	FormattedNumber,
 	FormattedMessage
 } from 'react-intl'
-
 import { useQuery, useMutation } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
@@ -19,6 +17,7 @@ import { useParams } from 'react-router-dom'
 import { useToasts } from '../components/Toast/Toast'
 
 import * as queries from '../queries/profiles'
+import { Spinner } from '../components/Loading/LoadingPage'
 
 const Four0Four = () => (
 	<Container>
