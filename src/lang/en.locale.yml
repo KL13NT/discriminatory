@@ -32,6 +32,7 @@ placeholders.composer: Write a comment...
 placeholders.location: Type your current location
 placeholders.displayName: Alex Doe
 placeholders.tagline: Be yourself
+placeholders.search: Search...
 
 actions.completeprofile: Submit
 actions.completeprofile.success: Profile updated successfully
@@ -119,6 +120,8 @@ register.disclaimer.emails: and to receive emails and updates.
 register.password.strength: 8 characters minimum, must contain at least 1 uppercase, 1 lowercase, and 1 special character
 
 search.noresults: No results for this query, try again with different keywords?
+search.tutorial: Keywords-based search. Precede words with a negative - sign to exclude them. Query must be at least 4 characters long.
+search.warning: Arabic queries are not supported currently.
 
 composer.title: Compose
 composer.placeholder: What's on your mind?
@@ -162,12 +165,12 @@ errors.ads.network: Something went wrong while loading ads, so here's a beautifu
 errors.profile.noposts: This user doesn't have any posts yet.
 errors.profile.404: This account doesn't exist.
 
-pageerrors.404.title: This page doesn't exist
-pageerrors.404.description: Try double-checking the link or go back.
-pageerrors.general.title: Yikes, this is embarrassing
-pageerrors.general.description: Try double-checking or going back.
-pageerrors.general.subtitle: We promise to fix it if you
-pageerrors.general.report: report it
+errors.404.title: This page doesn't exist
+errors.404.description: Try double-checking the link or go back.
+errors.general.title: Yikes, this is embarrassing
+errors.general.description: Try double-checking or going back.
+errors.general.subtitle: We promise to fix it if you
+errors.general.report: report it
 
 emojis.pleading: Face with big pleading eyes
 

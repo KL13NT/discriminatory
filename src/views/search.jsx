@@ -1,26 +1,22 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
-import Container from '../components/Container/Container'
 
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
-import { useParams, useLocation, Redirect } from 'react-router-dom'
+import { useLocation, Redirect } from 'react-router-dom'
 import { useToasts } from '../components/Toast/Toast'
 
 import { Spinner } from '../components/Loading/LoadingPage'
-import { isNearEndScroll } from '../utils/general'
-import { TabList } from '../components/Tabs/Tabs'
-import { Tab } from '../components/Tabs/Tabs'
-import PostMaster from './components/PostMaster'
 
 import * as queries from '../queries/search'
 
 const NoResults = () => (
-	<p>
-		<FormattedMessage id='search.noresults' />
-	</p>
+	<PageState
+		title={<FormattedMessage id='errors.nosearchresults.title' />}
+		subtitle={<FormattedMessage id='errors.nosearchresults.subtitle' />}
+	/>
 )
 
 function useSearchQuery() {
@@ -28,6 +24,8 @@ function useSearchQuery() {
 }
 
 import { IntlPlural } from './components/Plural'
+import PostMaster from './components/PostMaster'
+import { PageState } from '../components/Errors/PageError'
 
 function Search() {
 	const { add } = useToasts()
@@ -37,25 +35,16 @@ function Search() {
 
 	const [posts, setPosts] = useState([])
 
-	const [pagination, setPagination] = useState({ before: null })
 	const [searchRes] = useQuery({
 		query: queries.search,
 		variables: {
-			...pagination,
 			query: q
 		},
 		pause: !q || !user
 	})
 
 	useEffect(() => {
-		//TODO: use setQuery here
-		if (searchRes.data && searchRes.data.search.length > 0) {
-			const queryPosts = searchRes.data.search
-			setPosts([...posts, ...queryPosts])
-			setPagination({
-				before: queryPosts[queryPosts.length - 1]._id
-			})
-		}
+		if (searchRes.data) setPosts(searchRes.data.search)
 	}, [searchRes.data])
 
 	useEffect(
@@ -65,26 +54,6 @@ function Search() {
 			add({ text: f({ id: 'errors.general' }), type: 'danger' }),
 		[searchRes]
 	)
-
-	const onScroll = useCallback(() => {
-		if (
-			isNearEndScroll() &&
-			!searchRes.fetching &&
-			searchRes.data.search.posts.length > 0
-		) {
-			setPagination({
-				before:
-					searchRes.data.search.posts[searchRes.data.search.posts.length - 1]
-						._id
-			})
-		}
-	}, [searchRes])
-
-	useEffect(() => {
-		window.addEventListener('scroll', onScroll)
-
-		return () => window.removeEventListener('scroll', onScroll)
-	}, [searchRes, onScroll])
 
 	if (!q) return <Redirect to='/explore' />
 	if (searchRes.error) return <NoResults />
@@ -100,6 +69,11 @@ function Search() {
 				>
 					<FormattedMessage id='titles.search' />
 				</PageTitle>
+				<PostMaster
+					feedResPosts={searchRes.data.search}
+					setPosts={setPosts}
+					posts={posts}
+				/>
 				{posts.length === 0 ? <NoResults /> : null}
 			</>
 		)

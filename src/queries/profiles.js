@@ -29,7 +29,10 @@ export const profile = `
 			}
 
 			posts{
-				location
+				location{
+					location
+					reputation
+				}
 				content
 				created
 				pinned

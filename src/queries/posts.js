@@ -16,7 +16,10 @@ export const feed = `
 		feed(before: $before){
 			content
 			created
-			location
+			location{
+				location
+				reputation
+			}
 			_id
 			author{
 				displayName
@@ -48,7 +51,10 @@ export const explore = `
 		explore(before: $before){
 			content
 			created
-			location
+			location{
+				location
+				reputation
+			}
 			_id
 			author{
 				displayName
@@ -80,7 +86,10 @@ export const search = `
 		search(query: $query, before: $before){
 			content
 			created
-			location
+			location{
+				location
+				reputation
+			}
 			_id
 			author{
 				displayName

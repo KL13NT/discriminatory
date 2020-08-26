@@ -21,9 +21,15 @@ const Login = React.lazy(() => import('./views/login'))
 const Verify = React.lazy(() => import('./views/verify'))
 const Search = React.lazy(() => import('./views/search'))
 
-export const PrivateRoute = ({ component: Component, user, ...rest }) => {
+export const PrivateRoute = ({
+	component: Component,
+	user,
+	profile,
+	...rest
+}) => {
 	if (user) {
-		if (user.emailVerified) return <Route component={Component} {...rest} />
+		if (user.emailVerified && profile)
+			return <Route component={Component} {...rest} />
 		else return <Redirect to='/explore' />
 	} else return <Redirect to='/login' />
 }
@@ -37,26 +43,32 @@ export const AnonymousOnly = ({ component: Component, user, ...rest }) => {
 	else return <Redirect to='/home' />
 }
 
-function Router({ user }) {
+function Router({ user, profile }) {
 	return (
 		<BrowserRouter>
 			<Switch>
 				<Redirect from='/' to='/home' exact />
 				<Redirect from='/settings' to='/settings/basics' exact />
 
-				<AnonymousOnly component={Login} path='/login' user={user} />
-				<PrivateRoute component={Verify} path='/verify' user={user} />
-				<AnonymousOnly component={Register} path='/register' user={user} />
+				<AnonymousOnly component={Login} path='/login' user={user} exact />
+				<PrivateRoute component={Verify} path='/verify' user={user} exact />
+				<AnonymousOnly
+					component={Register}
+					path='/register'
+					user={user}
+					exact
+				/>
 				<Route>
 					<Layout user={user}>
 						<Switch>
-							<PrivateRoute component={Home} path='/home' user={user} />
-							<SharedRoute component={Explore} path='/explore' user={user} />
-							<SharedRoute
-								component={() => 'disc'}
-								path='/discriminators'
+							<PrivateRoute
+								component={Home}
+								path='/home'
 								user={user}
+								profile={profile}
+								exact
 							/>
+							<SharedRoute component={Explore} path='/explore' user={user} />
 
 							<SharedRoute path='/settings' user={user}>
 								<Settings />
@@ -65,31 +77,47 @@ function Router({ user }) {
 										path='/settings/basics'
 										component={Basics}
 										user={user}
+										exact
 									/>
 									<PrivateRoute
 										path='/settings/profile'
 										component={ProfileSettings}
 										user={user}
+										profile={profile}
+										exact
 									/>
 									<SharedRoute
 										path='/settings/display'
 										component={Display}
 										user={user}
+										exact
 									/>
 									<SharedRoute
 										path='/settings/ads'
 										component={Ads}
 										user={user}
+										exact
 									/>
 								</Switch>
 							</SharedRoute>
-							<PrivateRoute component={Search} path='/search' user={user} />
-							<PrivateRoute component={Profile} path='/:user_id' user={user} />
+							<PrivateRoute
+								component={Search}
+								path='/search'
+								user={user}
+								profile={profile}
+								exact
+							/>
+							<PrivateRoute
+								component={Profile}
+								path='/:user_id'
+								user={user}
+								profile={profile}
+								exact
+							/>
+							<Route component={Four0Four} />
 						</Switch>
 					</Layout>
 				</Route>
-
-				<Route path='*' component={Four0Four} exact />
 			</Switch>
 			<BannerController />
 		</BrowserRouter>

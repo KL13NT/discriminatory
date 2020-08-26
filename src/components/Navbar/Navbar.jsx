@@ -61,14 +61,6 @@ function Navbar({ user }) {
 					icon={Explore}
 				/>
 
-				{/* <PrivateLink user={user}>
-					<NavbarLink
-						to='/notifications'
-						name={f({ id: 'titles.notifications' })}
-						icon={Notifications}
-					/>
-				</PrivateLink> */}
-
 				<PrivateLink user={user}>
 					<NavbarLink
 						to={`/${user ? user.uid : null}`}
@@ -77,11 +69,6 @@ function Navbar({ user }) {
 					/>
 				</PrivateLink>
 
-				<NavbarLink
-					to='/discriminators'
-					name={f({ id: 'titles.discriminators' })}
-					icon={Discriminators}
-				/>
 				<NavbarLink
 					to='/settings'
 					name={f({ id: 'titles.settings' })}
