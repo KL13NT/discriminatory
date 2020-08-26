@@ -216,15 +216,6 @@ export function Settings() {
 				<NavLink to='/settings/ads'>
 					<FormattedMessage id='titles.ads' />
 				</NavLink>
-				{/* <NavLink to='/settings/security'>
-					<FormattedMessage id='titles.security' />
-				</NavLink> */}
-				{/* <NavLink to='/settings/danger'>
-					<FormattedMessage id='titles.danger' />
-				</NavLink>
-				<NavLink to='/settings/accessibility'>
-					<FormattedMessage id='titles.a11y' />
-				</NavLink> */}
 			</TabList>
 		</>
 	)

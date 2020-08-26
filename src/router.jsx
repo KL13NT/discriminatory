@@ -19,6 +19,7 @@ const Explore = React.lazy(() => import('./views/explore'))
 const Register = React.lazy(() => import('./views/register'))
 const Login = React.lazy(() => import('./views/login'))
 const Verify = React.lazy(() => import('./views/verify'))
+const Search = React.lazy(() => import('./views/search'))
 
 export const PrivateRoute = ({ component: Component, user, ...rest }) => {
 	if (user) {
@@ -52,11 +53,6 @@ function Router({ user }) {
 							<PrivateRoute component={Home} path='/home' user={user} />
 							<SharedRoute component={Explore} path='/explore' user={user} />
 							<SharedRoute
-								component={() => 'search'}
-								path='/search'
-								user={user}
-							/>
-							<SharedRoute
 								component={() => 'disc'}
 								path='/discriminators'
 								user={user}
@@ -87,6 +83,7 @@ function Router({ user }) {
 									/>
 								</Switch>
 							</SharedRoute>
+							<PrivateRoute component={Search} path='/search' user={user} />
 							<PrivateRoute component={Profile} path='/:user_id' user={user} />
 						</Switch>
 					</Layout>

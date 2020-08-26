@@ -73,6 +73,7 @@ banners.register.link: Register now.
 banners.register.subtitle: Registered users enjoy more benefits and features.
 
 disclaimers.settings.ads: Ads are our main source of revenue, disabling them may worsen the quality of the service.
+disclaimers.register.age: You must be at least 13 years of age or have parental permission.
 
 prompts.completeprofile: Is this data correct? You can only change your avatar once every 24 hours.
 
@@ -94,6 +95,7 @@ titles.display: Display
 titles.display.description: Change visual settings
 titles.ads: Advertisements
 titles.ads.description: Control advertisements
+titles.search: Search Results
 
 login.header.title: Join the cause against discrimination
 login.header.subtitle: Share, empathise, and enjoy your time on the first social network built specifically to fight discrimination. Available on all screens for free.
@@ -116,6 +118,8 @@ register.disclaimer.base: By clicking Continue, I confirm that I have read and a
 register.disclaimer.emails: and to receive emails and updates.
 register.password.strength: 8 characters minimum, must contain at least 1 uppercase, 1 lowercase, and 1 special character
 
+search.noresults: No results for this query, try again with different keywords?
+
 composer.title: Compose
 composer.placeholder: What's on your mind?
 composer.submit: Post
@@ -128,6 +132,11 @@ plurals.post.zero: posts
 plurals.post.one: post
 plurals.post.few: posts
 plurals.post.many: posts
+
+plurals.result.zero: results
+plurals.result.one: result
+plurals.result.few: results
+plurals.result.many: results
 
 loading.title: Loading
 loading.warning: If you're seeing this your connection may be slow, a feature we require isn't supported in your browser version, or something went wrong on our side. If it persists feel free to report it.

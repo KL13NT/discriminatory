@@ -1,208 +1,108 @@
 import React, { useEffect, useCallback } from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
 import Container from '../components/Container/Container'
-import PostMaster from './components/PostMaster'
-import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
 
-import {
-	useIntl,
-	FormattedPlural,
-	FormattedNumber,
-	FormattedMessage
-} from 'react-intl'
-import { useQuery, useMutation } from 'urql'
+import { useIntl, FormattedMessage } from 'react-intl'
+import { useQuery } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation, Redirect } from 'react-router-dom'
 import { useToasts } from '../components/Toast/Toast'
 
-import * as queries from '../queries/profiles'
 import { Spinner } from '../components/Loading/LoadingPage'
+import { isNearEndScroll } from '../utils/general'
+import { TabList } from '../components/Tabs/Tabs'
+import { Tab } from '../components/Tabs/Tabs'
+import PostMaster from './components/PostMaster'
 
-const Four0Four = () => (
-	<Container>
-		<p>
-			<FormattedMessage id='errors.profile.404' />
-		</p>
-	</Container>
+import * as queries from '../queries/search'
+
+const NoResults = () => (
+	<p>
+		<FormattedMessage id='search.noresults' />
+	</p>
 )
 
-const IntlPlural = ({ value, localeContainId }) => {
-	const { formatMessage: f } = useIntl()
-
-	const zero = `${localeContainId}.zero`
-	const one = `${localeContainId}.one`
-	const few = `${localeContainId}.few`
-	const many = `${localeContainId}.many`
-
-	return (
-		<>
-			{value === 0 ? (
-				<FormattedMessage id='numbers.zero' />
-			) : (
-				<FormattedNumber value={value} />
-			)}{' '}
-			<FormattedPlural
-				value={value}
-				zero={f({ id: zero })}
-				one={f({ id: one })}
-				few={f({ id: few })}
-				many={f({ id: many })}
-			/>
-		</>
-	)
+function useSearchQuery() {
+	return new URLSearchParams(useLocation().search).get('q')
 }
 
-function Profile() {
+import { IntlPlural } from './components/Plural'
+
+function Search() {
 	const { add } = useToasts()
 	const { user } = useAuth()
-	const { user_id } = useParams()
 	const { formatMessage: f } = useIntl()
+	const q = useSearchQuery()
 
-	const [profile, setProfile] = useState(null)
-	const posts = profile ? profile.posts : []
-
-	const [followRes, follow] = useMutation(queries.follow)
-	const [unfollowRes, unfollow] = useMutation(queries.unfollow)
+	const [posts, setPosts] = useState([])
 
 	const [pagination, setPagination] = useState({ before: null })
-	const [profileRes, reProfile] = useQuery({
-		query: queries.profile,
+	const [searchRes] = useQuery({
+		query: queries.search,
 		variables: {
 			...pagination,
-			member: user_id
+			query: q
 		},
-		pause: !user,
-		requestPolicy: 'network-only'
+		pause: !q || !user
 	})
 
-	const error = useCallback(
-		() => add({ text: f({ id: 'errors.general' }), type: 'danger' }),
-		[] // eslint-disable-line
-	)
-
-	useEffect(() => followRes.error && console.log(followRes.error) && error(), [
-		followRes,
-		error
-	])
-	useEffect(
-		() => unfollowRes.error && console.log(unfollowRes.error) && error(),
-		[unfollowRes, error]
-	)
-	useEffect(
-		() => profileRes.error && console.log(profileRes.error) && error(),
-		[profileRes, error]
-	)
-
-	const onFollow = () => {
-		const { _id } = profileRes.data.profile.user
-
-		follow({ member: _id }).then(response => {
-			if (!response.error) {
-				add({
-					text: f({ id: 'actions.followprofile.success' }),
-					type: 'success'
-				})
-				setProfile({ ...profile, following: true })
-			}
-		})
-	}
-
-	//TODO: create a profiles store
-
-	const onUnfollow = () => {
-		const { _id } = profileRes.data.profile.user
-
-		unfollow({ member: _id }).then(response => {
-			if (!response.error) {
-				add({
-					text: f({ id: 'actions.unfollowprofile.success' }),
-					type: 'success'
-				})
-				setProfile({ ...profile, following: false })
-			}
-		})
-	}
-
 	useEffect(() => {
-		if (!profileRes.error && profileRes.data) {
-			if (pagination.before) {
-				if (profileRes.data.profile.posts.length > 0)
-					setProfile({
-						...profile,
-						posts: [
-							...posts,
-							...profileRes.data.profile.posts.map(post => ({
-								...post,
-								author: profileRes.data.profile.user
-							}))
-						]
-					})
-			} else {
-				const { profile } = profileRes.data
-				setProfile({
-					...profile,
-					posts: [
-						...posts,
-						...profile.posts.map(post => ({
-							...post,
-							author: profile.user
-						}))
-					]
-				})
-			}
+		//TODO: use setQuery here
+		if (searchRes.data && searchRes.data.search.length > 0) {
+			const queryPosts = searchRes.data.search
+			setPosts([...posts, ...queryPosts])
+			setPagination({
+				before: queryPosts[queryPosts.length - 1]._id
+			})
 		}
-	}, [profileRes])
+	}, [searchRes.data])
+
+	useEffect(
+		() =>
+			searchRes.error &&
+			console.log(searchRes.error) &&
+			add({ text: f({ id: 'errors.general' }), type: 'danger' }),
+		[searchRes]
+	)
 
 	const onScroll = useCallback(() => {
 		if (
-			window.scrollY + window.innerHeight > document.body.clientHeight - 100 &&
-			!profileRes.fetching &&
-			profileRes.data.profile.posts.length > 0
+			isNearEndScroll() &&
+			!searchRes.fetching &&
+			searchRes.data.search.posts.length > 0
 		) {
-			setPagination({ before: profile.posts[profile.posts.length - 1]._id })
+			setPagination({
+				before:
+					searchRes.data.search.posts[searchRes.data.search.posts.length - 1]
+						._id
+			})
 		}
-	}, [profileRes, posts])
+	}, [searchRes])
 
 	useEffect(() => {
 		window.addEventListener('scroll', onScroll)
 
 		return () => window.removeEventListener('scroll', onScroll)
-	}, [profileRes, onScroll])
+	}, [searchRes, onScroll])
 
-	if (profileRes.error) return <Four0Four />
-	if (!profile) return <Spinner />
-	return (
-		<>
-			<PageTitle
-				tick={
-					<IntlPlural
-						value={profile.postCount}
-						localeContainId='plurals.post'
-					/>
-				}
-			>
-				{profile.user.displayName}
-			</PageTitle>
-			<ProfileHeader
-				profile={profile}
-				onFollow={onFollow}
-				onUnfollow={onUnfollow}
-			/>
-			{posts.length === 0 ? (
-				<Container>
-					<FormattedMessage id='errors.profile.noposts' />
-				</Container>
-			) : (
-				<PostMaster
-					feedRes={profileRes}
-					reFeed={reProfile}
-					feedResPosts={profileRes.data.profile.posts}
-					posts={profile.posts}
-				/>
-			)}
-		</>
-	)
+	if (!q) return <Redirect to='/explore' />
+	if (searchRes.error) return <NoResults />
+	if (searchRes.fetching || !searchRes.data) return <Spinner />
+	if (searchRes.data)
+		return (
+			<>
+				<PageTitle
+					tick={
+						<IntlPlural value={posts.length} localeContainId='plurals.result' />
+					}
+					subtitle={q}
+				>
+					<FormattedMessage id='titles.search' />
+				</PageTitle>
+				{posts.length === 0 ? <NoResults /> : null}
+			</>
+		)
 }
 
-export default Profile
+export default Search

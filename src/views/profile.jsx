@@ -19,6 +19,7 @@ import { useParams } from 'react-router-dom'
 import { useToasts } from '../components/Toast/Toast'
 
 import * as queries from '../queries/profiles'
+import { IntlPlural } from './components/Plural'
 
 const Four0Four = () => (
 	<Container>
@@ -27,32 +28,6 @@ const Four0Four = () => (
 		</p>
 	</Container>
 )
-
-const IntlPlural = ({ value, localeContainId }) => {
-	const { formatMessage: f } = useIntl()
-
-	const zero = `${localeContainId}.zero`
-	const one = `${localeContainId}.one`
-	const few = `${localeContainId}.few`
-	const many = `${localeContainId}.many`
-
-	return (
-		<>
-			{value === 0 ? (
-				<FormattedMessage id='numbers.zero' />
-			) : (
-				<FormattedNumber value={value} />
-			)}{' '}
-			<FormattedPlural
-				value={value}
-				zero={f({ id: zero })}
-				one={f({ id: one })}
-				few={f({ id: few })}
-				many={f({ id: many })}
-			/>
-		</>
-	)
-}
 
 function Profile() {
 	const { add } = useToasts()

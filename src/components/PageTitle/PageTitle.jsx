@@ -10,7 +10,7 @@ function PageTitle({ children, subtitle, tick, ...props }) {
 				<h1>{children}</h1>
 				{tick ? <span>{tick}</span> : null}
 			</div>
-			{subtitle ? <span>{subtitle}</span> : null}
+			{subtitle ? <span dir='auto'>{subtitle}</span> : null}
 		</div>
 	)
 }

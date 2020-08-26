@@ -31,3 +31,7 @@ export const getProfilesFromPosts = posts => {
 
 	return profiles
 }
+
+export const isNearEndScroll = () => {
+	return window.scrollY + window.innerHeight > document.body.clientHeight - 100
+}

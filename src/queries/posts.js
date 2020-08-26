@@ -75,6 +75,28 @@ export const explore = `
 	}
 `
 
+export const search = `
+	query($query: String!, $before: ID){
+		search(query: $query, before: $before){
+			content
+			created
+			location
+			_id
+			author{
+				displayName
+				avatar
+				verified
+				_id
+			}
+			reactions{
+				upvotes
+				downvotes
+				reaction
+			}
+		}
+	}
+`
+
 export const pin = `
 	mutation PinMutation ($post: ID!){
 			pin(post: $post)

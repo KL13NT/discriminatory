@@ -68,7 +68,6 @@ function Home() {
 				onSuccess={onSuccess}
 			/>
 			<PostMaster
-				feedRes={feedRes}
 				reFeed={reFeed}
 				feedResPosts={feedRes.data.feed}
 				posts={posts}

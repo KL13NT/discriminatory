@@ -73,12 +73,14 @@ function Post(props) {
 				{location}
 			</span>
 
-			<PostRating
-				reactions={reactions}
-				onUpvote={onUpvote}
-				onDownvote={onDownvote}
-				user={user}
-			/>
+			{reactions ? (
+				<PostRating
+					reactions={reactions}
+					onUpvote={onUpvote}
+					onDownvote={onDownvote}
+					user={user}
+				/>
+			) : null}
 
 			{
 				<Button

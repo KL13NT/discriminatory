@@ -31,13 +31,13 @@ const NoMorePosts = () => (
 )
 
 const PostList = ({ feed, ...props }) => {
-	console.log(feed)
 	const posts = feed.map(post => <Post key={post._id} {...post} {...props} />)
 
 	if (feed) return feed.length === 0 ? <EmptyFeed /> : posts
 	return null
 }
 
+//REFACTORME
 function PostMaster({ posts, feedResPosts, setPosts }) {
 	const { add } = useToasts()
 	const { formatMessage: f } = useIntl()
