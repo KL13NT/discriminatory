@@ -48,11 +48,16 @@ function InitialController({ children }) {
 
 	useEffect(() => {
 		if (response.error) {
-			clearAuth()
-			clearProfile()
-			finish('Loading your profile')
-			finish('Authenticating')
-			add({ text: f({ id: 'errors.general' }), type: 'danger' })
+			if (response.error.graphQLErrors[0].extensions.code !== 'NOT_FOUND') {
+				clearAuth()
+				clearProfile()
+				finish('Loading your profile')
+				finish('Authenticating')
+				add({ text: f({ id: 'errors.general' }), type: 'danger' })
+			} else {
+				finish('Loading your profile')
+				finish('Authenticating')
+			}
 		}
 	}, [add, clearAuth, clearProfile, f, finish, response.error])
 
