@@ -12,8 +12,8 @@ general.picklocation: اختر مكاناً
 general.empty: لا يوجد شئ هنا
 general.pinned: هذا المنشور مثبت
 general.posts: منشورات
-general.terms.long: بشروط الخدمة
-general.privacy.long: سياسية الخصوصية
+general.terms: شروط الخدمة
+general.privacy: سياسية الخصوصية
 general.language: اللغة
 general.fontsize: حجم الخط
 general.logout: تسجيل الخروج
@@ -28,6 +28,8 @@ general.ads: إعلانات
 general.photoby: صوَّرها
 general.unsplash: أونسبلاش
 general.nomoreposts: لم يعد هناك منشورات من أجلك, حاول لاحقاً
+general.about: عن الموقع
+general.guidelines: القواعد الإرشادية
 
 states.feedend.title: وصلتم لنهاية الطريق
 states.feedend.description: لا يوجد المزيد من المنشورات الآن. عاودوا لاحقاً.

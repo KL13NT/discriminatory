@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import Container from '../Container/Container'
 
 import styles from './Ads.module.sass'
@@ -19,9 +18,6 @@ import { FormattedMessage } from 'react-intl'
 
 const SCRIPT_URL =
 	'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
-
-const UNSPLASH =
-	'https://unsplash.com?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'
 
 const IMAGES = [
 	{

@@ -29,7 +29,6 @@
 
 .logo
 	display: none
-	width: 240px
 
 .links
 	display: flex
@@ -70,6 +69,7 @@
 			color: var(--color-blue-lighter)
 		svg, svg path
 			fill: var(--color-blue-lighter) !important
+
 .compose
 	height: 50px
 	width: 50px
@@ -86,6 +86,10 @@
 		background: transparent
 	span
 		display: none
+
+[dir="rtl"] .compose
+	left: 6%
+	right: auto
 
 @media screen and (min-width: 414px)
 	.compose
@@ -118,8 +122,13 @@
 @media screen and (min-width: 1024px)
 	.container
 		width: 20%
+	.logo
+		display: block
+		width: 70%
+	.links
+		margin-block: 20px
 	.compose
-		width: 100%
+		width: 70%
 		border-radius: 5px
 		display: block
 		position: relative

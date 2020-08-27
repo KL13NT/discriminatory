@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './LoadingPage.module.sass'
-import LoadingSVG from '../../assets/loading.svg'
 import { useEffect } from 'react'
 import { useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
@@ -38,7 +37,7 @@ const randomGif = () => {
 	return filename
 }
 
-export const FullscreenLoader = ({ children }) => {
+export const FullscreenLoader = () => {
 	const [src, setSrc] = useState(randomGif())
 	const [error, setError] = useState(false)
 	const { formatMessage: f } = useIntl()

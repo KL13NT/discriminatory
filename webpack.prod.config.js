@@ -1,4 +1,3 @@
-const Webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssets = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
@@ -12,7 +11,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const { InjectManifest } = require('workbox-webpack-plugin')
 
-const { html, entry, loaders } = require('./webpack.shared.config')
+const { html, entry, resolve, loaders } = require('./webpack.shared.config')
 
 const plugins = [
 	...html,
@@ -20,9 +19,6 @@ const plugins = [
 
 	new CopyWebpackPlugin({
 		patterns: [{ from: './_redirects', to: './build' }]
-	}),
-	new Webpack.DefinePlugin({
-		'process.env': { NODE_ENV: JSON.stringify('production') }
 	}),
 
 	new CleanWebpackPlugin({
@@ -74,6 +70,7 @@ module.exports = (env, argv) => ({
 	output,
 	plugins,
 	optimization,
+	resolve,
 	module: {
 		rules: loaders(argv.mode)
 	}

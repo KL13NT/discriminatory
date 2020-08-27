@@ -168,8 +168,15 @@ const loaders = mode => [
 	...localeLoaders
 ]
 
+const resolve = {
+	alias: {
+		config: path.join(__dirname, './', process.env.NODE_ENV || 'development')
+	}
+}
+
 module.exports = {
 	entry,
 	html,
+	resolve,
 	loaders
 }

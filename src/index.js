@@ -1,4 +1,5 @@
 import { initializeApp as initFirebase } from 'firebase'
+import config from 'config'
 
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
@@ -11,7 +12,7 @@ import {
 } from 'urql'
 import { retryExchange } from '@urql/exchange-retry'
 
-import config from '../client.firebase.json'
+import firebaseConfig from '../client.firebase.json'
 
 import InitialController from './views/controllers/InitialController.jsx'
 import IntlController from './views/controllers/IntlController'
@@ -32,9 +33,9 @@ import { useProfile } from './stores/profile'
 /**
  * GraphQL & Firebase Initialisation
  */
-initFirebase(config)
+initFirebase(firebaseConfig)
 const graphql = createClient({
-	url: `http://${process.env.api}/graphql`,
+	url: config.api,
 	fetchOptions: () => {
 		const token = localStorage.getItem('AUTH_ID_TOKEN')
 		return {

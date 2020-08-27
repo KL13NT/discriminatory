@@ -14,8 +14,8 @@ import * as queries from '../queries/search'
 
 const NoResults = () => (
 	<PageState
-		title={<FormattedMessage id='errors.nosearchresults.title' />}
-		subtitle={<FormattedMessage id='errors.nosearchresults.subtitle' />}
+		title={<FormattedMessage id='states.nosearchresults.title' />}
+		subtitle={<FormattedMessage id='states.nosearchresults.subtitle' />}
 	/>
 )
 

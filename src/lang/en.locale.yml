@@ -6,14 +6,14 @@ general.location: Location
 general.tagline: Tagline
 general.progress: Saving your profile
 general.avatar: Your profile picture
-general.terms.long: Terms Of Service
-general.privacy.long: Privacy Policy
+general.terms: Terms Of Service
+general.privacy: Privacy Policy
 general.picklocation: Pick a location
 general.empty: Nothing to see here
 general.pinned: This post is pinned
 general.posts: Posts
-general.terms.long: Terms of Service
-general.privacy.long: Privacy Policy
+general.terms: Terms of Service
+general.privacy: Privacy Policy
 general.language: Language
 general.fontsize: Font Size
 general.logout: Logout
@@ -28,6 +28,8 @@ general.ads: Advertisement
 general.photoby: Photo by
 general.unsplash: Unsplash
 general.nomoreposts: There are no more posts, try again later
+general.about: About
+general.guidelines: Guidelines
 
 states.feedend.title: Reached the end
 states.feedend.description: There are no more posts for now, try again later.
