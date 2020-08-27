@@ -62,7 +62,7 @@ function Composer({ avatar, verified, onSuccess, ...props }) {
 
 		post(data).then(response => {
 			if (!response.error) {
-				onSuccess()
+				onSuccess(data)
 				toggle(true)
 				setPostData({ content: '', location: null })
 			} else {
@@ -106,45 +106,37 @@ function OverlayComposer() {
 	const { active, toggle } = useComposer()
 	const { profile } = useProfile()
 	const { formatMessage: f } = useIntl()
-	const [postRes, post] = useMutation(queries.post)
 
 	const { home, setHome } = usePosts(state => ({
 		home: state.home,
 		setHome: state.setHome
 	}))
 
-	const error = useCallback(
-		() => add({ text: f({ id: 'errors.general' }), type: 'danger' }),
-		[] // eslint-disable-line
-	)
-
-	useEffect(() => postRes.error && error(), [postRes.error, error])
-
-	const onCompose = newPost => {
-		post(newPost).then(res => {
-			if (!res.error) {
-				add({
-					text: f({ id: 'actions.createpost.success' }),
-					type: 'success'
-				})
-
-				const post = {
-					author: profile,
-					comments: [],
-					reactions: { upvotes: 0, downvotes: 0 },
-					created: Date.now(),
-					...newPost
-				}
-
-				setHome([post, ...home])
-			}
+	const onSuccess = newPost => {
+		add({
+			text: f({ id: 'actions.createpost.success' }),
+			type: 'success'
 		})
+
+		const post = {
+			author: profile,
+			comments: [],
+			reactions: { upvotes: 0, downvotes: 0 },
+			created: Date.now(),
+			...newPost
+		}
+
+		setHome([post, ...home])
 	}
 
 	if (!active) return null
 	return (
 		<Overlay onClose={toggle}>
-			<Composer {...profile} verified={profile.verified} onSubmit={onCompose} />
+			<Composer
+				{...profile}
+				verified={profile.verified}
+				onSuccess={onSuccess}
+			/>
 		</Overlay>
 	)
 }
