@@ -20,6 +20,7 @@ const Register = React.lazy(() => import('./views/register'))
 const Login = React.lazy(() => import('./views/login'))
 const Verify = React.lazy(() => import('./views/verify'))
 const Search = React.lazy(() => import('./views/search'))
+const Post = React.lazy(() => import('./views/post'))
 
 export const PrivateRoute = ({
 	component: Component,
@@ -110,6 +111,13 @@ function Router({ user, profile }) {
 							<PrivateRoute
 								component={Profile}
 								path='/:user_id'
+								user={user}
+								profile={profile}
+								exact
+							/>
+							<SharedRoute
+								component={Post}
+								path='/:user_id/:post'
 								user={user}
 								profile={profile}
 								exact

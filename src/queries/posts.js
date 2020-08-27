@@ -137,3 +137,38 @@ export const post = `
 		post(content: $content,  location: $location)
 	}
 `
+
+export const getPost = `
+	query($member: ID!, $post: ID!){
+		post(member: $member, post: $post){
+			content
+			created
+			location{
+				location
+				reputation
+			}
+			_id
+			author{
+				displayName
+				avatar
+				verified
+				_id
+			}
+			comments{
+				_id
+				content
+				author {
+					displayName
+					avatar
+					verified
+					_id
+				}
+			}
+			reactions{
+				upvotes
+				downvotes
+				reaction
+			}
+		}
+	}
+`
