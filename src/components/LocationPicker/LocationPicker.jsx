@@ -50,9 +50,7 @@ function LocationPicker({ onPick, disabled, ...props }) {
 				disabled={disabled}
 				className={cls(styles.toggle, 'u-text-limit')}
 			>
-				<div>
-					<GPS />
-				</div>
+				<GPS />
 				<span className='u-text-limit'>
 					{location || f({ id: 'general.picklocation' })}
 				</span>

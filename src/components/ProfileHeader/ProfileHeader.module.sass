@@ -21,9 +21,6 @@
 	margin: 10px 0
 	color: var(--color-primary)
 
-	svg, path
-		fill: var(--color-primary)
-
 .details
 	display: flex
 	flex-direction: column
@@ -31,6 +28,9 @@
 	margin: 10px
 	z-index: 5
 	width: 90%
+
+	a, span, h1
+		margin-top: 5px
 
 	span, h1
 		direction: revert
@@ -43,8 +43,8 @@
 		overflow: auto
 
 	span:nth-of-type(2) > svg
-		height: 30px
-		width: 30px
+		height: 20px
+		width: 20px
 		margin: 0 5px
 		writing-mode: horizontal-tb
 		fill: var(--color-purple-base)

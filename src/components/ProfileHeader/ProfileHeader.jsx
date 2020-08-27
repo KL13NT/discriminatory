@@ -1,16 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { FormattedMessage } from 'react-intl'
 
 import Container from '../Container/Container'
 import Button from '../Button/Button'
+import Avatar from '../Avatar/Avatar'
 
-import styles from './ProfileHeader.module.sass'
+import { useAuth } from '../../stores/auth'
 
 import { ReactComponent as Location } from '../../assets/gps.svg'
-import { Link } from 'react-router-dom'
+
 import Cover from '../../assets/cover.jpg'
-import { useAuth } from '../../stores/auth'
-import Avatar from '../Avatar/Avatar'
-import { FormattedMessage } from 'react-intl'
+
+import styles from './ProfileHeader.module.sass'
 
 export function ProfileHeader({ onFollow, onUnfollow, profile }) {
 	const { user } = useAuth()

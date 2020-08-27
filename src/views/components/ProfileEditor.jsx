@@ -31,7 +31,7 @@ function ProfileEditor() {
 					dateofbirth: '2003-12-12'
 			  }
 	)
-	const [avatar, setAvatar] = useState(null)
+	const [avatar, setAvatar] = useState(profile.avatar)
 	const [canSubmit, setCanSubmit] = useState(false)
 
 	const [response, updateProfile] = useMutation(queries.updateProfile)
@@ -95,12 +95,14 @@ function ProfileEditor() {
 		setData({ ...data, [currentTarget.name]: currentTarget.value })
 	}
 
+	console.log(profile)
+
 	return (
 		<>
 			<ProfilePreview
 				displayName={data.displayName}
 				tagline={data.tagline}
-				avatar={avatar ? avatar.src : Placeholder}
+				avatar={avatar ? avatar : Placeholder}
 				location={data.location}
 			/>
 			<form onSubmit={onSubmit}>

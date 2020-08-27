@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import Container from '../components/Container/Container'
 import PageTitle from '../components/PageTitle/PageTitle'
-import { Tabs, Tab, Panel, TabList } from '../components/Tabs/Tabs'
+import { TabList } from '../components/Tabs/Tabs'
 // import TextInput from '../components/TextInput/TextInput'
 // import Button from '../components/Button/Button'
 
@@ -12,10 +12,12 @@ import { useToasts } from '../components/Toast/Toast'
 import { useSettings } from '../stores/settings'
 import Label from '../components/Label/Label'
 import Select from '../components/Select/Select'
-import { NavLink, Switch, Route, Redirect } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Button from '../components/Button/Button'
 import ProfileEditor from './components/ProfileEditor'
 import { useAuth } from '../stores/auth'
+
+// REFACTORME: move to multiple files
 
 export const Profile = () => {
 	return <ProfileEditor />
