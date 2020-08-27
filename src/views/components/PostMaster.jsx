@@ -11,21 +11,17 @@ import { useAuth } from '../../stores/auth'
 import { useMutation } from 'urql'
 
 import * as queries from '../../queries/posts'
-import { useState } from 'react'
 
 const EmptyFeed = () => (
 	<Container>
 		<p>
-			Oh no, your feed is empty! <Link to='/explore'>Explore</Link> to find
-			people and engage with the community.
-		</p>
-	</Container>
-)
-
-const NoMorePosts = () => (
-	<Container>
-		<p>
-			<FormattedMessage id='general.nomoreposts' />
+			<FormattedMessage
+				id='states.emptyfeed'
+				values={{
+					// eslint-disable-next-line react/display-name
+					explore: chunks => <Link to='/explore'>{chunks}</Link>
+				}}
+			/>
 		</p>
 	</Container>
 )
@@ -33,21 +29,15 @@ const NoMorePosts = () => (
 const PostList = ({ feed, ...props }) => {
 	const posts = feed.map(post => <Post key={post._id} {...post} {...props} />)
 
-	if (feed) return feed.length === 0 ? <EmptyFeed /> : posts
-	return null
+	return posts
 }
 
 //REFACTORME
-function PostMaster({ posts, feedResPosts, setPosts }) {
+function PostMaster({ posts, setPosts }) {
 	const { add } = useToasts()
 	const { formatMessage: f } = useIntl()
 	const { profile } = useProfile()
 	const { user } = useAuth()
-	const [fetchAgain, setFetchAgain] = useState(feedResPosts.length > 0)
-
-	useEffect(() => {
-		setFetchAgain(feedResPosts.length > 0)
-	}, [feedResPosts])
 
 	const [reactionRes, react] = useMutation(queries.react)
 	const [commentRes, comment] = useMutation(queries.comment)
@@ -195,7 +185,6 @@ function PostMaster({ posts, feedResPosts, setPosts }) {
 				user={user}
 				profile={profile}
 			/>
-			{!fetchAgain ? <NoMorePosts /> : null}
 		</>
 	)
 }

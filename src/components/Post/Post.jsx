@@ -37,7 +37,7 @@ function Post(props) {
 		content,
 		comments,
 		reactions,
-		location,
+		location: { location, reputation },
 		pinned,
 		author: { _id: authorId },
 		_id

@@ -35,3 +35,10 @@ export const getProfilesFromPosts = posts => {
 export const isNearEndScroll = () => {
 	return window.scrollY + window.innerHeight > document.body.clientHeight - 100
 }
+
+/**
+ *
+ * @param {import('urql').CombinedError} error
+ */
+export const getApolloErrorCode = error =>
+	error.networkError ? 'NETWORK_ERROR' : error.graphQLErrors[0].extensions.code

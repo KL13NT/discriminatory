@@ -3,7 +3,7 @@ import PageTitle from '../components/PageTitle/PageTitle'
 import PostMaster from './components/PostMaster'
 import Composer from '../components/Composer/Composer'
 
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
@@ -13,6 +13,37 @@ import { useProfile } from '../stores/profile'
 import * as queries from '../queries/posts'
 import { usePosts } from '../stores/posts'
 import { Spinner } from '../components/Loading/LoadingPage'
+import { Link } from 'react-router-dom'
+import { PageState } from '../components/Errors/PageError'
+import { getApolloErrorCode } from '../utils/general'
+
+const NoPosts = () => {
+	const Description = (
+		<FormattedMessage
+			id='states.emptyfeed.description'
+			values={{
+				// eslint-disable-next-line react/display-name
+				explore: chunks => <Link to='/explore'>{chunks}</Link>
+			}}
+		/>
+	)
+	const Title = <FormattedMessage id='states.emptyfeed.title' />
+
+	return <PageState title={Title} subtitle={Description} />
+}
+
+const EndOfFeed = () => {
+	const Description = <FormattedMessage id='states.feedend.description' />
+	const Title = <FormattedMessage id='states.feedend.title' />
+
+	return <PageState title={Title} subtitle={Description} />
+}
+
+const State = ({ posts, resPosts }) => {
+	if (posts.length === 0 && resPosts.length === 0) return <NoPosts />
+	if (posts.length > 0 && resPosts.length === 0) return <EndOfFeed />
+	return null
+}
 
 function Home() {
 	const { profile } = useProfile()
@@ -58,6 +89,9 @@ function Home() {
 		return () => window.removeEventListener('scroll', onScroll)
 	}, [feedRes, onScroll])
 
+	console.error(feedRes.error)
+	if (feedRes.error)
+		return <PageState code={getApolloErrorCode(feedRes.error)} />
 	if (!feedRes.data) return <Spinner />
 	return (
 		<>
@@ -74,6 +108,7 @@ function Home() {
 				setPosts={setPosts}
 			/>
 			{feedRes.fetching ? <Spinner /> : null}
+			<State posts={posts} resPosts={feedRes.data.feed} />
 		</>
 	)
 }

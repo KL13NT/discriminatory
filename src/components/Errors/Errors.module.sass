@@ -23,6 +23,10 @@
 		color: var(--color-secondary)
 		font-weight: var(--font-weight-s)
 
+.inlinePage
+	@extend .page
+	margin-top: 20px
+	padding: 0
 
 @media screen and (min-width: 1024px)
 	.page
@@ -31,3 +35,7 @@
 			font-size: calc(var(--font-size-h1) * 1.4)
 		> p
 			font-size: var(--font-size-l)
+
+	.inlinePage
+		> h1
+			font-size: var(--font-size-h1)

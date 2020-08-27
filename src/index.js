@@ -27,6 +27,7 @@ import { OverlayComposer } from './components/Composer/Composer'
 import { useAuth } from './stores/auth.js'
 
 import './style/base.global.sass'
+import { useProfile } from './stores/profile'
 
 /**
  * GraphQL & Firebase Initialisation
@@ -72,6 +73,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 function App() {
 	const { user } = useAuth()
+	const { profile } = useProfile()
 	//TODO: add notifications banner
 
 	return (
@@ -82,7 +84,7 @@ function App() {
 						<InitialController>
 							<Suspense fallback={<FullscreenLoader />}>
 								<ToastContainer />
-								<Router user={user} />
+								<Router user={user} profile={profile} />
 								<OverlayComposer />
 							</Suspense>
 						</InitialController>

@@ -3,12 +3,33 @@ import React, { useEffect, useCallback } from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
 import PostMaster from './components/PostMaster'
 
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'urql'
 import { useState } from 'react'
 
 import * as queries from '../queries/posts'
 import { Spinner } from '../components/Loading/LoadingPage'
+import { PageState } from '../components/Errors/PageError'
+
+const NoPosts = () => {
+	const Description = <FormattedMessage id='states.emptyexplore.description' />
+	const Title = <FormattedMessage id='states.emptyexplore.title' />
+
+	return <PageState title={Title} subtitle={Description} />
+}
+
+const EndOfFeed = () => {
+	const Description = <FormattedMessage id='states.feedend.description' />
+	const Title = <FormattedMessage id='states.feedend.title' />
+
+	return <PageState title={Title} subtitle={Description} />
+}
+
+const State = ({ posts, resPosts }) => {
+	if (posts.length === 0 && resPosts.length === 0) return <NoPosts />
+	if (posts.length > 0 && resPosts.length === 0) return <EndOfFeed />
+	return null
+}
 
 function Explore() {
 	const { formatMessage: f } = useIntl()
@@ -55,6 +76,8 @@ function Explore() {
 				feedResPosts={latestRes.data.explore}
 				setPosts={setPosts}
 			/>
+
+			<State posts={posts} resPosts={latestRes.data.explore} />
 		</>
 	)
 }

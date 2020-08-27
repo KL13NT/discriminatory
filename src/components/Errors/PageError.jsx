@@ -1,18 +1,30 @@
 import React from 'react'
 
-import styles from './Errors.module.sass'
-import { useIntl, FormattedMessage } from 'react-intl'
 import Button from '../Button/Button'
+
+import { useIntl, FormattedMessage } from 'react-intl'
+
+import styles from './Errors.module.sass'
+
+export const PageState = ({ code, title, subtitle }) => {
+	return (
+		<div className={styles.inlinePage}>
+			{code ? <span>{code}</span> : null}
+			<h1>{title || <FormattedMessage id='errors.general.title' />}</h1>
+			<p>{subtitle || <FormattedMessage id='errors.general.description' />}</p>
+		</div>
+	)
+}
 
 export const Four0Four = () => {
 	const { formatMessage: f } = useIntl()
 
 	return (
-		<div className={styles.page}>
-			<span>404</span>
-			<h1>{f({ id: 'pageerrors.404.title' })}</h1>
-			<p>{f({ id: 'pageerrors.404.description' })}</p>
-		</div>
+		<PageState
+			code='404'
+			title={f({ id: 'errors.404.title' })}
+			subtitle={f({ id: 'errors.404.description' })}
+		/>
 	)
 }
 
@@ -41,7 +53,7 @@ export class IntlErrorBoundary extends React.Component {
 					<span>{error.code || 'BEEP_BOOP_ERROR'}</span>
 					<h1>
 						<FormattedMessage
-							id='pageerrors.general.title'
+							id='errors.general.title'
 							defaultMessage='Yikes, this is embarassing'
 						/>{' '}
 						<span
@@ -53,7 +65,7 @@ export class IntlErrorBoundary extends React.Component {
 					</h1>
 					<p>
 						<FormattedMessage
-							id='pageerrors.general.description'
+							id='errors.general.description'
 							defaultMessage='Try double-checking or going back.'
 						/>{' '}
 					</p>

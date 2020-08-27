@@ -146,6 +146,13 @@ function Profile() {
 		return () => window.removeEventListener('scroll', onScroll)
 	}, [profileRes, onScroll])
 
+	//TODO: refactor this mess
+	if (
+		profileRes.error &&
+		profileRes.error.graphQLErrors[0].extensions.code ===
+			'INTERNAL_SERVER_ERROR'
+	)
+		throw Error('Not found')
 	if (profileRes.error) return <Four0Four />
 	if (!profile) return <Spinner />
 	return (
