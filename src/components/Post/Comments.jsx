@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 
 import styles from './Comments.module.sass'
 
 import Avatar from '../Avatar/Avatar'
 import { useRef } from 'react'
+import Button from '../Button/Button'
 
 // REFACTORME: move to utils
 const resize = currentTarget => {
@@ -50,7 +51,6 @@ function CommentComposer({ onComment, ...profile }) {
 }
 
 function Comments({ comments }) {
-	console.log(comments)
 	return comments.map(({ content, _id, author }) => (
 		<div className={styles.comment} key={_id}>
 			<Avatar {...author} variant='tiny' />
@@ -64,12 +64,17 @@ function Comments({ comments }) {
 	))
 }
 
-function CommentsSection({ comments, onComment, ...profile }) {
+function CommentsSection({ comments, onComment, onLoadComments, ...profile }) {
 	if (!onComment) return null
 	return (
 		<>
 			<CommentComposer onComment={onComment} {...profile} />
 			<Comments comments={comments} />
+			{onLoadComments ? (
+				<Button variant='link' onClick={onLoadComments}>
+					<FormattedMessage id='actions.showmorecomments' />
+				</Button>
+			) : null}
 		</>
 	)
 }

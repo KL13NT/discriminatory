@@ -28,19 +28,20 @@ const Pinned = () => (
 
 function Post(props) {
 	const {
+		_id,
 		onComment,
 		onDelete,
 		onReport,
 		onPin,
 		onUpvote,
 		onDownvote,
+		onLoadComments,
 		content,
 		comments,
 		reactions,
-		location: { location, reputation },
 		pinned,
-		author: { _id: authorId },
-		_id
+		location: { location },
+		author: { _id: authorId }
 	} = props
 	const [isMenuOpened, dispatchToggleMenu] = useState(false)
 	const [commentsExpanded, setCommentsExpanded] = useState(false)
@@ -93,6 +94,7 @@ function Post(props) {
 
 			{commentsExpanded && comments ? (
 				<CommentsSection
+					onLoadComments={onLoadComments}
 					onComment={onComment}
 					comments={comments}
 					{...profile}

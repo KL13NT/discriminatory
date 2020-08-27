@@ -172,3 +172,18 @@ export const getPost = `
 		}
 	}
 `
+
+export const comments = `
+	query($post: ID!, $before: ID){
+		comments(post: $post, before: $before){
+			_id
+			content
+			author {
+				displayName
+				avatar
+				verified
+				_id
+			}
+		}
+	}
+`
