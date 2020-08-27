@@ -27,6 +27,24 @@ general.status: Status
 general.ads: Advertisement
 general.photoby: Photo by
 general.unsplash: Unsplash
+general.nomoreposts: There are no more posts, try again later
+
+states.feedend.title: Reached the end
+states.feedend.description: There are no more posts for now, try again later.
+states.profileend.title: Reached the end
+states.profileend.description: This user has no more posts.
+states.emptyprofile.title: Empty profile
+states.emptyprofile.description: This user hasn't posted anything yet.
+states.emptyfeed.title: *cricket noise*
+states.emptyfeed.description: There are no posts for you. <explore>Explore</explore> to find more people to interact with!
+states.noprofile.title: The sadness...
+states.noprofile.description: This user doesn't exist. You may have misspelled their ID in the link, or the owner deactivated it.
+states.nopost.title: An empty space
+states.nopost.description: There's no post matching this criteria. It may have been deleted or there may be a mistake in the link.
+states.emptyexplore.title: A void approaches
+states.emptyexplore.description: There are no posts right now. Try again later!
+states.nosearchresults.title: No results
+states.nosearchresults.subtitle: There are no results for this query. Try a different one?
 
 placeholders.composer: Write a comment...
 placeholders.location: Type your current location
@@ -97,6 +115,7 @@ titles.display.description: Change visual settings
 titles.ads: Advertisements
 titles.ads.description: Control advertisements
 titles.search: Search Results
+titles.post: {author}\'s Post
 
 login.header.title: Join the cause against discrimination
 login.header.subtitle: Share, empathise, and enjoy your time on the first social network built specifically to fight discrimination. Available on all screens for free.
@@ -108,7 +127,6 @@ login.form.email.placeholder: example@example.com
 login.form.password.label: Password
 login.form.password.placeholder: Your account's password
 login.form.submit: Continue
-
 
 register.question: Already registered?
 register.link: Login instead
@@ -153,17 +171,15 @@ loading.random[6]: If you squeeze dark elves you don't get wine
 
 warnings.profilenotcomplete: You can't fully use the service without a complete profile
 
-errors.general: Something went wrong
 errors.authentication: Something went wrong while authenticating. Try signing in agani or report it if it persists.
 errors.verify: Verify your account to use the service
-errors.general: Something went wrong. If logging in again doesn't fix it try again.
+errors.general: Something went wrong
 errors.auth/user-not-found: User not found
 errors.auth/wrong-password: Password incorrect
 errors.auth/email-already-in-use: This email is already in use by another account
 errors.ads.disabled: We couldn't load ads because you've disabled them, so here's a beautiful picture handpicked by our developers instead.
 errors.ads.network: Something went wrong while loading ads, so here's a beautiful picture handpicked by our developers instead.
-errors.profile.noposts: This user doesn't have any posts yet.
-errors.profile.404: This account doesn't exist.
+errors.updateavatar: Something went wrong while updating your avatar
 
 errors.404.title: This page doesn't exist
 errors.404.description: Try double-checking the link or go back.
