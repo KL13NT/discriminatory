@@ -5,12 +5,7 @@ import PostMaster from './components/PostMaster'
 import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
 
 import { Spinner } from '../components/Loading/LoadingPage'
-import {
-	useIntl,
-	FormattedPlural,
-	FormattedNumber,
-	FormattedMessage
-} from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 
 import { useQuery, useMutation } from 'urql'
 import { useState } from 'react'
@@ -20,14 +15,44 @@ import { useToasts } from '../components/Toast/Toast'
 
 import * as queries from '../queries/profiles'
 import { IntlPlural } from './components/Plural'
+import { PageState } from '../components/Errors/PageError'
+import { getApolloErrorCode } from '../utils/general'
 
-const Four0Four = () => (
-	<Container>
-		<p>
-			<FormattedMessage id='errors.profile.404' />
-		</p>
-	</Container>
-)
+const NoPosts = () => {
+	const Description = <FormattedMessage id='states.emptyprofile.description' />
+	const Title = <FormattedMessage id='states.emptyprofile.title' />
+
+	return <PageState title={Title} subtitle={Description} />
+}
+
+const EndOfFeed = () => {
+	const Description = <FormattedMessage id='states.profileend.description' />
+	const Title = <FormattedMessage id='states.profileend.title' />
+
+	return <PageState title={Title} subtitle={Description} />
+}
+
+const State = ({ posts, resPosts }) => {
+	if (posts.length === 0 && resPosts.length === 0) return <NoPosts />
+	if (posts.length > 0 && resPosts.length === 0) return <EndOfFeed />
+	return null
+}
+
+const ProfileError = ({ error }) => {
+	const { formatMessage: f } = useIntl()
+	const code = getApolloErrorCode(error)
+
+	if (code === 'NOT_FOUND')
+		return (
+			<PageState
+				code={code}
+				title={f({ id: 'states.noprofile.title' })}
+				subtitle={f({ id: 'states.noprofile.description' })}
+			/>
+		)
+
+	return <PageState code={code} />
+}
 
 function Profile() {
 	const { add } = useToasts()
@@ -128,7 +153,7 @@ function Profile() {
 				})
 			}
 		}
-	}, [profileRes])
+	}, [profileRes.data])
 
 	const onScroll = useCallback(() => {
 		if (
@@ -146,14 +171,7 @@ function Profile() {
 		return () => window.removeEventListener('scroll', onScroll)
 	}, [profileRes, onScroll])
 
-	//TODO: refactor this mess
-	if (
-		profileRes.error &&
-		profileRes.error.graphQLErrors[0].extensions.code ===
-			'INTERNAL_SERVER_ERROR'
-	)
-		throw Error('Not found')
-	if (profileRes.error) return <Four0Four />
+	if (profileRes.error) return <ProfileError error={profileRes.error} />
 	if (!profile) return <Spinner />
 	return (
 		<>
@@ -167,23 +185,22 @@ function Profile() {
 			>
 				{profile.user.displayName}
 			</PageTitle>
+
 			<ProfileHeader
 				profile={profile}
 				onFollow={onFollow}
 				onUnfollow={onUnfollow}
 			/>
-			{posts.length === 0 ? (
-				<Container>
-					<FormattedMessage id='errors.profile.noposts' />
-				</Container>
-			) : (
-				<PostMaster
-					feedRes={profileRes}
-					reFeed={reProfile}
-					feedResPosts={profileRes.data.profile.posts}
-					posts={profile.posts}
-				/>
-			)}
+
+			<PostMaster
+				feedRes={profileRes}
+				setPosts={posts => setProfile({ ...profile, posts })}
+				feedResPosts={profileRes.data.profile.posts}
+				posts={profile.posts}
+			/>
+
+			{profileRes.fetching ? <Spinner /> : null}
+			<State posts={posts} resPosts={profileRes.data.profile.posts} />
 		</>
 	)
 }

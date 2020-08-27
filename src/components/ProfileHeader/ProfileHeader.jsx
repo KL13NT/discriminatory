@@ -26,9 +26,9 @@ export function ProfileHeader({ onFollow, onUnfollow, profile }) {
 					displayName={displayName}
 					verified={verified}
 				/>
-				<h1>{displayName}</h1>
-				<span>{tagline}</span>
-				<span>
+				<h1 dir='auto'>{displayName}</h1>
+				<span dir='auto'>{tagline}</span>
+				<span dir='auto'>
 					<Location />
 					{location}
 				</span>

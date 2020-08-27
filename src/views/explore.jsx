@@ -10,6 +10,7 @@ import { useState } from 'react'
 import * as queries from '../queries/posts'
 import { Spinner } from '../components/Loading/LoadingPage'
 import { PageState } from '../components/Errors/PageError'
+import { getApolloErrorCode } from '../utils/general'
 
 const NoPosts = () => {
 	const Description = <FormattedMessage id='states.emptyexplore.description' />
@@ -46,7 +47,7 @@ function Explore() {
 
 	useEffect(() => {
 		if (latestRes.data) setPosts([...posts, ...latestRes.data.explore])
-	}, [latestRes])
+	}, [latestRes.data])
 
 	const onScroll = useCallback(() => {
 		if (
@@ -64,6 +65,8 @@ function Explore() {
 		return () => window.removeEventListener('scroll', onScroll)
 	}, [latestRes, onScroll])
 
+	if (latestRes.error)
+		return <PageState code={getApolloErrorCode(latestRes.error)} />
 	if (!latestRes.data) return <Spinner />
 	return (
 		<>
@@ -77,6 +80,7 @@ function Explore() {
 				setPosts={setPosts}
 			/>
 
+			{latestRes.fetching ? <Spinner /> : null}
 			<State posts={posts} resPosts={latestRes.data.explore} />
 		</>
 	)

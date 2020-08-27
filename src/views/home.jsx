@@ -67,7 +67,7 @@ function Home() {
 
 	useEffect(() => {
 		if (feedRes.data) setPosts([...posts, ...feedRes.data.feed])
-	}, [feedRes])
+	}, [feedRes.data])
 
 	const onSuccess = () => {
 		reFeed({ requestPolicy: 'network-only' })
@@ -89,24 +89,26 @@ function Home() {
 		return () => window.removeEventListener('scroll', onScroll)
 	}, [feedRes, onScroll])
 
-	console.error(feedRes.error)
 	if (feedRes.error)
 		return <PageState code={getApolloErrorCode(feedRes.error)} />
 	if (!feedRes.data) return <Spinner />
 	return (
 		<>
 			<PageTitle>{f({ id: 'titles.home' })}</PageTitle>
+
 			<Composer
 				avatar={profile.avatar}
 				verified={user.email_verified}
 				onSuccess={onSuccess}
 			/>
+
 			<PostMaster
 				reFeed={reFeed}
 				feedResPosts={feedRes.data.feed}
 				posts={posts}
 				setPosts={setPosts}
 			/>
+
 			{feedRes.fetching ? <Spinner /> : null}
 			<State posts={posts} resPosts={feedRes.data.feed} />
 		</>

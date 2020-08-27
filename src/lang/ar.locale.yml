@@ -32,8 +32,17 @@ general.nomoreposts: لم يعد هناك منشورات من أجلك, حاول
 states.feedend.title: وصلتم لنهاية الطريق
 states.feedend.description: لا يوجد المزيد من المنشورات الآن. عاودوا لاحقاً.
 
+states.profileend.title: وصلتم لنهاية هذا الحساب
+states.profileend.description: لا يوجد المزيد من المنشورات من قبل هذا المستخدم.
+
+states.emptyprofile.title: لا يوجد منشورات
+states.emptyprofile.description: هذا الحساب لا يوجد لديه اي منشورات
+
 states.emptyfeed.title: لا يوجد منشورات
 states.emptyfeed.description: لا يوجد منشورات من اجلكم بعد. <explore>فلتستكشفوا</explore> بعض المنشورات و الاشخاص الذين يمكنكم متابعتهم!
+
+states.noprofile.title: غير موجود
+states.noprofile.description: هذا الحساب غير موجود. من المحتمل ان يكون قد تم تعطيله او هناك خطأ في الرابط.
 
 states.emptyexplore.title: لا يوجد منشورات
 states.emptyexplore.description: عاودوا المحاولة في وقت لاحق.
@@ -170,8 +179,6 @@ errors.auth/wrong-password: كلمة المرور غير صحيحة
 errors.auth/email-already-in-use: هذا البريد الالكتروني مربوط بحساب آخر
 errors.ads.disabled: الإعلانات غير ممكّنة في اعداداتكم لذلك فلتسمتعوا بهذه الصورة المختارة على يد مطورينا عوضاً عن الإعلانات
 errors.ads.network: حدث خطأ اثناء تحميل الإعلانات لذلك فلتسمتعوا بهذه الصورة المختارة على يد مطورينا عوضاً عن الإعلانات
-errors.profile.noposts: هذا المستخدم لم يشارك اي منشور بعد
-errors.profile.404: هذا الحساب غير موجود
 errors.updateavatar: حدث خطأ اثناء تحديث صورتك الشخصية
 errors.nosearchresults.title: لا نتائج
 errors.nosearchresults.subtitle: لا يوجد نتائج لهذا البحث, حاولوا بكلمات مختلفة؟

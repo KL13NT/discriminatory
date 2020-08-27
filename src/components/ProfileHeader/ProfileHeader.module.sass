@@ -32,6 +32,9 @@
 	z-index: 5
 	width: 90%
 
+	span, h1
+		direction: revert
+
 	span
 		font-size: var(--font-size-s)
 		display: block
@@ -39,16 +42,13 @@
 		text-align: center
 		overflow: auto
 
-	span:nth-of-type(2)
-		display: flex
-		align-items: center
-
-		svg
-			height: 30px
-			width: 30px
-			margin: 0 5px
-			writing-mode: horizontal-tb
-			fill: var(--color-purple-base)
+	span:nth-of-type(2) > svg
+		height: 30px
+		width: 30px
+		margin: 0 5px
+		writing-mode: horizontal-tb
+		fill: var(--color-purple-base)
+		vertical-align: middle
 
 	h1
 		font-size: var(--font-size-m)
