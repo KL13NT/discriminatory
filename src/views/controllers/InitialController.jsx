@@ -62,13 +62,11 @@ function InitialController({ children }) {
 	}, [add, clearAuth, clearProfile, f, finish, response.error])
 
 	useEffect(() => {
-		console.log(user)
 		if (user && user.emailVerified) reloadProfile()
 	}, [reloadProfile, user])
 
 	useEffect(() => {
 		firebase.auth().onAuthStateChanged(user => {
-			console.log(user)
 			if (!user) {
 				clearAuth()
 				clearProfile()

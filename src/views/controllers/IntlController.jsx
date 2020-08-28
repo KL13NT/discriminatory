@@ -9,38 +9,63 @@ import { useLocale } from '../../stores/locale'
 import { useFullscreenLoader } from '../../stores/loading'
 
 function IntlController({ children }) {
-	const { settings } = useSettings()
-	const { dir, locale } = settings.display.language.selected
+	const { settings, update: updateSettings } = useSettings()
 	const { locales, messages, updateMessages } = useLocale()
 	const { load, finish } = useFullscreenLoader()
+	const { selected } = settings.display.language
+
+	useEffect(() => {
+		const userLocale = navigator.languages
+			? navigator.languages[0]
+			: navigator.language || navigator.userLanguage
+
+		const found = settings.display.language.locales.find(locale =>
+			userLocale.startsWith(locale.locale)
+		)
+
+		if (found) {
+			updateSettings({
+				settings: {
+					...settings,
+					display: {
+						...settings.display,
+						language: {
+							...settings.display.language,
+							selected: found
+						}
+					}
+				}
+			})
+		}
+	}, [])
 
 	useEffect(() => {
 		load('Downloading Locales')
-		console.log('downloading locale')
 
-		fetch(locales[locale])
-			.then(res => res.text())
-			.then(text => {
-				const parsed = text
-					.split('\n')
-					.filter(line => !line.startsWith('#') && line.length > 0)
-					.map(line => ({
-						[line.split(':')[0].trim()]: line.split(':')[1].trim()
-					}))
-				const messages = {}
+		if (selected) {
+			fetch(locales[selected.locale])
+				.then(res => res.text())
+				.then(text => {
+					const parsed = text
+						.split('\n')
+						.filter(line => !line.startsWith('#') && line.length > 0)
+						.map(line => ({
+							[line.split(':')[0].trim()]: line.split(':')[1].trim()
+						}))
+					const messages = {}
 
-				parsed.forEach(message => {
-					messages[Object.keys(message)[0]] = message[Object.keys(message)[0]]
+					parsed.forEach(message => {
+						messages[Object.keys(message)[0]] = message[Object.keys(message)[0]]
+					})
+
+					updateMessages(messages)
+					finish('Downloading Locales')
 				})
-
-				console.log(messages)
-				updateMessages(messages)
-				finish('Downloading Locales')
-			})
-			.catch(err => {
-				finish('Downloading Locales')
-				console.log('YOU SHOULD COPY THIS WHEN REPORTING A BUG', err)
-			})
+				.catch(err => {
+					finish('Downloading Locales')
+					console.log('YOU SHOULD COPY THIS WHEN REPORTING A BUG', err)
+				})
+		}
 	}, [settings.display.language.selected]) // eslint-disable-line
 
 	const EnFonts = () => (
@@ -65,12 +90,12 @@ function IntlController({ children }) {
 		</Helmet>
 	)
 
-	if (messages === null) return null
+	if (!messages) return null
+	if (!selected) return null
+
+	const { dir, locale } = selected
 	return (
-		<IntlProvider
-			locale={settings.display.language.selected.locale}
-			messages={messages}
-		>
+		<IntlProvider locale={locale} messages={messages}>
 			<IntlErrorBoundary>
 				<div dir={dir}>
 					{dir === 'ltr' ? <EnFonts /> : <ArFonts />}
