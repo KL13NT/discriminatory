@@ -70,24 +70,28 @@ actions.login.success: تم تسجيل الدخول بنجاح
 actions.upvote: صدّق
 actions.downvote: ارفض
 actions.pinpost: ثبت هذا المنشور على صفحتك
-actions.unpinpost: الغاء تثبيت هذه المنشور
+actions.unpinpost: الغاء تثبيت هذا المنشور
 actions.deletepost: امسح هذا المنشور
 actions.reportpost: بلغ عن هذا المنشور
 actions.deletepost.success: تم مسح هذا المنشور
-actions.commentpost.success: تم نشر هذه التعليق
+actions.commentpost.success: تم نشر هذا التعليق
 actions.createpost.progress: جاري النشر
 actions.createpost.success: تم نشر هذا المنشور. سيظهر عندما نقوم بجلب منشورات جديدة.
 actions.pinpost.success: تم تثبيت هذا المنشور على ملفّك
+actions.unpinpost.success: تم الغاء تثبيت هذا المنشور
 actions.editprofile: تعديل
 actions.followprofile: تابع
 actions.unfollowprofile: الغاء المتابعة
 actions.followprofile.success: تمت متابعة هذا الحساب
-actions.unfollowprofile.success: تم الغاء متابعة هذه الحساب
+actions.unfollowprofile.success: تم الغاء متابعة هذا الحساب
 actions.resendverification.success: تم ارسال رسالة التفعيل مجدداً بنجاح
 actions.changelanguage.success: تم تغيير اللغة بنجاح
 actions.changefontsize.success: تم تغيير حجم الخط بنجاح
 actions.changeads.success: تم تغيير اعدادات الإعلانات بنجاح
 actions.reload: اعادة المحاولة
+actions.showmorecomments: حمل تعليقات اكثر
+actions.hidecomments: اخفاء التعليقات
+actions.showcomments: إظهار التعليقات
 
 banners.register.title: لا تفوت ما يحدث.
 banners.register.link: سجل الآن.

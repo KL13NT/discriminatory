@@ -70,6 +70,7 @@ actions.login.success: Login successful, redirecting you
 actions.upvote: Upvote
 actions.downvote: Downvote
 actions.pinpost: Pin this post to your profile
+actions.unpinpost: Unpin this post
 actions.deletepost: Delete post permanently
 actions.reportpost: Report this post to support
 actions.deletepost.success: Post deleted successfully
@@ -77,6 +78,7 @@ actions.commentpost.success: Comment posted successfully
 actions.createpost.progress: Creating post
 actions.createpost.success: Post created successfully
 actions.pinpost.success: Pinned post successfully
+actions.unpinpost.success: Unpinned this post successfully
 actions.editprofile: Edit
 actions.followprofile: Follow
 actions.unfollowprofile: Unfollow
@@ -88,6 +90,9 @@ actions.changelanguage.success: Language changed successfully
 actions.changefontsize.success: Font size changed successfully
 actions.changeads.success: Ads settings changed successfully
 actions.reload: Reload
+actions.showmorecomments: Load more comments
+actions.hidecomments: Hide comments
+actions.showcomments: Show comments
 
 banners.register.title: Don't miss what's happening.
 banners.register.link: Register now.

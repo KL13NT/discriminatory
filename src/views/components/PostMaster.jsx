@@ -125,6 +125,20 @@ function PostMaster({ posts, setPosts }) {
 		})
 	}
 
+	const doPinActionOnPost = (id, action) => {
+		const pinnedIndex = posts.findIndex(post => post._id === id)
+
+		if (action === 'pin') {
+			const dupe = [...posts].map(post => ({ ...post, pinned: false }))
+			dupe[pinnedIndex].pinned = true
+
+			setPosts(dupe.sort(a => (a.pinned ? -1 : 1)))
+		} else {
+			const dupe = [...posts].map(post => ({ ...post, pinned: false }))
+
+			setPosts(dupe.sort(a => (a.pinned ? -1 : 1)))
+		}
+	}
 
 	const onPin = ({ currentTarget }) => {
 		const { id } = currentTarget.parentNode.parentNode.parentNode.dataset
@@ -134,12 +148,14 @@ function PostMaster({ posts, setPosts }) {
 		if (posts[pinnedIndex].pinned) {
 			unpin({ post: id }).then(response => {
 				if (!response.error) {
+					doPinActionOnPost(id, 'unpin')
 					add({ text: f({ id: 'actions.unpinpost.success' }), type: 'success' })
 				}
 			})
 		} else {
 			pin({ post: id }).then(response => {
 				if (!response.error) {
+					doPinActionOnPost(id, 'pin')
 					add({ text: f({ id: 'actions.pinpost.success' }), type: 'success' })
 				}
 			})
@@ -167,6 +183,8 @@ function PostMaster({ posts, setPosts }) {
 
 		const post = posts.findIndex(post => post._id === id)
 		const loaded = posts[post].comments
+
+		if (!loaded) return
 
 		setCommentsQuery({
 			post: posts[post]._id,

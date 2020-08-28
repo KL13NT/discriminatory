@@ -88,7 +88,11 @@ function Post(props) {
 					variant='link'
 					onClick={() => setCommentsExpanded(!commentsExpanded)}
 				>
-					{commentsExpanded ? 'Hide comments' : 'Show comments'}
+					{commentsExpanded ? (
+						<FormattedMessage id='actions.hidecomments' />
+					) : (
+						<FormattedMessage id='actions.showcomments' />
+					)}
 				</Button>
 			}
 
