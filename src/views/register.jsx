@@ -12,8 +12,9 @@ import logo from '../assets/logo_small.svg'
 import firebase from 'firebase'
 import { useState } from 'react'
 import { useToasts } from '../components/Toast/Toast'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import QuickLangSwitch from './components/QuickLangSwitch'
+import SEO from './components/SEO'
 
 function Register() {
 	const [fetching, setFetching] = useState(false)
@@ -68,6 +69,12 @@ function Register() {
 
 	return (
 		<>
+			<SEO
+				title={f({ id: 'titles.register' })}
+				description={f({ id: 'titles.register.description' })}
+				path='/register'
+			/>
+
 			<Helmet>
 				<meta charset='UTF-8' />
 				<meta name='viewport' content='width=device-width initial-scale=1.0' />

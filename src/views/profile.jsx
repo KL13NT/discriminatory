@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
-import Container from '../components/Container/Container'
 import PostMaster from './components/PostMaster'
 import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
 
@@ -17,6 +16,7 @@ import * as queries from '../queries/profiles'
 import { IntlPlural } from './components/Plural'
 import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
+import SEO from './components/SEO'
 
 const NoPosts = () => {
 	const Description = <FormattedMessage id='states.emptyprofile.description' />
@@ -67,7 +67,7 @@ function Profile() {
 	const [unfollowRes, unfollow] = useMutation(queries.unfollow)
 
 	const [pagination, setPagination] = useState({ before: null })
-	const [profileRes, reProfile] = useQuery({
+	const [profileRes] = useQuery({
 		query: queries.profile,
 		variables: {
 			...pagination,
@@ -175,6 +175,12 @@ function Profile() {
 	if (!profile) return <Spinner />
 	return (
 		<>
+			<SEO
+				title={profile.user.displayName}
+				description={profile.user.tagline}
+				path={`/${profile.user._id}`}
+			/>
+
 			<PageTitle
 				tick={
 					<IntlPlural

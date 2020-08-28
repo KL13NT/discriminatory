@@ -14,6 +14,7 @@ import * as queries from '../queries/posts'
 
 import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
+import { SEO } from './components/SEO'
 
 const PostError = ({ error }) => {
 	const { formatMessage: f } = useIntl()
@@ -31,7 +32,7 @@ const PostError = ({ error }) => {
 	return <PageState code={code} />
 }
 
-function Profile() {
+function Post() {
 	const { add } = useToasts()
 	const { user_id, post } = useParams()
 	const { formatMessage: f } = useIntl()
@@ -66,6 +67,12 @@ function Profile() {
 	const { author } = postRes.data.post
 	return (
 		<>
+			<SEO
+				title={f({ id: 'titles.post' }, { author: author.displayName })}
+				description={postRes.data.post.content}
+				path={`/${user_id}/${post}`}
+			/>
+
 			<PageTitle>
 				<FormattedMessage
 					id='titles.post'
@@ -82,4 +89,4 @@ function Profile() {
 	)
 }
 
-export default Profile
+export default Post

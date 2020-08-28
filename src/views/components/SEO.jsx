@@ -1,0 +1,95 @@
+import { hostname } from 'config'
+
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import { FormattedMessage, useIntl } from 'react-intl'
+
+const sitename = 'DiscriminatoryNetwork'
+const defaultTitleId = 'titles.discriminatory'
+const defaultDescriptionId = 'titles.description'
+const defaultPath = '/'
+
+const Images = ({ image }) => {
+	const ogImageUrl = `${hostname}/${image}`
+
+	return (
+		<>
+			<meta content={ogImageUrl} property='og:image' />
+			<meta content={ogImageUrl} property='og:image:url' />
+			<meta content={ogImageUrl} property='og:image:secure_url' />
+			<meta content={ogImageUrl} property='twitter:image' />
+		</>
+	)
+}
+
+function LocaleSEO({
+	title = defaultTitleId,
+	description = defaultDescriptionId,
+	path = defaultPath,
+	image
+}) {
+	const { formatMessage: f } = useIntl()
+	const url = `${hostname}/${path}`
+
+	const intlDescription = f({ id: description })
+	const intlTitle =
+		title === defaultTitleId
+			? f({ id: defaultTitleId })
+			: f({ id: defaultTitleId }) + ' - ' + f({ id: title })
+
+	return (
+		<>
+			<Helmet>
+				<meta content={'image/jpeg'} property='og:image:type' />
+				<meta content='summary_large_image' name='twitter:card'></meta>
+				<meta content='website' property='og:type' />
+				<meta content={url} property='og:url' />
+				<metan content={sitename} property='og:site_name' />
+				<meta content='@Nabil_Tharwat' property='twitter:creator' />
+				<meta content='@Nabil_Tharwat16' property='twitter:site' />
+				{image ? <Images image={image} /> : null}
+			</Helmet>
+
+			<Helmet>
+				<title>{intlTitle}</title>
+				<meta content={intlTitle} property='og:title' />
+				<meta content={intlTitle} property='twitter:title' />
+			</Helmet>
+
+			<Helmet>
+				<meta content={intlDescription} name='description' />
+				<meta content={intlDescription} property='og:description' />
+				<meta content={intlDescription} property='twitter:description' />
+			</Helmet>
+		</>
+	)
+}
+
+function SEO({ title, description, path = defaultPath, image }) {
+	const { formatMessage: f } = useIntl()
+
+	const url = `${hostname}${path}`
+	const finalTitle = `${f({ id: defaultTitleId })} - ${title}`
+
+	return (
+		<Helmet>
+			<title>{finalTitle}</title>
+			<meta content={finalTitle} property='og:title' />
+			<meta content={finalTitle} property='twitter:title' />
+			<meta content={description} name='description' />
+			<meta content={description} property='og:description' />
+			<meta content={description} property='twitter:description' />
+			<meta content={'image/jpeg'} property='og:image:type' />
+			<meta content='summary_large_image' name='twitter:card'></meta>
+			<meta content='website' property='og:type' />
+			<meta content={url} property='og:url' />
+			<metan content={sitename} property='og:site_name' />
+			<meta content='@Nabil_Tharwat' property='twitter:creator' />
+			<meta content='@Nabil_Tharwat16' property='twitter:site' />
+			{image ? <Images image={image} /> : null}
+		</Helmet>
+	)
+}
+
+export default LocaleSEO
+export { SEO }

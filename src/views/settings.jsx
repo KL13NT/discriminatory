@@ -16,11 +16,23 @@ import { NavLink } from 'react-router-dom'
 import Button from '../components/Button/Button'
 import ProfileEditor from './components/ProfileEditor'
 import { useAuth } from '../stores/auth'
+import SEO from './components/SEO'
+import LocaleSEO from './components/SEO'
 
 // REFACTORME: move to multiple files
 
 export const Profile = () => {
-	return <ProfileEditor />
+	return (
+		<>
+			<LocaleSEO
+				title='titles.settings'
+				description='titles.profile.description'
+				path='/settings/display'
+			/>
+
+			<ProfileEditor />
+		</>
+	)
 }
 
 export const Ads = () => {
@@ -48,26 +60,34 @@ export const Ads = () => {
 	]
 
 	return (
-		<Container
-			title={f({ id: 'titles.ads' })}
-			subtitle={f({ id: 'titles.ads.description' })}
-		>
-			<Label>
-				<FormattedMessage id='general.status' />
-			</Label>
-			<Select
-				minimalist
-				canBeNull={false}
-				onChange={onAdsChnage}
-				defaultValue={options.findIndex(
-					option => option.value === advertisements.status
-				)}
-				options={options}
+		<>
+			<LocaleSEO
+				title='titles.settings'
+				description='titles.ads.description'
+				path='/settings/ads'
 			/>
-			<p className='u-disclaimer'>
-				<FormattedMessage id='disclaimers.settings.ads' />
-			</p>
-		</Container>
+
+			<Container
+				title={f({ id: 'titles.ads' })}
+				subtitle={f({ id: 'titles.ads.description' })}
+			>
+				<Label>
+					<FormattedMessage id='general.status' />
+				</Label>
+				<Select
+					minimalist
+					canBeNull={false}
+					onChange={onAdsChnage}
+					defaultValue={options.findIndex(
+						option => option.value === advertisements.status
+					)}
+					options={options}
+				/>
+				<p className='u-warn'>
+					<FormattedMessage id='disclaimers.settings.ads' />
+				</p>
+			</Container>
+		</>
 	)
 }
 
@@ -95,24 +115,31 @@ export const Display = () => {
 	}
 
 	return (
-		<Container
-			title={f({ id: 'titles.display' })}
-			subtitle={f({ id: 'titles.display.description' })}
-		>
-			<Label>
-				<FormattedMessage id='general.fontsize' />
-			</Label>
-			<Select
-				minimalist
-				canBeNull={false}
-				onChange={onFontChange}
-				defaultValue={possible.findIndex(f => f.value === selected.value)}
-				options={possible.map(font => ({
-					...font,
-					name: f({ id: `general.${font.name}` })
-				}))}
+		<>
+			<LocaleSEO
+				title='titles.settings'
+				description='titles.display.description'
+				path='/settings/display'
 			/>
-		</Container>
+			<Container
+				title={f({ id: 'titles.display' })}
+				subtitle={f({ id: 'titles.display.description' })}
+			>
+				<Label>
+					<FormattedMessage id='general.fontsize' />
+				</Label>
+				<Select
+					minimalist
+					canBeNull={false}
+					onChange={onFontChange}
+					defaultValue={possible.findIndex(f => f.value === selected.value)}
+					options={possible.map(font => ({
+						...font,
+						name: f({ id: `general.${font.name}` })
+					}))}
+				/>
+			</Container>
+		</>
 	)
 }
 
@@ -162,36 +189,43 @@ export const Basics = () => {
 			})
 	}
 	return (
-		<Container
-			title={f({ id: 'titles.basics' })}
-			subtitle={f({ id: 'titles.basics.description' })}
-		>
-			<Label>
-				<FormattedMessage id='general.language' />
-			</Label>
-			<Select
-				minimalist
-				canBeNull={false}
-				onChange={onLanguageChange}
-				defaultValue={locales.findIndex(
-					locale => selected.locale === locale.locale
-				)}
-				options={locales.map(({ name, locale }) => ({
-					value: locale,
-					name
-				}))}
+		<>
+			<LocaleSEO
+				title='titles.settings'
+				description='titles.basics.description'
+				path='/settings/basics'
 			/>
-			{user ? (
-				<>
-					<Label>
-						<FormattedMessage id='general.logout' />
-					</Label>
-					<Button variant='danger' onClick={logout}>
-						<FormattedMessage id='actions.logout' />
-					</Button>
-				</>
-			) : null}
-		</Container>
+			<Container
+				title={f({ id: 'titles.basics' })}
+				subtitle={f({ id: 'titles.basics.description' })}
+			>
+				<Label>
+					<FormattedMessage id='general.language' />
+				</Label>
+				<Select
+					minimalist
+					canBeNull={false}
+					onChange={onLanguageChange}
+					defaultValue={locales.findIndex(
+						locale => selected.locale === locale.locale
+					)}
+					options={locales.map(({ name, locale }) => ({
+						value: locale,
+						name
+					}))}
+				/>
+				{user ? (
+					<>
+						<Label>
+							<FormattedMessage id='general.logout' />
+						</Label>
+						<Button variant='danger' onClick={logout}>
+							<FormattedMessage id='actions.logout' />
+						</Button>
+					</>
+				) : null}
+			</Container>
+		</>
 	)
 }
 

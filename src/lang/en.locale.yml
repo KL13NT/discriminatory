@@ -103,15 +103,21 @@ disclaimers.register.age: You must be at least 13 years of age or have parental 
 
 prompts.completeprofile: Is this data correct? You can only change your avatar once every 24 hours.
 
+titles.discriminatory: DiscriminatoryNetwork
+titles.discriminatory.description: Together to end discrimination
 titles.home: Home
+titles.home.description: Browse posts from people you follow
 titles.explore: Explore
+titles.explore.description: Find posts from people all around the network
 titles.notifications: Notifications
 titles.login: Login
+titles.login.description: Login as a member of the DiscriminatoryNetwork
 titles.profile: Profile
 titles.discriminators: Discriminators
 titles.settings: Settings
 titles.compose: Compose
 titles.register: Register
+titles.register.description: Join the cause against discrimination
 titles.security: Security
 titles.danger: Danger Zone
 titles.a11y: Accessibility

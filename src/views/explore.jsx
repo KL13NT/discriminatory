@@ -11,6 +11,7 @@ import * as queries from '../queries/posts'
 import { Spinner } from '../components/Loading/LoadingPage'
 import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
+import SEO from './components/SEO'
 
 const NoPosts = () => {
 	const Description = <FormattedMessage id='states.emptyexplore.description' />
@@ -70,6 +71,12 @@ function Explore() {
 	if (!latestRes.data) return <Spinner />
 	return (
 		<>
+			<SEO
+				title={f({ id: 'titles.explore' })}
+				description={f({ id: 'titles.explore.description' })}
+				path='/explore'
+			/>
+
 			<PageTitle>{f({ id: 'titles.explore' })}</PageTitle>
 
 			<PostMaster

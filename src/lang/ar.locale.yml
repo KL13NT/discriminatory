@@ -97,20 +97,26 @@ banners.register.title: لا تفوت ما يحدث.
 banners.register.link: سجل الآن.
 banners.register.subtitle: العديد من المستخدمين يتمتعون بمزايا كثيرة. كن واحداً منهم.
 
-disclaimers.settings.ads: الإعلانات هي مصدر الدخل الأساسي لنا, اذا قمتم بمنعها من الممكن ان تسوء جودة الخدمة.
+disclaimers.settings.ads: الإعلانات هي مصدر الدخل الأساسي لنا, اذا قمتم بمنعها ستسوء جودة الخدمة.
 disclaimers.register.age: يشترط ان يكون عمرك اكبر من 13 عاماً او لديك تصريح من والديك.
 
 prompts.completeprofile: هل هذه المعلومات صحيحة؟ يمكنك تعديل الصورة الشخصية مرة كل 24 ساعة.
 
+titles.discriminatory: ديسكريميناتوري
+titles.discriminatory.description: معاّ لمحاربة التمييز
 titles.home: الرئيسيّة
+titles.home.description: تصفح منشورات ممن تتابعهم
 titles.explore: اكتشف
+titles.explore.description: اكتشف المزيد خارج دائرتك
 titles.notifications: الإشعارات
 titles.login: تسجيل الدخول
+titles.login.description: سجل الدخول لتتمتع بجميع مزايا الموقع
 titles.profile: ملفّك
 titles.discriminators: المُمِيزين
 titles.settings: الإعدادات
 titles.compose: انشر
 titles.register: تسجيل حساب جديد
+titles.register.description: سجل حساب جديد و انضم لنا في مواجهة التمييز
 titles.security: حماية الحساب
 titles.danger: ادارة الحساب
 titles.a11y: سهولة الوصول

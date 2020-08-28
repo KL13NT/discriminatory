@@ -16,6 +16,8 @@ import { Spinner } from '../components/Loading/LoadingPage'
 import { Link } from 'react-router-dom'
 import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
+import SEO from './components/SEO'
+import LocaleSEO from './components/SEO'
 
 const NoPosts = () => {
 	const Description = (
@@ -94,6 +96,12 @@ function Home() {
 	if (!feedRes.data) return <Spinner />
 	return (
 		<>
+			<LocaleSEO
+				title='titles.home'
+				description='titles.home.description'
+				path='/home'
+			/>
+
 			<PageTitle>{f({ id: 'titles.home' })}</PageTitle>
 
 			<Composer

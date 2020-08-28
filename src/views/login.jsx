@@ -7,10 +7,11 @@ import TextInput from '../components/TextInput/TextInput'
 import Button from '../components/Button/Button'
 import QuickLangSwitch from './components/QuickLangSwitch'
 import { useToasts } from '../components/Toast/Toast'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 
 import styles from './auth.module.sass'
 import logo from '../assets/logo_small.svg'
+import SEO from './components/SEO'
 
 function Login() {
 	const [fetching, setFetching] = useState(false)
@@ -55,11 +56,15 @@ function Login() {
 
 	return (
 		<>
+			<SEO
+				title={f({ id: 'titles.login' })}
+				description={f({ id: 'titles.login.description' })}
+				path='/login'
+			/>
+
 			<Helmet>
-				<meta charset='UTF-8' />
 				<meta name='viewport' content='width=device-width initial-scale=1.0' />
 				<link href='/pages.css' rel='stylesheet' />
-				<title>{f({ id: 'titles.login' })}</title>
 			</Helmet>
 
 			<div className={styles.language}>

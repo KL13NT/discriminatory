@@ -3,7 +3,7 @@ import Overlay from '../Overlay/Overlay'
 
 import styles from './LocationPicker.module.sass'
 
-import { ReactComponent as GPS } from '../../assets/gps.svg'
+import { ReactComponent as GPS } from '../../assets/gps - copy.svg'
 import cls from '../../utils/cls'
 import { useIntl } from 'react-intl'
 

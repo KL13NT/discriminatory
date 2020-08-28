@@ -29,21 +29,22 @@
 	max-width: 260px
 	writing-mode: horizontal-tb
 	padding-inline-end: 10px
-	padding-inline-start: 10px
-	padding-block: 10px
+	padding-inline-start: 5px
+	padding-block: 5px
 	white-space: nowrap
 
-	&:hover, &:focus, &:active
-		color: var(--color-purple-base)
-
-		> svg
-			fill: var(--color-purple-base)
 
 	svg
-		height: 20px
-		width: 20px
+		height: 30px
+		width: 30px
 		margin-inline-end: 5px
 		vertical-align: middle
 
 		&, path
 			fill: var(--color-primary)
+
+	&:hover, &:focus, &:active
+		color: var(--color-purple-base)
+
+		> svg, > svg path
+			fill: var(--color-purple-base)
