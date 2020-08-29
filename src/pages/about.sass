@@ -1,19 +1,26 @@
-@import ../style/base.global
+@import ../components/Button/Button.module
+
+:root
+	--color-purple-base: #5B00A6
+	--color-blue-base: #284DF6
+	--color-primary: #FFFFFF
 
 body
 	background: #F8F4ED
 	color: black
-	font-family: "Playfair Display", serif
-	scrollbar-width: initial
-	-ms-overflow-style: initial
-	scrollbar-width: initial
-	-ms-overflow-style: initial
+	font-family: "Roboto", sans-serif
+	text-rendering: optimizelegibility
+	font-weight: 300
 
 *
 	font-display: swap
+	padding: 0
+	margin: 0
+	box-sizing: border-box
 
 a
 	color: white
+	text-decoration: none
 
 .m-navbar
 	position: absolute
@@ -64,14 +71,8 @@ a
 
 	> p
 		margin: 5px 0
-		font-family: 'Raleway', sans-serif
+		font-family: 'Roboto', sans-serif
 		font-size: var(--font-size-h6)
-
-.button
-	margin: 5px 0
-	display: flex
-	justify-content: center
-	align-items: center
 
 .c-section
 	margin: 40px auto
@@ -86,7 +87,7 @@ a
 	margin: 0 20px
 
 	> p
-		font-family: 'Raleway', sans-serif
+		font-family: 'Roboto', sans-serif
 		font-size: var(--font-size-h4)
 
 	> p:nth-of-type(1)
@@ -94,7 +95,6 @@ a
 		margin: 0 0 40px 0
 
 	> p:nth-of-type(2)
-		font-family: 'Playfair Display', serif
 		font-size: var(--font-size-h6)
 
 .c-section-img
@@ -147,7 +147,6 @@ a
 		object-fit: fill
 		border-radius: 10px
 
-
 .big
 	font-size: calc(var(--font-size-h1) * 2.2)
 	font-family: 'Playfair Display', serif
@@ -185,10 +184,15 @@ body[dir="rtl"]
 	> p, > p span
 		font-family: "Cairo", sans-serif
 
-
 @media screen and (max-width: 900px)
+	.c-section-text
+		width: 100%
+
+
+	.c-section-img
+		display: none
+
 	.m-navbar > img
-		height: 60px
 		height: 40px
 
 	.m-navbar > a
@@ -196,21 +200,14 @@ body[dir="rtl"]
 		font-size: var(--font-size-l)
 
 	.m-header-text > h1
-		font-size: calc(var(--font-size-h1) * 2)
 		font-size: calc(var(--font-size-h1) * 1.4)
 
 	.m-header-text
-		width: 50%
 		width: 100%
 
 	.big
 		font-size: calc(var(--font-size-h1) * 2.2)
-		font-size: inherit
 		font-style: italic
-
-	.c-section-text > p:nth-of-type(1)
-		line-height: 50px
-		line-height: initial
 
 	.c-section:nth-of-type(3) > .c-section-text
 		width: 100%
@@ -247,3 +244,32 @@ body[dir="rtl"]
 
 	div.preview-img:nth-child(2) > img:nth-child(1)
 		display: none
+
+	.c-section-text > p:nth-child(1)
+		&, span
+			font-size: var(--font-size-h1)
+			font-style: normal
+			font-weight: bolder
+			padding: 0
+			margin-bottom: 10px
+
+		background: #c700ff29
+		display: inline
+		line-height: 2.5
+		width: 100%
+		padding: 40px 20px
+		margin: 0
+
+	.c-section:nth-of-type(3),.c-section:nth-of-type(4)
+		text-align: center
+
+		> .c-section-text
+			&, span, p
+				font-weight: normal
+				background: transparent
+				font-size: var(--font-size-h6)
+
+.button
+	padding: 10px
+	height: auto
+	margin: 10px

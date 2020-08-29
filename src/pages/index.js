@@ -1,1 +1,0 @@
-import('./landing.global.sass')
