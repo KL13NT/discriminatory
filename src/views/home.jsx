@@ -16,7 +16,6 @@ import { Spinner } from '../components/Loading/LoadingPage'
 import { Link } from 'react-router-dom'
 import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
-import SEO from './components/SEO'
 import LocaleSEO from './components/SEO'
 
 const NoPosts = () => {

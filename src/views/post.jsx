@@ -14,7 +14,7 @@ import * as queries from '../queries/posts'
 
 import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
-import { SEO } from './components/SEO'
+import LocaleSEO from './components/SEO'
 
 const PostError = ({ error }) => {
 	const { formatMessage: f } = useIntl()
@@ -64,12 +64,13 @@ function Post() {
 	if (postRes.error) return <PostError error={postRes.error} />
 	if (!postRes.data) return <Spinner />
 
-	const { author } = postRes.data.post
+	const { author, content } = postRes.data.post
 	return (
 		<>
-			<SEO
-				title={f({ id: 'titles.post' }, { author: author.displayName })}
-				description={postRes.data.post.content}
+			<LocaleSEO
+				title='titles.post'
+				description='titles.post.description'
+				value={{ author: author.displayName, content: content }}
 				path={`/${user_id}/${post}`}
 			/>
 

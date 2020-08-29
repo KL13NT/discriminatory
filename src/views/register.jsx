@@ -1,20 +1,20 @@
 // import firebase from 'firebase'
-import React, { useEffect } from 'react'
+import firebase from 'firebase'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
 import TextInput from '../components/TextInput/TextInput'
 import Button from '../components/Button/Button'
+import QuickLangSwitch from './components/QuickLangSwitch'
+import LocaleSEO from './components/SEO'
+
+import { useIntl } from 'react-intl'
+import { useToasts } from '../components/Toast/Toast'
 
 import styles from './auth.module.sass'
-import logo from '../assets/logo_small.svg'
 
-import firebase from 'firebase'
-import { useState } from 'react'
-import { useToasts } from '../components/Toast/Toast'
-import { useIntl, FormattedMessage } from 'react-intl'
-import QuickLangSwitch from './components/QuickLangSwitch'
-import SEO from './components/SEO'
+import logo from '../assets/logo_small.svg'
 
 function Register() {
 	const [fetching, setFetching] = useState(false)
@@ -69,9 +69,9 @@ function Register() {
 
 	return (
 		<>
-			<SEO
-				title={f({ id: 'titles.register' })}
-				description={f({ id: 'titles.register.description' })}
+			<LocaleSEO
+				title='titles.register'
+				description='titles.register.description'
 				path='/register'
 			/>
 

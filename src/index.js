@@ -29,6 +29,7 @@ import { useAuth } from './stores/auth.js'
 
 import './style/base.global.sass'
 import { useProfile } from './stores/profile'
+import { IntlErrorBoundary } from './components/Errors/PageError'
 
 /**
  * GraphQL & Firebase Initialisation
@@ -82,13 +83,15 @@ function App() {
 			<StyleController>
 				<GraphqlProvider value={graphql}>
 					<IntlController>
-						<InitialController>
-							<Suspense fallback={<FullscreenLoader />}>
-								<ToastContainer />
-								<Router user={user} profile={profile} />
-								<OverlayComposer />
-							</Suspense>
-						</InitialController>
+						<IntlErrorBoundary>
+							<InitialController>
+								<Suspense fallback={<FullscreenLoader />}>
+									<ToastContainer />
+									<Router user={user} profile={profile} />
+									<OverlayComposer />
+								</Suspense>
+							</InitialController>
+						</IntlErrorBoundary>
 					</IntlController>
 				</GraphqlProvider>
 			</StyleController>

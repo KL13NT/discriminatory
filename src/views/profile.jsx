@@ -16,7 +16,7 @@ import * as queries from '../queries/profiles'
 import { IntlPlural } from './components/Plural'
 import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
-import SEO from './components/SEO'
+import LocaleSEO from './components/SEO'
 
 const NoPosts = () => {
 	const Description = <FormattedMessage id='states.emptyprofile.description' />
@@ -173,11 +173,14 @@ function Profile() {
 
 	if (profileRes.error) return <ProfileError error={profileRes.error} />
 	if (!profile) return <Spinner />
+
+	const { displayName, tagline } = profile.user
 	return (
 		<>
-			<SEO
-				title={profile.user.displayName}
-				description={profile.user.tagline}
+			<LocaleSEO
+				title='titles.othersprofile'
+				description='titles.othersprofile.description'
+				values={{ displayName, tagline }}
 				path={`/${profile.user._id}`}
 			/>
 

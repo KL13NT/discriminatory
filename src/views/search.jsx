@@ -26,7 +26,7 @@ function useSearchQuery() {
 import { IntlPlural } from './components/Plural'
 import PostMaster from './components/PostMaster'
 import { PageState } from '../components/Errors/PageError'
-import SEO from './components/SEO'
+import LocaleSEO from './components/SEO'
 
 function Search() {
 	const { add } = useToasts()
@@ -62,13 +62,11 @@ function Search() {
 	if (searchRes.data)
 		return (
 			<>
-				<SEO
-					title={f({ id: 'titles.search' })}
-					description={f({
-						id: 'titles.search.description',
-						values: { query: q }
-					})}
+				<LocaleSEO
+					title='titles.search'
+					description='titles.search.description'
 					path={`/search?q=${q}`}
+					values={{ query: q }}
 				/>
 
 				<PageTitle

@@ -23,7 +23,7 @@ function IntlController({ children }) {
 			userLocale.startsWith(locale.locale)
 		)
 
-		if (found) {
+		if (found && !selected) {
 			updateSettings({
 				settings: {
 					...settings,
@@ -44,20 +44,8 @@ function IntlController({ children }) {
 
 		if (selected) {
 			fetch(locales[selected.locale])
-				.then(res => res.text())
-				.then(text => {
-					const parsed = text
-						.split('\n')
-						.filter(line => !line.startsWith('#') && line.length > 0)
-						.map(line => ({
-							[line.split(':')[0].trim()]: line.split(':')[1].trim()
-						}))
-					const messages = {}
-
-					parsed.forEach(message => {
-						messages[Object.keys(message)[0]] = message[Object.keys(message)[0]]
-					})
-
+				.then(res => res.json())
+				.then(messages => {
 					updateMessages(messages)
 					finish('Downloading Locales')
 				})
@@ -75,7 +63,7 @@ function IntlController({ children }) {
 				rel='stylesheet'
 			/>
 			<link
-				href='https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap'
+				href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap'
 				rel='stylesheet'
 			/>
 		</Helmet>

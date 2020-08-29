@@ -1,23 +1,21 @@
 import React from 'react'
 import firebase from 'firebase'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { NavLink } from 'react-router-dom'
 
 import Container from '../components/Container/Container'
 import PageTitle from '../components/PageTitle/PageTitle'
+import Label from '../components/Label/Label'
+import Select from '../components/Select/Select'
+import Button from '../components/Button/Button'
+import ProfileEditor from './components/ProfileEditor'
+import LocaleSEO from './components/SEO'
+
 import { TabList } from '../components/Tabs/Tabs'
-// import TextInput from '../components/TextInput/TextInput'
-// import Button from '../components/Button/Button'
 
 import { useToasts } from '../components/Toast/Toast'
 import { useSettings } from '../stores/settings'
-import Label from '../components/Label/Label'
-import Select from '../components/Select/Select'
-import { NavLink } from 'react-router-dom'
-import Button from '../components/Button/Button'
-import ProfileEditor from './components/ProfileEditor'
 import { useAuth } from '../stores/auth'
-import SEO from './components/SEO'
-import LocaleSEO from './components/SEO'
 
 // REFACTORME: move to multiple files
 
@@ -29,8 +27,9 @@ export const Profile = () => {
 				description='titles.profile.description'
 				path='/settings/display'
 			/>
-
-			<ProfileEditor />
+			<Container>
+				<ProfileEditor />
+			</Container>
 		</>
 	)
 }

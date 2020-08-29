@@ -2,7 +2,7 @@ import { hostname } from 'config'
 
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 const sitename = 'DiscriminatoryNetwork'
 const defaultTitleId = 'titles.discriminatory'
@@ -26,16 +26,17 @@ function LocaleSEO({
 	title = defaultTitleId,
 	description = defaultDescriptionId,
 	path = defaultPath,
+	values,
 	image
 }) {
 	const { formatMessage: f } = useIntl()
 	const url = `${hostname}/${path}`
 
-	const intlDescription = f({ id: description })
+	const intlDescription = f({ id: description }, values)
 	const intlTitle =
 		title === defaultTitleId
 			? f({ id: defaultTitleId })
-			: f({ id: defaultTitleId }) + ' - ' + f({ id: title })
+			: f({ id: defaultTitleId }) + ' - ' + f({ id: title }, values)
 
 	return (
 		<>
@@ -66,10 +67,8 @@ function LocaleSEO({
 }
 
 function SEO({ title, description, path = defaultPath, image }) {
-	const { formatMessage: f } = useIntl()
-
 	const url = `${hostname}${path}`
-	const finalTitle = `${f({ id: defaultTitleId })} - ${title}`
+	const finalTitle = title
 
 	return (
 		<Helmet>

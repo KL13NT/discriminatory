@@ -3,24 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const entry = {
-	index: path.resolve(__dirname, './src/index.js'),
-	pages: path.resolve(__dirname, './src/pages/index.js')
-	// registration: path.resolve(__dirname, './src/pages/registration.js')
+	index: path.resolve(__dirname, './src/index.js')
 }
 
 const html = [
-	new HtmlWebpackPlugin({
-		template: './src/pages/en/index.pug',
-		filename: 'en/index.html',
-		excludeChunks: ['index'],
-		chunks: ['pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/ar/index.pug',
-		filename: 'ar/index.html',
-		excludeChunks: ['index'],
-		chunks: ['pages']
-	}),
 	new HtmlWebpackPlugin({
 		template: './src/index.pug',
 		excludeChunks: ['pages'],
@@ -125,7 +111,8 @@ const fileLoaders = [
 const localeLoaders = [
 	{
 		type: 'javascript/auto',
-		test: /\.locale\.yml$/,
+		test: /\.json$/,
+		include: path.resolve(__dirname, './src/lang'),
 		use: [
 			{
 				loader: 'file-loader',

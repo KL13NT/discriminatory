@@ -86,6 +86,7 @@ web_modules/
 
 # Nuxt.js build / generate output
 .nuxt
+public
 dist
 
 # Gatsby files
