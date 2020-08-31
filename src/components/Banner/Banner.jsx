@@ -6,16 +6,22 @@ import { ReactComponent as X } from '../../assets/x.svg'
 import styles from './Banner.module.sass'
 import cls from '../../utils/cls'
 
-function Banner({ children, position, big, title, onDismiss }) {
+function Banner({ children, position, size, integrated, center, title, onDismiss }) {
 	return (
 		<div
-			className={cls(styles.banner, styles[position], styles[!big || 'big'])}
+			className={cls(
+				styles.banner,
+				styles[position],
+				styles[size],
+				styles[!center || 'center'],
+				styles[!integrated || 'integrated']
+			)}
 		>
 			<h1>{title}</h1>
 			<span>{children}</span>
 
 			{onDismiss ? (
-				<button onClick={onDismiss}>
+				<button onClick={onDismiss} className={styles.button}>
 					<X />
 				</button>
 			) : null}
@@ -25,8 +31,9 @@ function Banner({ children, position, big, title, onDismiss }) {
 
 Banner.propTypes = {
 	/** What to be displayed as subtitle */
-	children: PropTypes.node.isRequired,
-	title: PropTypes.string.isRequired,
+	children: PropTypes.any,
+	center: PropTypes.bool,
+	title: PropTypes.any,
 	big: PropTypes.bool,
 	position: PropTypes.oneOf(['top', 'bottom']),
 	onDismiss: PropTypes.func
@@ -35,5 +42,7 @@ Banner.propTypes = {
 Banner.defaultProps = {
 	position: 'bottom'
 }
+
+// TODO: add different variants for warn, danger, info
 
 export default Banner

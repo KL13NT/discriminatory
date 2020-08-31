@@ -17,9 +17,9 @@ export default function BannerController() {
 
 function RegisterBanner() {
 	return (
-		<Banner title={<FormattedMessage id='banners.register.title' />}>
+		<Banner size='big' title={<FormattedMessage id='banners.register.title' />}>
 			<span>
-				<FormattedMessage id='banners.register.subtitle' />
+				<FormattedMessage id='banners.register.subtitle' />{' '}
 				<Link to='/register'>
 					<FormattedMessage id='banners.register.link' />
 				</Link>

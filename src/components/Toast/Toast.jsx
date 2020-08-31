@@ -52,6 +52,13 @@ function Toast({ type, text, id, remove }) {
 		}, 5000)
 	}, [dismiss])
 
+	useEffect(() => {
+		return () => {
+			clearTimeout(styleTimeout.current)
+			clearTimeout(dismissTimeout.current)
+		}
+	})
+
 	return (
 		<li
 			key={text}

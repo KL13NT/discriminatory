@@ -27,7 +27,6 @@ function TextInput({ minimalist, icon: Icon, className, onChange, ...props }) {
 
 const propTypes = {
 	name: PropTypes.string.isRequired,
-	icon: PropTypes.node,
 	minimalist: PropTypes.bool,
 	onChange: PropTypes.func
 }

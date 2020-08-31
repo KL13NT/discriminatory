@@ -1,4 +1,4 @@
-import { storage } from 'firebase'
+import { storage } from 'firebase/storage'
 
 export const getAvatarUrl = avatar => {
 	return storage()

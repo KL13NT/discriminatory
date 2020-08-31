@@ -51,7 +51,7 @@ function IntlController({ children }) {
 				})
 				.catch(err => {
 					finish('Downloading Locales')
-					console.log('YOU SHOULD COPY THIS WHEN REPORTING A BUG', err)
+					console.log('COPY THIS WHEN REPORTING A BUG', err)
 				})
 		}
 	}, [settings.display.language.selected]) // eslint-disable-line

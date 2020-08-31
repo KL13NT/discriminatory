@@ -1,5 +1,5 @@
 import React from 'react'
-import firebase from 'firebase'
+import { auth } from '../utils/firebase'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
 
@@ -171,8 +171,7 @@ export const Basics = () => {
 			type: 'info'
 		})
 
-		firebase
-			.auth()
+		auth
 			.signOut()
 			.then(() => {
 				add({
@@ -198,11 +197,13 @@ export const Basics = () => {
 				title={f({ id: 'titles.basics' })}
 				subtitle={f({ id: 'titles.basics.description' })}
 			>
-				<Label>
+				<Label htmlFor='language'>
 					<FormattedMessage id='general.language' />
 				</Label>
 				<Select
 					minimalist
+					name='language'
+					id='language'
 					canBeNull={false}
 					onChange={onLanguageChange}
 					defaultValue={locales.findIndex(
@@ -215,10 +216,10 @@ export const Basics = () => {
 				/>
 				{user ? (
 					<>
-						<Label>
+						<Label htmlFor='logout'>
 							<FormattedMessage id='general.logout' />
 						</Label>
-						<Button variant='danger' onClick={logout}>
+						<Button variant='danger' onClick={logout} name='logout' id='logout'>
 							<FormattedMessage id='actions.logout' />
 						</Button>
 					</>

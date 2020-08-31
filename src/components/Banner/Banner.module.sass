@@ -1,3 +1,11 @@
+.nestedButton
+	background: transparent
+	color: var(--color-primary)
+	margin: 0
+	display: inline-block
+	width: max-content
+
+
 .banner
 	background: var(--color-alternative)
 	color: var(--color-primary)
@@ -10,9 +18,13 @@
 	overflow-y: auto
 	z-index: 10
 
+	h1 button , span button
+		@extend .nestedButton
+
 	h1
 		font-size: var(--font-size-l)
 		font-weight: var(--font-weight-l)
+		display: none
 
 	span
 		font-size: var(--font-size-m)
@@ -22,32 +34,32 @@
 		color: var(--color-primary)
 		font-weight: var(--font-weight-l)
 
-	button
-		height: 20px
-		width: 20px
-		border-radius: 100%
-		display: flex
-		justify-content: center
-		align-items: center
-		transition: filter var(--transition-duration-base)
+.button
+	height: 20px
+	width: 20px
+	border-radius: 100%
+	display: flex
+	justify-content: center
+	align-items: center
+	transition: filter var(--transition-duration-base)
 
-		position: absolute
-		right: 20px
-		top: 10px
-		padding: 2px
+	position: absolute
+	right: 20px
+	top: 10px
+	padding: 2px
 
-		&:hover
-			filter: var(--brightness-hover)
+	&:hover
+		filter: var(--brightness-hover)
 
-		&:active
-			filter: var(--brightness-active)
+	&:active
+		filter: var(--brightness-active)
 
-		> svg
-			height: 100%
-			width: 100%
+	> svg
+		height: 100%
+		width: 100%
 
-		> svg, > svg path
-			fill: var(--color-blue-light)
+	> svg, > svg path
+		fill: var(--color-blue-light)
 
 .top
 	top: 0
@@ -56,10 +68,20 @@
 	bottom: 0
 
 .tiny
-	max-height: 100px
+	max-height: max-content
+	padding-block: 0
+
+.center
+	text-align: center
+
+.integrated
+	position: relative
 
 .big
 	max-height: 400px
+
+	h1
+		display: block
 
 @media screen and (min-width: 768px)
 	.banner
@@ -70,3 +92,6 @@
 
 		span
 			font-size: var(--font-size-m)
+
+	.tiny
+		padding-block: 0

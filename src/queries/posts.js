@@ -46,6 +46,11 @@ export const feed = `
 	}
 `
 
+// export const explore = `
+// 	query($before: ID){
+// 		explore(before: $before)
+// 	}
+// `
 export const explore = `
 	query($before: ID){
 		explore(before: $before){

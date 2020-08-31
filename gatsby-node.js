@@ -18,6 +18,6 @@ exports.onCreateWebpackConfig = ({
 	const mode = stage.startsWith('develop') ? 'development' : 'production'
 
 	actions.setWebpackConfig({
-		resolve
+		resolve: resolve(mode)
 	})
 }

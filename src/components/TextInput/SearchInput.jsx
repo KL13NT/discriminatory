@@ -40,7 +40,7 @@ const SearchInput = () => {
 					name='query'
 					icon={Search}
 					onChange={onChange}
-					maxLengh='60'
+					maxLength={60}
 					placeholder={f({ id: 'placeholders.search' })}
 				/>
 			</form>

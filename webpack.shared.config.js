@@ -9,7 +9,6 @@ const entry = {
 const html = [
 	new HtmlWebpackPlugin({
 		template: './src/index.pug',
-		excludeChunks: ['pages'],
 		chunks: ['index']
 	})
 ]
@@ -29,7 +28,7 @@ const jsLoaders = mode => [
 	{
 		test: /\.jsx?$/i,
 		exclude: path.resolve(__dirname, 'node_modules/'),
-		use: mode === 'development' ? jsWithSourceMap : jsWithoutSourceMap,
+		use: jsWithSourceMap,
 		resolve: { extensions: ['.js', '.jsx'] }
 	}
 ]
@@ -42,6 +41,7 @@ const sassLoaders = mode => [
 			{
 				loader: 'css-loader',
 				options: {
+					sourceMap: true,
 					modules: {
 						localIdentName:
 							mode === 'development'
@@ -63,6 +63,7 @@ const sassLoaders = mode => [
 			{
 				loader: 'css-loader',
 				options: {
+					sourceMap: true,
 					modules: false
 				}
 			},
@@ -78,6 +79,7 @@ const sassLoaders = mode => [
 			{
 				loader: 'css-loader',
 				options: {
+					sourceMap: true,
 					modules: false
 				}
 			},
@@ -92,6 +94,7 @@ const sassLoaders = mode => [
 			{
 				loader: 'css-loader',
 				options: {
+					sourceMap: true,
 					modules: false
 				}
 			},
@@ -105,6 +108,25 @@ const fileLoaders = [
 	{
 		test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf|mp4)$/i,
 		use: 'file-loader'
+	}
+]
+
+const themeLoaders = mode => [
+	{
+		type: 'javascript/auto',
+		test: /\.theme\.sass$/,
+		use: [
+			mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+			{
+				loader: 'css-loader',
+				options: {
+					sourceMap: true,
+					modules: false
+				}
+			},
+			'postcss-loader',
+			'sass-loader'
+		]
 	}
 ]
 
@@ -148,6 +170,7 @@ const pugLoaders = [
 const loaders = mode => [
 	...jsLoaders(mode),
 	...sassLoaders(mode),
+	...themeLoaders(mode),
 	...fileLoaders,
 	...svgLoaders,
 	...htmlLoaders,
@@ -155,11 +178,11 @@ const loaders = mode => [
 	...localeLoaders
 ]
 
-const resolve = {
+const resolve = mode => ({
 	alias: {
-		config: path.join(__dirname, './', process.env.NODE_ENV || 'development')
+		config: path.join(__dirname, './', mode || 'development')
 	}
-}
+})
 
 module.exports = {
 	entry,

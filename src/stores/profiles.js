@@ -12,7 +12,6 @@ const [useProfiles] = create((set, get) => ({
 		})),
 
 	set: ({ ...profiles }) => {
-		console.log(profiles)
 		Object.keys(profiles).forEach(profile => {
 			if (get().profiles[profile]) delete profiles[profile]
 

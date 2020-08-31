@@ -43,7 +43,7 @@ function Explore() {
 		variables: {
 			...pagination
 		},
-		requestPolicy: 'network-only'
+		requestPolicy: 'cache-first'
 	})
 
 	useEffect(() => {

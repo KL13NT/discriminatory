@@ -100,7 +100,10 @@ function Select(props) {
 		}
 	}
 
-	document.addEventListener('click', onOutsideClick)
+	useEffect(() => {
+		document.addEventListener('click', onOutsideClick)
+		return document.removeEventListener('click', onOutsideClick)
+	})
 
 	const renderedOptions = options.map((option, i) => (
 		<Option

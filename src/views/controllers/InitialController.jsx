@@ -1,9 +1,10 @@
-import firebase from 'firebase'
+import { auth } from '../../utils/firebase'
 
+import { Workbox } from 'workbox-window'
 import React, { useEffect } from 'react'
 import { useQuery } from 'urql'
 
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useAuth } from '../../stores/auth.js'
 import { useProfile } from '../../stores/profile.js'
 import { useToasts } from '../../components/Toast/Toast.jsx'
@@ -13,6 +14,11 @@ import CompleteProfile from '../components/CompleteProfile.jsx'
 
 import { accountQuery } from '../../queries/profiles.js'
 import { FullscreenLoader } from '../../components/Loading/LoadingPage.jsx'
+import { useState } from 'react'
+import Banner from '../../components/Banner/Banner'
+import Button from '../../components/Button/Button'
+
+const wb = new Workbox('/sw.js')
 
 function Renderer({ children }) {
 	const { active } = useFullscreenLoader()
@@ -28,6 +34,7 @@ function InitialController({ children }) {
 	const { load, finish } = useFullscreenLoader()
 	const { formatMessage: f } = useIntl()
 	const { add } = useToasts()
+	const [hasUpdate, setHasUpdate] = useState()
 
 	const [response, reloadProfile] = useQuery({
 		query: accountQuery,
@@ -66,7 +73,7 @@ function InitialController({ children }) {
 	}, [reloadProfile, user])
 
 	useEffect(() => {
-		firebase.auth().onAuthStateChanged(user => {
+		auth.onAuthStateChanged(user => {
 			if (!user) {
 				clearAuth()
 				clearProfile()
@@ -101,8 +108,48 @@ function InitialController({ children }) {
 		})
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+	//TODO: move this to a 'versions' controllers
+	useEffect(() => {
+		if ('serviceWorker' in navigator) {
+			const wait = () => setHasUpdate(true)
+
+			const load = () => {
+				wb.register()
+				wb.addEventListener('waiting', wait)
+			}
+
+			window.addEventListener('load', load)
+
+			return () => {
+				wb.removeEventListener('waiting', wait)
+				wb.removeEventListener('load', load)
+			}
+		}
+	}, [])
+
+	const updateApp = () => {
+		// Set up a listener that will reload the page as soon as the previously waiting service worker has taken control.
+		wb.addEventListener('controlling', () => {
+			window.location.reload()
+		})
+
+		// Send a message telling the service worker to skip waiting.
+		// This will trigger the `controlling` event handler above.
+		wb.messageSW({
+			type: 'SKIP_WAITING'
+		})
+	}
+
 	return (
 		<Renderer>
+			{hasUpdate ? (
+				<Banner position='top' size='tiny' center integrated>
+					<FormattedMessage id='banners.update.subtitle' />{' '}
+					<Button variant='link' onClick={updateApp}>
+						<FormattedMessage id='actions.update' />
+					</Button>
+				</Banner>
+			) : null}
 			{user && !profile ? <CompleteProfile /> : null}
 			{children}
 		</Renderer>

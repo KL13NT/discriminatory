@@ -23,8 +23,6 @@ function PostMaster({ posts, setPosts }) {
 	const { profile } = useProfile()
 	const { user } = useAuth()
 
-	console.log(posts)
-
 	const [reactionRes, react] = useMutation(queries.react)
 	const [commentRes, comment] = useMutation(queries.comment)
 	const [pinRes, pin] = useMutation(queries.pin)

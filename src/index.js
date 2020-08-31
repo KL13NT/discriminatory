@@ -1,4 +1,3 @@
-import { initializeApp as initFirebase } from 'firebase'
 import config from 'config'
 
 import React, { Suspense } from 'react'
@@ -11,8 +10,6 @@ import {
 	Provider as GraphqlProvider
 } from 'urql'
 import { retryExchange } from '@urql/exchange-retry'
-
-import firebaseConfig from '../client.firebase.json'
 
 import InitialController from './views/controllers/InitialController.jsx'
 import IntlController from './views/controllers/IntlController'
@@ -29,12 +26,7 @@ import { useAuth } from './stores/auth.js'
 
 import './style/base.global.sass'
 import { useProfile } from './stores/profile'
-import { IntlErrorBoundary } from './components/Errors/PageError'
 
-/**
- * GraphQL & Firebase Initialisation
- */
-initFirebase(firebaseConfig)
 const graphql = createClient({
 	url: config.api,
 	fetchOptions: () => {
@@ -53,19 +45,6 @@ const graphql = createClient({
 	]
 })
 
-if ('serviceWorker' in navigator) {
-	window.addEventListener('load', () => {
-		navigator.serviceWorker
-			.register('/service-worker.js')
-			.then(registration => {
-				console.log('SW registered: ', registration)
-			})
-			.catch(registrationError => {
-				console.log('SW registration failed: ', registrationError)
-			})
-	})
-}
-
 const root = document.querySelector('#root')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -76,24 +55,21 @@ if (process.env.NODE_ENV !== 'production') {
 function App() {
 	const { user } = useAuth()
 	const { profile } = useProfile()
-	//TODO: add notifications banner
 
 	return (
 		<ErrorBoundaryPage>
 			<StyleController>
-				<GraphqlProvider value={graphql}>
-					<IntlController>
-						<IntlErrorBoundary>
-							<InitialController>
-								<Suspense fallback={<FullscreenLoader />}>
-									<ToastContainer />
-									<Router user={user} profile={profile} />
-									<OverlayComposer />
-								</Suspense>
-							</InitialController>
-						</IntlErrorBoundary>
-					</IntlController>
-				</GraphqlProvider>
+				<IntlController>
+					<GraphqlProvider value={graphql}>
+						<InitialController>
+							<Suspense fallback={<FullscreenLoader />}>
+								<ToastContainer />
+								<Router user={user} profile={profile} />
+								<OverlayComposer />
+							</Suspense>
+						</InitialController>
+					</GraphqlProvider>
+				</IntlController>
 			</StyleController>
 		</ErrorBoundaryPage>
 	)

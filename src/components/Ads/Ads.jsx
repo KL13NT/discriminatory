@@ -126,10 +126,11 @@ function Ads() {
 	const { status } = useSettings(state => state.settings.advertisements)
 
 	useEffect(() => {
-		fetch(SCRIPT_URL)
-			.then(response => response.text())
-			.then(setScript)
-			.catch(() => setBlocked(true))
+		if (status)
+			fetch(SCRIPT_URL)
+				.then(response => response.text())
+				.then(setScript)
+				.catch(() => setBlocked(true))
 	}, [])
 
 	return (

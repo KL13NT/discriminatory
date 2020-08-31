@@ -31,13 +31,14 @@ export const Four0Four = () => {
 export class IntlErrorBoundary extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = this.props || {
+		this.state = {
 			hasError: false,
 			error: null
 		}
 	}
 
 	static getDerivedStateFromError(error) {
+		console.log(error)
 		return {
 			hasError: true,
 			error
@@ -81,13 +82,14 @@ export class IntlErrorBoundary extends React.Component {
 export class ErrorBoundaryPage extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = this.props || {
+		this.state = {
 			hasError: false,
 			error: null
 		}
 	}
 
 	static getDerivedStateFromError(error) {
+		console.log(error)
 		return {
 			hasError: true,
 			error

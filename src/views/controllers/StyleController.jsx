@@ -4,8 +4,7 @@ import { Helmet } from 'react-helmet'
 
 import { useSettings } from '../../stores/settings'
 
-// Load theme files here and reference the names down there
-import '../../style/dark.theme.tokens.sass'
+import '../../style/dark.theme.sass' // dark theme
 
 function StyleController({ children }) {
 	const { settings } = useSettings()
@@ -19,7 +18,7 @@ function StyleController({ children }) {
 	return (
 		<>
 			<Helmet>
-				<link href={`/${theme.selected}.theme.tokens.css`} rel='stylesheet' />
+				<body data-theme={theme.selected} />
 			</Helmet>
 			{children}
 		</>

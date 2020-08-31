@@ -34,7 +34,7 @@ module.exports = (env, argv) => {
 		entry,
 		output,
 		devServer,
-		resolve,
+		resolve: resolve(argv.mode),
 		plugins: [new webpack.HotModuleReplacementPlugin(), ...html],
 		optimization: {},
 		module: {

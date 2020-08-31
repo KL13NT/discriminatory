@@ -1,5 +1,4 @@
-// import firebase from 'firebase'
-import firebase from 'firebase'
+import { auth } from '../utils/firebase'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
@@ -41,13 +40,12 @@ function Register() {
 
 		setFetching(true)
 
-		firebase
-			.auth()
+		auth
 			.createUserWithEmailAndPassword(body.email, body.password)
 			.then(() => {
-				return firebase
-					.auth()
-					.currentUser.sendEmailVerification({ url: 'localhost:8080' })
+				return auth.currentUser.sendEmailVerification({
+					url: 'localhost:8080'
+				})
 			})
 			.then(() => {
 				setVerificationSent(true)
@@ -64,7 +62,7 @@ function Register() {
 
 	const resend = e => {
 		e.preventDefault()
-		firebase.auth().currentUser.sendEmailVerification()
+		auth.currentUser.sendEmailVerification()
 	}
 
 	return (
@@ -74,13 +72,6 @@ function Register() {
 				description='titles.register.description'
 				path='/register'
 			/>
-
-			<Helmet>
-				<meta charset='UTF-8' />
-				<meta name='viewport' content='width=device-width initial-scale=1.0' />
-				<link href='/pages.css' rel='stylesheet' />
-				<title>{f({ id: 'titles.register' })}</title>
-			</Helmet>
 
 			<div className={styles.language}>
 				<QuickLangSwitch />

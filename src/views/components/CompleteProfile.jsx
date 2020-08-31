@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import { auth } from '../../utils/firebase'
 import React from 'react'
 
 import Button from '../../components/Button/Button'
@@ -23,11 +23,10 @@ function CompleteProfile() {
 
 	const resend = e => {
 		e.preventDefault()
-		firebase
-			.auth()
-			.currentUser.sendEmailVerification()
+		auth.currentUser
+			.sendEmailVerification()
 			.then(() => {
-				firebase.auth().currentUser.getIdToken(true)
+				auth.currentUser.getIdToken(true)
 
 				add({
 					text: f({ id: 'actions.resendverification.success' }),
@@ -48,8 +47,7 @@ function CompleteProfile() {
 			type: 'info'
 		})
 
-		firebase
-			.auth()
+		auth
 			.signOut()
 			.then(() => {
 				add({
@@ -73,7 +71,7 @@ function CompleteProfile() {
 			subtitle={f({ id: 'general.subtitle' })}
 			onClose={onClose}
 		>
-			<ProfileEditor create/>
+			<ProfileEditor create />
 			<Button onClick={logout} variant='link'>
 				{f({ id: 'actions.logout' })}
 			</Button>

@@ -1,24 +1,27 @@
+const path = require('path')
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssets = require('optimize-css-assets-webpack-plugin')
-const path = require('path')
-const CompressionPlugin = require('compression-webpack-plugin')
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
-const ImageminPlugin = require('imagemin-webpack-plugin').default
-const imageminMozjpeg = require('imagemin-mozjpeg')
-const MinifyPlugin = require('babel-minify-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+// const ImageminPlugin = require('imagemin-webpack-plugin').default
+// const imageminMozjpeg = require('imagemin-mozjpeg')
+// const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
-const { InjectManifest } = require('workbox-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { InjectManifest, GenerateSW } = require('workbox-webpack-plugin')
 
 const { html, entry, resolve, loaders } = require('./webpack.shared.config')
 
 const plugins = [
 	...html,
+	// new FaviconsWebpackPlugin('./src/assets/logo_small.svg'),
 	new MiniCssExtractPlugin({}),
 
 	new CopyWebpackPlugin({
-		patterns: [{ from: './_redirects', to: './build' }]
+		patterns: [{ from: './_redirects' }]
 	}),
 
 	new CleanWebpackPlugin({
@@ -26,38 +29,43 @@ const plugins = [
 		cleanStaleWebpackAssets: false
 	}),
 
-	new MinifyPlugin({}, { comments: false }),
+	// NOTE: Netlify's CDNs automatically compress assets, we don't need to gzip on build
 	new CompressionPlugin({
 		test: /\.(js|png|jpg|webp|css|jpeg)$/i,
 		cache: true,
-		algorithm: 'gzip',
 		threshold: 244,
 		deleteOriginalAssets: false
 	}),
-	new ImageminPlugin({
-		minFileSize: 2024 * 20,
-		pngquant: { quality: '65-80' },
-		plugins: [imageminMozjpeg({ quality: 75 })]
-	}),
+
 	new ImageminWebpWebpackPlugin({
-		config: [{ test: /\.(jpe?g|png)/, options: { quality: 85 } }]
+		config: [
+			{
+				test: /\.(jpe?g|png)/,
+				options: {
+					quality: 80
+				}
+			}
+		]
 	}),
 	new InjectManifest({
 		swSrc: './src/sw.js',
-		clientsClaim: true,
-		skipWaiting: true,
-		prefix: 'discriminatorynetwork'
+		swDest: 'sw.js'
 	})
 ]
 
 const output = {
-	libraryTarget: 'umd',
-	filename: '[name].js',
-	path: path.resolve(__dirname, 'build')
+	path: path.resolve(__dirname, './public'),
+	publicPath: '/'
 }
 
 const optimization = {
-	minimizer: [new OptimizeCssAssets()],
+	minimize: true,
+	minimizer: [
+		new OptimizeCssAssets(),
+		new TerserPlugin({
+			test: /\.js(\?.*)?$/i
+		})
+	],
 	splitChunks: {
 		chunks: 'all'
 	}
@@ -66,11 +74,11 @@ const optimization = {
 module.exports = (env, argv) => ({
 	mode: 'production',
 	devtool: '',
-	entry: entry,
+	entry,
 	output,
 	plugins,
 	optimization,
-	resolve,
+	resolve: resolve(argv.mode),
 	module: {
 		rules: loaders(argv.mode)
 	}

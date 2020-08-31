@@ -45,7 +45,7 @@ function LocaleSEO({
 				<meta content='summary_large_image' name='twitter:card'></meta>
 				<meta content='website' property='og:type' />
 				<meta content={url} property='og:url' />
-				<metan content={sitename} property='og:site_name' />
+				<meta content={sitename} property='og:site_name' />
 				<meta content='@Nabil_Tharwat' property='twitter:creator' />
 				<meta content='@Nabil_Tharwat16' property='twitter:site' />
 				{image ? <Images image={image} /> : null}
@@ -82,7 +82,7 @@ function SEO({ title, description, path = defaultPath, image }) {
 			<meta content='summary_large_image' name='twitter:card'></meta>
 			<meta content='website' property='og:type' />
 			<meta content={url} property='og:url' />
-			<metan content={sitename} property='og:site_name' />
+			<meta content={sitename} property='og:site_name' />
 			<meta content='@Nabil_Tharwat' property='twitter:creator' />
 			<meta content='@Nabil_Tharwat16' property='twitter:site' />
 			{image ? <Images image={image} /> : null}

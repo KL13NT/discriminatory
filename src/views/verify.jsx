@@ -1,7 +1,6 @@
-// import firebase from 'firebase'
+import { auth } from '../utils/firebase'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import firebase from 'firebase'
 import { Link, Redirect } from 'react-router-dom'
 
 import { useToasts } from '../components/Toast/Toast'
@@ -16,14 +15,13 @@ function Verify() {
 	}, [add, loading])
 
 	useEffect(() => {
-		if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+		if (auth.isSignInWithEmailLink(window.location.href)) {
 			setLoading(true)
 
 			const email = window.localStorage.getItem('emailForSignIn')
 			if (!email) setRedirect('/login')
 
-			firebase
-				.auth()
+			auth
 				.signInWithEmailLink(email, window.location.href)
 				.then(() => {
 					window.localStorage.removeItem('emailForSignIn')

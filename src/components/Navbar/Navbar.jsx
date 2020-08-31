@@ -41,10 +41,8 @@ function PrivateLink({ user, children }) {
 }
 
 function Navbar({ user }) {
-	const { pathname } = useLocation()
 	const { formatMessage: f } = useIntl()
 
-	if (pathname === '/login' || pathname === '/register') return null
 	return (
 		<nav className={styles.container}>
 			<FullLogo className={styles.logo} />
@@ -82,7 +80,7 @@ function Navbar({ user }) {
 }
 
 const propTypes = {
-	user: PropTypes.object.isRequired
+	user: PropTypes.object
 }
 const defaultProps = {}
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link, useHistory } from 'react-router-dom'
-import { auth } from 'firebase'
+import { auth } from '../utils/firebase'
 
 import TextInput from '../components/TextInput/TextInput'
 import Button from '../components/Button/Button'
@@ -36,7 +36,7 @@ function Login() {
 
 		setFetching(true)
 
-		auth()
+		auth
 			.signInWithEmailAndPassword(email, password)
 			.then(() => {
 				add({
@@ -61,11 +61,6 @@ function Login() {
 				description='titles.login.description'
 				path='/login'
 			/>
-
-			<Helmet>
-				<meta name='viewport' content='width=device-width initial-scale=1.0' />
-				<link href='/pages.css' rel='stylesheet' />
-			</Helmet>
 
 			<div className={styles.language}>
 				<QuickLangSwitch />

@@ -10,8 +10,8 @@ const [useFullscreenLoader] = create(set => ({
 			id: 'Authenticating'
 		}
 	],
-	load: name =>
-		set(state => ({
+	load: name => {
+		return set(state => ({
 			active: [
 				...state.active,
 				{
@@ -19,7 +19,8 @@ const [useFullscreenLoader] = create(set => ({
 					id: name
 				}
 			]
-		})),
+		}))
+	},
 	finish: name =>
 		set(state => ({
 			active: state.active.filter(loader => loader.name !== name)

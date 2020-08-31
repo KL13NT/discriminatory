@@ -37,7 +37,7 @@ const randomGif = () => {
 	return filename
 }
 
-export const FullscreenLoader = () => {
+export const FullscreenLoader = ({ title, subtitle, err }) => {
 	const [src, setSrc] = useState(randomGif())
 	const [error, setError] = useState(false)
 	const { formatMessage: f } = useIntl()
@@ -57,19 +57,19 @@ export const FullscreenLoader = () => {
 		<div
 			onClick={onClick}
 			onKeyDown={onClick}
-			role={alert}
 			className={styles.fullscreenLoader}
+			tabIndex={0}
+			role='progressbar'
+			aria-valuetext={title || <FormattedMessage id='loading.title' />}
+			aria-busy='true'
+			aria-live='assertive'
+			aria-valuemin='0'
+			aria-valuemax='100'
 		>
 			<img src={src} alt={f({ id: 'images.loading' })} />
-			<span>
-				<FormattedMessage id='loading.title' />
-			</span>
-			<p>{randomMessage()}</p>
-			{error ? (
-				<p>
-					<FormattedMessage id='loading.warning' />
-				</p>
-			) : null}
+			<span>{title || <FormattedMessage id='loading.title' />}</span>
+			<p>{subtitle || randomMessage()}</p>
+			{error ? <p>{err || <FormattedMessage id='loading.warning' />}</p> : null}
 		</div>
 	)
 }

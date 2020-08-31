@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import { storage } from '../../utils/firebase'
 import React, { useEffect, useState } from 'react'
 
 import TextInput from '../../components/TextInput/TextInput'
@@ -16,7 +16,7 @@ import { useIntl } from 'react-intl'
 
 import * as queries from '../../queries/profiles'
 
-function ProfileEditor() {
+function ProfileEditor({ create }) {
 	const { add } = useToasts()
 	const { user } = useAuth()
 	const { profile, update } = useProfile()
@@ -31,7 +31,9 @@ function ProfileEditor() {
 					dateofbirth: '2003-12-12'
 			  }
 	)
-	const [avatar, setAvatar] = useState(profile.avatar)
+	const [avatar, setAvatar] = useState(
+		create ? Placeholder : profile.avatar || Placeholder
+	)
 	const [canSubmit, setCanSubmit] = useState(false)
 
 	const [response, updateProfile] = useMutation(queries.updateProfile)
@@ -65,8 +67,7 @@ function ProfileEditor() {
 	}
 
 	const submitAvatar = avatar => {
-		return firebase
-			.storage()
+		return storage()
 			.ref(`avatars/${user.uid}`)
 			.put(avatar.file)
 	}
@@ -94,8 +95,6 @@ function ProfileEditor() {
 		setCanSubmit(true)
 		setData({ ...data, [currentTarget.name]: currentTarget.value })
 	}
-
-	console.log(profile)
 
 	return (
 		<>

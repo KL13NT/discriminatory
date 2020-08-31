@@ -13,7 +13,7 @@ function autoGrow(element) {
 function Textarea({ resize, children, className, onInput, ...props }) {
 	const onInputHandler = e => {
 		if (resize) autoGrow(e.target)
-		onInput(e)
+		if (onInput) onInput(e)
 	}
 	return (
 		<textarea
