@@ -86,6 +86,7 @@ web_modules/
 
 # Nuxt.js build / generate output
 .nuxt
+public
 dist
 
 # Gatsby files
@@ -118,8 +119,6 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
-
-valalearn-b9c3cb5ec228.json
 
 build/
 docs/

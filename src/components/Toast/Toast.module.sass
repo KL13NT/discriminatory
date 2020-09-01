@@ -1,0 +1,138 @@
+.container
+	position: fixed
+	top: 0
+	margin: 0 auto
+	width: 100%
+	left: 0
+	right: 0
+	z-index: 140
+
+	> ul
+		width: 90%
+		margin: 0 auto
+		list-style: none
+
+.toast
+	font-size: var(--font-size-m)
+
+	position: relative
+	display: flex
+	align-items: center
+	justify-content: space-between
+	margin: 10px
+	padding: 20px 10px 10px 20px
+	border-radius: 10px
+	z-index: 30
+	color: black
+
+	transition: opacity 0.5s
+
+	animation-name: popin
+	animation-duration: 0.25s
+	animation-iteration-count: 1
+	animation-play-state: running
+	animation-timing-function: cubic-bezier(.68,-0.55,.27,1.55)
+
+	> button
+		height: 40px
+		width: 40px
+		padding: 14px
+		border-radius: 100%
+		display: flex
+		justify-content: center
+		align-items: center
+		transition: filter var(--transition-duration-base)
+
+		&:hover
+			filter: var(--brightness-hover)
+
+		&:active
+			filter: var(--brightness-active)
+
+		> svg
+			height: 100%
+			width: 100%
+
+		> svg, > svg path
+			fill: black
+
+
+.info
+	background: var(--color-secondary)
+
+	> button
+		background: var(--color-alternative)
+
+	> .progress
+		background: var(--color-alternative)
+
+.warn
+	background: var(--color-yellow-lighter)
+
+	> button
+		background: var(--color-yellow-light)
+
+	> .progress
+		background: var(--color-yellow-base)
+
+.danger
+	background: var(--color-red-lighter)
+
+	> button
+		background: var(--color-red-light)
+
+	> .progress
+		background: var(--color-red-base)
+
+.success
+	background: var(--color-green-lighter)
+
+	> button
+		background: var(--color-green-light)
+
+	> .progress
+		background: var(--color-green-base)
+
+.dismissed
+	opacity: 0
+
+.progress
+	width: 100%
+	position: absolute
+	top: 0
+	left: 0
+	height: 10px
+
+	animation-name: shrink
+	animation-duration: 6s
+	animation-iteration-count: 1
+	animation-play-state: running
+	animation-timing-function: linear
+
+	transform-origin: left
+
+	border-radius: 5px 5px 0 0
+
+@keyframes popin
+	0%
+		transform: translateY(100px)
+	100%
+		transform: translateY(0)
+
+
+@media screen and (min-width: 768px)
+	.container
+		width: 35%
+		margin: 10px auto
+
+@keyframes shrink
+	0%
+		transform: scaleX(1)
+	100%
+		transform: scaleX(0)
+
+
+@media screen and (min-width: 1024px)
+	.container
+		bottom: 0
+		top: auto

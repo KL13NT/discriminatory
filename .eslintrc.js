@@ -24,10 +24,12 @@ module.exports = {
 	plugins: ['react', 'jsx-a11y', 'sort-destructure-keys', 'react-hooks'],
 	rules: {
 		indent: 0,
+		'react-hooks/exhaustive-deps': 0,
 		'react/no-unescaped-entities': 0,
 		'react/jsx-curly-spacing': 0,
-		'prefer-rest-params': 0,
 		'react/prop-types': 0,
+		'no-mixed-spaces-and-tabs': 0,
+		'prefer-rest-params': 0,
 		'no-unused-vars': 1,
 		'no-whitespace-before-property': 2,
 		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',

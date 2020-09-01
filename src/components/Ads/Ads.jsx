@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import Container from '../Container/Container'
 
 import styles from './Ads.module.sass'
@@ -14,12 +13,11 @@ import Img7 from '../../media/ad-placeholder-07.jpg'
 import Img8 from '../../media/ad-placeholder-08.jpg'
 import Img9 from '../../media/ad-placeholder-09.jpg'
 import Img10 from '../../media/ad-placeholder-010.jpg'
+import { useSettings } from '../../stores/settings'
+import { FormattedMessage } from 'react-intl'
 
 const SCRIPT_URL =
 	'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
-
-const UNSPLASH =
-	'https://unsplash.com?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'
 
 const IMAGES = [
 	{
@@ -96,8 +94,12 @@ const IMAGES = [
 	}
 ]
 
-function Placeholder({ isEnabled }) {
-	const reason = isEnabled ? 'a network error occured' : "you've disabled them"
+function Placeholder({ enabled }) {
+	const reason = enabled ? (
+		<FormattedMessage id='errors.ads.network' />
+	) : (
+		<FormattedMessage id='errors.ads.disabled' />
+	)
 
 	const { src, alt, photographer, link } = IMAGES[
 		Math.floor(Math.random() * IMAGES.length)
@@ -108,44 +110,47 @@ function Placeholder({ isEnabled }) {
 			<div>
 				<img src={src} alt={alt} />
 				<span className={styles.credits}>
-					Photo by <a href={link}>{photographer}</a> on{' '}
-					<a href={UNSPLASH}>Unsplash</a>.
+					<FormattedMessage id='general.photoby' />{' '}
+					<a href={link}>{photographer}</a>
 				</span>
 			</div>
-			<span>
-				We couldn't load ads because {reason}, so here's a beautiful picture
-				instead, handpicked by our developers.
-			</span>
+			<span>{reason}</span>
 		</div>
 	)
 }
 
 //TODO: Hook to Google Adsense
-function Ads({ isEnabled }) {
+function Ads() {
 	const [isBlocked, setBlocked] = useState(false)
 	const [script, setScript] = useState('')
+	const { status } = useSettings(state => state.settings.advertisements)
 
 	useEffect(() => {
-		fetch(SCRIPT_URL)
-			.then(response => response.text())
-			.then(setScript)
-			.catch(() => setBlocked(true))
+		if (status)
+			fetch(SCRIPT_URL)
+				.then(response => response.text())
+				.then(setScript)
+				.catch(() => setBlocked(true))
 	}, [])
 
 	return (
 		<>
 			<Container className={styles.ads}>
-				{isBlocked ? <Placeholder isEnabled={isEnabled} /> : null}
+				<h1>
+					<FormattedMessage id='titles.ads' />{' '}
+					<span className='u-tick'>
+						<FormattedMessage
+							id={status ? 'general.enabled' : 'general.disabled'}
+						/>
+					</span>
+				</h1>
+				{isBlocked ? <Placeholder enabled={status} /> : null}
 				<script data-ad-client='ca-pub-4278004686608414' async>
 					{script}
 				</script>
 			</Container>
 		</>
 	)
-}
-
-Ads.propTypes = {
-	isEnabled: PropTypes.bool.isRequired
 }
 
 export default Ads

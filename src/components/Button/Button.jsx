@@ -11,11 +11,15 @@ function Button({
 	children,
 	variant,
 	minimalist,
+	small,
+	inline,
 	...rest
 }) {
 	const classes = cls(
 		styles.button,
 		styles[variant],
+		small ? styles.small : null,
+		inline ? styles.inline : null,
 		minimalist ? styles.minimalist : null,
 		className
 	)
@@ -33,12 +37,13 @@ function Button({
 }
 
 const propTypes = {
-	onClick: PropTypes.func.isRequired,
-	disabled: PropTypes.boolean,
+	onClick: PropTypes.func,
+	disabled: PropTypes.bool,
 	className: PropTypes.string,
-	children: PropTypes.children,
+	children: PropTypes.node,
 	minimalist: PropTypes.bool,
-	variant: PropTypes.oneOf(['info', 'danger'])
+	inline: PropTypes.bool,
+	variant: PropTypes.oneOf(['info', 'danger', 'warn', 'link'])
 }
 
 const defaultProps = {

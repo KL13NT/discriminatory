@@ -3,14 +3,23 @@
 	flex-direction: column
 	align-items: center
 	padding: 100px 0 10px 0
+	position: relative
+
 	> img
 		width: 100%
-		height: 50%
+		height: 190px
 		position: absolute
 		top: 0
 		left: 0
 		border-radius: 10px 10px 0 0
 		object-fit: cover
+
+.preview
+	@extend .header
+	border: solid 2px var(--color-purple-dark)
+	border-radius: 10px
+	margin: 10px 0
+	color: var(--color-primary)
 
 .details
 	display: flex
@@ -18,41 +27,38 @@
 	align-items: center
 	margin: 10px
 	z-index: 5
+	width: 90%
+
+	a, span, h1
+		margin-top: 5px
+
+	span, h1
+		direction: revert
+
 	span
-		font-size: var(--font-size-s)
-		margin: 0 0 5px 0
-	span:nth-of-type(2)
-		display: flex
-		svg
-			height: 20px
-			width: 20px
-			margin: 0 5px 0 0
-			fill: var(--color-primary)
+		font-size: var(--font-size-m)
+		display: block
+		max-width: 80%
+		text-align: center
+		overflow: auto
+
+	span:nth-of-type(2) > svg
+		height: 20px
+		width: 20px
+		margin: 0 5px
+		writing-mode: horizontal-tb
+		fill: var(--color-purple-base)
+		vertical-align: middle
+
 	h1
 		font-size: var(--font-size-m)
-		margin: 0 0 5px 0
+
 	button
 		font-size: var(--font-size-s)
-		margin: 5px 0 0 0
+		width: 200px
+
 	a
 		font-size: var(--font-size-m)
-
-.avatar[data-verified="true"]
-	background: linear-gradient(#6F5AF1 0%,#F15AB5 100%)
-
-.avatar
-	width: 80px
-	height: 80px
-	border-radius: 100%
-	padding: 4px
-	margin: 0 10px 0 0
-	background: var(--color-background)
-
-	img
-		width: 100%
-		height: 100%
-		border-radius: 100%
-		object-fit: cover
 
 @media screen and (min-width: 768px)
 	.details
@@ -68,7 +74,6 @@
 		height: 100px
 		border-radius: 100%
 		padding: 4px
-		margin: 0 10px 0 0
 		background: var(--color-background)
 
 		img

@@ -1,6 +1,9 @@
 @import './main.tokens.sass'
 @import './utils.global.sass'
 
+html
+	font-size: 16px
+
 *
 	box-sizing: border-box
 	margin: 0
@@ -10,17 +13,20 @@
 	font-family: var(--font-family)
 	background: transparent
 
+*[dir="rtl"]
+	--font-family: var(--font-family-rtl)
+	font-family: var(--font-family-rtl)
+	text-align: right
+
+	*
+		direction: rtl
+
 a
 	text-decoration: none
-	color: var(--color-links)
+	color: var(--color-purple-base)
 
-ul, body, html
-	scrollbar-width: none
-	-ms-overflow-style: none
-
-ul::-webkit-scrollbar, body::-webkit-scrollbar
-	display: none
-
+body
+	background: var(--color-background)
 
 button
 	cursor: pointer
@@ -28,7 +34,15 @@ button
 	svg, svg path
 		transition: fill 0.25s
 
-// 	svg, svg path
-// 		fill: var(--color-active)
-// 	background: var(--color-active--hover)
-// 	color: var(--color-active)
+h1
+	font-size: var(--font-size-h1)
+h2
+	font-size: var(--font-size-h2)
+h3
+	font-size: var(--font-size-h3)
+h4
+	font-size: var(--font-size-h4)
+h5
+	font-size: var(--font-size-h5)
+h6
+	font-size: var(--font-size-h6)

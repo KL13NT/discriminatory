@@ -1,0 +1,44 @@
+.page
+	width: 100%
+	padding: 20% 10px 10px 10px
+	display: flex
+	justify-content: center
+	align-items: center
+	flex-direction: column
+	text-align: center
+	color: var(--color-primary)
+
+	> span
+		color: var(--color-purple-base)
+		font-weight: var(--font-weight-l)
+		font-size: var(--font-size-m)
+		letter-spacing: 4px
+
+	> h1
+		font-weight: var(--font-weight-xl)
+		font-size: var(--font-size-h4)
+
+	> p
+		font-size: var(--font-size-m)
+		color: var(--color-secondary)
+		font-weight: var(--font-weight-s)
+
+.inlinePage
+	@extend .page
+	margin: 40px 0
+	padding: 0
+
+@media screen and (min-width: 1024px)
+	.page
+		> h1
+			margin: 20px 0 10px 0
+			font-size: calc(var(--font-size-h1) * 1.4)
+		> p
+			font-size: var(--font-size-l)
+
+	.inlinePage
+		> h1
+			font-size: var(--font-size-h1)
+			margin: 10px 0 0 0
+		> p
+			margin-top: 10px
