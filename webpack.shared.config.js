@@ -24,7 +24,7 @@ const jsWithSourceMap = [
 // 	{ loader: 'babel-loader', options: { cacheDirectory: true } }
 // ]
 
-const jsLoaders = () => [
+const jsLoaders = mode => [
 	{
 		test: /\.jsx?$/i,
 		exclude: path.resolve(__dirname, 'node_modules/'),
@@ -33,7 +33,7 @@ const jsLoaders = () => [
 	}
 ]
 
-const sassRules = mode => [
+const sassLoaders = mode => [
 	{
 		test: /\.module\.sass$/i,
 		use: [
@@ -104,7 +104,7 @@ const sassRules = mode => [
 	}
 ]
 
-const fileRules = [
+const fileLoaders = [
 	{
 		test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf|mp4)$/i,
 		use: 'file-loader'
@@ -153,14 +153,14 @@ const svgLoaders = [
 	}
 ]
 
-const htmlRules = [
+const htmlLoaders = [
 	{
 		test: /\.html/i,
 		use: 'html-loader'
 	}
 ]
 
-const pugRules = [
+const pugLoaders = [
 	{
 		test: /\.pug/i,
 		use: ['pug-loader']
