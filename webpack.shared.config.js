@@ -20,11 +20,11 @@ const jsWithSourceMap = [
 	}
 ]
 
-const jsWithoutSourceMap = [
-	{ loader: 'babel-loader', options: { cacheDirectory: true } }
-]
+// const jsWithoutSourceMap = [
+// 	{ loader: 'babel-loader', options: { cacheDirectory: true } }
+// ]
 
-const jsLoaders = mode => [
+const jsLoaders = () => [
 	{
 		test: /\.jsx?$/i,
 		exclude: path.resolve(__dirname, 'node_modules/'),
