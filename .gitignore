@@ -121,4 +121,7 @@ dist
 
 valalearn-b9c3cb5ec228.json
 
+build/
+build*
+build
 docs/
