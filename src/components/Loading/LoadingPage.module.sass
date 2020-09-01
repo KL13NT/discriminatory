@@ -1,3 +1,51 @@
+.fullscreenLoader
+	position: fixed
+	height: 100%
+	width: 100%
+	top: 0
+	left: 0
+	margin: 0
+	display: flex
+	justify-content: center
+	align-items: center
+	flex-direction: column
+	text-align: center
+	background: var(--color-background)
+	z-index: 60
+
+	transition: opacity var(--transition-duration-base)
+
+	> p
+		font-size: var(--font-size-m)
+		color: var(--color-secondary)
+		max-width: 70%
+
+	> span
+		color: transparent
+		background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)
+		background-size: 400% 400%
+		animation: gradient 15s ease infinite
+		background-clip: text
+		font-size: var(--font-size-h4)
+		font-weight: var(--font-weight-s)
+
+	> img
+		height: 40px
+		width: 40px
+		margin: 10px 0
+
+
+@keyframes gradient
+	0%
+		background-position: 0% 50%
+
+	50%
+		background-position: 100% 50%
+
+	100%
+		background-position: 0% 50%
+
+
 .loadingContainer
 	width: 100%
 	text-align: center
@@ -18,28 +66,38 @@
 		color: inherit
 
 .spinnerContainer
-	@extend .loadingContainer
+	margin: 100px auto
+	position: relative
 
-	img
-		margin: var(--margin--elements)
-		width: 3rem
-		animation-name: spinner
-		animation-duration: 2s
-		animation-delay: 0s
-		animation-iteration-count: infinite
-		animation-play-state: running
-		animation-timing-function: ease
-	p
-		margin: var(--margin--elements)
+	&, div
+		border-radius: 100%
+		width: 40px
+		height: 40px
+
+	div
+		position: absolute
+		top: 0
+		left: 0
+
+	div:nth-of-type(1)
+		background-color: var(--color-purple-base)
+		animation: sk-scaleout 1.0s infinite ease-in-out
+		animation-delay: 0.5s
+		transform: scale(0)
+
+	div:nth-of-type(2)
+		background-color: var(--color-purple-base)
+		animation: sk-scaleout 1.0s infinite ease-in-out
+		animation-delay: 0
 
 
 
-@keyframes spinner
+@keyframes sk-scaleout
 	0%
-		transform: rotate(0)
+		transform: scale(0)
 	100%
-		transform: rotate(360deg)
-
+		transform: scale(1.0)
+		opacity: 0
 
 
 @media screen and (max-width: 768px)

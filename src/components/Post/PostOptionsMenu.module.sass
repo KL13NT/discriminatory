@@ -11,19 +11,33 @@
 		height: 15px
 		background: transparent
 
+[dir="rtl"] .menuToggle
+	left: 20px
+	right: auto
+
+
+[dir="rtl"] .menu
+	left: 20px
+	right: auto
+
 .menu
 	position: fixed
-	width: 100%
-	bottom: 0
+	z-index: 100
+	width: 90%
+	bottom: 10px
 	left: 0
+	right: 0
+	margin: 0 auto
 	padding: 20px
 	background: var(--color-containers)
 	border-radius: 10px
-	animation-name: popUp
-	animation-fill-mode: forwards
-	animation-timing-function: ease-in-out
+
+	animation-name: popin
+	animation-duration: 0.25s
 	animation-iteration-count: 1
-	animation-duration: 0.5s
+	animation-play-state: running
+	animation-timing-function: cubic-bezier(.68,-0.55,.27,1.55)
+
 
 	button
 		display: flex
@@ -39,24 +53,24 @@
 		svg
 			width: 40px
 			height: 40px
-			margin: 0 20px 0 0
+			margin-inline-end: 20px
 			fill: var(--color-primary)
 			transition: fill 0.25s
 
 .pin:hover, .pin:active
-	color: var(--color-active)
+	color: var(--color-blue-lighter)
 	svg
-		fill: var(--color-active) !important
+		fill: var(--color-blue-lighter) !important
 
 .report:hover, .report:active
-	color: var(--color-links)
+	color: var(--color-purple-base)
 	svg
-		fill: var(--color-links) !important
+		fill: var(--color-purple-base) !important
 
 .delete:hover, .delete:active
-	color: var(--color-danger)
+	color: var(--color-red-base)
 	svg
-		fill: var(--color-danger) !important
+		fill: var(--color-red-base) !important
 
 @media screen and (min-width: 414px)
 	.menu button span
@@ -76,8 +90,8 @@
 		border-radius: 10px
 		animation-name: unset
 
-@keyframes popUp
+@keyframes popin
 	0%
-		transform: translateY(110%)
+		transform: translateY(100px)
 	100%
-		transform: translateY(0%)
+		transform: translateY(0)

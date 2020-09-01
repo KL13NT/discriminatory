@@ -1,10 +1,7 @@
-.avatar
-	width: 60px
-	height: 60px
-
 .composer
 	border-top-left-radius: 0
 	border-top-right-radius: 0
+	margin-top: 0
 
 .composer form
 	&:invalid
@@ -17,11 +14,12 @@
 		background: transparent
 		font-size: var(--font-size-l)
 		border-radius: 20px
-		padding: 20px 0
+		padding: 20px 5px
 		width: 100%
 		height: max-content
 		resize: none
 		color: var(--color-primary)
+		min-height: 100px
 
 		&:invalid
 			border: none
@@ -34,3 +32,4 @@
 
 		h1
 			font-size: var(--font-size-xl)
+			margin-inline-start: 5px

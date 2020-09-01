@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { withA11y } from '@storybook/addon-a11y'
 import StoryRouter from 'storybook-react-router'
 import { setConsoleOptions } from '@storybook/addon-console'
 
 import { LoadingPage, Spinner } from './LoadingPage.jsx'
+import { FullscreenLoader } from './LoadingPage.jsx'
 
 setConsoleOptions()
 
@@ -13,6 +14,10 @@ export default {
 	decorators: [withA11y, StoryRouter()],
 	component: LoadingPage,
 	subcomponents: { Spinner }
+}
+
+export const fullscreen = () => {
+	return <FullscreenLoader loading={true} />
 }
 
 export const FullPage = () => (

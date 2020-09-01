@@ -1,3 +1,4 @@
+
 .button
 	width: 100%
 	border-radius: 5px
@@ -8,20 +9,33 @@
 	z-index: 4
 	cursor: pointer
 	padding: 0
-	margin: 0
+	margin: 10px 0 0 0
 	height: 35px
 	outline: none
 	transition: filter 0.25s
 	font-weight: var(--font-weight-l)
 	font-size: var(--font-size-m)
 	color: var(--color-primary)
+	text-align: center
 
 .info
-	background: var(--color-info)
+	background: var(--color-blue-base)
 
 .danger
-	background: var(--color-danger)
+	background: var(--color-red-base)
 
+.warn
+	background: var(--color-yellow-base)
+
+.link
+	background: transparent
+	color: var(--color-primary)
+	font-size: var(--font-size-m)
+	margin: 10px 0
+	color: var(--color-purple-base)
+
+.inline
+	display: inline
 
 .button:hover, .button:focus
 	filter: brightness(0.9)
@@ -38,6 +52,13 @@
 	border-bottom: solid 1px var(--color-primary)
 	border-radius: 0
 	background: none
-	text-align: left
-	padding: 0 5px
 	width: 50%
+	text-align: start
+	margin: 20% 0 20px
+	padding: 0
+	font-weight: 900
+	font-size: var(--font-size-xl)
+
+.small
+	width: max-content
+	padding: 0px 20px

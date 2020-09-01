@@ -38,7 +38,6 @@ const [usePostReaction] = create(set => ({
 
 const onCommentCreate = form => {
 	console.log(form.value)
-	// alert(e.currentTarget.value)
 	// console.log('submit')
 }
 

@@ -3,11 +3,13 @@ import Overlay from '../Overlay/Overlay'
 
 import styles from './LocationPicker.module.sass'
 
-import { ReactComponent as GPS } from '../../assets/gps.svg'
+import { ReactComponent as GPS } from '../../assets/gps - copy.svg'
 import cls from '../../utils/cls'
+import { useIntl } from 'react-intl'
 
 //TODO: hook to google maps API
-function LocationPicker({ onPick, ...props }) {
+function LocationPicker({ onPick, disabled, ...props }) {
+	const { formatMessage: f } = useIntl()
 	const [isLocationPickerOpen, setLocationPickerState] = useState(false)
 	const [location, setLocation] = useState(null)
 
@@ -23,6 +25,7 @@ function LocationPicker({ onPick, ...props }) {
 
 	const onSubmit = e => {
 		e.preventDefault()
+		e.stopPropagation()
 
 		const { currentTarget } = e
 		const data = new FormData(currentTarget)
@@ -31,8 +34,9 @@ function LocationPicker({ onPick, ...props }) {
 		// TODO: should load send requests on change here
 	}
 
-	const onChange = () => {
+	const onChange = ({ currentTarget }) => {
 		clearTimeout(timeout)
+		setLocation(currentTarget.value)
 		timeout = setTimeout(() => {
 			//TODO: fetch from /locations in Mongo
 		}, 2000)
@@ -43,17 +47,18 @@ function LocationPicker({ onPick, ...props }) {
 			<button
 				type='button'
 				onClick={toggle}
+				disabled={disabled}
 				className={cls(styles.toggle, 'u-text-limit')}
 			>
-				<div>
-					<GPS />
-				</div>
-				<span className='u-text-limit'>{location || 'Pick a location'}</span>
+				<GPS />
+				<span className='u-text-limit'>
+					{location || f({ id: 'general.picklocation' })}
+				</span>
 			</button>
 			{isLocationPickerOpen ? (
 				<Overlay
-					title='Location'
-					subtitle='Where are you?'
+					title={f({ id: 'general.location' })}
+					subtitle={f({ id: 'questions.location' })}
 					onClose={toggle}
 					className={styles.location}
 					{...props}
@@ -67,7 +72,7 @@ function LocationPicker({ onPick, ...props }) {
 							type='text'
 							value={location}
 							onChange={onChange}
-							placeholder='Type your location'
+							placeholder={f({ id: 'placeholders.location' })}
 						/>
 					</form>
 				</Overlay>

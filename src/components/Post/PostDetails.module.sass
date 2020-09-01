@@ -3,55 +3,47 @@
 	align-items: center
 	color: var(--color-primary)
 	background: transparent
-
-.avatar
-	width: 60px
-	height: 60px
-	border-radius: 100%
-	padding: 4px
-	margin: 0 10px 0 0
-
-	img
-		width: 100%
-		height: 100%
-		border-radius: 100%
-
-.verified
-	background: linear-gradient(#6F5AF1 0%,#F15AB5 100%)
-
+	unicode-bidi: plaintext
+	margin-top: 10px
 
 .date
 	font-size: var(--font-size-s)
 
 .details
 	background: transparent
-	h1, h4, span
+	line-height: 1.1
+	display: flex
+	flex-direction: column
+	margin-inline-start: 10px
+
+	a
+		display: inline-block
+		line-height: normal
+
+	h1
 		background: transparent
 		font-weight: var(--font-weight-m)
-	h1
-		font-size: var(--font-size-m)
+		max-width: 50%
+		direction: revert
+		display: inline
+		font-size: var(--font-size-l)
 		font-weight: var(--font-weight-m)
-	h1, h4
-		margin: 5px 0 5px 0
-	h4
-		font-size: var(--font-size-s)
-		font-weight: var(--font-weight-s)
-	span
-		color: var(--color-alternative)
-		margin-left: 10px
 
+	a:nth-of-type(2)
+		color: var(--color-secondary)
+		font-size: var(--font-size-m)
+		unicode-bidi: plaintext
+		display: block
+		max-width: max-content
+		margin: 0
 
-@media screen and (min-width: 414px)
-	.avatar
-		width: 70px
-		height: 70px
+	span:nth-child(2)
+		margin: 0
+
 
 @media screen and (min-width: 768px)
 	.details
 		h1
 			font-size: var(--font-size-xl)
-	.avatar
-		width: 80px
-		height: 80px
 	.date
 		font-size: var(--font-size-m)

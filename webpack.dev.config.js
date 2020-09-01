@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 
-const { html, entry, loaders } = require('./webpack.shared.config')
+const { html, entry, resolve, loaders } = require('./webpack.shared.config')
 
 const output = {
 	libraryTarget: 'umd',
@@ -27,6 +27,7 @@ const devServer = {
 	}
 }
 
+<<<<<<< HEAD
 const plugins = [new webpack.HotModuleReplacementPlugin(), ...html]
 
 module.exports = (env, argv) => ({
@@ -39,5 +40,20 @@ module.exports = (env, argv) => ({
 	optimization: {},
 	module: {
 		rules: loaders(argv.mode)
+=======
+module.exports = (env, argv) => {
+	return {
+		mode: 'development',
+		devtool: 'source-map',
+		entry,
+		output,
+		devServer,
+		resolve: resolve(argv.mode),
+		plugins: [new webpack.HotModuleReplacementPlugin(), ...html],
+		optimization: {},
+		module: {
+			rules: loaders(argv.mode)
+		}
+>>>>>>> develop
 	}
 })

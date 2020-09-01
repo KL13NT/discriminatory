@@ -1,8 +1,8 @@
 import create from 'zustand'
 
 const [useComposer] = create(set => ({
-	isActive: false,
-	toggle: () => set(state => ({ isActive: !state.isActive }))
+	active: false,
+	toggle: () => set(state => ({ active: !state.active }))
 }))
 
 export { useComposer }

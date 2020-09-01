@@ -1,0 +1,104 @@
+.register
+	color: var(--color-primary)
+	width: 100%
+	margin: 0 auto
+	display: flex
+	justify-content: center
+	height: 100vh
+	padding-top: 40px
+
+
+[dir="rtl"]
+	.register *
+		font-family: var(--font-family-rtl)
+
+	.header h1
+		font-family: var(--font-family-rtl)
+		line-height: 1.2
+
+.labelSub
+	font-size: var(--font-size-xs)
+	font-weight: var(--font-weight-m)
+	color: var(--color-purple-base)
+	padding: 0 0 0 5px
+	display: block
+
+.header
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0,0,0,0.5) 100%), url('../media/form.jpg')
+	height: 100%
+	width: 100%
+	display: flex
+	flex-direction: column
+	align-items: flex-start
+	justify-content: space-around
+	padding: 40px
+	max-width: 380px
+	margin-inline-end: 20px
+	background-size: cover
+	display: none
+
+	h1
+		font-family: var(--font-family-display)
+		text-transform: uppercase
+		font-size: calc(var(--font-size-h1) * 2)
+		width: 80%
+		line-height: 60px
+		color: white
+
+	img
+		height: 60px
+
+	span
+		font-size: var(--font-size-l)
+		font-weight: var(--font-weight-s)
+
+.form
+	width: 100%
+	display: flex
+	flex-direction: column
+	margin: 0
+	padding: 20px
+
+	label
+		font-size: var(--font-size-xl)
+
+	> div:nth-of-type(1)
+		margin: 5% 0 5% 0
+
+		> h1
+			font-weight: 900
+
+		> span
+				font-size: var(--font-size-xl)
+
+	> div:nth-of-type(2)
+		margin: 5% 0 10% 0
+
+		> button
+			margin: 20px 0
+
+.language
+	position: fixed
+	top: 20px
+	right: 20px
+
+[dir="rtl"] .register
+	*
+		text-align: right
+
+
+@media screen and (min-width: 768px)
+	.register
+		margin: 0 20px
+		padding: 0
+
+@media screen and (min-width: 1024px)
+	.form
+		width: 40%
+
+	.register
+		width: 80%
+		margin: 0 auto
+
+	.header
+		display: flex

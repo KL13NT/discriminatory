@@ -1,4 +1,39 @@
 .u-text-limit
+	max-width: 90%
 	white-space: nowrap
 	overflow: hidden
 	text-overflow: ellipsis
+	display: inline-block
+	vertical-align: middle
+
+.u-disclaimer
+	display: block
+	margin-top: 10px
+	font-size: var(--font-size-xs)
+	font-weight: var(--font-weight-l)
+	color: var(--color-secondary)
+
+.u-warn
+	@extend .u-disclaimer
+	color: var(--color-yellow-base)
+
+.u-disabled
+	filter: brightness(0.8)
+
+.u-primary
+	color: var(--color-primary)
+
+.u-center
+	text-align: center
+
+.u-link
+	color: var(--color-purple-base)
+	text-decoration: none
+
+.u-tick
+	font-size: var(--font-size-xs)
+	font-weight: var(--font-weight-m)
+	color: var(--color-purple-base)
+	padding: 0 0 0 5px
+	display: inline
+	vertical-align: middle

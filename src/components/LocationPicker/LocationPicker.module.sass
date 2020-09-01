@@ -22,34 +22,29 @@
 .toggle
 	font-size: var(--font-size-m)
 	color: var(--color-primary)
-	align-items: center
 	font-weight: var(--font-weight-m)
 	margin: 0 0 10px 0
-	display: flex
-	background: var(--color-links-shadow)
+	background: var(--color-purple-dark)
 	border-radius: 20px
-	padding: 0 10px 0 0
-	max-width: 100%
+	max-width: 260px
+	writing-mode: horizontal-tb
+	padding-inline-end: 10px
+	padding-inline-start: 5px
+	padding-block: 5px
+	white-space: nowrap
 
-	> span
-		max-width: 80%
+
+	svg
+		height: 30px
+		width: 30px
+		margin-inline-end: 5px
+		vertical-align: middle
+
+		&, path
+			fill: var(--color-primary)
 
 	&:hover, &:focus, &:active
-		color: var(--color-links)
+		color: var(--color-purple-base)
 
-		> div svg
-			&, path
-				fill: var(--color-links)
-
-	> div
-		width: 40px
-		height: 40px
-		padding: 5px
-		margin: 0 10px 0 0
-
-		svg
-			height: 100%
-			width: 100%
-
-			&, path
-				fill: var(--color-primary)
+		> svg, > svg path
+			fill: var(--color-purple-base)

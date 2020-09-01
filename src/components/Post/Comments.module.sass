@@ -1,47 +1,45 @@
-
 .composer
 	display: flex
 	margin: 20px 0 10px 0
 	svg
 		height: 20px
 		width: 20px
-	img
-		height: 30px
-		width: 30px
-		border-radius: 100%
 	textarea
-		margin: 0 0 0 5px
 		background: var(--color-background)
 		font-size: var(--font-size-m)
 		border-radius: 20px
 		padding: 10px
-		width: 100%
+		flex-grow: 9
+		min-height: 40px
+		max-height: 200px
+		padding: 0 10px
 		height: 40px
 		resize: none
 		color: var(--color-primary)
+		margin-inline-start: 5px
 
 .comment
 	@extend .composer
 	span
+		background: var(--color-background)
+		border-radius: 20px
+		padding: 5px 10px 10px 15px
+		flex-grow: 9
+		color: var(--color-primary)
+		margin-inline-start: 5px
+
 		h1
-			margin: 0 0 5px 0
 			font-size: var(--font-size-m)
 			font-weight: var(--font-weight-m)
+			direction: revert
+
 		p
 			font-size: var(--font-size-m)
 			font-weight: var(--font-weight-s)
-		margin: 0 0 0 5px
-		background: var(--color-background)
-		border-radius: 20px
-		padding: 10px 10px 10px 15px
-		width: 100%
-		color: var(--color-primary)
+			direction: revert
 
 @media screen and (min-width: 768px)
 	.composer
 		svg
 			height: 30px
 			width: 30px
-		img
-			height: 40px
-			width: 40px

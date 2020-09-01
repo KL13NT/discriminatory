@@ -10,15 +10,15 @@ function PageTitle({ children, subtitle, tick, ...props }) {
 				<h1>{children}</h1>
 				{tick ? <span>{tick}</span> : null}
 			</div>
-			{subtitle ? <span>{subtitle}</span> : null}
+			{subtitle ? <span dir='auto'>{subtitle}</span> : null}
 		</div>
 	)
 }
 
 const propTypes = {
 	children: PropTypes.node.isRequired,
-	subtitle: PropTypes.string,
-	tick: PropTypes.string
+	subtitle: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+	tick: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
 }
 
 const defaultProps = {}

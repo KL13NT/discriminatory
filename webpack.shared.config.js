@@ -3,49 +3,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const entry = {
-	index: path.resolve(__dirname, './src/index.js'),
-	pages: path.resolve(__dirname, './src/pages/index.js'),
-	registration: path.resolve(__dirname, './src/pages/registration.js')
+	index: path.resolve(__dirname, './src/index.js')
 }
 
 const html = [
 	new HtmlWebpackPlugin({
-		template: './src/pages/en/index.pug',
-		filename: 'en/index.html',
-		excludeChunks: ['index'],
-		chunks: ['pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/ar/index.pug',
-		filename: 'ar/index.html',
-		excludeChunks: ['index'],
-		chunks: ['pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/ar/register.pug',
-		filename: 'ar/register/index.html',
-		excludeChunks: ['index', 'pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/en/register.pug',
-		filename: 'en/register/index.html',
-		excludeChunks: ['index', 'pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/ar/login.pug',
-		filename: 'ar/login/index.html',
-		excludeChunks: ['index', 'pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/pages/en/login.pug',
-		filename: 'en/login/index.html',
-		excludeChunks: ['index', 'pages']
-	}),
-	new HtmlWebpackPlugin({
-		template: './src/index.pug'
+		template: './src/index.pug',
+		chunks: ['index']
 	})
 ]
 
+<<<<<<< HEAD
 const jsUse = mode =>
 	mode === 'development'
 		? [
@@ -61,6 +29,24 @@ const jsRules = mode => [
 		test: /\.jsx?$/i,
 		exclude: path.resolve(__dirname, 'node_modules/'),
 		use: jsUse(mode),
+=======
+const jsWithSourceMap = [
+	{ loader: 'babel-loader', options: { cacheDirectory: true } },
+	{
+		loader: 'source-map-loader'
+	}
+]
+
+const jsWithoutSourceMap = [
+	{ loader: 'babel-loader', options: { cacheDirectory: true } }
+]
+
+const jsLoaders = mode => [
+	{
+		test: /\.jsx?$/i,
+		exclude: path.resolve(__dirname, 'node_modules/'),
+		use: jsWithSourceMap,
+>>>>>>> develop
 		resolve: { extensions: ['.js', '.jsx'] }
 	}
 ]
@@ -73,8 +59,12 @@ const sassRules = mode => [
 			{
 				loader: 'css-loader',
 				options: {
+					sourceMap: true,
 					modules: {
-						localIdentName: '[local]___[hash:base64:5]',
+						localIdentName:
+							mode === 'development'
+								? '[local]___[hash:base64:5]'
+								: '[hash:base64:5]',
 						mode: 'local'
 					}
 				}
@@ -91,11 +81,27 @@ const sassRules = mode => [
 			{
 				loader: 'css-loader',
 				options: {
+					sourceMap: true,
 					modules: false
 				}
 			},
 			'postcss-loader',
 			'sass-loader'
+		]
+	},
+
+	{
+		test: /\.css$/i,
+		use: [
+			mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+			{
+				loader: 'css-loader',
+				options: {
+					sourceMap: true,
+					modules: false
+				}
+			},
+			'postcss-loader'
 		]
 	},
 
@@ -106,6 +112,7 @@ const sassRules = mode => [
 			{
 				loader: 'css-loader',
 				options: {
+					sourceMap: true,
 					modules: false
 				}
 			},
@@ -117,12 +124,51 @@ const sassRules = mode => [
 
 const fileRules = [
 	{
-		test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf)$/i,
+		test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf|mp4)$/i,
 		use: 'file-loader'
 	}
 ]
 
+<<<<<<< HEAD
 const svgRules = [
+=======
+const themeLoaders = mode => [
+	{
+		type: 'javascript/auto',
+		test: /\.theme\.sass$/,
+		use: [
+			mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+			{
+				loader: 'css-loader',
+				options: {
+					sourceMap: true,
+					modules: false
+				}
+			},
+			'postcss-loader',
+			'sass-loader'
+		]
+	}
+]
+
+const localeLoaders = [
+	{
+		type: 'javascript/auto',
+		test: /\.json$/,
+		include: path.resolve(__dirname, './src/lang'),
+		use: [
+			{
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]'
+				}
+			}
+		]
+	}
+]
+
+const svgLoaders = [
+>>>>>>> develop
 	{
 		test: /\.(svg)$/i,
 		use: ['@svgr/webpack', 'file-loader'] // this provies startUrl when importing, and ReactComponent as inline
@@ -144,16 +190,34 @@ const pugRules = [
 ]
 
 const loaders = mode => [
+<<<<<<< HEAD
 	...jsRules(mode),
 	...sassRules(mode),
 	...fileRules,
 	...svgRules,
 	...htmlRules,
 	...pugRules
+=======
+	...jsLoaders(mode),
+	...sassLoaders(mode),
+	...themeLoaders(mode),
+	...fileLoaders,
+	...svgLoaders,
+	...htmlLoaders,
+	...pugLoaders,
+	...localeLoaders
+>>>>>>> develop
 ]
+
+const resolve = mode => ({
+	alias: {
+		config: path.join(__dirname, './', mode || 'development')
+	}
+})
 
 module.exports = {
 	entry,
 	html,
+	resolve,
 	loaders
 }

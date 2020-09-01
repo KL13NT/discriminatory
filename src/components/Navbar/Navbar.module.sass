@@ -1,10 +1,12 @@
 :global
+	.active
+		color: var(--color-blue-lighter) !important
 	.active span
-		color: var(--color-active) !important
+		color: var(--color-blue-lighter) !important
 	.active svg
-		fill: var(--color-active) !important
+		fill: var(--color-blue-lighter) !important
 		path
-			fill: var(--color-active) !important
+			fill: var(--color-blue-lighter) !important
 
 .container
 	width: 100%
@@ -13,18 +15,20 @@
 	left: 0
 	overflow-x: scroll
 	overflow-y: visible
+	background: var(--color-background)
 	padding: 10px
-	background: #212121
 	scrollbar-width: none
 	-ms-overflow-style: none
+
+[dir="rtl"] .container
+	right: 0
+	left: auto
 
 .container::-webkit-scrollbar
 	display: none
 
-
 .logo
 	display: none
-	width: 240px
 
 .links
 	display: flex
@@ -57,12 +61,15 @@
 		path
 			fill: #FFFFFF
 			transition: fill 0.25s
-	&:hover, &:active
-		background-color: var(--color-active--hover)
+	&:hover, &:focus
+		background: var(--color-blue-light)
+	&:active
+		background: var(--color-blue-light)
 		span
-			color: var(--color-active)
+			color: var(--color-blue-lighter)
 		svg, svg path
-			fill: var(--color-active) !important
+			fill: var(--color-blue-lighter) !important
+
 .compose
 	height: 50px
 	width: 50px
@@ -80,6 +87,10 @@
 	span
 		display: none
 
+[dir="rtl"] .compose
+	left: 6%
+	right: auto
+
 @media screen and (min-width: 414px)
 	.compose
 		bottom: 8%
@@ -90,7 +101,11 @@
 		top: 0
 		left: 0
 		width: 10%
+		height: 100%
 		align-items: center
+		display: flex
+		justify-content: space-between
+		padding: 20px 10px
 	.container, .links
 		display: flex
 		flex-direction: column
@@ -107,8 +122,13 @@
 @media screen and (min-width: 1024px)
 	.container
 		width: 20%
+	.logo
+		display: block
+		width: 70%
+	.links
+		margin-block: 20px
 	.compose
-		width: 100%
+		width: 70%
 		border-radius: 5px
 		display: block
 		position: relative
@@ -134,4 +154,5 @@
 		justify-content: unset
 		span
 			display: block
-			margin: 0 0 0 20px
+			margin-inline-start: 20px
+			writing-mode: horizontal-tb
