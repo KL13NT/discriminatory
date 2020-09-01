@@ -24,10 +24,10 @@ const plugins = [
 		patterns: [{ from: './_redirects' }]
 	}),
 
-	new CleanWebpackPlugin({
-		verbose: true,
-		cleanStaleWebpackAssets: false
-	}),
+	// new CleanWebpackPlugin({
+	// 	verbose: true,
+	// 	cleanStaleWebpackAssets: false
+	// }),
 
 	// NOTE: Netlify's CDNs automatically compress assets, we don't need to gzip on build
 	new CompressionPlugin({

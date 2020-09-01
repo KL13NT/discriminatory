@@ -120,4 +120,6 @@ dist
 .yarn/build-state.yml
 .pnp.*
 
-valalearn-b9c3cb5ec228.json
+
+
+build/

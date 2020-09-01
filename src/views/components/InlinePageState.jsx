@@ -15,3 +15,5 @@ const InlinePageState = () => {
 		</p>
 	)
 }
+
+export default InlinePageState

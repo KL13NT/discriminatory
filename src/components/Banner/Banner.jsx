@@ -6,7 +6,15 @@ import { ReactComponent as X } from '../../assets/x.svg'
 import styles from './Banner.module.sass'
 import cls from '../../utils/cls'
 
-function Banner({ children, position, size, integrated, center, title, onDismiss }) {
+function Banner({
+	children,
+	position,
+	size,
+	integrated,
+	center,
+	title,
+	onDismiss
+}) {
 	return (
 		<div
 			className={cls(

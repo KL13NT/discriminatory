@@ -25,7 +25,7 @@ function Discriminators() {
 		before: null
 	})
 
-	const [discriminators, reload] = useQuery({
+	const [discriminators /* , reload */] = useQuery({
 		query: queries.discriminators,
 		variables: {
 			...pagination

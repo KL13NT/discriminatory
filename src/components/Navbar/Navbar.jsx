@@ -12,7 +12,7 @@ import { ReactComponent as Profile } from '../../assets/user 1.svg'
 import { ReactComponent as Settings } from '../../assets/gear.inline.svg'
 import { ReactComponent as Add } from '../../assets/plus 1.svg'
 
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useComposer } from '../../stores/composer'
 import { useIntl } from 'react-intl'
 
