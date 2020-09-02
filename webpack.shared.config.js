@@ -180,7 +180,7 @@ const loaders = mode => [
 
 const resolve = mode => ({
 	alias: {
-		config: path.join(__dirname, './', mode || 'development')
+		config: path.join(__dirname, './', mode || 'production')
 	}
 })
 
