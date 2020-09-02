@@ -1,4 +1,4 @@
 module.exports = {
-	api: 'http://localhost:3000/graphql',
-	host: 'http://localhost:8080'
+	api: 'http://discriminatorynetwork-env.eba-3pf9qqe2.eu-west-3.elasticbeanstalk.com/',
+	host: 'https://discriminatorynetwork.netlify.app'
 }
