@@ -1,4 +1,6 @@
 import { auth } from '../../utils/firebase'
+import { host } from 'config'
+
 import React from 'react'
 
 import Button from '../../components/Button/Button'
@@ -24,7 +26,9 @@ function CompleteProfile() {
 	const resend = e => {
 		e.preventDefault()
 		auth.currentUser
-			.sendEmailVerification()
+			.sendEmailVerification({
+				url: host
+			})
 			.then(() => {
 				auth.currentUser.getIdToken(true)
 

@@ -1,4 +1,5 @@
 import { auth } from '../utils/firebase'
+import { host } from 'config'
 
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -44,7 +45,7 @@ function Register() {
 			.createUserWithEmailAndPassword(body.email, body.password)
 			.then(() => {
 				return auth.currentUser.sendEmailVerification({
-					url: 'localhost:8080'
+					url: host
 				})
 			})
 			.then(() => {
