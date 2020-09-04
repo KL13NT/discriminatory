@@ -36,6 +36,7 @@ function ProfileEditor({ create }) {
 	const [avatar, setAvatar] = useState(
 		create ? Placeholder : profile.avatar || Placeholder
 	)
+	const [avatarChanged, setAvatarChanged] = useState(false)
 	const [canSubmit, setCanSubmit] = useState(false)
 
 	const [response, updateProfile] = useMutation(queries.updateProfile)
@@ -64,6 +65,7 @@ function ProfileEditor({ create }) {
 
 		reader.readAsDataURL(files[0])
 		reader.onloadend = () => {
+			setAvatarChanged(true)
 			setAvatar({ file: files[0], src: reader.result })
 		}
 	}
@@ -87,7 +89,7 @@ function ProfileEditor({ create }) {
 				if (!res.error && avatar) return submitAvatar(avatar)
 			})
 			.catch(() => {
-				add({ text: f({ id: 'errors.updateavatar', type: 'danger' }) })
+				add({ text: f({ id: 'errors.general' }), type: 'danger' })
 			})
 	}
 
