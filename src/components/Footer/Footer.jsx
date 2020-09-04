@@ -1,23 +1,20 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import styles from './Footer.module.sass'
 
+const links = ['about', 'guidelines', 'terms', 'privacy']
+
 function Footer() {
+	const { locale } = useIntl()
+
 	return (
 		<span className={styles.footer}>
-			<a href='/about'>
-				<FormattedMessage id='general.about' />
-			</a>
-			<a href='/guidelines'>
-				<FormattedMessage id='general.guidelines' />
-			</a>
-			<a href='/terms'>
-				<FormattedMessage id='general.terms' />
-			</a>
-			<a href='/privacy'>
-				<FormattedMessage id='general.privacy' />
-			</a>
+			{links.map(link => (
+				<a href={`/${locale}/${link}`} key={link}>
+					<FormattedMessage id={`general.${link}`} />
+				</a>
+			))}
 		</span>
 	)
 }
