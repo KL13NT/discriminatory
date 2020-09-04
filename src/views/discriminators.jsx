@@ -31,7 +31,7 @@ function Discriminators() {
 			...pagination
 		},
 		pause: !user,
-		requestPolicy: 'network-only'
+		requestPolicy: 'cache-first'
 	})
 
 	const error = useCallback(

@@ -41,7 +41,8 @@ function Search() {
 		variables: {
 			query: q
 		},
-		pause: !q || !user
+		pause: !q || !user,
+		requestPolicy: 'cache-first'
 	})
 
 	useEffect(() => {

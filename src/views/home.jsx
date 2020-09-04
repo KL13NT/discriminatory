@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
 import PostMaster from './components/PostMaster'
 import Composer from '../components/Composer/Composer'
+import LocaleSEO from './components/SEO'
 
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'urql'
@@ -10,13 +11,13 @@ import { useAuth } from '../stores/auth'
 
 import { useProfile } from '../stores/profile'
 
-import * as queries from '../queries/posts'
 import { usePosts } from '../stores/posts'
 import { Spinner } from '../components/Loading/LoadingPage'
 import { Link } from 'react-router-dom'
 import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
-import LocaleSEO from './components/SEO'
+
+import * as queries from '../queries/posts'
 
 const NoPosts = () => {
 	const Description = (
@@ -63,7 +64,8 @@ function Home() {
 			...pagination
 		},
 		pause: !user,
-		requestPolicy: 'network-only'
+		pollInterval: 5 * 60 * 1000 /* 5 minutes */,
+		requestPolicy: 'cache-first'
 	})
 
 	useEffect(() => {

@@ -43,6 +43,7 @@ function Explore() {
 		variables: {
 			...pagination
 		},
+		pollInterval: 5 * 60 * 1000 /* 5 minutes */,
 		requestPolicy: 'cache-first'
 	})
 

@@ -66,8 +66,6 @@ function Profile() {
 	const [followRes, follow] = useMutation(queries.follow)
 	const [unfollowRes, unfollow] = useMutation(queries.unfollow)
 
-	console.log(user_id)
-
 	const [pagination, setPagination] = useState({ before: null })
 	const [profileRes] = useQuery({
 		query: queries.profile,
@@ -76,7 +74,7 @@ function Profile() {
 			member: user_id
 		},
 		pause: !user || !user_id,
-		requestPolicy: 'network-only'
+		requestPolicy: 'cache-first'
 	})
 
 	const error = useCallback(

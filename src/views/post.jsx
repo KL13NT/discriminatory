@@ -44,7 +44,7 @@ function Post() {
 			member: user_id,
 			post
 		},
-		requestPolicy: 'network-only'
+		requestPolicy: 'cache-first'
 	})
 
 	const error = useCallback(
