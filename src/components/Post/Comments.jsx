@@ -70,7 +70,7 @@ function CommentsSection({ comments, onComment, onLoadComments, ...profile }) {
 		<>
 			<CommentComposer onComment={onComment} {...profile} />
 			<Comments comments={comments} />
-			{onLoadComments ? (
+			{onLoadComments && comments.length === 5 ? (
 				<Button variant='link' onClick={onLoadComments}>
 					<FormattedMessage id='actions.showmorecomments' />
 				</Button>

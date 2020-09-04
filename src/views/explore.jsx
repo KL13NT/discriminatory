@@ -55,6 +55,7 @@ function Explore() {
 		if (
 			window.scrollY + window.innerHeight > document.body.clientHeight - 100 &&
 			!latestRes.fetching &&
+			latestRes.data &&
 			latestRes.data.explore.length > 0
 		) {
 			setPagination({ before: posts[posts.length - 1]._id })

@@ -86,7 +86,7 @@ function ProfileEditor({ create }) {
 			dateofbirth: new Date(data.dateofbirth).getTime()
 		})
 			.then(res => {
-				if (!res.error && avatar) return submitAvatar(avatar)
+				if (!res.error && avatar && avatarChanged) return submitAvatar(avatar)
 			})
 			.catch(() => {
 				add({ text: f({ id: 'errors.general' }), type: 'danger' })
