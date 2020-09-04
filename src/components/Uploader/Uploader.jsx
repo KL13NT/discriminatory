@@ -99,7 +99,7 @@ function Uploader({ onChange, name, ...props }) {
 			<div>
 				{value.length > 0 ? <p>{value[0].name}</p> : null}
 				<p>
-					<FormattedMessage id='uplodaer.drag' />
+					<FormattedMessage id='uploader.drag' />
 				</p>
 				<Button variant='link' onClick={onBrowse}>
 					<FormattedMessage id='uploader.browse' />
@@ -108,14 +108,14 @@ function Uploader({ onChange, name, ...props }) {
 
 			<div>
 				<p>
-					<FormattedMessage id='uplodaer.drop' />
+					<FormattedMessage id='uploader.drop' />
 				</p>
 				<Download />
 			</div>
 
 			<img
 				src=''
-				alt={<FormattedMessage id='uplodaer.previewAlt' />}
+				alt={<FormattedMessage id='uploader.previewAlt' />}
 				className={styles.preview}
 				ref={previewRef}
 			/>

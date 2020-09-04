@@ -1,3 +1,5 @@
+import { basePath } from 'config'
+
 import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
@@ -46,7 +48,7 @@ export const AnonymousOnly = ({ component: Component, user, ...rest }) => {
 
 function Router({ user, profile }) {
 	return (
-		<BrowserRouter>
+		<BrowserRouter basename={basePath}>
 			<Switch>
 				<Redirect from='/' to='/home' exact />
 				<Redirect from='/settings' to='/settings/basics' exact />

@@ -11,7 +11,7 @@
 	"scripts": {
 		"develop": "webpack-dev-server --mode development --port 8080 --config webpack.dev.config.js",
 		"storybook": "start-storybook --port 8080 --ci",
-		"serve": "http-server build -p 9000 --proxy http://localhost:9000?",
+		"serve": "http-server public -p 9000 --proxy http://localhost:9000?",
 		"watch:webpack": "webpack --watch --mode production --config webpack.prod.config.js",
 		"prebuild": "npm run lint && npm run fix && npm run test",
 		"build": "gatsby clean && npm run build:gatsby && npm run build:webpack",

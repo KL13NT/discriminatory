@@ -55,10 +55,10 @@ const Landing = ({ intl: { formatMessage: f, locale } }) => {
 						<p>{f({ id: 'about.header.p' })}</p>
 					</div>
 					<m className='header-links'>
-						<a className='button info' href='/home'>
+						<a className='button info' href='/app/home'>
 							{f({ id: 'about.header.start' })}
 						</a>
-						<a href='/explore'>{f({ id: 'about.header.explore' })}</a>
+						<a href='/app/explore'>{f({ id: 'about.header.explore' })}</a>
 					</m>
 				</div>
 			</header>

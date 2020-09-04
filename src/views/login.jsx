@@ -43,10 +43,12 @@ function Login() {
 					text: f({ id: 'actions.login.success' }),
 					type: 'success'
 				})
+				setFetching(false)
 				history.go(0)
 			})
 			.catch(err => {
 				console.log('COPY THIS WHEN REPORTING', err)
+				setFetching(false)
 				add({
 					text: f({ id: `errors.${err.code}` }),
 					type: 'danger'

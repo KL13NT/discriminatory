@@ -8,8 +8,9 @@ const entry = {
 
 const html = [
 	new HtmlWebpackPlugin({
-		template: './src/index.pug',
-		chunks: ['index']
+		template: './src/app.pug',
+		chunks: ['index'],
+		filename: 'app/index.html'
 	})
 ]
 

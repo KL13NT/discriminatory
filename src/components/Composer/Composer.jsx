@@ -127,6 +127,8 @@ function OverlayComposer() {
 		}
 
 		setHome([post, ...home])
+
+		toggle(false)
 	}
 
 	if (!active) return null

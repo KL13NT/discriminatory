@@ -1,3 +1,5 @@
+import { basePath } from 'config'
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
@@ -37,9 +39,9 @@ function NavbarLink({ to, name, icon: Icon }) {
 	)
 }
 
-function PrivateLink({ user, children }) {
+function PrivateLink({ user, ...props }) {
 	if (!user || !user.emailVerified) return null
-	return children
+	return <NavbarLink {...props} />
 }
 
 function Navbar({ user }) {
@@ -49,34 +51,34 @@ function Navbar({ user }) {
 		<nav className={styles.container}>
 			<FullLogo className={styles.logo} />
 			<div className={styles.links}>
-				<PrivateLink user={user}>
-					<NavbarLink to='/home' name={f({ id: 'titles.home' })} icon={Home} />
-				</PrivateLink>
+				<PrivateLink
+					user={user}
+					to={`${basePath}home`}
+					name={f({ id: 'titles.home' })}
+					icon={Home}
+				/>
 
 				<NavbarLink
-					to='/explore'
+					to={`${basePath}explore`}
 					name={f({ id: 'titles.explore' })}
 					icon={Explore}
 				/>
 
-				<PrivateLink user={user}>
-					<NavbarLink
-						to={`/${user ? user.uid : null}`}
-						name={f({ id: 'titles.profile' })}
-						icon={Profile}
-					/>
-				</PrivateLink>
+				<PrivateLink
+					user={user}
+					to={`${basePath}${user ? user.uid : null}`}
+					name={f({ id: 'titles.profile' })}
+					icon={Profile}
+				/>
 
 				<NavbarLink
-					to='/settings'
+					to={`${basePath}settings`}
 					name={f({ id: 'titles.settings' })}
 					icon={Settings}
 				/>
 			</div>
 
-			<PrivateLink user={user}>
-				<Compose />
-			</PrivateLink>
+			{!user || !user.emailVerified ? null : <Compose />}
 		</nav>
 	)
 }
