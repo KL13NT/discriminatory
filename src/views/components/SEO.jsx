@@ -41,6 +41,11 @@ function LocaleSEO({
 	return (
 		<>
 			<Helmet>
+				<script
+					data-ad-client='ca-pub-4278004686608414'
+					async
+					src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+				></script>
 				<meta content={'image/jpeg'} property='og:image:type' />
 				<meta content='summary_large_image' name='twitter:card'></meta>
 				<meta content='website' property='og:type' />
@@ -73,6 +78,11 @@ function SEO({ title, description, path = defaultPath, image }) {
 	return (
 		<Helmet>
 			<title>{finalTitle}</title>
+			<script
+				data-ad-client='ca-pub-4278004686608414'
+				async
+				src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+			></script>
 			<meta content={finalTitle} property='og:title' />
 			<meta content={finalTitle} property='twitter:title' />
 			<meta content={description} name='description' />

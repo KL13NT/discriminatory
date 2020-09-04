@@ -41,6 +41,11 @@ const Landing = ({ intl: { formatMessage: f, locale } }) => {
 			{dir === 'ltr' ? <EnFonts /> : <ArFonts />}
 			<Helmet>
 				<meta charset='UTF-8' />
+				<script
+					async
+					data-ad-client='ca-pub-4278004686608414'
+					src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+				/>
 				<meta name='viewport' content='width=device-width,initial-scale=1' />
 				<title>{f({ id: 'general.motto' })}</title>
 				<body dir={dir} />
