@@ -61,9 +61,7 @@ export function ProfilePreview({ displayName, avatar, tagline, location }) {
 		<div className={styles.preview}>
 			<img src={Cover} alt='Profile header' />
 			<div className={styles.details}>
-				<div className={styles.avatar}>
-					<img src={avatar} alt={`${displayName}'s Avatar`} />
-				</div>
+				<Avatar variant='big' avatar={avatar} displayName={displayName} />
 				<h1>{displayName}</h1>
 				<span>{tagline}</span>
 				<span>
