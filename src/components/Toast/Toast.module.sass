@@ -20,15 +20,14 @@
 	align-items: center
 	justify-content: space-between
 	margin: 10px
-	padding: 20px 10px 10px 20px
+	padding: 10px
 	border-radius: 10px
 	z-index: 30
-	color: black
+	color: var(--color-primary)
 
-	transition: opacity 0.5s
-
-	animation-name: popin
-	animation-duration: 0.25s
+	animation-name: popinout
+	animation-duration: 4.5s
+	animation-fill-mode: forwards
 	animation-iteration-count: 1
 	animation-play-state: running
 	animation-timing-function: cubic-bezier(.68,-0.55,.27,1.55)
@@ -37,99 +36,71 @@
 		height: 40px
 		width: 40px
 		padding: 14px
-		border-radius: 100%
 		display: flex
 		justify-content: center
 		align-items: center
-		transition: filter var(--transition-duration-base)
+		border-radius: 10px
+		transition: filter var(--transition-duration-base), background var(--transition-duration-base)
+		filter: opacity(0.75)
 
-		&:hover
-			filter: var(--brightness-hover)
-
-		&:active
-			filter: var(--brightness-active)
+		&:hover, &:focus, &:active
+			filter: opacity(1)
 
 		> svg
 			height: 100%
 			width: 100%
 
-		> svg, > svg path
-			fill: black
 
+@mixin toastify($background, $primary)
+	$color: if($primary == true, var(--color-primary), var(--color-negative))
+
+	background: $background
+	color: $color
+	> button
+		color: $color
+
+	> button:active
+		background: #ffffff20
+
+	> button svg, > button svg path
+		fill: $color
 
 .info
-	background: var(--color-secondary)
+	$info: linear-gradient(260deg, rgb(139, 42, 203) 0%, rgb(88, 42, 203) 100%), hsl(276.1,65.7%,48%)
 
-	> button
-		background: var(--color-alternative)
-
-	> .progress
-		background: var(--color-alternative)
+	@include toastify($background: $info, $primary: true)
 
 .warn
-	background: var(--color-yellow-lighter)
+	$warn: linear-gradient(260deg, rgb(255, 188, 0) 0%, rgb(255, 149, 0) 100%), hsl(44.2,100%,50%)
 
-	> button
-		background: var(--color-yellow-light)
-
-	> .progress
-		background: var(--color-yellow-base)
+	@include toastify($background: $warn, $primary: false)
 
 .danger
-	background: var(--color-red-lighter)
+	$danger: linear-gradient(260deg, rgb(191, 7, 17) 0%, rgb(191, 7, 57) 100%), hsl(343.7,92.9%,38.8%)
 
-	> button
-		background: var(--color-red-light)
-
-	> .progress
-		background: var(--color-red-base)
+	@include toastify($background: $danger, $primary: true)
 
 .success
-	background: var(--color-green-lighter)
+	$success: linear-gradient(260deg, rgb(55, 225, 146) 0%, rgb(55, 225, 94) 100%), hsl(152, 74%, 55%)
 
-	> button
-		background: var(--color-green-light)
+	@include toastify($background: $success, $primary: false)
 
-	> .progress
-		background: var(--color-green-base)
 
-.dismissed
-	opacity: 0
-
-.progress
-	width: 100%
-	position: absolute
-	top: 0
-	left: 0
-	height: 10px
-
-	animation-name: shrink
-	animation-duration: 6s
-	animation-iteration-count: 1
-	animation-play-state: running
-	animation-timing-function: linear
-
-	transform-origin: left
-
-	border-radius: 5px 5px 0 0
-
-@keyframes popin
+@keyframes popinout
 	0%
 		transform: translateY(100px)
-	100%
+	5%
 		transform: translateY(0)
+	95%
+		transform: translateY(0)
+	100%
+		transform: translateY(1000%)
 
 
 @media screen and (min-width: 768px)
 	.container
 		width: 35%
 		margin: 10px auto
-
-@keyframes shrink
-	0%
-		transform: scaleX(1)
-	100%
-		transform: scaleX(0)
 
 
 @media screen and (min-width: 1024px)

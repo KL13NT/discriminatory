@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import create from 'zustand'
 
 import styles from './Toast.module.sass'
 import cls from '../../utils/cls'
 
 import { ReactComponent as Close } from '../../assets/x.svg'
-import { useRef } from 'react'
 import { useCallback } from 'react'
 
 const [useToasts] = create(set => ({
@@ -21,58 +20,35 @@ const [useToasts] = create(set => ({
 					{
 						text: toast.text,
 						id: toast.text,
-						type: toast.type
+						type: toast.type,
+						timeout: setTimeout(() => state.remove(toast.text), 5000)
 					}
 				]
 			}
 		}),
 
 	remove: id =>
-		set(state => ({
-			toasts: state.toasts.filter(toast => toast.id !== id)
-		}))
+		set(state => {
+			const found = state.toasts.find(toast => toast.id === id)
+			clearTimeout(found.timeout)
+
+			return {
+				toasts: state.toasts.filter(toast => toast.id !== id)
+			}
+		})
 }))
 
 function Toast({ type, text, id, remove }) {
-	const [dismissed, setDismiss] = useState(false)
-	const styleTimeout = useRef(null)
-	const dismissTimeout = useRef(null)
-
 	const dismiss = useCallback(() => {
-		clearTimeout(styleTimeout.current)
-		clearTimeout(dismissTimeout.current)
-
 		remove(id)
 	}, [remove, id])
 
-	useEffect(() => {
-		styleTimeout.current = setTimeout(() => {
-			setDismiss(true)
-			dismissTimeout.current = setTimeout(dismiss, 500)
-		}, 5000)
-	}, [dismiss])
-
-	useEffect(() => {
-		return () => {
-			clearTimeout(styleTimeout.current)
-			clearTimeout(dismissTimeout.current)
-		}
-	})
-
 	return (
-		<li
-			key={text}
-			className={cls(
-				styles.toast,
-				styles[type],
-				dismissed ? styles.dismissed : null
-			)}
-		>
+		<li key={text} className={cls(styles.toast, styles[type])}>
 			{text}
 			<button aria-label='Dismiss notification' onClick={dismiss}>
 				<Close />
 			</button>
-			<div className={styles.progress}></div>
 		</li>
 	)
 }
@@ -80,7 +56,7 @@ function Toast({ type, text, id, remove }) {
 function ToastContainer() {
 	const { toasts, remove } = useToasts()
 
-	// if (toasts.length === 0) return null
+	if (toasts.length === 0) return null
 	return (
 		<div className={styles.container}>
 			<ul>
