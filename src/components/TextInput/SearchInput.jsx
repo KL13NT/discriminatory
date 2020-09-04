@@ -41,6 +41,8 @@ const SearchInput = () => {
 					icon={Search}
 					onChange={onChange}
 					maxLength={60}
+					// eslint-disable-next-line jsx-a11y/tabindex-no-positive
+					tabIndex={2}
 					placeholder={f({ id: 'placeholders.search' })}
 				/>
 			</form>

@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 
 import TextInput from '../../components/TextInput/TextInput'
 import Button from '../../components/Button/Button'
-import Placeholder from '../../assets/placeholder.png'
 import Uploader from '../../components/Uploader/Uploader'
 import Label from '../../components/Label/Label'
+
 import { ProfilePreview } from '../../components/ProfileHeader/ProfileHeader'
 
 import { useToasts } from '../../components/Toast/Toast'
@@ -15,6 +15,8 @@ import { useProfile } from '../../stores/profile'
 import { useIntl } from 'react-intl'
 
 import * as queries from '../../queries/profiles'
+
+import Placeholder from '../../assets/placeholder.png'
 
 function ProfileEditor({ create }) {
 	const { add } = useToasts()
@@ -99,7 +101,7 @@ function ProfileEditor({ create }) {
 			<ProfilePreview
 				displayName={data.displayName}
 				tagline={data.tagline}
-				avatar={avatar ? avatar : Placeholder}
+				avatar={avatar.src || avatar}
 				location={data.location}
 			/>
 			<form onSubmit={onSubmit}>
