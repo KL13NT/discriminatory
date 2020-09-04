@@ -1,16 +1,15 @@
-import React from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
+
+import Button from '../Button/Button'
 
 import styles from './Uploader.module.sass'
-import Button from '../Button/Button'
-import { useRef } from 'react'
-import { useState } from 'react'
+
 import cls from '../../utils/cls'
-import { useEffect } from 'react'
-import { useCallback } from 'react'
+import { findParentByClass } from '../../utils/general'
 
 import { ReactComponent as Download } from '../../assets/direct-download.svg'
-import { findParentByClass } from '../../utils/general'
 
 /**
  * Returns an array of Files
@@ -99,18 +98,27 @@ function Uploader({ onChange, name, ...props }) {
 		>
 			<div>
 				{value.length > 0 ? <p>{value[0].name}</p> : null}
-				<p>Drag and Drop a file or </p>
+				<p>
+					<FormattedMessage id='uplodaer.drag' />
+				</p>
 				<Button variant='link' onClick={onBrowse}>
-					Browse
+					<FormattedMessage id='uploader.browse' />
 				</Button>
 			</div>
 
 			<div>
-				<p>Drop your files here</p>
+				<p>
+					<FormattedMessage id='uplodaer.drop' />
+				</p>
 				<Download />
 			</div>
 
-			<img src='' alt='preview' className={styles.preview} ref={previewRef} />
+			<img
+				src=''
+				alt={<FormattedMessage id='uplodaer.previewAlt' />}
+				className={styles.preview}
+				ref={previewRef}
+			/>
 
 			<input
 				type='file'

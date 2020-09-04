@@ -173,6 +173,13 @@
 	"about.section3.alt2": "Example of platform on phones",
 	"about.section4.p1": "Join us",
 	"about.section4.p2": "now and be part of the cause.",
+
+	"uploader.drag": "Drag and drop a file",
+	"uploader.drop": "Drop the file here",
+	"uploader.browse": "Browse",
+	"uploader.preview": "Preview",
+	"uploader.filename": "File name",
+
 	"composer.title": "Compose",
 	"composer.placeholder": "What's on your mind?",
 	"composer.submit": "Post",

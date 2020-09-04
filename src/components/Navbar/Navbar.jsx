@@ -1,7 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { NavLink } from 'react-router-dom'
+import { useIntl, FormattedMessage } from 'react-intl'
 
 import Button from '../Button/Button'
+
+import { useComposer } from '../../stores/composer'
 
 import styles from './Navbar.module.sass'
 
@@ -12,15 +16,13 @@ import { ReactComponent as Profile } from '../../assets/user 1.svg'
 import { ReactComponent as Settings } from '../../assets/gear.inline.svg'
 import { ReactComponent as Add } from '../../assets/plus 1.svg'
 
-import { NavLink } from 'react-router-dom'
-import { useComposer } from '../../stores/composer'
-import { useIntl } from 'react-intl'
-
 function Compose() {
 	const { toggle } = useComposer()
 	return (
 		<Button className={styles.compose} onClick={toggle} aria-label='Compose'>
-			<span>Compose</span>
+			<span>
+				<FormattedMessage id='titles.compose' />
+			</span>
 			<Add />
 		</Button>
 	)
