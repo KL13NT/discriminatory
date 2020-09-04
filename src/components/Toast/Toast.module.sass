@@ -81,9 +81,10 @@
 	@include toastify($background: $danger, $primary: true)
 
 .success
-	$success: linear-gradient(260deg, rgb(55, 225, 146) 0%, rgb(55, 225, 94) 100%), hsl(152, 74%, 55%)
+	@extend .info
+	// $success: linear-gradient(260deg, rgb(55, 225, 146) 0%, rgb(55, 225, 94) 100%), hsl(152, 74%, 55%)
 
-	@include toastify($background: $success, $primary: false)
+	// @include toastify($background: $success, $primary: false)
 
 
 @keyframes popinout

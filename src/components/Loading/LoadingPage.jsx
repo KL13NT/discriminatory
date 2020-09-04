@@ -60,7 +60,7 @@ export const FullscreenLoader = ({ title, subtitle, err }) => {
 			className={styles.fullscreenLoader}
 			tabIndex={0}
 			role='progressbar'
-			aria-valuetext={title || <FormattedMessage id='loading.title' />}
+			aria-valuetext={title || f({ id: 'loading.title' })}
 			aria-busy='true'
 			aria-live='assertive'
 			aria-valuemin='0'

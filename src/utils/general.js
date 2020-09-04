@@ -9,6 +9,7 @@ export const findParentByRef = (target, ref, iterations = 0) => {
 	if ((target === ref || target === ref.current) && iterations > 0) return true
 	if (target.parentNode && target.parentNode !== document)
 		return findParentByRef(target.parentNode, ref, iterations + 1)
+	return false
 }
 
 export const findParentByClass = (target, selector) => {
@@ -16,6 +17,7 @@ export const findParentByClass = (target, selector) => {
 	if (Array.from(target.classList).includes(selector)) return true
 	if (target.parentNode && target.parentNode !== document)
 		return findParentByClass(target.parentNode, selector)
+	return false
 }
 
 export const getProfilesFromPosts = posts => {

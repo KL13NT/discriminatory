@@ -67,7 +67,7 @@ function ProfileEditor({ create }) {
 	}
 
 	const submitAvatar = avatar => {
-		return storage().ref(`avatars/${user.uid}`).put(avatar.file)
+		return storage.ref(`avatars/${user.uid}`).put(avatar.file)
 	}
 
 	const onSubmit = e => {

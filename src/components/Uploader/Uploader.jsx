@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { useCallback } from 'react'
 
 import { ReactComponent as Download } from '../../assets/direct-download.svg'
+import { findParentByClass } from '../../utils/general'
 
 /**
  * Returns an array of Files
@@ -17,13 +18,15 @@ import { ReactComponent as Download } from '../../assets/direct-download.svg'
 function Uploader({ onChange, name, ...props }) {
 	const inputRef = useRef()
 	const previewRef = useRef()
+	const dropAreaRef = useRef()
+
 	const [value, setValue] = useState([])
-	const [focused, setFocus] = useState(false)
 
 	const onClick = () => onBrowse()
 	const onKeyDown = () => null
 	const onBrowse = e => {
-		preventDefaults(e)
+		if (e) preventDefaults(e)
+
 		inputRef.current.click()
 	}
 
@@ -35,13 +38,15 @@ function Uploader({ onChange, name, ...props }) {
 	const onDragOn = e => {
 		preventDefaults(e)
 
-		setFocus(true)
+		if (dropAreaRef.current) dropAreaRef.current.classList.add(styles.focus)
 	}
 
 	const onDragOff = e => {
 		preventDefaults(e)
 
-		setFocus(false)
+		if (!e.target || !findParentByClass(e.target, styles.uploader))
+			if (dropAreaRef.current)
+				dropAreaRef.current.classList.remove(styles.focus)
 	}
 
 	const previewFiles = useCallback(
@@ -59,7 +64,7 @@ function Uploader({ onChange, name, ...props }) {
 	const onDrop = e => {
 		preventDefaults(e)
 
-		setFocus(false)
+		if (dropAreaRef.current) dropAreaRef.current.classList.remove(styles.focus)
 
 		const { dataTransfer } = e
 		const { files } = dataTransfer
@@ -76,18 +81,20 @@ function Uploader({ onChange, name, ...props }) {
 			previewFiles(value[0])
 			onChange(value)
 		}
-	}, [onChange, previewFiles, value])
+	}, [value])
 
 	return (
 		<div
 			role='button'
 			tabIndex={0}
+			ref={dropAreaRef}
 			onKeyDown={onKeyDown}
-			className={cls(styles.uploader, focused ? styles.focus : null)}
+			className={cls(styles.uploader)}
 			onClick={onClick}
 			onDragEnter={onDragOn}
 			onDragOver={onDragOn}
 			onDragLeave={onDragOff}
+			onDragEnd={onDragOff}
 			onDrop={onDrop}
 		>
 			<div>
@@ -97,11 +104,14 @@ function Uploader({ onChange, name, ...props }) {
 					Browse
 				</Button>
 			</div>
+
 			<div>
 				<p>Drop your files here</p>
 				<Download />
 			</div>
+
 			<img src='' alt='preview' className={styles.preview} ref={previewRef} />
+
 			<input
 				type='file'
 				id={name}
