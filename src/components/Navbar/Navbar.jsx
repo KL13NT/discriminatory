@@ -1,4 +1,4 @@
-import { basePath } from 'config'
+// import { basePath } from 'config'
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -53,26 +53,26 @@ function Navbar({ user }) {
 			<div className={styles.links}>
 				<PrivateLink
 					user={user}
-					to={`${basePath}home`}
+					to={'/home'}
 					name={f({ id: 'titles.home' })}
 					icon={Home}
 				/>
 
 				<NavbarLink
-					to={`${basePath}explore`}
+					to={'/explore'}
 					name={f({ id: 'titles.explore' })}
 					icon={Explore}
 				/>
 
 				<PrivateLink
 					user={user}
-					to={`${basePath}${user ? user.uid : null}`}
+					to={`/${user ? user.uid : null}`}
 					name={f({ id: 'titles.profile' })}
 					icon={Profile}
 				/>
 
 				<NavbarLink
-					to={`${basePath}settings`}
+					to={'/settings'}
 					name={f({ id: 'titles.settings' })}
 					icon={Settings}
 				/>
