@@ -17,6 +17,7 @@ const devServer = {
 	inline: true,
 	historyApiFallback: true,
 	hot: true,
+	useLocalIp: true,
 	watchContentBase: true,
 	writeToDisk: false,
 	headers: {

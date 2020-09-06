@@ -110,7 +110,7 @@ function InitialController({ children }) {
 
 	//TODO: move this to a 'versions' controllers
 	useEffect(() => {
-		if (typeof navigator.serviceWorker !== 'undefined') {
+		if (typeof navigator.serviceWorker !== 'undefined' && wb) {
 			const wait = () => setHasUpdate(true)
 
 			const load = () => {
