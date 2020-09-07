@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import styles from './Footer.module.sass'
 
-const links = ['about', 'guidelines', 'terms', 'privacy']
+const links = ['about', 'terms', 'privacy']
 
 function Footer() {
 	const { locale } = useIntl()

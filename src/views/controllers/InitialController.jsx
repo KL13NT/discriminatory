@@ -17,6 +17,7 @@ import { FullscreenLoader } from '../../components/Loading/LoadingPage.jsx'
 import { useState } from 'react'
 import Banner from '../../components/Banner/Banner'
 import Button from '../../components/Button/Button'
+import { getApolloErrorCode } from '../../utils/general'
 
 const wb = new Workbox('/sw.js')
 
@@ -55,7 +56,8 @@ function InitialController({ children }) {
 
 	useEffect(() => {
 		if (response.error) {
-			if (response.error.graphQLErrors[0].extensions.code !== 'NOT_FOUND') {
+			const code = getApolloErrorCode(response.error)
+			if (code !== 'NOT_FOUND') {
 				clearAuth()
 				clearProfile()
 				finish('Loading your profile')

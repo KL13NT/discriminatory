@@ -42,5 +42,12 @@ export const isNearEndScroll = () => {
  *
  * @param {import('urql').CombinedError} error
  */
-export const getApolloErrorCode = error =>
-	error.networkError ? 'NETWORK_ERROR' : error.graphQLErrors[0].extensions.code
+export const getApolloErrorCode = error => {
+	console.log('COPY THIS WHEN REPORTING', error)
+
+	return error.networkError
+		? 'NETWORK_ERROR'
+		: error.graphlQLErrors && Array.isArray(error.graphlQLErrors)
+		? error.graphQLErrors[0].extensions.code
+		: 'BEEP_BOOP_ERROR'
+}
