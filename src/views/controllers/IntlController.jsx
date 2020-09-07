@@ -59,9 +59,8 @@ function IntlController({ children }) {
 	const EnFonts = () => (
 		<Helmet>
 			<link
-				href='https://fonts.googleapis.com/css2?family=Bebas+Neue|Roboto:wght@400;900&display=swap'
+				href='https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;800&display=swap'
 				rel='stylesheet'
-				crossOrigin
 			/>
 		</Helmet>
 	)
@@ -70,7 +69,7 @@ function IntlController({ children }) {
 		<Helmet>
 			<link
 				href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap'
-				rel='stylesheet'
+				rel='preconnect'
 				crossOrigin
 			/>
 		</Helmet>
