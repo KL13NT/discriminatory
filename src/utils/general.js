@@ -47,7 +47,7 @@ export const getApolloErrorCode = error => {
 
 	return error.networkError
 		? 'NETWORK_ERROR'
-		: error.graphlQLErrors && Array.isArray(error.graphlQLErrors)
+		: error.graphQLErrors && Array.isArray(error.graphQLErrors)
 		? error.graphQLErrors[0].extensions.code
 		: 'BEEP_BOOP_ERROR'
 }
