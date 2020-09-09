@@ -34,10 +34,6 @@ export const getProfilesFromPosts = posts => {
 	return profiles
 }
 
-export const isNearEndScroll = () => {
-	return window.scrollY + window.innerHeight > document.body.clientHeight - 100
-}
-
 /**
  *
  * @param {import('urql').CombinedError} error
@@ -51,3 +47,9 @@ export const getApolloErrorCode = error => {
 		? error.graphQLErrors[0].extensions.code
 		: 'BEEP_BOOP_ERROR'
 }
+
+/**
+ * Returns boolean indicating whether user is near the end of the page. Default offset is 300px.
+ */
+export const isNearBottom = (offset = 300) =>
+	window.scrollY + window.innerHeight > document.body.clientHeight - offset

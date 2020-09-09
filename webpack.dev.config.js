@@ -11,15 +11,16 @@ const output = {
 }
 
 const devServer = {
-	compress: false,
-	contentBase: path.join(__dirname, './src/static'),
 	publicPath: '/',
+	stats: 'verbose',
+	contentBase: path.join(__dirname, './src/static'),
+	compress: false,
 	inline: true,
-	historyApiFallback: true,
 	hot: true,
 	useLocalIp: true,
-	watchContentBase: true,
 	writeToDisk: false,
+	historyApiFallback: true,
+	watchContentBase: true,
 	headers: {
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
