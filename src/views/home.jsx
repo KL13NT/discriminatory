@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
+
 import PageTitle from '../components/PageTitle/PageTitle'
 import PostMaster from './components/PostMaster'
 import Composer from '../components/Composer/Composer'
@@ -8,17 +9,18 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
-
+import { useToasts } from '../components/Toast/Toast'
 import { useProfile } from '../stores/profile'
 
 import { usePosts } from '../stores/posts'
+
 import { Spinner } from '../components/Loading/LoadingPage'
 import { Link } from 'react-router-dom'
 import { PageState } from '../components/Errors/PageError'
+
 import { getApolloErrorCode, isNearBottom } from '../utils/general'
 
 import * as queries from '../queries/posts'
-import { useToasts } from '../components/Toast/Toast'
 
 const NoPosts = () => {
 	const Description = (

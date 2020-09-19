@@ -96,9 +96,9 @@ function PostMaster({ posts, setPosts }) {
 
 	const onComment = e => {
 		e.preventDefault()
-		const { currentTarget } = e
-		const { id: post } = currentTarget.parentNode.dataset
-		const { value: content } = currentTarget.elements['content']
+		const { target } = e
+		const { id: post } = target.parentNode.parentNode.parentNode.dataset
+		const { value: content } = target
 
 		comment({ post, content }).then(response => {
 			if (!response.error) {
@@ -118,7 +118,7 @@ function PostMaster({ posts, setPosts }) {
 				setPosts(dupe)
 				add({ text: f({ id: 'actions.commentpost.success' }), type: 'success' })
 
-				currentTarget.elements['content'].value = ''
+				target.value = ''
 			}
 		})
 	}

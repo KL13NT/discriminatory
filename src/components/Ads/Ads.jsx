@@ -128,11 +128,11 @@ function Ads() {
 	const { status } = useSettings(state => state.settings.advertisements)
 
 	useEffect(() => {
-		if (status)
-			fetch(SCRIPT_URL)
-				.then(response => response.text())
-				.then(setScript)
-				.catch(() => setBlocked(true))
+		if (status) setBlocked(true)
+		// fetch(SCRIPT_URL)
+		// 	.then(response => response.text())
+		// 	.then(setScript)
+		// 	.catch(() => setBlocked(true))
 	}, [])
 
 	return (
@@ -147,9 +147,9 @@ function Ads() {
 					</span>
 				</h1>
 				{isBlocked ? <Placeholder enabled={status} /> : null}
-				<script data-ad-client='ca-pub-4278004686608414' async>
+				{/* <script data-ad-client='ca-pub-4278004686608414' async>
 					{script}
-				</script>
+				</script> */}
 			</Container>
 		</>
 	)
