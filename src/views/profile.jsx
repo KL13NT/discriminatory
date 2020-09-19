@@ -67,7 +67,7 @@ function Profile() {
 	const [unfollowRes, unfollow] = useMutation(queries.unfollow)
 
 	const [pagination, setPagination] = useState({ before: null })
-	const [profileRes] = useQuery({
+	const [profileRes, requery] = useQuery({
 		query: queries.profile,
 		variables: {
 			...pagination,
@@ -78,22 +78,20 @@ function Profile() {
 	})
 
 	const error = useCallback(
-		() => add({ text: f({ id: 'errors.general' }), type: 'danger' }),
+		res =>
+			console.log(res.error) &&
+			add({ text: f({ id: 'errors.general' }), type: 'danger' }),
 		[] // eslint-disable-line
 	)
 
-	useEffect(() => followRes.error && console.log(followRes.error) && error(), [
-		followRes,
-		error
-	])
-	useEffect(
-		() => unfollowRes.error && console.log(unfollowRes.error) && error(),
-		[unfollowRes, error]
-	)
-	useEffect(
-		() => profileRes.error && console.log(profileRes.error) && error(),
-		[profileRes, error]
-	)
+	useEffect(() => {
+		setProfile(null)
+		requery()
+	}, [user_id])
+
+	useEffect(() => error(followRes), [followRes, error])
+	useEffect(() => error(unfollowRes), [unfollowRes, error])
+	useEffect(() => error(profileRes), [profileRes, error])
 
 	const onFollow = () => {
 		const { _id } = profileRes.data.profile.user
