@@ -21,15 +21,23 @@ import cls from '../../utils/cls'
 
 function Composer({ avatar, verified, onSuccess, ...props }) {
 	const { formatMessage: f } = useIntl()
-
 	const { add } = useToasts()
-	const [enabled, toggle] = useState(true)
-	const [canSubmit, setCanSubmitState] = useState(false)
-	const [postData, setPostData] = useState({ location: null, content: '' })
+
+	const [enabled, toggle] = useState(true) // whole form state
+	const [canSubmit, setCanSubmit] = useState(false) // submit button state
+
+	const [postData, setPostData] = useComposer(state => [
+		state.data,
+		state.updateData
+	])
 
 	useEffect(() => {
-		if (postData.content.trim().length > 0 && postData.location)
-			setCanSubmitState(true)
+		if (
+			postData.content.trim().length > 0 &&
+			String(postData.location).trim().length > 0
+		)
+			setCanSubmit(true)
+		else setCanSubmit(false)
 	}, [postData.content, postData.location, postData])
 
 	const onChange = ({ currentTarget }) =>
@@ -91,7 +99,10 @@ function Composer({ avatar, verified, onSuccess, ...props }) {
 						value={postData.content}
 						onChange={onChange}
 					/>
-					<LocationPicker onPick={onLocationPick} />
+					<LocationPicker
+						onPick={onLocationPick}
+						defaultValue={postData.location}
+					/>
 					<Button disabled={!canSubmit || !enabled} type='submit'>
 						{f({ id: 'composer.submit' })}
 					</Button>

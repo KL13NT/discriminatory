@@ -111,7 +111,9 @@ function Placeholder({ enabled }) {
 				<img src={src} alt={alt} />
 				<span className={styles.credits}>
 					<FormattedMessage id='general.photoby' />{' '}
-					<a href={link}>{photographer}</a>
+					<a href={link} target='_blank' rel='noreferrer'>
+						{photographer}
+					</a>
 				</span>
 			</div>
 			<span>{reason}</span>

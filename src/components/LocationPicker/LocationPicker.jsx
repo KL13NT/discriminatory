@@ -8,10 +8,10 @@ import cls from '../../utils/cls'
 import { useIntl } from 'react-intl'
 
 //TODO: hook to google maps API
-function LocationPicker({ onPick, disabled, ...props }) {
+function LocationPicker({ defaultValue, disabled, onPick, ...props }) {
 	const { formatMessage: f } = useIntl()
 	const [isLocationPickerOpen, setLocationPickerState] = useState(false)
-	const [location, setLocation] = useState(null)
+	const [location, setLocation] = useState(defaultValue || '')
 
 	let timeout = 0
 
@@ -36,7 +36,7 @@ function LocationPicker({ onPick, disabled, ...props }) {
 
 	const onChange = ({ currentTarget }) => {
 		clearTimeout(timeout)
-		setLocation(currentTarget.value)
+		setLocation(currentTarget.value.trim())
 		timeout = setTimeout(() => {
 			//TODO: fetch from /locations in Mongo
 		}, 2000)
