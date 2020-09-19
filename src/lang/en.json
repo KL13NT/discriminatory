@@ -207,6 +207,7 @@
 	"loading.random[5]": "Hitting your keyboard won't make this faster",
 	"loading.random[6]": "If you squeeze dark elves you don't get wine",
 	"warnings.profilenotcomplete": "You can't fully use the service without a complete profile",
+	"tutorial.comment": "Hit Enter ⏎ to comment",
 	"errors.authentication": "Something went wrong while authenticating. Try signing in agani or report it if it persists.",
 	"errors.verify": "Verify your account to use the service",
 	"errors.general": "Something went wrong",

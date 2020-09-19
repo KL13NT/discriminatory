@@ -32,7 +32,6 @@ function CommentComposer({ onComment, ...profile }) {
 
 	const onKeyDown = e => {
 		const { key } = e
-		console.log(key, isHoldingShift, canSubmit)
 
 		if (key === 'Shift') dispatchShift(true)
 		if (key === 'Enter' && !isHoldingShift) onSubmit(e)
@@ -62,6 +61,9 @@ function CommentComposer({ onComment, ...profile }) {
 					/>
 				</span>
 			</div>
+			<span className='u-disclaimer'>
+				<FormattedMessage id='tutorial.comment' />
+			</span>
 		</>
 	)
 }

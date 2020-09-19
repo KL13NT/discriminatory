@@ -25,7 +25,7 @@
 	z-index: 30
 	color: var(--color-primary)
 
-	animation-name: popinout
+	animation-name: popinoutMobile
 	animation-duration: 4.5s
 	animation-fill-mode: forwards
 	animation-iteration-count: 1
@@ -86,6 +86,15 @@
 
 	// @include toastify($background: $success, $primary: false)
 
+@keyframes popinoutMobile
+	0%
+		transform: translateY(100px)
+	5%
+		transform: translateY(0)
+	95%
+		transform: translateY(0)
+	100%
+		transform: translateY(-1000%)
 
 @keyframes popinout
 	0%
@@ -108,3 +117,6 @@
 	.container
 		bottom: 0
 		top: auto
+
+	.toast
+		animation-name: popinout
