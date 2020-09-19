@@ -21,7 +21,7 @@ const defaultConfig = JSON.parse(localStorage.getItem('settings')) || {
 				{ locale: 'en', dir: 'ltr', name: 'English - الإنجليزية' },
 				{ locale: 'ar', dir: 'rtl', name: 'Arabic - العربيّة' }
 			],
-			selected: { locale: 'en', dir: 'ltr', name: 'English - الإنجليزية' }
+			selected: null
 		}
 	},
 	advertisements: {

@@ -1,10 +1,14 @@
 import React, { useEffect, useCallback } from 'react'
+import { useIntl, FormattedMessage } from 'react-intl'
+
 import PageTitle from '../components/PageTitle/PageTitle'
 import PostMaster from './components/PostMaster'
-import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
+import LocaleSEO from './components/SEO'
 
+import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
 import { Spinner } from '../components/Loading/LoadingPage'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { IntlPlural } from './components/Plural'
+import { PageState } from '../components/Errors/PageError'
 
 import { useQuery, useMutation } from 'urql'
 import { useState } from 'react'
@@ -12,11 +16,9 @@ import { useAuth } from '../stores/auth'
 import { useParams } from 'react-router-dom'
 import { useToasts } from '../components/Toast/Toast'
 
-import * as queries from '../queries/profiles'
-import { IntlPlural } from './components/Plural'
-import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
-import LocaleSEO from './components/SEO'
+
+import * as queries from '../queries/profiles'
 
 const NoPosts = () => {
 	const Description = <FormattedMessage id='states.emptyprofile.description' />
@@ -77,12 +79,12 @@ function Profile() {
 		requestPolicy: 'cache-first'
 	})
 
-	const error = useCallback(
-		res =>
-			console.log(res.error) &&
-			add({ text: f({ id: 'errors.general' }), type: 'danger' }),
-		[] // eslint-disable-line
-	)
+	const error = useCallback(res => {
+		if (!res.error) return
+
+		console.log('COPY THIS WHEN REPORTING', res.error)
+		add({ text: f({ id: 'errors.general' }), type: 'danger' })
+	}, []) // eslint-disable-line
 
 	useEffect(() => {
 		setProfile(null)

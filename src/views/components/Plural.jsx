@@ -11,8 +11,10 @@ export const IntlPlural = ({ value, localeContainId }) => {
 
 	const zero = f({ id: `${localeContainId}.zero` })
 	const one = f({ id: `${localeContainId}.one` })
+	const two = f({ id: `${localeContainId}.two` })
 	const few = f({ id: `${localeContainId}.few` })
 	const many = f({ id: `${localeContainId}.many` })
+	const other = f({ id: `${localeContainId}.other` })
 
 	return (
 		<>
@@ -25,6 +27,8 @@ export const IntlPlural = ({ value, localeContainId }) => {
 				value={value}
 				zero={zero}
 				one={one}
+				two={two}
+				other={other}
 				few={few}
 				many={many}
 			/>
