@@ -62,7 +62,7 @@ function Composer({ avatar, verified, onSuccess, ...props }) {
 
 		post(data).then(response => {
 			if (!response.error) {
-				onSuccess(data)
+				onSuccess({ ...data, _id: response.data.post })
 				toggle(true)
 				setPostData({ content: '', location: null })
 			} else {
@@ -103,14 +103,10 @@ function Composer({ avatar, verified, onSuccess, ...props }) {
 
 function OverlayComposer() {
 	const { add } = useToasts()
-	const { active, toggle } = useComposer()
 	const { profile } = useProfile()
+	const { active, toggle } = useComposer()
 	const { formatMessage: f } = useIntl()
-
-	const { home, setHome } = usePosts(state => ({
-		home: state.home,
-		setHome: state.setHome
-	}))
+	const { explore, home, setHome, setExplore } = usePosts()
 
 	const onSuccess = newPost => {
 		add({
@@ -123,9 +119,13 @@ function OverlayComposer() {
 			comments: [],
 			reactions: { upvotes: 0, downvotes: 0 },
 			created: Date.now(),
-			...newPost
+			content: newPost.content,
+			location: {
+				location: newPost.location
+			}
 		}
 
+		setExplore([post, ...explore])
 		setHome([post, ...home])
 
 		toggle(false)

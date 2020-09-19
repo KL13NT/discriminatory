@@ -109,6 +109,7 @@
 	"dependencies": {
 		"@bumaga/tabs": "^0.2.0",
 		"@urql/exchange-retry": "^0.1.8",
+		"dset": "^2.0.1",
 		"firebase": "^7.17.2",
 		"gatsby": "^2.24.52",
 		"gatsby-plugin-react-helmet": "^3.3.10",

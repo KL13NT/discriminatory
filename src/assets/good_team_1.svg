@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="112.49506mm"
+   height="83.746033mm"
+   viewBox="0 0 112.49506 83.746033"
+   version="1.1"
+   id="svg4018"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="good_team_1.svg">
+  <defs
+     id="defs4012" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="400.01768"
+     inkscape:cy="-245.45408"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="745"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4015">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0.00467682,-0.14423943)">
+    <circle
+       cx="80.547363"
+       cy="50.274872"
+       r="20.902082"
+       id="circle3940"
+       style="fill:#2f2e41;stroke-width:0.26458332" />
+    <rect
+       x="-79.828407"
+       y="-91.598595"
+       width="6.350019"
+       height="11.377118"
+       transform="rotate(169.73917)"
+       id="rect3942"
+       style="fill:#2f2e41;stroke-width:0.26458412" />
+    <rect
+       x="-67.128494"
+       y="-91.600212"
+       width="6.3499999"
+       height="11.377084"
+       transform="rotate(169.73894)"
+       id="rect3944"
+       style="fill:#2f2e41;stroke-width:0.26458332" />
+    <ellipse
+       cx="7.8442512"
+       cy="111.6745"
+       rx="5.2916665"
+       ry="1.984375"
+       transform="rotate(-40.26106)"
+       id="ellipse3946"
+       style="fill:#2f2e41;stroke-width:0.26458332" />
+    <ellipse
+       cx="18.613634"
+       cy="117.89222"
+       rx="5.2916665"
+       ry="1.984375"
+       transform="rotate(-40.26106)"
+       id="ellipse3948"
+       style="fill:#2f2e41;stroke-width:0.26458332" />
+    <circle
+       cx="79.084053"
+       cy="45.162094"
+       r="7.1437502"
+       id="circle3950"
+       style="fill:#ffffff;stroke-width:0.26458332" />
+    <circle
+       cx="76.147987"
+       cy="42.60144"
+       r="2.3812499"
+       id="circle3952"
+       style="fill:#3f3d56;stroke-width:0.26458332" />
+    <path
+       d="m 97.036184,27.535632 c 0.314325,-7.738268 -6.354921,-14.292619 -14.896211,-14.63957 -8.541287,-0.346951 -15.720187,5.644886 -16.03452,13.383154 -0.314332,7.738269 5.622952,9.496462 14.164242,9.843413 8.541289,0.346951 16.452164,-0.848733 16.766489,-8.586997 z"
+       id="path3954"
+       inkscape:connector-curvature="0"
+       style="fill:#292841;stroke-width:0.26458332" />
+    <ellipse
+       cx="-31.60829"
+       cy="70.080681"
+       rx="3.280905"
+       ry="10.451041"
+       transform="rotate(-77.0899)"
+       id="ellipse3956"
+       style="fill:#2f2e41;stroke-width:0.26458332" />
+    <ellipse
+       cx="-29.092031"
+       cy="111.59798"
+       rx="3.280905"
+       ry="10.451041"
+       transform="rotate(-77.0899)"
+       id="ellipse3958"
+       style="fill:#2f2e41;stroke-width:0.26458332" />
+    <path
+       d="m 86.28814,58.51211 a 4.7625004,4.7625004 0 1 1 -9.372661,1.696722 c -0.468537,-2.588188 1.532567,-3.504043 4.120756,-3.972581 2.588188,-0.468537 4.783368,-0.31233 5.251905,2.275859 z"
+       id="path3960"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke-width:0.26458332" />
+    <line
+       x1="29.364073"
+       y1="26.33799"
+       x2="53.441158"
+       y2="44.858822"
+       stroke-miterlimit="10"
+       id="line3962"
+       style="fill:none;stroke:#3f3d56;stroke-width:0.52916664;stroke-miterlimit:10" />
+    <circle
+       cx="17.98699"
+       cy="18.135906"
+       r="17.991667"
+       id="circle3964"
+       style="fill:#ff6584;stroke-width:0.26458332" />
+  </g>
+</svg>

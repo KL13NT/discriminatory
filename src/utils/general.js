@@ -53,3 +53,26 @@ export const getApolloErrorCode = error => {
  */
 export const isNearBottom = (offset = 300) =>
 	window.scrollY + window.innerHeight > document.body.clientHeight - offset
+
+/**
+ * Returns new deeply-modified object without modifying the original.
+ * @param {string} path
+ * @param {any} val
+ * @param {object} target
+ */
+export const dset = (path, val, target) => {
+	const steps = path.split('.')
+	const lastIndex = steps.length - 1
+
+	const copy = { ...target }
+	let ref = copy
+
+	steps.forEach((step, index) => {
+		if (typeof ref[step] === undefined) ref[step] = {}
+
+		if (index === lastIndex) ref[step] = val
+		else ref = ref[step]
+	})
+
+	return copy
+}

@@ -8,7 +8,7 @@ const [usePosts] = create(set => ({
 	explore: [],
 
 	setHome: posts =>
-		set(() => ({
+	set(() => ({
 			home: posts
 		})),
 

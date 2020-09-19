@@ -18,21 +18,15 @@ const defaultConfig = JSON.parse(localStorage.getItem('settings')) || {
 		},
 		language: {
 			locales: [
-				{ locale: 'ar', dir: 'rtl', name: 'Arabic - العربيّة' },
-				{ locale: 'en', dir: 'ltr', name: 'English - الإنجليزية' }
+				{ locale: 'en', dir: 'ltr', name: 'English - الإنجليزية' },
+				{ locale: 'ar', dir: 'rtl', name: 'Arabic - العربيّة' }
 			],
-			selected: null
+			selected: { locale: 'en', dir: 'ltr', name: 'English - الإنجليزية' }
 		}
 	},
 	advertisements: {
 		status: true
 	}
-	// notifications: {
-	// 	from: {
-	// 		possible: ['all', 'following', 'disabled'],
-	// 		selected: 'all'
-	// 	}
-	// }
 }
 
 localStorage.setItem('settings', JSON.stringify(defaultConfig))
@@ -40,16 +34,16 @@ localStorage.setItem('settings', JSON.stringify(defaultConfig))
 const [useSettings] = create(set => ({
 	settings: defaultConfig,
 
-	update: newState =>
+	update: newSettings =>
 		set(state => {
 			localStorage.setItem(
 				'settings',
-				JSON.stringify({ ...state.settings, ...newState.settings })
+				JSON.stringify({ ...state.settings, ...newSettings })
 			)
 
 			return {
-				...state,
-				...newState
+				...state.settings,
+				...newSettings
 			}
 		})
 }))

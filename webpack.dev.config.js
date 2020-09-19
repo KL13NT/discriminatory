@@ -12,12 +12,11 @@ const output = {
 
 const devServer = {
 	publicPath: '/',
-	stats: 'verbose',
 	contentBase: path.join(__dirname, './src/static'),
 	compress: false,
 	inline: true,
 	hot: true,
-	useLocalIp: true,
+	useLocalIp: false,
 	writeToDisk: false,
 	historyApiFallback: true,
 	watchContentBase: true,

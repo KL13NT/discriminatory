@@ -18,6 +18,7 @@ import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode, isNearBottom } from '../utils/general'
 
 import * as queries from '../queries/posts'
+import { useToasts } from '../components/Toast/Toast'
 
 const NoPosts = () => {
 	const Description = (
@@ -48,14 +49,16 @@ const State = ({ posts, resPosts }) => {
 }
 
 function Home() {
+	const { user } = useAuth()
+	const { add } = useToasts()
 	const { profile } = useProfile()
 	const { formatMessage: f } = useIntl()
-	const { user } = useAuth()
+	const { explore, home, setHome, setExplore } = usePosts()
 
 	const [pagination, setPagination] = useState({ before: null, reload: false })
 	const [posts, setPosts] = usePosts(state => [state.home, state.setHome])
 
-	const [feedRes, reFeed] = useQuery({
+	const [feedRes] = useQuery({
 		query: queries.feed,
 		variables: {
 			before: pagination.before
@@ -78,9 +81,27 @@ function Home() {
 		}
 	}, [feedRes.data])
 
-	const onSuccess = () => {
-		//REFACTORME: create a function that creates posts client-side and prepend to posts instead of fetching
-		reFeed({ requestPolicy: 'network-only' })
+	const onSuccess = newPost => {
+		add({
+			text: f({ id: 'actions.createpost.success' }),
+			type: 'success'
+		})
+
+		//REFACTORME: replace with post received from backend
+		const post = {
+			_id: newPost._id,
+			author: profile,
+			comments: [],
+			reactions: { upvotes: 0, downvotes: 0 },
+			created: Date.now(),
+			content: newPost.content,
+			location: {
+				location: newPost.location
+			}
+		}
+
+		setExplore([post, ...explore])
+		setHome([post, ...home])
 	}
 
 	const onScroll = useCallback(() => {
