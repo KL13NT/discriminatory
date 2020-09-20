@@ -55,6 +55,7 @@ export const profile = `
 						tagline
 						avatar
 						pinned
+						_id
 					}
 				}
 			}

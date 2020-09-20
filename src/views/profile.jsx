@@ -202,9 +202,7 @@ function Profile() {
 			/>
 
 			<PostMaster
-				feedRes={profileRes}
 				setPosts={posts => setProfile({ ...profile, posts })}
-				feedResPosts={profileRes.data.profile.posts}
 				posts={profile.posts}
 			/>
 
