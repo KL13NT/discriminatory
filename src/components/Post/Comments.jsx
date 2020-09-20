@@ -55,6 +55,7 @@ function CommentComposer({ onComment, ...profile }) {
 						role='textbox'
 						aria-label='Comment content'
 						aria-multiline='true'
+						dir='auto'
 						tabIndex={0}
 						contentEditable={true}
 						placeholder={f({ id: 'placeholders.comment' })}

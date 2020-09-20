@@ -98,6 +98,7 @@ function Composer({ avatar, verified, onSuccess, ...props }) {
 						placeholder={f({ id: 'composer.placeholder' })}
 						value={postData.content}
 						onChange={onChange}
+						dir='auto'
 					/>
 					<LocationPicker
 						onPick={onLocationPick}

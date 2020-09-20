@@ -5,7 +5,10 @@
 	span
 		background: var(--color-background)
 		border-radius: 20px
-		padding: 5px 10px 10px 15px
+		padding-inline-start: 10px
+		padding-inline-end: 10px
+		padding-block-start: 5px
+		padding-block-end: 10px
 		flex-grow: 9
 		color: var(--color-primary)
 		margin-inline-start: 5px
@@ -20,11 +23,16 @@
 			font-weight: var(--font-weight-s)
 			direction: revert
 
+[dir='rtl'] .comment span h1
+	text-align: right
+
 .composer
 	@extend .comment
 
 	textarea
 		padding: 0px
+		padding-inline-start: 5px
+		padding-inline-end: 5px
 		margin: 0px
 		font-size: inherit
 

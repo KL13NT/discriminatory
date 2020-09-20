@@ -70,7 +70,7 @@ function Post() {
 			<LocaleSEO
 				title='titles.post'
 				description='titles.post.description'
-				value={{ author: author.displayName, content: content }}
+				values={{ author: author.displayName, content: content }}
 				path={`/${user_id}/${post}`}
 			/>
 

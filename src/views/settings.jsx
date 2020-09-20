@@ -16,6 +16,7 @@ import { TabList } from '../components/Tabs/Tabs'
 import { useToasts } from '../components/Toast/Toast'
 import { useSettings } from '../stores/settings'
 import { useAuth } from '../stores/auth'
+import { dset } from '../utils/general'
 
 // REFACTORME: move to multiple files
 
@@ -150,18 +151,8 @@ export const Basics = () => {
 	const { locales, selected } = settings.display.language
 
 	const onLanguageChange = option => {
-		update({
-			settings: {
-				...settings,
-				display: {
-					...settings.display,
-					language: {
-						locales,
-						selected: locales.find(locale => locale.locale === option.value)
-					}
-				}
-			}
-		})
+		const changed = locales.find(locale => locale.locale === option.value)
+		update(dset('display.language.selected', changed, settings))
 
 		add({ type: 'success', text: f({ id: 'actions.changelanguage.success' }) })
 	}
