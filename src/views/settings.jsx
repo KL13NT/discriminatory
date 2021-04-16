@@ -41,7 +41,7 @@ export const Ads = () => {
 	const { formatMessage: f } = useIntl()
 	const { add } = useToasts()
 
-	const onAdsChnage = ({ value }) => {
+	const onAdsChange = ({ value }) => {
 		update({
 			settings: {
 				...settings,
@@ -55,7 +55,7 @@ export const Ads = () => {
 	}
 
 	const options = [
-		{ name: f({ id: 'general.enabled' }), value: true },
+		// { name: f({ id: 'general.enabled' }), value: true },
 		{ name: f({ id: 'general.disabled' }), value: false }
 	]
 
@@ -77,7 +77,7 @@ export const Ads = () => {
 				<Select
 					minimalist
 					canBeNull={false}
-					onChange={onAdsChnage}
+					onChange={onAdsChange}
 					defaultValue={options.findIndex(
 						option => option.value === advertisements.status
 					)}

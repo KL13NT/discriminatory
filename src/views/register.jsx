@@ -52,7 +52,7 @@ function Register() {
 				setVerificationSent(true)
 				add({
 					type: 'success',
-					text: f({ id: 'register.success' })
+					text: f({ id: 'actions.register.success' })
 				})
 			})
 			.catch(err => {

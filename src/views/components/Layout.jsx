@@ -5,8 +5,8 @@ import Navbar from '../../components/Navbar/Navbar'
 import SearchInput from '../../components/TextInput/SearchInput'
 
 import styles from './Layout.module.sass'
+
 import { IntlErrorBoundary } from '../../components/Errors/PageError'
-import Footer from '../../components/Footer/Footer'
 
 function Layout({ children, user }) {
 	return (
@@ -22,7 +22,6 @@ function Layout({ children, user }) {
 			<div className={styles.right}>
 				<SearchInput />
 				<Ads />
-				<Footer />
 			</div>
 		</div>
 	)
