@@ -38,7 +38,7 @@ const randomGif = () => {
 }
 
 export const FullscreenLoader = ({ title, subtitle, err }) => {
-	const [src, setSrc] = useState(randomGif())
+	const [src] = useState(randomGif())
 	const [error, setError] = useState(false)
 	const { formatMessage: f } = useIntl()
 	const timeout = useRef(0)
