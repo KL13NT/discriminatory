@@ -1,29 +1,14 @@
-.composer
-	display: flex
-	margin: 20px 0 10px 0
-	svg
-		height: 20px
-		width: 20px
-	textarea
-		background: var(--color-background)
-		font-size: var(--font-size-m)
-		border-radius: 20px
-		padding: 10px
-		flex-grow: 9
-		min-height: 40px
-		max-height: 200px
-		padding: 0 10px
-		height: 40px
-		resize: none
-		color: var(--color-primary)
-		margin-inline-start: 5px
-
 .comment
-	@extend .composer
+	display: flex
+	margin: 10px 0
+
 	span
 		background: var(--color-background)
 		border-radius: 20px
-		padding: 5px 10px 10px 15px
+		padding-inline-start: 10px
+		padding-inline-end: 10px
+		padding-block-start: 5px
+		padding-block-end: 10px
 		flex-grow: 9
 		color: var(--color-primary)
 		margin-inline-start: 5px
@@ -38,8 +23,21 @@
 			font-weight: var(--font-weight-s)
 			direction: revert
 
+[dir='rtl'] .comment span h1
+	text-align: right
+
+.composer
+	@extend .comment
+
+	textarea
+		padding: 0px
+		padding-inline-start: 5px
+		padding-inline-end: 5px
+		margin: 0px
+		font-size: inherit
+
 @media screen and (min-width: 768px)
-	.composer
+	.comment
 		svg
 			height: 30px
 			width: 30px

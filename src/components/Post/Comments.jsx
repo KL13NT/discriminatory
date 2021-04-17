@@ -2,51 +2,70 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import styles from './Comments.module.sass'
-
 import Avatar from '../Avatar/Avatar'
-import { useRef } from 'react'
 import Button from '../Button/Button'
 
-// REFACTORME: move to utils
-const resize = currentTarget => {
-	const offset = currentTarget.offsetHeight - currentTarget.clientHeight
-
-	event.target.style.height = 'auto'
-	event.target.style.height = event.target.scrollHeight + offset + 'px'
-}
+import styles from './Comments.module.sass'
+import Textarea from '../Textarea/Textarea'
 
 function CommentComposer({ onComment, ...profile }) {
-	const [isHoldingShift, dispatchShift] = useState(false)
 	const { formatMessage: f } = useIntl()
-	const formRef = useRef()
+	const [enabled, toggle] = useState(false)
+	const [canSubmit, setCanSubmit] = useState(false)
+	const [isHoldingShift, dispatchShift] = useState(false)
 
-	const onKeyDown = ({ key }) => {
+	const onClose = () => {
+		toggle(!enabled)
+	}
+
+	const onSubmit = e => {
+		if (!canSubmit) return
+
+		onClose()
+		onComment(e)
+	}
+
+	const onInput = ({ target }) => {
+		if (target.value.trim().length > 0) setCanSubmit(true)
+		else setCanSubmit(false)
+	}
+
+	const onKeyDown = e => {
+		const { key } = e
+
 		if (key === 'Shift') dispatchShift(true)
-		if (key === 'Enter' && !isHoldingShift) formRef.current.requestSubmit()
+		if (key === 'Enter' && !isHoldingShift) onSubmit(e)
 	}
 
 	const onKeyUp = ({ key }) => {
 		if (key === 'Shift') dispatchShift(false)
 	}
 
-	const onInput = ({ currentTarget }) => {
-		resize(currentTarget)
-	}
-
-	if (!onComment) return null
 	return (
-		<form onSubmit={onComment} ref={formRef} className={styles.composer}>
-			<Avatar {...profile} variant='tiny' />
-			<textarea
-				name='content'
-				aria-label='Comment content input'
-				placeholder={f({ id: 'placeholders.composer' })}
-				onKeyDown={onKeyDown}
-				onKeyUp={onKeyUp}
-				onInput={onInput}
-			/>
-		</form>
+		<>
+			<div className={styles.composer}>
+				<Avatar {...profile} variant='tiny' />
+				<span className={styles.content}>
+					<Textarea
+						onInput={onInput}
+						onKeyDown={onKeyDown}
+						onKeyUp={onKeyUp}
+						resize
+						name='content'
+						role='textbox'
+						aria-label='Comment content'
+						aria-multiline='true'
+						dir='auto'
+						tabIndex={0}
+						contentEditable={true}
+						placeholder={f({ id: 'placeholders.comment' })}
+					/>
+				</span>
+			</div>
+			<span className='u-disclaimer'>
+				<FormattedMessage id='tutorial.comment' />
+			</span>
+		</>
 	)
 }
 

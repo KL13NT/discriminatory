@@ -12,7 +12,6 @@ import {
 	number,
 	select
 } from '@storybook/addon-knobs'
-import Footer from '../Footer/Footer.jsx'
 
 setConsoleOptions()
 
@@ -25,6 +24,5 @@ export default {
 export const General = () => (
 	<>
 		<Ads isEnabled={boolean('isEnabled', true)} />
-		<Footer />
 	</>
 )

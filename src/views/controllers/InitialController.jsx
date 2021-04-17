@@ -83,30 +83,32 @@ function InitialController({ children }) {
 				return
 			}
 
-			user
-				.getIdToken(true)
-				.then(token => {
-					setUser(user)
-					localStorage.setItem('AUTH_ID_TOKEN', token)
-				})
-				.catch(err => {
-					console.log('COPY THIS WHEN REPORING', err)
-					clearAuth()
-					clearProfile()
-					add({
-						text: f({ id: 'errors.verify' }),
-						type: 'danger'
+			if (user.emailVerified) {
+				user
+					.getIdToken(true)
+					.then(token => {
+						setUser(user)
+						localStorage.setItem('AUTH_ID_TOKEN', token)
 					})
-				})
-				.finally(() => {
-					finish('Authenticating')
-				})
-
-			if (!user.emailVerified)
+					.catch(err => {
+						console.log('COPY THIS WHEN REPORING', err)
+						clearAuth()
+						clearProfile()
+						add({
+							text: f({ id: 'errors.verify' }),
+							type: 'danger'
+						})
+					})
+					.finally(() => {
+						finish('Authenticating')
+					})
+			} else {
+				finish('Authenticating')
 				return add({
 					type: 'danger',
 					text: f({ id: 'errors.verify' })
 				})
+			}
 		})
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 

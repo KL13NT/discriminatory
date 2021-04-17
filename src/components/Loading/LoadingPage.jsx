@@ -38,7 +38,7 @@ const randomGif = () => {
 }
 
 export const FullscreenLoader = ({ title, subtitle, err }) => {
-	const [src, setSrc] = useState(randomGif())
+	const [src] = useState(randomGif())
 	const [error, setError] = useState(false)
 	const { formatMessage: f } = useIntl()
 	const timeout = useRef(0)
@@ -49,16 +49,9 @@ export const FullscreenLoader = ({ title, subtitle, err }) => {
 		return () => clearTimeout(timeout.current)
 	}, [])
 
-	const onClick = () => {
-		setSrc(randomGif())
-	}
-
 	return (
 		<div
-			onClick={onClick}
-			onKeyDown={onClick}
 			className={styles.fullscreenLoader}
-			tabIndex={0}
 			role='progressbar'
 			aria-valuetext={title || f({ id: 'loading.title' })}
 			aria-busy='true'

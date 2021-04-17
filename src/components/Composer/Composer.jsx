@@ -21,15 +21,23 @@ import cls from '../../utils/cls'
 
 function Composer({ avatar, verified, onSuccess, ...props }) {
 	const { formatMessage: f } = useIntl()
-
 	const { add } = useToasts()
-	const [enabled, toggle] = useState(true)
-	const [canSubmit, setCanSubmitState] = useState(false)
-	const [postData, setPostData] = useState({ location: null, content: '' })
+
+	const [enabled, toggle] = useState(true) // whole form state
+	const [canSubmit, setCanSubmit] = useState(false) // submit button state
+
+	const [postData, setPostData] = useComposer(state => [
+		state.data,
+		state.updateData
+	])
 
 	useEffect(() => {
-		if (postData.content.trim().length > 0 && postData.location)
-			setCanSubmitState(true)
+		if (
+			postData.content.trim().length > 0 &&
+			String(postData.location).trim().length > 0
+		)
+			setCanSubmit(true)
+		else setCanSubmit(false)
 	}, [postData.content, postData.location, postData])
 
 	const onChange = ({ currentTarget }) =>
@@ -62,7 +70,7 @@ function Composer({ avatar, verified, onSuccess, ...props }) {
 
 		post(data).then(response => {
 			if (!response.error) {
-				onSuccess(data)
+				onSuccess({ ...data, _id: response.data.post })
 				toggle(true)
 				setPostData({ content: '', location: null })
 			} else {
@@ -90,8 +98,12 @@ function Composer({ avatar, verified, onSuccess, ...props }) {
 						placeholder={f({ id: 'composer.placeholder' })}
 						value={postData.content}
 						onChange={onChange}
+						dir='auto'
 					/>
-					<LocationPicker onPick={onLocationPick} />
+					<LocationPicker
+						onPick={onLocationPick}
+						defaultValue={postData.location}
+					/>
 					<Button disabled={!canSubmit || !enabled} type='submit'>
 						{f({ id: 'composer.submit' })}
 					</Button>
@@ -103,14 +115,10 @@ function Composer({ avatar, verified, onSuccess, ...props }) {
 
 function OverlayComposer() {
 	const { add } = useToasts()
-	const { active, toggle } = useComposer()
 	const { profile } = useProfile()
+	const { active, toggle } = useComposer()
 	const { formatMessage: f } = useIntl()
-
-	const { home, setHome } = usePosts(state => ({
-		home: state.home,
-		setHome: state.setHome
-	}))
+	const { explore, home, setHome, setExplore } = usePosts()
 
 	const onSuccess = newPost => {
 		add({
@@ -123,9 +131,13 @@ function OverlayComposer() {
 			comments: [],
 			reactions: { upvotes: 0, downvotes: 0 },
 			created: Date.now(),
-			...newPost
+			content: newPost.content,
+			location: {
+				location: newPost.location
+			}
 		}
 
+		setExplore([post, ...explore])
 		setHome([post, ...home])
 
 		toggle(false)

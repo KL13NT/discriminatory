@@ -10,8 +10,9 @@ import { useState } from 'react'
 import * as queries from '../queries/posts'
 import { Spinner } from '../components/Loading/LoadingPage'
 import { PageState } from '../components/Errors/PageError'
-import { getApolloErrorCode } from '../utils/general'
+import { getApolloErrorCode, isNearBottom } from '../utils/general'
 import LocaleSEO from './components/SEO'
+import { usePosts } from '../stores/posts'
 
 const NoPosts = () => {
 	const Description = <FormattedMessage id='states.emptyexplore.description' />
@@ -33,33 +34,39 @@ const State = ({ posts, resPosts }) => {
 	return null
 }
 
+//REFACTORME: move pagestates from explore and home to separate components
+
 function Explore() {
 	const { formatMessage: f } = useIntl()
-	const [posts, setPosts] = useState([])
+	const [posts, setPosts] = usePosts(state => [state.explore, state.setExplore])
 
-	const [pagination, setPagination] = useState({ before: null })
-	const [latestRes, reLatest] = useQuery({
+	const [pagination, setPagination] = useState({ before: null, reload: false })
+	const [latestRes] = useQuery({
 		query: queries.explore,
 		variables: {
-			...pagination
+			before: pagination.before
 		},
+		pause: !pagination.reload,
 		pollInterval: 5 * 60 * 1000 /* 5 minutes */,
 		requestPolicy: 'cache-first'
 	})
 
+	const resPosts = latestRes.data ? latestRes.data.explore : []
+
 	useEffect(() => {
-		if (latestRes.data) setPosts([...posts, ...latestRes.data.explore])
+		if (posts.length === 0) setPagination({ ...pagination, reload: true })
+	}, [])
+
+	useEffect(() => {
+		if (latestRes.data) {
+			setPagination({ ...pagination, reload: false })
+			setPosts([...posts, ...resPosts])
+		}
 	}, [latestRes.data])
 
 	const onScroll = useCallback(() => {
-		if (
-			window.scrollY + window.innerHeight > document.body.clientHeight - 100 &&
-			!latestRes.fetching &&
-			latestRes.data &&
-			latestRes.data.explore.length > 0
-		) {
-			setPagination({ before: posts[posts.length - 1]._id })
-		}
+		if (isNearBottom() && !latestRes.fetching && resPosts.length)
+			setPagination({ before: posts[posts.length - 1]._id, reload: true })
 	}, [latestRes, posts])
 
 	useEffect(() => {
@@ -81,16 +88,10 @@ function Explore() {
 
 			<PageTitle>{f({ id: 'titles.explore' })}</PageTitle>
 
-			<PostMaster
-				feedRes={latestRes}
-				reFeed={reLatest}
-				posts={posts}
-				feedResPosts={latestRes.data.explore}
-				setPosts={setPosts}
-			/>
+			<PostMaster posts={posts} setPosts={setPosts} />
 
 			{latestRes.fetching ? <Spinner /> : null}
-			<State posts={posts} resPosts={latestRes.data.explore} />
+			<State posts={posts} resPosts={resPosts} />
 		</>
 	)
 }

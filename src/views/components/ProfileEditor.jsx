@@ -76,6 +76,7 @@ function ProfileEditor({ create }) {
 
 	const onSubmit = e => {
 		e.preventDefault()
+		e.stopPropagation()
 
 		if (!confirm(f({ id: 'prompts.completeprofile' }))) return
 
@@ -87,9 +88,11 @@ function ProfileEditor({ create }) {
 		})
 			.then(res => {
 				if (!res.error && avatar && avatarChanged) return submitAvatar(avatar)
+				setCanSubmit(true)
 			})
 			.catch(() => {
 				add({ text: f({ id: 'errors.general' }), type: 'danger' })
+				setCanSubmit(true)
 			})
 	}
 
@@ -106,9 +109,10 @@ function ProfileEditor({ create }) {
 				avatar={avatar.src || avatar}
 				location={data.location}
 			/>
-			<form onSubmit={onSubmit}>
+			<form onSubmitCapture={onSubmit}>
 				<Label htmlFor='name'>{f({ id: 'general.displayName' })}</Label>
 				<TextInput
+					required
 					minimalist
 					type='text'
 					name='displayName'
@@ -117,11 +121,11 @@ function ProfileEditor({ create }) {
 					maxLength='36'
 					value={data.displayName}
 					onChange={onChange}
-					required
 					placeholder={f({ id: 'placeholders.displayName' })}
 				/>
 				<Label htmlFor='location'>{f({ id: 'general.location' })}</Label>
 				<TextInput
+					required
 					minimalist
 					type='text'
 					name='location'
@@ -129,10 +133,10 @@ function ProfileEditor({ create }) {
 					value={data.location}
 					onChange={onChange}
 					placeholder={f({ id: 'placeholders.location' })}
-					required
 				/>
 				<Label htmlFor='tagline'>{f({ id: 'general.tagline' })}</Label>
 				<TextInput
+					required
 					minimalist
 					type='text'
 					name='tagline'
@@ -141,7 +145,6 @@ function ProfileEditor({ create }) {
 					value={data.tagline}
 					onChange={onChange}
 					placeholder={f({ id: 'placeholders.tagline' })}
-					required
 				/>
 				<Label htmlFor='avatar'>{f({ id: 'general.avatar' })}</Label>
 				<Uploader

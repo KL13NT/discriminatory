@@ -11,9 +11,8 @@ function StyleController({ children }) {
 	const { font, theme, base } = settings.display
 
 	useEffect(() => {
-		document.documentElement.style.fontSize = `${
-			font.base * font.selected.value
-		}px`
+		document.documentElement.style.fontSize = `${font.base *
+			font.selected.value}px`
 	}, [base, font])
 
 	return (

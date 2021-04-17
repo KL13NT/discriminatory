@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
+
 import PageTitle from '../components/PageTitle/PageTitle'
 import PostMaster from './components/PostMaster'
 import Composer from '../components/Composer/Composer'
@@ -8,14 +9,16 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'urql'
 import { useState } from 'react'
 import { useAuth } from '../stores/auth'
-
+import { useToasts } from '../components/Toast/Toast'
 import { useProfile } from '../stores/profile'
 
 import { usePosts } from '../stores/posts'
+
 import { Spinner } from '../components/Loading/LoadingPage'
 import { Link } from 'react-router-dom'
 import { PageState } from '../components/Errors/PageError'
-import { getApolloErrorCode } from '../utils/general'
+
+import { getApolloErrorCode, isNearBottom } from '../utils/general'
 
 import * as queries from '../queries/posts'
 
@@ -48,42 +51,64 @@ const State = ({ posts, resPosts }) => {
 }
 
 function Home() {
+	const { user } = useAuth()
+	const { add } = useToasts()
 	const { profile } = useProfile()
 	const { formatMessage: f } = useIntl()
-	const { user } = useAuth()
+	const { explore, home, setHome, setExplore } = usePosts()
 
-	const { posts, setPosts } = usePosts(state => ({
-		posts: state.home,
-		setPosts: state.setHome
-	}))
+	const [pagination, setPagination] = useState({ before: null, reload: false })
+	const [posts, setPosts] = usePosts(state => [state.home, state.setHome])
 
-	const [pagination, setPagination] = useState({ before: null })
-	const [feedRes, reFeed] = useQuery({
+	const [feedRes] = useQuery({
 		query: queries.feed,
 		variables: {
-			...pagination
+			before: pagination.before
 		},
-		pause: !user,
+		pause: !user || !pagination.reload,
 		pollInterval: 5 * 60 * 1000 /* 5 minutes */,
 		requestPolicy: 'cache-first'
 	})
 
+	const resPosts = feedRes.data ? feedRes.data.feed : []
+
 	useEffect(() => {
-		if (feedRes.data) setPosts([...posts, ...feedRes.data.feed])
+		if (posts.length === 0) setPagination({ ...pagination, reload: true })
+	}, [])
+
+	useEffect(() => {
+		if (feedRes.data) {
+			setPagination({ ...pagination, reload: false })
+			setPosts([...posts, ...resPosts])
+		}
 	}, [feedRes.data])
 
-	const onSuccess = () => {
-		reFeed({ requestPolicy: 'network-only' })
+	const onSuccess = newPost => {
+		add({
+			text: f({ id: 'actions.createpost.success' }),
+			type: 'success'
+		})
+
+		//REFACTORME: replace with post received from backend
+		const post = {
+			_id: newPost._id,
+			author: profile,
+			comments: [],
+			reactions: { upvotes: 0, downvotes: 0 },
+			created: Date.now(),
+			content: newPost.content,
+			location: {
+				location: newPost.location
+			}
+		}
+
+		setExplore([post, ...explore])
+		setHome([post, ...home])
 	}
 
 	const onScroll = useCallback(() => {
-		if (
-			window.scrollY + window.innerHeight > document.body.clientHeight - 100 &&
-			!feedRes.fetching &&
-			feedRes.data.feed.length > 0
-		) {
-			setPagination({ before: posts[posts.length - 1]._id })
-		}
+		if (isNearBottom() && !feedRes.fetching && resPosts.length)
+			setPagination({ before: posts[posts.length - 1]._id, reload: true })
 	}, [feedRes, posts])
 
 	useEffect(() => {
@@ -94,7 +119,7 @@ function Home() {
 
 	if (feedRes.error)
 		return <PageState code={getApolloErrorCode(feedRes.error)} />
-	if (!feedRes.data) return <Spinner />
+	if (!posts.length === 0) return <Spinner />
 	return (
 		<>
 			<LocaleSEO
@@ -111,15 +136,10 @@ function Home() {
 				onSuccess={onSuccess}
 			/>
 
-			<PostMaster
-				reFeed={reFeed}
-				feedResPosts={feedRes.data.feed}
-				posts={posts}
-				setPosts={setPosts}
-			/>
+			<PostMaster posts={posts} setPosts={setPosts} />
 
 			{feedRes.fetching ? <Spinner /> : null}
-			<State posts={posts} resPosts={feedRes.data.feed} />
+			<State posts={posts} resPosts={resPosts} />
 		</>
 	)
 }

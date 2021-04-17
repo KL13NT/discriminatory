@@ -11,7 +11,10 @@ const [useLocale] = create(set => ({
 		ar: arLocale,
 		en: enLocale
 	},
-	messages: null,
+	messages: {
+		ar: null,
+		en: null
+	},
 	updateMessages: messages =>
 		set(() => ({
 			messages

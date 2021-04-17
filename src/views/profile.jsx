@@ -1,10 +1,14 @@
 import React, { useEffect, useCallback } from 'react'
+import { useIntl, FormattedMessage } from 'react-intl'
+
 import PageTitle from '../components/PageTitle/PageTitle'
 import PostMaster from './components/PostMaster'
-import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
+import LocaleSEO from './components/SEO'
 
+import { ProfileHeader } from '../components/ProfileHeader/ProfileHeader'
 import { Spinner } from '../components/Loading/LoadingPage'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { IntlPlural } from './components/Plural'
+import { PageState } from '../components/Errors/PageError'
 
 import { useQuery, useMutation } from 'urql'
 import { useState } from 'react'
@@ -12,11 +16,9 @@ import { useAuth } from '../stores/auth'
 import { useParams } from 'react-router-dom'
 import { useToasts } from '../components/Toast/Toast'
 
-import * as queries from '../queries/profiles'
-import { IntlPlural } from './components/Plural'
-import { PageState } from '../components/Errors/PageError'
 import { getApolloErrorCode } from '../utils/general'
-import LocaleSEO from './components/SEO'
+
+import * as queries from '../queries/profiles'
 
 const NoPosts = () => {
 	const Description = <FormattedMessage id='states.emptyprofile.description' />
@@ -67,7 +69,7 @@ function Profile() {
 	const [unfollowRes, unfollow] = useMutation(queries.unfollow)
 
 	const [pagination, setPagination] = useState({ before: null })
-	const [profileRes] = useQuery({
+	const [profileRes, requery] = useQuery({
 		query: queries.profile,
 		variables: {
 			...pagination,
@@ -77,23 +79,21 @@ function Profile() {
 		requestPolicy: 'cache-first'
 	})
 
-	const error = useCallback(
-		() => add({ text: f({ id: 'errors.general' }), type: 'danger' }),
-		[] // eslint-disable-line
-	)
+	const error = useCallback(res => {
+		if (!res.error) return
 
-	useEffect(() => followRes.error && console.log(followRes.error) && error(), [
-		followRes,
-		error
-	])
-	useEffect(
-		() => unfollowRes.error && console.log(unfollowRes.error) && error(),
-		[unfollowRes, error]
-	)
-	useEffect(
-		() => profileRes.error && console.log(profileRes.error) && error(),
-		[profileRes, error]
-	)
+		console.log('COPY THIS WHEN REPORTING', res.error)
+		add({ text: f({ id: 'errors.general' }), type: 'danger' })
+	}, []) // eslint-disable-line
+
+	useEffect(() => {
+		setProfile(null)
+		requery()
+	}, [user_id])
+
+	useEffect(() => error(followRes), [followRes, error])
+	useEffect(() => error(unfollowRes), [unfollowRes, error])
+	useEffect(() => error(profileRes), [profileRes, error])
 
 	const onFollow = () => {
 		const { _id } = profileRes.data.profile.user
@@ -202,9 +202,7 @@ function Profile() {
 			/>
 
 			<PostMaster
-				feedRes={profileRes}
 				setPosts={posts => setProfile({ ...profile, posts })}
-				feedResPosts={profileRes.data.profile.posts}
 				posts={profile.posts}
 			/>
 

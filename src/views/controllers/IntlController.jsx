@@ -8,6 +8,9 @@ import { useSettings } from '../../stores/settings'
 import { useLocale } from '../../stores/locale'
 import { useFullscreenLoader } from '../../stores/loading'
 
+import { dset } from '../../utils/general'
+import { Spinner } from '../../components/Loading/LoadingPage'
+
 function IntlController({ children }) {
 	const { settings, update: updateSettings } = useSettings()
 	const { locales, messages, updateMessages } = useLocale()
@@ -15,6 +18,7 @@ function IntlController({ children }) {
 	const { selected } = settings.display.language
 
 	useEffect(() => {
+		// Detect user language on initial website load
 		const userLocale = navigator.languages
 			? navigator.languages[0]
 			: navigator.language || navigator.userLanguage
@@ -23,37 +27,33 @@ function IntlController({ children }) {
 			userLocale.startsWith(locale.locale)
 		)
 
+		if (!found)
+			dset(
+				'display.language.selected',
+				settings.display.language.locales[0],
+				settings
+			)
 		if (found && !selected) {
-			updateSettings({
-				settings: {
-					...settings,
-					display: {
-						...settings.display,
-						language: {
-							...settings.display.language,
-							selected: found
-						}
-					}
-				}
-			})
+			updateSettings(dset('display.language.selected', found, settings))
 		}
 	}, [])
 
 	useEffect(() => {
 		load('Downloading Locales')
+		console.log('Downloading Locales')
 
-		if (selected) {
+		if (selected && !messages[selected.locale]) {
 			fetch(locales[selected.locale])
 				.then(res => res.json())
-				.then(messages => {
-					updateMessages(messages)
+				.then(loaded => {
+					updateMessages({ ...messages, [selected.locale]: loaded })
 					finish('Downloading Locales')
 				})
 				.catch(err => {
 					finish('Downloading Locales')
 					console.log('COPY THIS WHEN REPORTING A BUG', err)
 				})
-		}
+		} else finish('Downloading Locales')
 	}, [settings.display.language.selected]) // eslint-disable-line
 
 	const EnFonts = () => (
@@ -76,12 +76,11 @@ function IntlController({ children }) {
 		</Helmet>
 	)
 
-	if (!messages) return null
-	if (!selected) return null
+	if (!selected || !messages[selected.locale]) return <Spinner />
 
 	const { dir, locale } = selected
 	return (
-		<IntlProvider locale={locale} messages={messages}>
+		<IntlProvider locale={locale} messages={messages[selected.locale]}>
 			<IntlErrorBoundary>
 				<div dir={dir}>
 					{dir === 'ltr' ? <EnFonts /> : <ArFonts />}

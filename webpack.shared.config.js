@@ -10,7 +10,7 @@ const html = [
 	new HtmlWebpackPlugin({
 		template: './src/app.pug',
 		chunks: ['index'],
-		filename: 'app/index.html'
+		filename: 'index.html'
 	})
 ]
 

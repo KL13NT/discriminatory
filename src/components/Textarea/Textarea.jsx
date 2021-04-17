@@ -3,16 +3,17 @@ import cls from '../../utils/cls'
 
 import styles from './Textarea.module.sass'
 
-function autoGrow(element) {
-	const offset = element.offsetHeight - element.clientHeight
+// REFACTORME: move to utils
+const resizeContainer = currentTarget => {
+	const offset = currentTarget.offsetHeight - currentTarget.clientHeight
 
-	element.style.height = 'auto'
-	element.style.height = element.scrollHeight + offset + 'px'
+	event.target.style.height = 'auto'
+	event.target.style.height = event.target.scrollHeight + offset + 'px'
 }
 
 function Textarea({ resize, children, className, onInput, ...props }) {
 	const onInputHandler = e => {
-		if (resize) autoGrow(e.target)
+		if (resize) resizeContainer(e.target)
 		if (onInput) onInput(e)
 	}
 	return (
