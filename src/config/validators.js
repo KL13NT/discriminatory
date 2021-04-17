@@ -7,7 +7,9 @@ const registrationSchema = Joi.object({
 		.max(30)
 		.required(),
 
-	password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')).required(),
+	password: Joi.string()
+		.pattern(new RegExp('^[a-zA-Z0-9]{8,30}$'))
+		.required(),
 
 	email: Joi.string()
 		.email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
@@ -19,7 +21,9 @@ const registrationSchema = Joi.object({
 }).with('fullName', 'role')
 
 const loginSchema = Joi.object({
-	password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')).required(),
+	password: Joi.string()
+		.pattern(new RegExp('^[a-zA-Z0-9]{8,30}$'))
+		.required(),
 
 	email: Joi.string()
 		.email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
