@@ -17,7 +17,7 @@
 		"build": "webpack --mode production --config webpack.prod.config.js",
 		"build:storybook": "build-storybook -c .storybook -o docs",
 		"deploy-pages": "gh-pages -d docs",
-		"lint": "eslint --ext .js,.jsx ./src --config .eslintrc.js --fix",
+		"lint": "eslint --ext .js,.jsx ./src ./__tests__ --config .eslintrc.js",
 		"fix": "prettier --write **/*.jsx **/*.js",
 		"test": "jest --colors --expand --logHeapUsage --config jest.config.js --verbose --coverage --passWithNoTests",
 		"cypress:open": "cypress open --config-file ./cypress-config.json",
