@@ -111,7 +111,7 @@
 	"dependencies": {
 		"@bumaga/tabs": "^0.2.0",
 		"@urql/exchange-retry": "^0.1.8",
-		"dset": "^2.0.1",
+		"dset": "^3.1.2",
 		"firebase": "^7.17.2",
 		"graphql": "^15.3.0",
 		"prop-types": "^15.7.2",
